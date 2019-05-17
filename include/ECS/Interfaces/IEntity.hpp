@@ -13,5 +13,5 @@ namespace Engine {
 
 class Engine::ECS::IEntity {
 public:
-    virtual ~IEntity() = 0;
+    virtual ~IEntity() = default;
 };
