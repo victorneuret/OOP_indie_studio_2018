@@ -7,16 +7,15 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Weffc++")
 link_libraries(Irrlicht)
 
 include_directories(
-        ECS/include
-        Components/include
+        include
 )
 
 add_executable(
         bomberman
-        main.cpp
-        ECS/include/Interfaces/IComponent.hpp
-        ECS/include/Abstracts/AComponent.hpp
-        ECS/src/Abstracts/AComponent.cpp
-        Components/src/Chrono.cpp
-        Components/include/Chrono.hpp
+        src/main.cpp
+        include/ECS/Interfaces/IComponent.hpp
+        include/ECS/Abstracts/AComponent.hpp
+        src/ECS/Abstracts/AComponent.cpp
+        src/ECS/Components/Chrono.cpp
+        include/ECS/Components/Chrono.hpp
 )

@@ -5,7 +5,7 @@
 ** Chrono.cpp
 */
 
-#include "Chrono.hpp"
+#include "ECS/Components/Chrono.hpp"
 
 Engine::Component::Chrono::Chrono(const size_t id)
     : Engine::ECS::AComponent(id), _start(std::chrono::system_clock::now())

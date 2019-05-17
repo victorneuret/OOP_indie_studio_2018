@@ -8,7 +8,9 @@
 #pragma once
 
 #include <cstddef>
-#include "Interfaces/IComponent.hpp"
+
+#include "ECS/Interfaces/IComponent.hpp"
+
 namespace Engine {
     namespace ECS {
         class AComponent;
