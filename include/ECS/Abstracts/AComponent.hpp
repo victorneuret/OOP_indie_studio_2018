@@ -19,9 +19,10 @@ namespace Engine {
 
 class Engine::ECS::AComponent : public Engine::ECS::IComponent {
 protected:
-    size_t _id;
+    static size_t ID;
+
+    const size_t _id{++ID};
 
 public:
-    AComponent(const size_t id);
     virtual ~AComponent() = default;
 };
