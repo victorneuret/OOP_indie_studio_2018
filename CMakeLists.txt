@@ -20,4 +20,5 @@ add_executable(
   src/ECS/Abstracts/AComponent.cpp
   include/ECS/Interfaces/IEntity.hpp
   include/ECS/Entities/AEntity.hpp
+  src/ECS/Abstracts/AEntity.cpp
 )

@@ -7,11 +7,11 @@
 
 namespace Engine {
     namespace ECS {
-		class IEntity;
-	}
+        class IEntity;
+    }
 }
 
 class Engine::ECS::IEntity {
 public:
-	virtual ~IEntity() = 0;
+    virtual ~IEntity() = 0;
 };
