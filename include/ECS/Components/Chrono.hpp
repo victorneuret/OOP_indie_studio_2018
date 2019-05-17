@@ -8,6 +8,7 @@
 #pragma once
 
 #include <chrono>
+
 #include "ECS/Abstracts/AComponent.hpp"
 
 namespace Engine {
