@@ -1,2 +1,11 @@
 cmake-build-debug
 .idea
+.ccls-cache/*
+CMakeFiles/*
+build/*
+Makefile
+bomberman
+cmake_install.cmake
+peda*
+CMakeCache.txt
+.vscode/
