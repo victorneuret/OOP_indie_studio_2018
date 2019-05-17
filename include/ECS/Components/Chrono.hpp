@@ -22,5 +22,5 @@ public:
     void reset() noexcept;
 
 private:
-    std::chrono::_V2::system_clock::time_point _start = std::chrono::system_clock::now();
+    std::chrono::_V2::system_clock::time_point _start{std::chrono::system_clock::now()};
 };

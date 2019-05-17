@@ -17,4 +17,4 @@ add_executable(
         include/ECS/Abstracts/AComponent.hpp
         src/ECS/Components/Chrono.cpp
         include/ECS/Components/Chrono.hpp
-)
+        src/ECS/Abstracts/AComponent.cpp)
