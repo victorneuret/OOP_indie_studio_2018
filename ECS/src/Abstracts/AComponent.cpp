@@ -6,7 +6,7 @@
 */
 
 #include <cstddef>
-#include "Abstract/AComponent.hpp"
+#include "Abstracts/AComponent.hpp"
 
 Engine::ECS::AComponent::AComponent(const size_t id)
     : _id(id)

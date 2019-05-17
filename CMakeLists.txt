@@ -15,8 +15,8 @@ add_executable(
         bomberman
         main.cpp
         ECS/include/Interfaces/IComponent.hpp
-        ECS/include/Abstract/AComponent.hpp
-        ECS/src/Abstract/AComponent.cpp
+        ECS/include/Abstracts/AComponent.hpp
+        ECS/src/Abstracts/AComponent.cpp
         Components/src/Chrono.cpp
-        Components/src/Chrono.hpp
+        Components/include/Chrono.hpp
 )

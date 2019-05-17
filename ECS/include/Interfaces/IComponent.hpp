@@ -9,9 +9,11 @@
 
 namespace Engine {
     namespace ECS {
-        class IComponent {
-        public:
-            virtual ~IComponent() = default;
-        };
+        class IComponent;
     }
 }
+
+class Engine::ECS::IComponent {
+public:
+    virtual ~IComponent() = default;
+};
