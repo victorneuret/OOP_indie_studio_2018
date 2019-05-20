@@ -9,3 +9,4 @@ cmake_install.cmake
 peda*
 CMakeCache.txt
 .vscode/
+.ccls

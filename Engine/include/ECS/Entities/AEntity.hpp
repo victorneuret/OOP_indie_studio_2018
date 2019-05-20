@@ -10,10 +10,8 @@
 
 #include "ECS/Interfaces/IEntity.hpp"
 
-namespace Engine {
-    namespace ECS {
-        class AEntity;
-    }
+namespace Engine::ECS {
+    class AEntity;
 }
 
 class Engine::ECS::AEntity : public Engine::ECS::IEntity {
@@ -21,7 +19,7 @@ protected:
     std::vector<size_t> _components{};
 
 public:
-    virtual ~AEntity() override = default;
+    ~AEntity() override = default;
     void addComponent(size_t id);
     void removeComponent(size_t id);
     const decltype(_components) &components() const noexcept;
