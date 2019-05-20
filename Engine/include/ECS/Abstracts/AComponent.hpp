@@ -11,10 +11,8 @@
 
 #include "ECS/Interfaces/IComponent.hpp"
 
-namespace Engine {
-    namespace ECS {
-        class AComponent;
-    }
+namespace Engine::ECS {
+    class AComponent;
 }
 
 class Engine::ECS::AComponent : public Engine::ECS::IComponent {
@@ -26,7 +24,7 @@ protected:
 public:
     static size_t ID;
 
-    virtual ~AComponent() = default;
+    ~AComponent() override = default;
 
     decltype(_id) id() const noexcept;
 };

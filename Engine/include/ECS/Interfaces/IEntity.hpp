@@ -5,10 +5,8 @@
 ** IEntity.hpp
 */
 
-namespace Engine {
-    namespace ECS {
-        class IEntity;
-    }
+namespace Engine::ECS {
+    class IEntity;
 }
 
 class Engine::ECS::IEntity {

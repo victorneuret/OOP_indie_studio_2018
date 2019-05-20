@@ -7,10 +7,8 @@
 
 #pragma once
 
-namespace Engine {
-    namespace ECS {
-        class IComponent;
-    }
+namespace Engine::ECS {
+    class IComponent;
 }
 
 class Engine::ECS::IComponent {

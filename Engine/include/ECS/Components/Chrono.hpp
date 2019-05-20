@@ -11,10 +11,8 @@
 
 #include "ECS/Abstracts/AComponent.hpp"
 
-namespace Engine {
-    namespace Component {
-        class Chrono;
-    }
+namespace Engine::Component {
+    class Chrono;
 }
 
 class Engine::Component::Chrono : public Engine::ECS::AComponent {
