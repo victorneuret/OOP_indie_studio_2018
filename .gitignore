@@ -10,3 +10,4 @@ peda*
 CMakeCache.txt
 .vscode/
 .ccls
+logs/

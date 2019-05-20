@@ -7,8 +7,17 @@
 
 #include <irrlicht/irrlicht.h>
 
+#include "Logger.hpp"
+
 int main()
 {
+//    Logger examples
+//    Engine::Logger::getInstance().info("Hello world!", false);
+//    Engine::Logger::getInstance().info("Hello prefix!");
+//    Engine::Logger::getInstance().warning("Hello warning!");
+//    Engine::Logger::getInstance().error("Hello error!");
+//    Engine::Logger::getInstance().print(Engine::Logger::Level::INFO, "Hello info!");
+
     irr::IrrlichtDevice *device = irr::createDevice(irr::video::EDT_OPENGL,
                                                     irr::core::dimension2d<irr::u32>(1920, 1080), 16, false, false,
                                                     false, nullptr);
