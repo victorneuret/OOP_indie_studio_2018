@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2018
-** bomberman	
+** bomberman
 ** File description:
 ** AComponent.hpp
 */
@@ -30,4 +30,3 @@ public:
 
     decltype(_id) id() const noexcept;
 };
-

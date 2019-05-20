@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2018
-** bomberman	
+** bomberman
 ** File description:
 ** Chrono.cpp
 */
