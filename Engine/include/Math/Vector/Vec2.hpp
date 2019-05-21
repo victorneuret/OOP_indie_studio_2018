@@ -7,6 +7,9 @@
 
 #pragma once
 
+#include <ostream>
+#include <typeinfo>
+
 namespace Engine::Math {
     class Vec2;
 }
@@ -202,4 +205,10 @@ template <typename T>
 bool Vec2<T>::operator!=(const Vec2<T> &vec) const noexcept
 {
     return !(vec == *this);
+}
+
+template<typename T>
+std::ostream &operator<<(std::ostream &out, const Vec2<T> &rec)
+{
+    return out << "Vec2<" << typeid(T).name() << ">(" << rec.x << ", " << rec.y << ")";
 }
