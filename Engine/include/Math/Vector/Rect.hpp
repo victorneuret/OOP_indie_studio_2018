@@ -41,33 +41,33 @@ public:
 };
 
 template<typename T>
-Rect<T>::Rect() noexcept
+Engine::Math::Rect<T>::Rect() noexcept
 {}
 
 template<typename T>
-Rect<T>::Rect(const Vec2<T> &pos, const Vec2<T> &size) noexcept
+Engine::Math::Rect<T>::Rect(const Vec2<T> &pos, const Vec2<T> &size) noexcept
     : x{pos.x}, y{pos.y}, w{size.x}, h{size.y}
 {}
 
 template<typename T>
-Rect<T>::Rect(const T &x, const T &y, const T &w, const T &h) noexcept
+Engine::Math::Rect<T>::Rect(const T &x, const T &y, const T &w, const T &h) noexcept
     : x{x}, y{y}, w{w}, h{h}
 {}
 
 template<typename T>
-bool Rect<T>::operator==(const Rect &rec) const noexcept
+bool Engine::Math::Rect<T>::operator==(const Rect &rec) const noexcept
 {
     return (x == rec.x && y == rec.y && w == rec.w && h == rec.h);
 }
 
 template<typename T>
-bool Rect<T>::operator!=(const Rect &rec) const noexcept
+bool Engine::Math::Rect<T>::operator!=(const Rect &rec) const noexcept
 {
     return !(rec == *this);
 }
 
 template<typename T>
-std::ostream &operator<<(std::ostream &out, const Rect<T> &rec)
+std::ostream &operator<<(std::ostream &out, const Engine::Math::Rect<T> &rec)
 {
     return out << "Rect<" << typeid(T).name() << ">(" << rec.x << ", " << rec.y << ", " << rec.w << ", " << rec.h << ")";
 }
