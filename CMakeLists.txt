@@ -21,6 +21,9 @@ add_library(
     Engine/include/ECS/Interfaces/IEntity.hpp
     Engine/include/ECS/Entities/AEntity.hpp
     Engine/src/ECS/Abstracts/AEntity.cpp
+    Engine/include/Math/Vector/Vec2.hpp
+    Engine/include/Math/Vector/Vec3.hpp
+    Engine/include/Math/Vector/Rect.hpp
 )
 
 add_executable(
