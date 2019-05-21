@@ -11,11 +11,12 @@
 #include <typeinfo>
 
 namespace Engine::Math {
+    template<typename T>
     class Vec2;
 }
 
 template <typename T>
-class Vec2 {
+class Engine::Math::Vec2 {
 public:
     using Vec2f = Vec2<float>;
     using Vec2d = Vec2<double>;

@@ -13,11 +13,12 @@
 #include "Math/Vector/Vec2.hpp"
 
 namespace Engine::Math {
+    template<typename T>
     class Rect;
 }
 
 template<typename T>
-class Rect {
+class Engine::Math::Rect {
 public:
     using Rect_f = Rect<float>;
     using Rect_d = Rect<double>;
