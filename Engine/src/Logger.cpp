@@ -13,13 +13,16 @@
 #include <sys/types.h>
 
 #include "Logger.hpp"
+#include "Exception/NotImplementedException.hpp"
+#include "Exception/Memory/MemoryException.hpp"
+#include "Exception/Permission/PermissionException.hpp"
 
 std::unique_ptr<Engine::Logger> Engine::Logger::_instance{nullptr};
 
 Engine::Logger::Logger()
 {
     if (mkdir(LOG_FOLDER, 0755) != 0 && errno != EEXIST)
-        throw std::runtime_error("Failed to create logs folder.");
+        throw PermissionException<Permission_Denied>("Cannot create log folder.");
 
     _path = LOG_FOLDER + _getDateFormatFile() + ".txt";
     _file = std::ofstream(_path);
@@ -30,7 +33,7 @@ Engine::Logger &Engine::Logger::getInstance()
     if (_instance == nullptr) {
         _instance = std::unique_ptr<Logger>(new Logger);
         if (_instance == nullptr)
-            throw std::runtime_error("Allocation Error");
+            throw MemoryException<Memory_Allocation_Failed>("Could not create logger instance.");
     }
     return *_instance;
 }
@@ -94,7 +97,7 @@ std::string Engine::Logger::_getPrefixFormat(Engine::Logger::Level level)
         case Level::ERROR:
             return PREFIX_ERROR;
         default:
-            throw std::runtime_error("Not implemented.");
+            throw NotImplementedException("Logger::_getPrefixFormat");
     }
 }
 
