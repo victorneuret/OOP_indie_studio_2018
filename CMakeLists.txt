@@ -24,6 +24,14 @@ add_library(
     Engine/include/Math/Vector/Vec2.hpp
     Engine/include/Math/Vector/Vec3.hpp
     Engine/include/Math/Vector/Rect.hpp
+    Engine/include/Exception/AException.hpp
+    Engine/include/Exception/Engine/EngineException.hpp
+    Engine/include/Exception/Exception.hpp
+    Engine/include/Exception/Engine/ECS/ECSException.hpp
+    Engine/src/AException.cpp
+    Engine/include/Exception/Permission/PermissionException.hpp
+    Engine/include/Exception/NotImplementedException.hpp
+    Engine/include/Exception/Memory/MemoryException.hpp
 )
 
 add_executable(

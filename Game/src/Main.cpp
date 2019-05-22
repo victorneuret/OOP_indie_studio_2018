@@ -7,7 +7,14 @@
 
 #include <irrlicht/irrlicht.h>
 
+#include "Exception/AException.hpp"
+#include "Exception/Engine/EngineException.hpp"
 #include "Logger.hpp"
+
+//static void error()
+//{
+//    throw EngineException<Engine_Sound>("This is an exception");
+//}
 
 int main()
 {
@@ -17,6 +24,13 @@ int main()
 //    Engine::Logger::getInstance().warning("Hello warning!");
 //    Engine::Logger::getInstance().error("Hello error!");
 //    Engine::Logger::getInstance().print(Engine::Logger::Level::INFO, "Hello info!");
+
+//    try {
+//        error();
+//        Engine::Logger::getInstance().info("This should never be printed.");
+//    } catch (const AException &e) {
+//        Engine::Logger::getInstance().error(e.what());
+//    }
 
     irr::IrrlichtDevice *device = irr::createDevice(irr::video::EDT_OPENGL,
                                                     irr::core::dimension2d<irr::u32>(1920, 1080), 16, false, false,
