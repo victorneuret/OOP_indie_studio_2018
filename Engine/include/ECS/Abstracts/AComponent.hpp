@@ -12,9 +12,11 @@
 #include "ECS/Interfaces/IComponent.hpp"
 
 namespace Engine::ECS {
+    template <typename T>
     class AComponent;
 }
 
+template <typename T>
 class Engine::ECS::AComponent : public Engine::ECS::IComponent {
 private:
 
@@ -26,5 +28,8 @@ public:
 
     ~AComponent() override = default;
 
-    decltype(_id) id() const noexcept;
+    decltype(_id) id() const noexcept
+    {
+        return _id;
+    };
 };

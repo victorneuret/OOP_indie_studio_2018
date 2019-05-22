@@ -5,6 +5,8 @@
 ** IEntity.hpp
 */
 
+#pragma once
+
 namespace Engine::ECS {
     class IEntity;
 }
