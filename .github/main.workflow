@@ -4,5 +4,5 @@ workflow "Linux Engine compilaiton" {
 }
 
 action "./actions/linux-engine-compilation" {
-  uses = "victorneuret/OOP_indie_studio_2018/@feature/Engine-CI-linux/actions/linux-engine-compilation"
+  uses = "victorneuret/epitech-cmake-action@0.1"
 }
