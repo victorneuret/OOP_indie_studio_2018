@@ -9,11 +9,11 @@ workflow "Linux Game compilaiton" {
 }
 
 action "linux-engine-compilation" {
-  uses = "victorneuret/epitech-cmake-action@0.1"
+  uses = "victorneuret/epitech-cmake-action@v1"
   args = "engine"
 }
 
 action "linux-game-compilation" {
-  uses = "victorneuret/epitech-cmake-action@0.1"
+  uses = "victorneuret/epitech-cmake-action@v1"
   args = "bomberman"
 }
