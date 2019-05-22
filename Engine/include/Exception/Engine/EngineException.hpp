@@ -21,6 +21,5 @@ class EngineException : public Exception<General_Engine> {
 public:
     explicit EngineException(const std::string &what = "EngineException")
         : Exception{what}
-    {
-    }
+    {}
 };

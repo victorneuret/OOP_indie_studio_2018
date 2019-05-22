@@ -20,6 +20,5 @@ class ECSException : public EngineException<Engine_ECS> {
 public:
     explicit ECSException(const std::string &what = "ECSException")
         : EngineException(what)
-    {
-    }
+    {}
 };

@@ -18,6 +18,5 @@ class PermissionException : public Exception<General_Permission> {
 public:
     explicit PermissionException(const std::string &what = "PermissionException")
         : Exception{what}
-    {
-    }
+    {}
 };

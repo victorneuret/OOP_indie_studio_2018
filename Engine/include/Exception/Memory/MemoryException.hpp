@@ -18,6 +18,5 @@ class MemoryException : public Exception<General_Memory> {
 public:
     explicit MemoryException(const std::string &what = "MemoryException")
         : Exception{what}
-    {
-    }
+    {}
 };

@@ -26,6 +26,5 @@ class Exception : public AException {
 public:
     explicit Exception(const std::string &what = "Exception")
         : AException(what)
-    {
-    }
+    {}
 };
