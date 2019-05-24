@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include <chrono>
-
 #include "ECS/Abstracts/AComponent.hpp"
+
+#include <chrono>
 
 namespace Engine::Component {
     class Chrono;
@@ -21,5 +21,5 @@ public:
     void reset() noexcept;
 
 private:
-    std::chrono::_V2::system_clock::time_point _start{std::chrono::system_clock::now()};
+    std::chrono::time_point<std::chrono::system_clock> _start{std::chrono::system_clock::now()};
 };
