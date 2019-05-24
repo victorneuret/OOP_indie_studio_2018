@@ -1,8 +1,10 @@
 language: cpp
 os: windows
+compiler: gcc
 
 script:
   - cmake CMakeLists.txt
+  - ls
   - make engine
 
 after_success:
