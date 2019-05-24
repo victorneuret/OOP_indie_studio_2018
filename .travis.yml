@@ -8,6 +8,7 @@ branches:
 
 script:
   - cmake CMakeLists.txt
+  - cmake --build .
   - ls
   - make engine
 
