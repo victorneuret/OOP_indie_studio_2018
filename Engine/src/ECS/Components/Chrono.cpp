@@ -5,6 +5,8 @@
 ** Chrono.cpp
 */
 
+#include <chrono>
+
 #include "ECS/Components/Chrono.hpp"
 
 double Engine::Component::Chrono::getElapsedTime() const noexcept
