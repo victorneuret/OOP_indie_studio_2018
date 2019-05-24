@@ -9,8 +9,12 @@
 #include <cstdio>
 #include <cerrno>
 #include <iomanip>
-#include <sys/stat.h>
+#if defined _MSC_VER
+#include <direct.h>
+#elif defined __GNUC__
 #include <sys/types.h>
+#include <sys/stat.h>
+#endif
 
 #include "Logger.hpp"
 #include "Exception/NotImplementedException.hpp"
@@ -21,7 +25,12 @@ std::unique_ptr<Engine::Logger> Engine::Logger::_instance{nullptr};
 
 Engine::Logger::Logger()
 {
-    if (mkdir(LOG_FOLDER, 0755) != 0 && errno != EEXIST)
+#if defined _MSC_VER
+    int err = _mkdir(LOG_FOLDER);
+#elif defined __GNUC__
+    int err = mkdir(LOG_FOLDER, 0755);
+#endif
+    if (err != 0 && errno != EEXIST)
         throw PermissionException<Permission_Denied>("Cannot create log folder.");
 
     _path = LOG_FOLDER + _getDateFormatFile() + ".txt";
