@@ -6,6 +6,11 @@ compiler: gcc
 branches:
   except: /pr\/.*/
 
+before_script:
+  - curl http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/Irrlicht-x64-Visual-Studio-2019-SDK-10.0.17763.0.zip -o irrlicht.zip
+  - unzip irrlicht.zip
+  - mv Irrlicht\ x64\ Visual\ Studio\ 2019\ SDK\ 10.0.17763.0 irrlicht
+
 script:
   - cmake CMakeLists.txt
   - cmake --build .
