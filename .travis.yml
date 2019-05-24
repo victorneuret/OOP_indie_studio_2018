@@ -7,7 +7,7 @@ branches:
   except: /pr\/.*/
 
 script:
-  - cmake --build . --target engine
+  - cmake --build . --target install --config Release
   - ls
 
 after_success:
