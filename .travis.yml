@@ -1,0 +1,8 @@
+os: windows
+
+script:
+  - cmake CMakeLists.txt
+  - make engine
+
+after_success:
+  - echo "Test Success - Branch($TRAVIS_BRANCH) Pull Request($TRAVIS_PULL_REQUEST)"
