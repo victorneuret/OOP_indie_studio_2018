@@ -9,6 +9,7 @@
 #include <cstdio>
 #include <cerrno>
 #include <iomanip>
+#include <sstream>
 #if defined _MSC_VER
 #include <direct.h>
 #elif defined __GNUC__
