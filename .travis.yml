@@ -7,7 +7,7 @@ branches:
   except: /pr\/.*/
 
 script:
-  - cmake --build .
+  - cmake --build CMakeLists.txt
   - ls
 
 after_success:
