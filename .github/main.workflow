@@ -1,9 +1,15 @@
-workflow "Linux Engine compilaiton" {
+workflow "Linux compilaiton" {
   on = "push"
-  resolves = ["./actions/linux-engine-compilation"]
+  resolves = ["Game compilation"]
 }
 
-action "./actions/linux-engine-compilation" {
-  uses = "victorneuret/epitech-cmake-action@0.1"
+action "Engine compilation" {
+  uses = "victorneuret/epitech-cmake-action@v1"
   args = "engine"
+}
+
+action "Game compilation" {
+  uses = "victorneuret/epitech-cmake-action@v1"
+  needs = ["Engine compilation"]
+  args = "bomberman"
 }
