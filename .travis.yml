@@ -7,7 +7,7 @@ branches:
   except: /pr\/.*/
 
 env:
-  - WEBHOOK_URL=https://discordapp.com/api/webhooks/575321192244707350/_6JAWIy9nusy8RVBJCO7T0pgf8wX049sVNgC1ILqxlyw5LscpsUK3tGHQIIv_mp3Xf6O/github
+  - WEBHOOK_URL=https://discordapp.com/api/webhooks/575321192244707350/_6JAWIy9nusy8RVBJCO7T0pgf8wX049sVNgC1ILqxlyw5LscpsUK3tGHQIIv_mp3Xf6O
 
 before_script:
   - curl http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/Irrlicht-x64-Visual-Studio-2019-SDK-10.0.17763.0.zip -o irrlicht.zip
