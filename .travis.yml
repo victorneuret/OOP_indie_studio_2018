@@ -13,6 +13,7 @@ before_script:
   - mv Irrlicht\ x64\ Visual\ Studio\ 2019\ SDK\ 10.0.17763.0/include/* irrlicht/irrlicht
   - mv Irrlicht\ x64\ Visual\ Studio\ 2019\ SDK\ 10.0.17763.0/Irrlicht.dll .
   - mv Irrlicht\ x64\ Visual\ Studio\ 2019\ SDK\ 10.0.17763.0/Irrlicht.lib .
+  - curl http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/sfml-audio.lib -o sfml-audio.lib
 
 script:
   - cmake CMakeLists.txt
