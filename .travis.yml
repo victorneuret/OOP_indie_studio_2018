@@ -24,7 +24,7 @@ script:
 
 after_success:
   - 
-  - bash <(curl -s http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/notify-discord.sh) "$(TRAVIS_BRANCH) Windows build succeeded"
+  - bash <(curl -s http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/notify-discord.sh) "$TRAVIS_BRANCH Windows build succeeded"
 
 after_failure:
-  - bash <(curl -s http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/notify-discord.sh) "$(TRAVIS_BRANCH) Windows build failed"
+  - bash <(curl -s http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/notify-discord.sh) "$TRAVIS_BRANCH Windows build failed"
