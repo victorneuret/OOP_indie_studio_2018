@@ -10,6 +10,7 @@ endif (UNIX)
 include_directories(
     Engine/include
     Game/include
+    irrlicht
 )
 
 add_library(
