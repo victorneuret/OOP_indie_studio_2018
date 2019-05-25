@@ -4,7 +4,7 @@ project(bomberman)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 if (UNIX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Weffc++")
+    set("-Wall -Wextra -Weffc++")
 endif (UNIX)
 
 include_directories(
