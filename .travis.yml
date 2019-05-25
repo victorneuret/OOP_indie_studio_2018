@@ -16,7 +16,7 @@ before_script:
   - curl http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/sfml-audio.lib -o sfml-audio.lib
 
 script:
-  - cmake CMakeLists.txt
+  - cmake -A x64 CMakeLists.txt
   - cmake --build .
 
 after_success:
