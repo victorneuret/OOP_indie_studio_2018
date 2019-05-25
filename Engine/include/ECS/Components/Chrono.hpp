@@ -17,7 +17,7 @@ namespace Engine::Component {
 
 class Engine::Component::Chrono : public Engine::ECS::AComponent {
 public:
-    double getElapsedTime() noexcept;;
+    double getElapsedTime() noehxcept;
     void reset() noexcept;
 
 private:
