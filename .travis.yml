@@ -22,6 +22,6 @@ script:
 after_success:
   - curl -X POST -H "Content-Type: application/json" --data "{ \"content\": \"$TRAVIS_BRANCH Windows build success\" }" $WEBHOOK_URL
 
-after_failure:
-  - curl -X POST -H "Content-Type: application/json" --data "{ \"content\": \"$TRAVIS_BRANCH Windows build failed\" }" $WEBHOOK_URL
+# after_failure:
+#   - curl -X POST -H "Content-Type: application/json" --data "{ \"content\": \"$TRAVIS_BRANCH Windows build failed\" }" $WEBHOOK_URL
   
