@@ -20,10 +20,8 @@ script:
   - cmake --build .
 
 after_success:
-  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-  - chmod +x send.sh
-  - ./send.sh success $WEBHOOK_URL
+  - curl -X POST -H "Content-Type: application/json" --data "{ \"content\": \"$TRAVIS_BRANCH Windows build success\" }" $WEBHOOK_URL
+
 after_failure:
-  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-  - chmod +x send.sh
-  - ./send.sh failure $WEBHOOK_URL
+  - curl -X POST -H "Content-Type: application/json" --data "{ \"content\": \"$TRAVIS_BRANCH Windows build failed\" }" $WEBHOOK_URL
+  
