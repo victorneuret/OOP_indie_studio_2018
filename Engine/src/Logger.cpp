@@ -5,6 +5,8 @@
 ** Logger.cpp
 */
 
+#define _CRT_SECURE_NO_DEPRECATE
+
 #include <ctime>
 #include <cstdio>
 #include <cerrno>
