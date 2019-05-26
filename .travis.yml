@@ -1,7 +1,6 @@
 os: windows
 
 language: cpp
-compiler: gcc
 
 branches:
   except: /pr\/.*/

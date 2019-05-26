@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include "ECS/Abstracts/AComponent.hpp"
-
 #include <chrono>
+
+#include "ECS/Abstracts/AComponent.hpp"
 
 namespace Engine::Component {
     class Chrono;

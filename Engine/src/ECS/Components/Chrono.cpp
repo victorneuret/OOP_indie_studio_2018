@@ -14,7 +14,6 @@ double Engine::Component::Chrono::getElapsedTime() noexcept
     auto now = std::chrono::system_clock::now();
     _elapsedTime = now - _start;
     return _elapsedTime.count();
-//    return (std::chrono::system_clock::now() - _start).count();
 }
 
 void Engine::Component::Chrono::reset() noexcept

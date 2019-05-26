@@ -13,10 +13,10 @@
 #include <iomanip>
 #include <sstream>
 #if defined _MSC_VER
-#include <direct.h>
+    #include <direct.h>
 #elif defined __GNUC__
-#include <sys/types.h>
-#include <sys/stat.h>
+    #include <sys/types.h>
+    #include <sys/stat.h>
 #endif
 
 #include "Logger.hpp"
