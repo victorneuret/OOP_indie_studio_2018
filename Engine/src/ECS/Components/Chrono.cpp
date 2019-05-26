@@ -5,11 +5,15 @@
 ** Chrono.cpp
 */
 
+#include <chrono>
+
 #include "ECS/Components/Chrono.hpp"
 
-double Engine::Component::Chrono::getElapsedTime() const noexcept
+double Engine::Component::Chrono::getElapsedTime() noexcept
 {
-    return (std::chrono::system_clock::now() - _start).count();
+    auto now = std::chrono::system_clock::now();
+    _elapsedTime = now - _start;
+    return _elapsedTime.count();
 }
 
 void Engine::Component::Chrono::reset() noexcept

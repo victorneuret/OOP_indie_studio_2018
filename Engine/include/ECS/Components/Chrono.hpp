@@ -17,9 +17,10 @@ namespace Engine::Component {
 
 class Engine::Component::Chrono : public Engine::ECS::AComponent {
 public:
-    double getElapsedTime() const noexcept;
+    double getElapsedTime() noexcept;
     void reset() noexcept;
 
 private:
-    std::chrono::_V2::system_clock::time_point _start{std::chrono::system_clock::now()};
+    std::chrono::time_point<std::chrono::system_clock> _start{std::chrono::system_clock::now()};
+    std::chrono::duration<double> _elapsedTime = _start - _start;
 };
