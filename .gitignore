@@ -11,3 +11,5 @@ CMakeCache.txt
 .vscode/
 .ccls
 logs/
+bomberman.cbp
+libengine.a

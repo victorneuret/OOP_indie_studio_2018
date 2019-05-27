@@ -20,10 +20,8 @@ add_library(
     Engine/include/ECS/Abstracts/AComponent.hpp
     Engine/src/ECS/Components/Chrono.cpp
     Engine/include/ECS/Components/Chrono.hpp
-    Engine/src/ECS/Abstracts/AComponent.cpp
     Engine/include/ECS/Interfaces/IEntity.hpp
     Engine/include/ECS/Entities/AEntity.hpp
-    Engine/src/ECS/Abstracts/AEntity.cpp
     Engine/include/Math/Vector/Vec2.hpp
     Engine/include/Math/Vector/Vec3.hpp
     Engine/include/Math/Vector/Rect.hpp
@@ -35,6 +33,9 @@ add_library(
     Engine/include/Exception/Permission/PermissionException.hpp
     Engine/include/Exception/NotImplementedException.hpp
     Engine/include/Exception/Memory/MemoryException.hpp
+    Engine/include/ECS/Abstracts/ASystem.hpp
+    Engine/include/ECS/Abstracts/AEntity.hpp
+    Engine/include/ECS/Interfaces/ISystem.hpp
 )
 
 add_executable(
