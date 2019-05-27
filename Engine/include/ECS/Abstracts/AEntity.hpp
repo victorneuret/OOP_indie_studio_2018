@@ -62,7 +62,4 @@ public:
             throw ECSException<ECS_Entity>("Component unknown");
         return *search;
     };
-
-    // std::vector<IComponent> &getComponentsByType() const noexcept;
-
 };
