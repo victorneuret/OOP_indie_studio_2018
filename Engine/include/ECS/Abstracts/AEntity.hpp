@@ -17,11 +17,11 @@
 #include "Exception/Engine/ECS/ECSException.hpp"
 
 namespace Engine::ECS {
-    template <T>
+    template <typename T>
     class AEntity;
 }
 
-template <T>
+template <typename T>
 class Engine::ECS::AEntity : public Engine::ECS::IEntity {
 private:
 
@@ -54,7 +54,7 @@ public:
         _components.erase(std::remove(_components.begin(), _components.end(), _id), _components.end());
     };
 
-    IComponent &getComponentByID(const size_t ID) const
+    IComponent &getComponentByID(const size_t ID)
     {
         auto search = std::find(_components.begin(), _components.end(), ID);
 
