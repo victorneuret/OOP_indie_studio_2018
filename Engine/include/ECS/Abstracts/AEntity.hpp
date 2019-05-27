@@ -20,7 +20,7 @@ namespace Engine::ECS {
     template <typename T>
     class AEntity;
 
-    static size_t getNextID()
+    static size_t getNextEntityID()
     {
         static size_t ID = 0;
         return ID++;
@@ -37,7 +37,7 @@ protected:
 
 public:
     AEntity()
-        : _id{Engine::ECS::getNextID()}
+        : _id{Engine::ECS::getNextEntityID()}
     {
     }
 
