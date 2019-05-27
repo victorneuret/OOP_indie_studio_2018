@@ -22,7 +22,7 @@ private:
 
 public:
     Renderer();
-    ~Renderer() = default;
+    ~Renderer();
     void setDoRender(bool doRender) noexcept;
     decltype(_doRender) getDoRenderer() const noexcept;
     void getRenderResult() const;
