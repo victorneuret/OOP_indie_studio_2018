@@ -27,6 +27,6 @@ public:
 
 private:
 
-    Engine::Component::Chrono _timer{};
+    Engine::ECS::Component::Chrono _timer{};
     double _duration{0};
 };

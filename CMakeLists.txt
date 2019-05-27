@@ -31,7 +31,7 @@ add_library(
     Engine/include/ECS/Entities/AEntity.hpp
     Engine/include/Math/Vector/Vec2.hpp
     Engine/include/Math/Vector/Vec3.hpp
-    Engine/include/Math/Vector/Rect.hpp
+    Engine/include/Math/Rect.hpp
     Engine/include/Exception/AException.hpp
     Engine/include/Exception/Engine/EngineException.hpp
     Engine/include/Exception/Exception.hpp
@@ -52,6 +52,10 @@ add_library(
     Engine/src/GameApplication.cpp
     Engine/src/IrrLichtContext.cpp
     Engine/include/IrrLichtContext.hpp
+    Engine/include/ECS/Components/Renderer.hpp
+    Engine/src/ECS/Components/Renderer.cpp
+    Engine/include/ECS/Systems/Renderer.hpp
+    Engine/src/ECS/Systems/Renderer.cpp
 )
 
 add_executable(

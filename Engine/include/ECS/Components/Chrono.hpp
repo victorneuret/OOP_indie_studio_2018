@@ -11,11 +11,11 @@
 
 #include "ECS/Abstracts/AComponent.hpp"
 
-namespace Engine::Component {
+namespace Engine::ECS::Component {
     class Chrono;
 }
 
-class Engine::Component::Chrono : public Engine::ECS::AComponent<Engine::Component::Chrono> {
+class Engine::ECS::Component::Chrono : public Engine::ECS::AComponent<Engine::ECS::Component::Chrono> {
 public:
     Chrono();
 
