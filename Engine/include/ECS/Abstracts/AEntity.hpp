@@ -26,18 +26,18 @@ class Engine::ECS::AEntity : public Engine::ECS::IEntity {
 private:
 
 protected:
-    static size_t ID;
+    //static size_t ID;
 
-    const size_t _id{++ID};
+    //const size_t _id{++ID};
     std::vector<Engine::ECS::IComponent> _components{};
 
 public:
     ~AEntity() override = default;
 
-    decltype(_id) id() const noexcept
-    {
-        return _id;
-    };
+    //decltype(_id) id() const noexcept
+    //{
+    //    return _id;
+    //};
 
     const decltype(_components) &components() const noexcept
     {
@@ -49,17 +49,18 @@ public:
         _components.push_back(component);
     };
 
-    void removeComponent()
-    {
-        _components.erase(std::remove(_components.begin(), _components.end(), _id), _components.end());
-    };
+    //void removeComponent()
+    //{
+    //    _components.erase(std::remove(_components.begin(), _components.end(), _id), _components.end());
+    //};
 
-    IComponent &getComponentByID(const size_t ID)
-    {
-        auto search = std::find(_components.begin(), _components.end(), ID);
+    //IComponent &getComponentByID(const size_t ID)
+    //{
+    //    auto search = std::find(_components.begin(), _components.end(), ID);
 
-        if (search == _components.end())
-            throw ECSException<ECS_Entity>("Component unknown");
-        return *search;
-    };
+    //    if (search == _components.end())
+    //        throw ECSException<ECS_Entity>("Component unknown");
+    //    return *search;
+    //};
 };
+
