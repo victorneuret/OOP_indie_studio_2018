@@ -5,6 +5,8 @@
 ** Engine.cpp
 */
 
+#include <algorithm>
+
 #include "ECS/Engine.hpp"
 #include "Exception/Engine/ECS/ECSException.hpp"
 
@@ -15,11 +17,13 @@ decltype(Engine::ECS::Engine::_entities) &Engine::ECS::Engine::getEntities() noe
 
 std::shared_ptr<Engine::ECS::IEntity> &Engine::ECS::Engine::getEntityByID(const size_t id)
 {
-    for (auto &entity : _entities) {
-        if (entity->getID() == id)
-            return entity;
-    }
-    throw ECSException<ECS_Entity>{"Entity " + std::to_string(id) + " not found"};
+    auto search = std::find_if(_entities.begin(), _entities.end(), [id](const std::shared_ptr<IEntity> &entity) {
+        return entity->getID() == id;
+    });
+
+    if (search == _entities.end())
+        throw ECSException<ECS_Entity>{"Entity " + std::to_string(id) + " not found"};
+    return *search;
 }
 
 void Engine::ECS::Engine::addEntity(std::shared_ptr<IEntity> &entity)

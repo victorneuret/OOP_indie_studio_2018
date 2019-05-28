@@ -63,7 +63,7 @@ public:
         _components.erase(std::remove(_components.begin(), _components.end(), _id), _components.end());
     };
 
-    IComponent &getComponentByID(const size_t ID)
+    IComponent &getComponentByID(const std::string &ID)
     {
         auto search = std::find(_components.begin(), _components.end(), ID);
 
