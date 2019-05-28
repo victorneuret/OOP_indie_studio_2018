@@ -69,7 +69,7 @@ public:
         _components.erase(pos);
     };
 
-    std::shared_ptr<IComponent> getComponentByID(const std::string &id)
+    std::shared_ptr<IComponent> &getComponentByID(const std::string &id)
     {
         auto pos = std::find_if(_components.begin(), _components.end(), [id](const std::shared_ptr<IComponent> &component) {
             return (component->getID() == id);
