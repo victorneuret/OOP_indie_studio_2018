@@ -15,6 +15,11 @@ decltype(Engine::ECS::Engine::_entities) &Engine::ECS::Engine::getEntities() noe
     return _entities;
 }
 
+const decltype(Engine::ECS::Engine::_entities) &Engine::ECS::Engine::getEntities() const noexcept
+{
+    return _entities;
+}
+
 std::shared_ptr<Engine::ECS::IEntity> &Engine::ECS::Engine::getEntityByID(const size_t id)
 {
     auto search = std::find_if(_entities.begin(), _entities.end(), [id](const std::shared_ptr<IEntity> &entity) {
@@ -32,6 +37,11 @@ void Engine::ECS::Engine::addEntity(std::shared_ptr<IEntity> &entity)
 }
 
 decltype(Engine::ECS::Engine::_systems) &Engine::ECS::Engine::getSystems() noexcept
+{
+    return _systems;
+}
+
+const decltype(Engine::ECS::Engine::_systems) &Engine::ECS::Engine::getSystems() const noexcept
 {
     return _systems;
 }

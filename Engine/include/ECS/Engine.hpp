@@ -25,8 +25,10 @@ private:
 public:
     std::shared_ptr<IEntity> &getEntityByID(size_t id);
     decltype(_entities) &getEntities() noexcept;
+    const decltype(_entities) &getEntities() const noexcept;
     void addEntity(std::shared_ptr<IEntity> &entity);
 
     decltype(_systems) &getSystems() noexcept;
+    const decltype(_systems) &getSystems() const noexcept;
     void addSystem(std::shared_ptr<ISystem> &system);
 };
