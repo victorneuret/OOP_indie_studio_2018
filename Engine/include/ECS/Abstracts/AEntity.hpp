@@ -10,6 +10,7 @@
 #include <cstddef>
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 #include "ECS/Interfaces/IEntity.hpp"
 #include "ECS/Interfaces/IComponent.hpp"
@@ -33,7 +34,7 @@ private:
 
 protected:
     const size_t _id;
-    std::vector<Engine::ECS::IComponent> _components{};
+    std::vector<std::shared_ptr<IComponent>> _components{};
 
 public:
     AEntity()
@@ -43,7 +44,7 @@ public:
 
     ~AEntity() override = default;
 
-    decltype(_id) getID() const noexcept
+    size_t getID() const noexcept final
     {
         return _id;
     };
@@ -53,22 +54,28 @@ public:
         return _components;
     };
 
-    void addComponent(const Engine::ECS::AComponent<T> &component)
+    void addComponent(std::shared_ptr<IComponent> &component)
     {
         _components.push_back(component);
     };
 
-    void removeComponent()
+    void removeComponent(const std::string &id)
     {
-        _components.erase(std::remove(_components.begin(), _components.end(), _id), _components.end());
+        auto pos = std::find_if(_components.begin(), _components.end(), [id](const std::shared_ptr<IComponent> &component) {
+            return (component->getID() == id);
+        });
+        if (pos == _components.end())
+            throw ECSException<ECS_Entity>("Can't remove component " + id);
+        _components.erase(pos);
     };
 
-    IComponent &getComponentByID(const size_t ID)
+    std::shared_ptr<IComponent> &getComponentByID(const std::string &id)
     {
-        auto search = std::find(_components.begin(), _components.end(), ID);
-
-        if (search == _components.end())
+        auto pos = std::find_if(_components.begin(), _components.end(), [id](const std::shared_ptr<IComponent> &component) {
+            return (component->getID() == id);
+        });
+        if (pos == _components.end())
             throw ECSException<ECS_Entity>("Component unknown");
-        return *search;
+        return *pos;
     };
 };

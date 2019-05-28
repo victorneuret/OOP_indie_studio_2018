@@ -36,6 +36,8 @@ add_library(
     Engine/include/ECS/Abstracts/ASystem.hpp
     Engine/include/ECS/Abstracts/AEntity.hpp
     Engine/include/ECS/Interfaces/ISystem.hpp
+    Engine/include/ECS/Engine.hpp
+    Engine/src/ECS/Engine.cpp
 )
 
 add_executable(
