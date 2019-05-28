@@ -22,10 +22,10 @@ protected:
     const std::string _id;
 
 public:
-    AComponent(const std::string &id) : _id(std::string(id)) {};
+    explicit AComponent(const std::string &id) : _id(std::string(id)) {};
     ~AComponent() override = default;
 
-    decltype(_id) getID() const noexcept
+    std::string getID() const noexcept final
     {
         return _id;
     };

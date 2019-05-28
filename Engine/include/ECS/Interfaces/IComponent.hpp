@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <string>
+
 namespace Engine::ECS {
     class IComponent;
 }
@@ -14,4 +16,5 @@ namespace Engine::ECS {
 class Engine::ECS::IComponent {
 public:
     virtual ~IComponent() = default;
+    virtual std::string getID() const noexcept = 0;
 };
