@@ -25,18 +25,7 @@ void Engine::GameApplication::_loop()
     auto begin = std::chrono::system_clock::now();
     auto end = begin;
 
-    while (_context.getDevice()->run()) {
-        _context.getDriver()->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
-
-        tick(elapsed.count());
-
-        _context.getScnMgr()->drawAll();
-        _context.getGuiEnv()->drawAll();
-        _context.getDriver()->endScene();
-
-        end = std::chrono::system_clock::now();
-        elapsed = end - begin;
-        begin = end;
+    while (!_renderer.closeRequested()) {
     }
 }
 
@@ -66,7 +55,7 @@ decltype(Engine::GameApplication::_dimensions) &Engine::GameApplication::getDime
     return _dimensions;
 }
 
-decltype(Engine::GameApplication::_context) &Engine::GameApplication::getContext() const noexcept
+decltype(Engine::GameApplication::_renderer) &Engine::GameApplication::getRenderer() const noexcept
 {
-    return _context;
+    return _renderer;
 }

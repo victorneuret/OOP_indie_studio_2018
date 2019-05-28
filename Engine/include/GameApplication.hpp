@@ -12,6 +12,7 @@
 
 #include "Math/Vector/Vec2.hpp"
 #include "IrrLichtContext.hpp"
+#include "ECS/Systems/Renderer.hpp"
 
 constexpr int APP_SUCCESS = 0;
 constexpr int APP_FAILURE = 84;
@@ -24,7 +25,7 @@ class Engine::GameApplication {
 private:
     const std::wstring _title;
     const Math::Vec2<irr::u32> _dimensions;
-    const IrrLichtContext _context;
+    const Engine::ECS::System::Renderer _renderer;
 
     void _loop();
 public:
@@ -44,5 +45,5 @@ public:
 
     virtual decltype(_title) &getTitle() const noexcept final;
     virtual decltype(_dimensions) &getDimensions() const noexcept final;
-    virtual decltype(_context) &getContext() const noexcept final;
+    virtual decltype(_renderer) &getRenderer() const noexcept final;
 };
