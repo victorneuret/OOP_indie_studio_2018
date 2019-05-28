@@ -43,7 +43,7 @@ public:
 
     ~AEntity() override = default;
 
-    decltype(_id) getID() const noexcept
+    size_t getID() const noexcept final
     {
         return _id;
     };

@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <cstddef>
+#include <string>
 
 #include "ECS/Interfaces/IComponent.hpp"
 
@@ -18,18 +18,15 @@ namespace Engine::ECS {
 
 template <typename T>
 class Engine::ECS::AComponent : public Engine::ECS::IComponent {
-private:
-
 protected:
-    //size_t _id{++ID};
+    const std::string _id;
 
 public:
-    //static size_t ID;
-
+    AComponent(const std::string &id) : _id(std::string(id)) {};
     ~AComponent() override = default;
 
-    //decltype(_id) id() const noexcept
-    //{
-    //    return _id;
-    //};
-};;
+    decltype(_id) getID() const noexcept
+    {
+        return _id;
+    };
+};
