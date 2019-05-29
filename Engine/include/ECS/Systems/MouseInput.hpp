@@ -8,7 +8,6 @@
 #pragma once
 
 #include "Math/Vector/Vec2.hpp"
-
 #include "ECS/Abstracts/Systems/AInput.hpp"
 
 namespace Engine::ECS::Systems {

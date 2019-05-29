@@ -9,7 +9,6 @@
 
 #include <map>
 #include <algorithm>
-
 #include <irrlicht/irrlicht.h>
 
 #include "ECS/Abstracts/AComponent.hpp"
