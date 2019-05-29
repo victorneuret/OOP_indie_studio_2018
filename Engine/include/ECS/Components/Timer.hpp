@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2019    
+** EPITECH PROJECT, 2019
 ** bomberman
 ** File description:
 ** Timer.hpp
@@ -7,13 +7,12 @@
 
 #pragma once
 
-
 #include <chrono>
 #include <functional>
-#include <thread>
 #include <memory>
 
 #include "ECS/Abstracts/AComponent.hpp"
+#include "ECS/Components/Chrono.hpp"
 
 namespace Engine::Component {
     class Timer;
@@ -23,8 +22,11 @@ class Engine::Component::Timer : public Engine::ECS::AComponent<Engine::Componen
 public:
     Timer();
 
-    void cooldown(const double &duration, const std::function<void()> &func);
+    void cooldown(const double &duration);
+    bool isCooldownFinish(const std::function<void()> &func);
 
 private:
-    std::unique_ptr<std::thread> _thread{nullptr};
+
+    Engine::Component::Chrono _timer{};
+    double _duration{0};
 };

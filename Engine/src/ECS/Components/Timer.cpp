@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2019    
+** EPITECH PROJECT, 2019
 ** bomberman
 ** File description:
 ** Timer.cpp
@@ -16,12 +16,17 @@ Engine::Component::Timer::Timer()
 
 }
 
-void Engine::Component::Timer::cooldown(const double &duration, const std::function<void()> &func) {
-    _thread = std::make_unique<std::thread>([duration, func]() {
-        Chrono timer;
+void Engine::Component::Timer::cooldown(const double &duration)
+{
+    _duration = duration;
+    _timer.reset();
+}
 
-        std::cout << timer.getElapsedTime() << " | " << duration << std::endl;
-        while (timer.getElapsedTime() < duration);
+bool Engine::Component::Timer::isCooldownFinish(const std::function<void()> &func)
+{
+    if (_timer.getElapsedTime() >= _duration) {
         func();
-    });
+        return true;
+    }
+    return false;
 }
