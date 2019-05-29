@@ -9,9 +9,7 @@
 
 bool Engine::ECS::Systems::KeyboardInput::OnEvent(irr::SEvent &event)
 {
-    if (event.EventType == irr::EET_KEY_INPUT_EVENT) {
+    if (event.EventType == irr::EET_KEY_INPUT_EVENT)
         _keys[event.KeyInput.Char] = event.KeyInput.PressedDown;
-        return true;
-    }
     return false;
 }

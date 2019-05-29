@@ -10,7 +10,7 @@
 #include <map>
 #include <algorithm>
 
-#include "irrlicht/irrlicht.h"
+#include <irrlicht/irrlicht.h>
 
 #include "ECS/Abstracts/AComponent.hpp"
 
@@ -20,15 +20,12 @@ namespace Engine::ECS::Systems {
 
 class Engine::ECS::Systems::AInput : public Engine::ECS::AComponent<Engine::ECS::Systems::AInput>, irr::IEventReceiver {
 protected:
-    std::map<uint8_t, bool> _keys;
+    std::map<decltype(irr::SEvent::SKeyInput::Char), bool> _keys;
 
 public:
     virtual ~AInput() override = default;
 
-    virtual bool OnEvent(irr::SEvent &)
-    {
-        return false;
-    }
+    virtual bool OnEvent(irr::SEvent &) = 0;
 
     decltype(_keys)::value_type::second_type isKeyDown(const uint8_t key)
     {

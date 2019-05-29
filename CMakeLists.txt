@@ -40,6 +40,8 @@ add_library(
     Engine/src/ECS/Engine.cpp
     Engine/include/ECS/Abstracts/Systems/AInput.hpp
     Engine/src/ECS/Systems/KeyboardInput.cpp
+    Engine/include/ECS/Systems/MouseInput.hpp
+    Engine/src/ECS/Systems/MouseInput.cpp
 )
 
 add_executable(
