@@ -38,6 +38,8 @@ add_library(
     Engine/include/ECS/Interfaces/ISystem.hpp
     Engine/include/ECS/Engine.hpp
     Engine/src/ECS/Engine.cpp
+    Engine/include/ECS/Components/Timer.hpp
+    Engine/src/ECS/Components/Timer.cpp
 )
 
 add_executable(
