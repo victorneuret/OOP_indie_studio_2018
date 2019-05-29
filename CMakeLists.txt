@@ -48,10 +48,8 @@ add_library(
     Engine/include/ECS/Components/Timer.hpp
     Engine/src/ECS/Components/Timer.cpp
     Engine/include/Utils/TypeDisplayer.hpp
-    Engine/include/GameApplication.cpp
     Engine/include/GameApplication.hpp
     Engine/src/GameApplication.cpp
-    Engine/include/GameApplication.hpp
     Engine/src/IrrLichtContext.cpp
     Engine/include/IrrLichtContext.hpp
 )
