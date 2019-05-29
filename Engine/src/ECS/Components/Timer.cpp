@@ -10,6 +10,12 @@
 #include "ECS/Components/Timer.hpp"
 #include "ECS/Components/Chrono.hpp"
 
+Engine::Component::Timer::Timer()
+    : AComponent("Timer")
+{
+
+}
+
 void Engine::Component::Timer::cooldown(const double &duration, const std::function<void()> &func) {
     _thread = std::make_unique<std::thread>([duration, func]() {
         Chrono timer;

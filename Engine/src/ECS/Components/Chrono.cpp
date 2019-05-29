@@ -9,6 +9,12 @@
 
 #include "ECS/Components/Chrono.hpp"
 
+Engine::Component::Chrono::Chrono()
+    : AComponent("Chrono")
+{
+
+}
+
 double Engine::Component::Chrono::getElapsedTime() noexcept
 {
     auto now = std::chrono::system_clock::now();
