@@ -24,6 +24,10 @@ namespace Engine::Utils {
     {
     };
 
+#if defined _MSC_VER
+#pragma warning ("TypeDisplayer is a debug utility")
+#elif defined __GNUC__
 #warning TypeDisplayer is a debug utility
+#endif
 #endif
 }
