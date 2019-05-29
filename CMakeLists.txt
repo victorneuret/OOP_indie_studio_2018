@@ -47,4 +47,4 @@ add_executable(
     Game/src/Main.cpp
 )
 
-target_link_libraries(bomberman engine Irrlicht sfml-audio pthread)
+target_link_libraries(bomberman engine Irrlicht sfml-audio)
