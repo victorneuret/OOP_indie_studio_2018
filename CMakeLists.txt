@@ -2,8 +2,15 @@ cmake_minimum_required(VERSION 3.11)
 project(bomberman)
 
 set(CMAKE_CXX_STANDARD 17)
+
 if (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Weffc++")
+
+    if (CMAKE_BUILD_TYPE MATCHES Debug)
+        add_definitions(-DDEBUG=1)
+    elseif (CMAKE_BUILD_TYPE MATCHES Release)
+        add_definitions(-DRELEASE=1)
+    endif ()
 endif (UNIX)
 
 include_directories(
@@ -40,7 +47,7 @@ add_library(
     Engine/src/ECS/Engine.cpp
     Engine/include/ECS/Components/Timer.hpp
     Engine/src/ECS/Components/Timer.cpp
-)
+    Engine/include/Utils/TypeDisplayer.hpp Engine/include/GameApplication.cpp Engine/include/GameApplication.hpp)
 
 add_executable(
     bomberman

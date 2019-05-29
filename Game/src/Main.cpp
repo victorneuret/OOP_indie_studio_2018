@@ -10,6 +10,7 @@
 #include "Exception/AException.hpp"
 #include "Exception/Engine/EngineException.hpp"
 #include "Logger.hpp"
+#include "Utils/TypeDisplayer.hpp"
 
 //static void error()
 //{
@@ -32,16 +33,15 @@ int main()
 //        Engine::Logger::getInstance().error(e.what());
 //    }
 
-    irr::IrrlichtDevice *device = irr::createDevice(irr::video::EDT_OPENGL,
-                                                    irr::core::dimension2d<irr::u32>(1920, 1080), 16, false, false,
-                                                    false, nullptr);
-    irr::video::IVideoDriver *driver = device->getVideoDriver();
-    irr::scene::ISceneManager *smgr = device->getSceneManager();
-    irr::gui::IGUIEnvironment *guienv = device->getGUIEnvironment();
-    irr::scene::IAnimatedMesh *mesh = smgr->getMesh("res/models/weapon.md2");
-    irr::scene::IAnimatedMeshSceneNode *node = smgr->addAnimatedMeshSceneNode(mesh);
-    irr::scene::IAnimatedMesh *mesh2 = smgr->getMesh("res/models/tris.md2");
-    irr::scene::IAnimatedMeshSceneNode *node2 = smgr->addAnimatedMeshSceneNode(mesh2);
+    auto *device = irr::createDevice(irr::video::EDT_OPENGL, irr::core::dimension2d<irr::u32>(1920, 1080), 16, false,
+                                     false, false, nullptr);
+    auto *driver = device->getVideoDriver();
+    auto *smgr = device->getSceneManager();
+    auto *guienv = device->getGUIEnvironment();
+    auto *mesh = smgr->getMesh("res/models/weapon.md2");
+    auto *node = smgr->addAnimatedMeshSceneNode(mesh);
+    auto *mesh2 = smgr->getMesh("res/models/tris.md2");
+    auto *node2 = smgr->addAnimatedMeshSceneNode(mesh2);
 
     device->setWindowCaption(L"Hello World! - Irrlicht Engine Demo");
     guienv->addStaticText(L"Hello World! This is the Irrlicht Software engine!",
