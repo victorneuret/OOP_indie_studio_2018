@@ -14,4 +14,5 @@ namespace Engine::ECS {
 class Engine::ECS::IEntity {
 public:
     virtual ~IEntity() = default;
+    virtual size_t getID() const noexcept = 0;
 };
