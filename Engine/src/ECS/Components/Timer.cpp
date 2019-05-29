@@ -22,7 +22,7 @@ void Engine::Component::Timer::cooldown(const double &duration)
     _timer.reset();
 }
 
-bool Engine::Component::Timer::isCooldownFinish(const std::function<void()> &func)
+bool Engine::Component::Timer::isCooldownFinished(const std::function<void()> &func)
 {
     if (_timer.getElapsedTime() >= _duration) {
         func();

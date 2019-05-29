@@ -23,7 +23,7 @@ public:
     Timer();
 
     void cooldown(const double &duration);
-    bool isCooldownFinish(const std::function<void()> &func);
+    bool isCooldownFinished(const std::function<void()> &func);
 
 private:
 
