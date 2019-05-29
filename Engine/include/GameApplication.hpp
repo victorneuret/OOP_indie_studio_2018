@@ -24,7 +24,7 @@ private:
     const IrrLichtContext _context;
 public:
     GameApplication(const decltype(_title) &title, long width, long height);
-    GameApplication(const decltype(_title) &title, const Math::Vec2<irr::u32> &winDim);
+    GameApplication(const decltype(_title) &title, const decltype(_dimensions) &winDim);
     virtual ~GameApplication() = default;
 
     GameApplication(const GameApplication &) = delete;

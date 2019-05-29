@@ -13,7 +13,7 @@ Engine::GameApplication::GameApplication(const decltype(_title) &title, long wid
 {
 }
 
-Engine::GameApplication::GameApplication(const decltype(_title) &title, const Math::Vec2<irr::u32> &dimensions)
+Engine::GameApplication::GameApplication(const decltype(_title) &title, const decltype(_dimensions) &dimensions)
     : _title(decltype(_title)(title)), _dimensions(dimensions), _context(_title.c_str(), dimensions)
 {
 }
