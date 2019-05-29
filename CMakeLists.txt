@@ -38,6 +38,8 @@ add_library(
     Engine/include/ECS/Interfaces/ISystem.hpp
     Engine/include/ECS/Engine.hpp
     Engine/src/ECS/Engine.cpp
+    Engine/include/ECS/Abstracts/Systems/AInput.hpp
+    Engine/src/ECS/Systems/KeyboardInput.cpp
 )
 
 add_executable(
