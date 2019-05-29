@@ -13,10 +13,9 @@
 Engine::Component::Timer::Timer()
     : AComponent("Timer")
 {
-
 }
 
-void Engine::Component::Timer::cooldown(const double &duration)
+void Engine::Component::Timer::startCooldown(const double &duration)
 {
     _duration = duration;
     _timer.reset();

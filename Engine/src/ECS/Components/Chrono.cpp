@@ -12,7 +12,6 @@
 Engine::Component::Chrono::Chrono()
     : AComponent("Chrono")
 {
-
 }
 
 double Engine::Component::Chrono::getElapsedTime() noexcept

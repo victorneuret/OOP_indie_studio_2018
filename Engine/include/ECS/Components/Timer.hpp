@@ -22,7 +22,7 @@ class Engine::Component::Timer : public Engine::ECS::AComponent<Engine::Componen
 public:
     Timer();
 
-    void cooldown(const double &duration);
+    void startCooldown(const double &duration);
     bool isCooldownFinished(const std::function<void()> &func);
 
 private:
