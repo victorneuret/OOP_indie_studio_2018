@@ -36,11 +36,12 @@ add_library(
     Engine/include/ECS/Abstracts/ASystem.hpp
     Engine/include/ECS/Abstracts/AEntity.hpp
     Engine/include/ECS/Interfaces/ISystem.hpp
-)
+    Engine/include/ECS/Components/Timer.hpp
+    Engine/src/ECS/Components/Timer.cpp)
 
 add_executable(
     bomberman
     Game/src/Main.cpp
 )
 
-target_link_libraries(bomberman engine Irrlicht sfml-audio)
+target_link_libraries(bomberman engine Irrlicht sfml-audio pthread)
