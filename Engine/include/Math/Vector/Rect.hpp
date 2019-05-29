@@ -69,5 +69,6 @@ bool Engine::Math::Rect<T>::operator!=(const Rect &rec) const noexcept
 template<typename T>
 std::ostream &operator<<(std::ostream &out, const Engine::Math::Rect<T> &rec)
 {
-    return out << "Rect<" << typeid(T).name() << ">(" << rec.x << ", " << rec.y << ", " << rec.w << ", " << rec.h << ")";
+    return out << "Rect<" << typeid(T).name() << ">(" << rec.x << ", " << rec.y << ", " << rec.w << ", " << rec.h
+               << ")";
 }

@@ -6,7 +6,6 @@
 */
 
 #include "IrrLichtContext.hpp"
-#include "Utils/TypeDisplayer.hpp"
 
 Engine::IrrLichtContext::IrrLichtContext(const wchar_t *text, const Engine::Math::Vec2<irr::u32> &dimensions)
 {
@@ -18,6 +17,11 @@ Engine::IrrLichtContext::IrrLichtContext(const wchar_t *text, const Engine::Math
     _guiEnv = _device->getGUIEnvironment();
 
     _device->setWindowCaption(text);
+}
+
+Engine::IrrLichtContext::~IrrLichtContext()
+{
+    _device->drop();
 }
 
 decltype(Engine::IrrLichtContext::_device) Engine::IrrLichtContext::getDevice() const noexcept

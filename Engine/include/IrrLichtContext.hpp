@@ -23,6 +23,10 @@ private:
     decltype(_device->getGUIEnvironment()) _guiEnv{nullptr};
 public:
     IrrLichtContext(const wchar_t *text, const Math::Vec2<irr::u32> &dimensions);
+    virtual ~IrrLichtContext();
+
+    IrrLichtContext(const IrrLichtContext &) = delete;
+    IrrLichtContext &operator=(const IrrLichtContext &) = delete;
 
     decltype(Engine::IrrLichtContext::_device) getDevice() const noexcept;
     decltype(Engine::IrrLichtContext::_driver) getDriver() const noexcept;

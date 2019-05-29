@@ -10,7 +10,6 @@
 #include "Exception/AException.hpp"
 #include "Exception/Engine/EngineException.hpp"
 #include "Logger.hpp"
-#include "Utils/TypeDisplayer.hpp"
 
 //static void error()
 //{
