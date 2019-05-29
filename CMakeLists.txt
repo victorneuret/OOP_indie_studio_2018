@@ -47,7 +47,10 @@ add_library(
     Engine/src/ECS/Engine.cpp
     Engine/include/ECS/Components/Timer.hpp
     Engine/src/ECS/Components/Timer.cpp
-    Engine/include/Utils/TypeDisplayer.hpp Engine/include/GameApplication.cpp Engine/include/GameApplication.hpp)
+    Engine/include/Utils/TypeDisplayer.hpp
+    Engine/include/GameApplication.cpp
+    Engine/include/GameApplication.hpp
+)
 
 add_executable(
     bomberman
