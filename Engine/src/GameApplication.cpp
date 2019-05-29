@@ -65,3 +65,8 @@ decltype(Engine::GameApplication::_dimensions) &Engine::GameApplication::getDime
 {
     return _dimensions;
 }
+
+decltype(Engine::GameApplication::_context) &Engine::GameApplication::getContext() const noexcept
+{
+    return _context;
+}

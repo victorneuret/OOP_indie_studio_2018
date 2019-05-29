@@ -13,6 +13,9 @@
 #include "Math/Vector/Vec2.hpp"
 #include "IrrLichtContext.hpp"
 
+constexpr int APP_SUCCESS = 0;
+constexpr int APP_FAILURE = 84;
+
 namespace Engine {
     class GameApplication;
 }
@@ -41,4 +44,5 @@ public:
 
     virtual decltype(_title) &getTitle() const noexcept final;
     virtual decltype(_dimensions) &getDimensions() const noexcept final;
+    virtual decltype(_context) &getContext() const noexcept final;
 };
