@@ -36,7 +36,7 @@ add_library(
     Engine/include/Exception/Engine/EngineException.hpp
     Engine/include/Exception/Exception.hpp
     Engine/include/Exception/Engine/ECS/ECSException.hpp
-    Engine/src/AException.cpp
+    Engine/src/Exception/AException.cpp
     Engine/include/Exception/Permission/PermissionException.hpp
     Engine/include/Exception/NotImplementedException.hpp
     Engine/include/Exception/Memory/MemoryException.hpp
@@ -50,6 +50,10 @@ add_library(
     Engine/include/Utils/TypeDisplayer.hpp
     Engine/include/GameApplication.cpp
     Engine/include/GameApplication.hpp
+    Engine/src/GameApplication.cpp
+    Engine/include/GameApplication.hpp
+    Engine/src/IrrLichtContext.cpp
+    Engine/include/IrrLichtContext.hpp
 )
 
 add_executable(
