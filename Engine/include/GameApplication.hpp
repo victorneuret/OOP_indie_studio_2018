@@ -24,7 +24,7 @@ namespace Engine {
 class Engine::GameApplication {
 private:
     const std::wstring _title;
-    const Math::Vec2<irr::u32> _dimensions;
+    const Math::Vec2u _dimensions;
     const Engine::ECS::System::Renderer _renderer;
 
     void _loop();

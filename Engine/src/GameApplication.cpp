@@ -15,7 +15,7 @@ Engine::GameApplication::GameApplication(const decltype(_title) &title, long wid
 }
 
 Engine::GameApplication::GameApplication(const decltype(_title) &title, const decltype(_dimensions) &dimensions)
-    : _title(decltype(_title)(title)), _dimensions(dimensions), _context(_title.c_str(), dimensions)
+    : _title(decltype(_title)(title)), _dimensions(dimensions), _renderer(_title, dimensions)
 {
 }
 

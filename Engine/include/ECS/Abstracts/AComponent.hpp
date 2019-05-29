@@ -17,7 +17,7 @@ namespace Engine::ECS {
 }
 
 template <typename T>
-class Engine::ECS::AComponent : public Engine::ECS::IComponent {
+class Engine::ECS::AComponent : public IComponent {
 protected:
     const std::string _id;
 

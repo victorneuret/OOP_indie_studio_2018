@@ -63,6 +63,10 @@ add_executable(
     Game/src/Main.cpp
     Game/src/BombermanApplication.cpp
     Game/include/BombermanApplication.hpp
+    Game/include/Entities/Block.hpp
+    Game/src/Entities/Block.cpp
+    Game/include/Entities/Player.hpp
+    Game/src/Entities/Player.cpp
 )
 
 target_link_libraries(bomberman engine Irrlicht sfml-audio)

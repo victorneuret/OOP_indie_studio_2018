@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2019    
+** EPITECH PROJECT, 2019
 ** bomberman
 ** File description:
 ** AEntity.hpp
@@ -29,16 +29,14 @@ namespace Engine::ECS {
 }
 
 template <typename T>
-class Engine::ECS::AEntity : public Engine::ECS::IEntity {
-private:
-
+class Engine::ECS::AEntity : public IEntity {
 protected:
     const size_t _id;
     std::vector<std::shared_ptr<IComponent>> _components{};
 
 public:
     AEntity()
-        : _id{Engine::ECS::getNextEntityID()}
+        : _id{getNextEntityID()}
     {
     }
 
@@ -49,7 +47,7 @@ public:
         return _id;
     };
 
-    const decltype(_components) &getComponents() const noexcept
+    const std::vector<std::shared_ptr<IComponent>> &getComponents() const noexcept
     {
         return _components;
     };
