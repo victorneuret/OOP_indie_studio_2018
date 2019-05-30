@@ -32,13 +32,13 @@ void Engine::ECS::System::Renderer::update(double)
     _videoDrivers->endScene();
 }
 
-irr::scene::IAnimatedMeshSceneNode *Engine::ECS::System::Renderer::create3DModel(const std::string &model)
+irr::scene::IAnimatedMeshSceneNode *Engine::ECS::System::Renderer::create3DModel(const std::string &model) const
 {
     auto *mesh = _sceneManager->getMesh(model.c_str());
     return _sceneManager->addAnimatedMeshSceneNode(mesh);
 }
 
-irr::gui::IGUIFont *Engine::ECS::System::Renderer::createFont(const std::string &fontPath)
+irr::gui::IGUIFont *Engine::ECS::System::Renderer::createFont(const std::string &fontPath) const
 {
     if (fontPath.empty())
         return _window->getGUIEnvironment()->getBuiltInFont();
@@ -50,7 +50,7 @@ bool Engine::ECS::System::Renderer::closeRequested() const noexcept
     return !_window->run();
 }
 
-void Engine::ECS::System::Renderer::draw(Engine::ECS::Component::Renderer *renderer)
+void Engine::ECS::System::Renderer::draw(std::shared_ptr<Engine::ECS::Component::Renderer> renderer) const
 {
     switch (renderer->getType()) {
         case Component::Renderer::type::TEXT:
@@ -61,17 +61,17 @@ void Engine::ECS::System::Renderer::draw(Engine::ECS::Component::Renderer *rende
     }
 }
 
-void Engine::ECS::System::Renderer::refresh()
+void Engine::ECS::System::Renderer::refresh() const
 {
     _videoDrivers->beginScene(true, true, irr::video::SColor(0, 0, 0, 0));
 }
 
-void Engine::ECS::System::Renderer::show(Engine::ECS::Component::Renderer *)
+void Engine::ECS::System::Renderer::show(Engine::ECS::Component::Renderer *) const
 {
     throw NotImplementedException{"Engine::ECS::System::Renderer::show"};
 }
 
-void Engine::ECS::System::Renderer::hide(Engine::ECS::Component::Renderer *renderer)
+void Engine::ECS::System::Renderer::hide(Engine::ECS::Component::Renderer *renderer) const
 {
     renderer->getNode()->remove();
 }

@@ -11,11 +11,11 @@
 #include "Exception/Memory/MemoryException.hpp"
 #include "Exception/NotImplementedException.hpp"
 
-Engine::ECS::Component::Renderer::Renderer(Engine::ECS::System::Renderer &renderer, const std::string &model, const std::string &texture, const type &type)
+Engine::ECS::Component::Renderer::Renderer(const Engine::ECS::System::Renderer &renderer, const std::string &model, const std::string &texture, const type &type)
     : AComponent{"Renderer"}, _type{type}, _node{renderer.create3DModel(model)}, _texture{texture}
 {}
 
-Engine::ECS::Component::Renderer::Renderer(Engine::ECS::System::Renderer &renderer, const std::wstring &text, Engine::Math::Vec2<int32_t> pos, const Engine::Utils::Color &color, const std::string &font)
+Engine::ECS::Component::Renderer::Renderer(const Engine::ECS::System::Renderer &renderer, const std::wstring &text, Engine::Math::Vec2<int32_t> pos, const Engine::Utils::Color &color, const std::string &font)
     : AComponent{"Renderer"}, _type{Engine::ECS::Component::Renderer::type::TEXT}, _pos{pos}, _text{text}, _font{renderer.createFont(font)}, _color{color}
 {
     if (_font == nullptr)

@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2019    
+** EPITECH PROJECT, 2019
 ** bomberman
 ** File description:
 ** ASystem.hpp
@@ -15,7 +15,7 @@ namespace Engine::ECS {
 }
 
 template <typename T>
-class Engine::ECS::ASystem : public Engine::ECS::ISystem {
+class Engine::ECS::ASystem : public ISystem {
 public:
     ~ASystem() override = default;
 

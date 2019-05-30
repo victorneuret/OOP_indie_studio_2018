@@ -25,7 +25,7 @@ class Engine::GameApplication {
 private:
     const std::wstring _title;
     const Math::Vec2u _dimensions;
-    const Engine::ECS::System::Renderer _renderer;
+    Engine::ECS::System::Renderer _renderer;
 
     void _loop();
 public:
@@ -45,5 +45,5 @@ public:
 
     virtual decltype(_title) &getTitle() const noexcept final;
     virtual decltype(_dimensions) &getDimensions() const noexcept final;
-    virtual decltype(_renderer) &getRenderer() const noexcept final;
+    virtual decltype(_renderer) &getRenderer() noexcept final;
 };

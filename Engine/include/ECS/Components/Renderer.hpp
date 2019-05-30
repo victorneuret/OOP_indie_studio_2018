@@ -34,7 +34,7 @@ private:
     bool _doRender{true};
     type _type;
 
-    Engine::Math::Vec2<int32_t> _pos{0, 0};
+    Math::Vec2<int32_t> _pos{0, 0};
 
     // 3DModels
     irr::scene::IAnimatedMeshSceneNode *_node{nullptr};
@@ -43,11 +43,11 @@ private:
     //Text
     std::wstring _text{};
     irr::gui::IGUIFont *_font{};
-    Engine::Utils::Color _color{0, 0, 0};
+    Utils::Color _color{0, 0, 0};
 
 public:
-    Renderer(System::Renderer &renderer, const std::string &model, const std::string &texture, const type &type);
-    Renderer(System::Renderer &renderer, const std::wstring &text, Engine::Math::Vec2<int32_t> pos, const Engine::Utils::Color &color, const std::string &font);
+    Renderer(const System::Renderer &renderer, const std::string &model, const std::string &texture, const type &type);
+    Renderer(const System::Renderer &renderer, const std::wstring &text, Math::Vec2<int32_t> pos, const Utils::Color &color, const std::string &font);
     Renderer(const Renderer &) = delete;
     Renderer &operator=(const Renderer &) = delete;
 

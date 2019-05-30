@@ -20,7 +20,7 @@ namespace Engine::ECS::System {
 
 #include "ECS/Components/Renderer.hpp"
 
-class Engine::ECS::System::Renderer final : public Engine::ECS::ASystem<Engine::ECS::System::Renderer> {
+class Engine::ECS::System::Renderer final : public ASystem<System::Renderer> {
 private:
     std::wstring _windowName{};
     Math::Vec2u _windowSize{0, 0};
@@ -31,19 +31,19 @@ private:
     irr::gui::IGUIEnvironment *_GUIEnvironment{nullptr};
 
 public:
-    explicit Renderer(const std::wstring &windowName, const Engine::Math::Vec2u &windowSize = Engine::Math::Vec2u{1920, 1080});
+    explicit Renderer(const std::wstring &windowName, const Math::Vec2u &windowSize = Math::Vec2u{1920, 1080});
     Renderer &operator=(const Renderer &) = delete;
     Renderer(const Renderer &) = delete;
     ~Renderer() override;
 
     void update(double dt) override;
-    void draw(Engine::ECS::Component::Renderer *renderer);
-    void refresh();
+    void draw(std::shared_ptr<Component::Renderer> renderer) const;
+    void refresh() const;
     bool closeRequested() const noexcept;
 
-    irr::scene::IAnimatedMeshSceneNode *create3DModel(const std::string &res);
-    irr::gui::IGUIFont *createFont(const std::string &fontPath);
+    irr::scene::IAnimatedMeshSceneNode *create3DModel(const std::string &res) const;
+    irr::gui::IGUIFont *createFont(const std::string &fontPath) const;
 
-    void show(Engine::ECS::Component::Renderer *renderer);
-    void hide(Engine::ECS::Component::Renderer *renderer);
+    void show(Component::Renderer *renderer) const;
+    void hide(Component::Renderer *renderer) const;
 };
