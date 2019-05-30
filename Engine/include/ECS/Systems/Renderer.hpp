@@ -44,6 +44,6 @@ public:
     irr::scene::IAnimatedMeshSceneNode *create3DModel(const std::string &res) const;
     irr::gui::IGUIFont *createFont(const std::string &fontPath) const;
 
-    void show(Component::Renderer *renderer) const;
-    void hide(Component::Renderer *renderer) const;
+    void show(std::shared_ptr<Component::Renderer> renderer) const;
+    void hide(std::shared_ptr<Component::Renderer> renderer) const;
 };

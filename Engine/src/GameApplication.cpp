@@ -46,6 +46,8 @@ void Engine::GameApplication::_loop()
         for (const auto &_entity : engine.getEntities()) {
             auto _eRenderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer> (_entity->getComponentByID("Renderer"));
             _renderer.draw(_eRenderer);
+            // _renderer.hide(_eRenderer);
+            // _renderer.show(_eRenderer);
         }
         _renderer.update(elapsed.count());
 
