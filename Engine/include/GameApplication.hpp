@@ -11,7 +11,6 @@
 #include <string>
 
 #include "Math/Vector/Vec2.hpp"
-#include "IrrLichtContext.hpp"
 #include "ECS/Systems/Renderer.hpp"
 
 constexpr int APP_SUCCESS = 0;

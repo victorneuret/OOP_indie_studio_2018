@@ -50,8 +50,6 @@ add_library(
     Engine/include/Utils/TypeDisplayer.hpp
     Engine/include/GameApplication.hpp
     Engine/src/GameApplication.cpp
-    Engine/src/IrrLichtContext.cpp
-    Engine/include/IrrLichtContext.hpp
     Engine/include/ECS/Components/Renderer.hpp
     Engine/src/ECS/Components/Renderer.cpp
     Engine/include/ECS/Systems/Renderer.hpp
