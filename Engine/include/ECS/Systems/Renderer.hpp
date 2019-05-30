@@ -38,8 +38,12 @@ public:
 
     void update(double dt) override;
     void draw(Engine::ECS::Component::Renderer *renderer);
+    void refresh();
     bool closeRequested() const noexcept;
+
     irr::scene::IAnimatedMeshSceneNode *create3DModel(const std::string &res);
+    irr::gui::IGUIFont *createFont(const std::string &fontPath);
+
     void show(Engine::ECS::Component::Renderer *renderer);
     void hide(Engine::ECS::Component::Renderer *renderer);
 };

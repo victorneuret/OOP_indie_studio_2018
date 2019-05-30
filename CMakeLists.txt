@@ -56,6 +56,9 @@ add_library(
     Engine/src/ECS/Components/Renderer.cpp
     Engine/include/ECS/Systems/Renderer.hpp
     Engine/src/ECS/Systems/Renderer.cpp
+    Engine/include/ECS/Components/Timer.hpp
+    Engine/src/ECS/Components/Timer.cpp
+    Engine/include/Utils/Colors.hpp
 )
 
 add_executable(
@@ -67,6 +70,9 @@ add_executable(
     Game/src/Entities/Block.cpp
     Game/include/Entities/Player.hpp
     Game/src/Entities/Player.cpp
+    Game/include/Entities/Text.hpp
+    Game/src/Entities/Text.cpp
+    Engine/src/Utils/Color.cpp
 )
 
 target_link_libraries(bomberman engine Irrlicht sfml-audio)
