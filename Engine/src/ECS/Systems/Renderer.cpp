@@ -58,3 +58,12 @@ void Engine::ECS::System::Renderer::draw(Engine::ECS::Component::Renderer *rende
             break;
     }
 }
+
+void Engine::ECS::System::Renderer::show(Engine::ECS::Component::Renderer *)
+{
+}
+
+void Engine::ECS::System::Renderer::hide(Engine::ECS::Component::Renderer *renderer)
+{
+    renderer->getNode()->remove();
+}

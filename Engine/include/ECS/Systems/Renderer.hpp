@@ -40,4 +40,6 @@ public:
     void draw(Engine::ECS::Component::Renderer *renderer);
     bool closeRequested() const noexcept;
     irr::scene::IAnimatedMeshSceneNode *create3DModel(const std::string &res);
+    void show(Engine::ECS::Component::Renderer *renderer);
+    void hide(Engine::ECS::Component::Renderer *renderer);
 };
