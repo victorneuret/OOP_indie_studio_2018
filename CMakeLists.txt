@@ -2,8 +2,15 @@ cmake_minimum_required(VERSION 3.11)
 project(bomberman)
 
 set(CMAKE_CXX_STANDARD 17)
+
 if (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Weffc++")
+
+    if (CMAKE_BUILD_TYPE MATCHES Debug)
+        add_definitions(-DDEBUG=1)
+    elseif (CMAKE_BUILD_TYPE MATCHES Release)
+        add_definitions(-DRELEASE=1)
+    endif ()
 endif (UNIX)
 
 include_directories(
@@ -29,7 +36,7 @@ add_library(
     Engine/include/Exception/Engine/EngineException.hpp
     Engine/include/Exception/Exception.hpp
     Engine/include/Exception/Engine/ECS/ECSException.hpp
-    Engine/src/AException.cpp
+    Engine/src/Exception/AException.cpp
     Engine/include/Exception/Permission/PermissionException.hpp
     Engine/include/Exception/NotImplementedException.hpp
     Engine/include/Exception/Memory/MemoryException.hpp
@@ -40,11 +47,18 @@ add_library(
     Engine/src/ECS/Engine.cpp
     Engine/include/ECS/Components/Timer.hpp
     Engine/src/ECS/Components/Timer.cpp
+    Engine/include/Utils/TypeDisplayer.hpp
+    Engine/include/GameApplication.hpp
+    Engine/src/GameApplication.cpp
+    Engine/src/IrrLichtContext.cpp
+    Engine/include/IrrLichtContext.hpp
 )
 
 add_executable(
     bomberman
     Game/src/Main.cpp
+    Game/src/BombermanApplication.cpp
+    Game/include/BombermanApplication.hpp
 )
 
 target_link_libraries(bomberman engine Irrlicht sfml-audio)

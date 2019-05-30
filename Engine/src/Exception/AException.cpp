@@ -12,7 +12,7 @@ AException::AException(const std::string &what)
 {
 }
 
-const char *AException::what() const noexcept
+std::string AException::what_stdstr() const noexcept
 {
-    return _what.c_str();
+    return std::string(what());
 }
