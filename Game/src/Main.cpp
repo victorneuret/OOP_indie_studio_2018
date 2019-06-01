@@ -104,7 +104,7 @@ static std::vector<T> smoothVector(std::vector<T> vec)
         else if (it == vec.end())
             *it = (*it + *(it - 1)) / 2.0;
         else
-            *it = (*(it + 1) + *it + *(it + 1)) / 3.0;
+            *it = (*(it - 1) + *it + *(it + 1)) / 3.0;
     }
 
     return vec;
