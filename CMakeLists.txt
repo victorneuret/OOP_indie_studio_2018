@@ -101,4 +101,4 @@ add_executable(
 )
 
 target_include_directories(bomberman PUBLIC Game/include)
-target_link_libraries(bomberman engine Irrlicht sfml-audio)
+target_link_libraries(bomberman engine Irrlicht sfml-audio sfml-window sfml-graphics sfml-system)
