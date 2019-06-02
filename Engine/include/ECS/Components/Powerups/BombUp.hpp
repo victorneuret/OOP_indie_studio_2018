@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** bomberman
 ** File description:
-** SpeedUp.hpp
+** BombUp.hpp
 */
 
 #pragma once
@@ -10,10 +10,10 @@
 #include "ECS/Components/Powerups/APowerUp.hpp"
 
 namespace Engine::Component::PowerUps {
-    class SpeedUp;
+    class BombUp;
 }
 
-class Engine::Component::PowerUps::SpeedUp : public Engine::ECS::Components::APowerUp {
+class Engine::Component::PowerUps::BombUp : public Engine::ECS::Components::APowerUp {
 public:
-    SpeedUp();
+    BombUp();
 };

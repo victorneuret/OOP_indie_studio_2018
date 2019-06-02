@@ -16,5 +16,9 @@ namespace ECS::Systems {
 class ECS::Systems::ApplyPowerUp : public Engine::ECS::ASystem<ECS::Systems::ApplyPowerUp> {
 public:
     void applySpdUp() const;
+    void applyBombUp() const;
+    void applyFireUp() const;
+    void applyWallPass() const;
+
 private:
 };

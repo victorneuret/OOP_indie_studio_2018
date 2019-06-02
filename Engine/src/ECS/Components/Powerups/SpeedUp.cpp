@@ -5,8 +5,6 @@
 ** SpeedUp.cpp
 */
 
-#include <iostream>
-
 #include "ECS/Components/Powerups/SpeedUp.hpp"
 
 Engine::Component::PowerUps::SpeedUp::SpeedUp()
