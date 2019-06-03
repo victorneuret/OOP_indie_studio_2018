@@ -22,5 +22,5 @@ public:
     Block(const Block &) = delete;
     Block &operator=(const Block &) = delete;
 
-    ~Block() = default;
+    ~Block() final = default;
 };

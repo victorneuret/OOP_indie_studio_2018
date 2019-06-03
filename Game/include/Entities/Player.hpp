@@ -22,5 +22,5 @@ public:
     Player(const Player &) = delete;
     Player &operator=(const Player &) = delete;
 
-    ~Player() = default;
+    ~Player() final = default;
 };

@@ -13,12 +13,11 @@
 
 #include "Math/Vector/Vec2.hpp"
 #include "ECS/Abstracts/ASystem.hpp"
+#include "ECS/Interfaces/IEntity.hpp"
 
 namespace Engine::ECS::System {
     class Renderer;
 }
-
-#include "ECS/Components/Renderer.hpp"
 
 class Engine::ECS::System::Renderer final : public ASystem<System::Renderer> {
 private:
@@ -37,13 +36,15 @@ public:
     ~Renderer() override;
 
     void update(double dt) override;
-    void draw(std::shared_ptr<Component::Renderer> renderer) const;
+    void draw(std::shared_ptr<IEntity>) const;
     void refresh() const;
     bool closeRequested() const noexcept;
 
     irr::scene::IAnimatedMeshSceneNode *create3DModel(const std::string &res) const;
     irr::gui::IGUIFont *createFont(const std::string &fontPath) const;
 
-    void show(std::shared_ptr<Component::Renderer> renderer) const;
-    void hide(std::shared_ptr<Component::Renderer> renderer) const;
+    void drawText(std::shared_ptr<IEntity>) const;
+
+    void show(std::shared_ptr<IEntity>) const;
+    void hide(std::shared_ptr<IEntity>) const;
 };

@@ -28,7 +28,6 @@ add_library(
     Engine/src/ECS/Components/Chrono.cpp
     Engine/include/ECS/Components/Chrono.hpp
     Engine/include/ECS/Interfaces/IEntity.hpp
-    Engine/include/ECS/Entities/AEntity.hpp
     Engine/include/Math/Vector/Vec2.hpp
     Engine/include/Math/Vector/Vec3.hpp
     Engine/include/Math/Rect.hpp
@@ -57,6 +56,11 @@ add_library(
     Engine/include/ECS/Components/Timer.hpp
     Engine/src/ECS/Components/Timer.cpp
     Engine/include/Utils/Colors.hpp
+    Engine/src/Utils/Color.cpp
+    Engine/include/ECS/Components/Model3D.hpp
+    Engine/src/ECS/Components/Model3D.cpp
+    Engine/include/ECS/Components/Text.hpp
+    Engine/src/ECS/Components/Text.cpp
 )
 
 add_executable(
@@ -70,7 +74,6 @@ add_executable(
     Game/src/Entities/Player.cpp
     Game/include/Entities/Text.hpp
     Game/src/Entities/Text.cpp
-    Engine/src/Utils/Color.cpp
 )
 
 target_link_libraries(bomberman engine Irrlicht sfml-audio)

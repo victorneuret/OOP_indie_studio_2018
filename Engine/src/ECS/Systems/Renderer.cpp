@@ -8,6 +8,7 @@
 #include <memory>
 #include <irrlicht/irrlicht.h>
 
+#include "ECS/Components/Text.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "Exception/Memory/MemoryException.hpp"
 #include "Exception/NotImplementedException.hpp"
@@ -63,17 +64,21 @@ bool Engine::ECS::System::Renderer::closeRequested() const noexcept
     return !_window->run();
 }
 
-void Engine::ECS::System::Renderer::draw(std::shared_ptr<Engine::ECS::Component::Renderer> renderer) const
+void Engine::ECS::System::Renderer::draw(std::shared_ptr<Engine::ECS::IEntity> entity) const
 {
-    if (!renderer->doRenderer())
-        return;
-    switch (renderer->getType()) {
-        case Component::Renderer::type::TEXT:
-            renderer->getFont()->draw(renderer->getText().c_str(), irr::core::rect<irr::s32>(renderer->getPosition().x, renderer->getPosition().y, 200, 22), irr::video::SColor(renderer->getColor().a, renderer->getColor().r, renderer->getColor().g, renderer->getColor().b));
-            break;
+    switch (entity->getType()) {
+        case Engine::ECS::IEntity::Type::TEXT:
+            drawText(entity);
         default:
             break;
     }
+}
+
+void Engine::ECS::System::Renderer::drawText(std::shared_ptr<Engine::ECS::IEntity> entity) const
+{
+    std::shared_ptr<Engine::ECS::Component::Text> _component = std::dynamic_pointer_cast<Engine::ECS::Component::Text> (entity->getComponentByID("Text"));
+
+    _component->getFont()->draw(_component->getString().c_str(), irr::core::rect<irr::s32>{_component->getPos().x, _component->getPos().y, 300, 50}, irr::video::SColor{_component->getColor().a, _component->getColor().r, _component->getColor().g, _component->getColor().b});
 }
 
 void Engine::ECS::System::Renderer::refresh() const
@@ -82,12 +87,12 @@ void Engine::ECS::System::Renderer::refresh() const
         throw ECSException<ECS_System>{"Display error"};
 }
 
-void Engine::ECS::System::Renderer::show(std::shared_ptr<Engine::ECS::Component::Renderer> renderer) const
+void Engine::ECS::System::Renderer::show(std::shared_ptr<Engine::ECS::IEntity>) const
 {
-    renderer->setDoRender(true);
+    // renderer->setDoRender(true);
 }
 
-void Engine::ECS::System::Renderer::hide(std::shared_ptr<Engine::ECS::Component::Renderer> renderer) const
+void Engine::ECS::System::Renderer::hide(std::shared_ptr<Engine::ECS::IEntity>) const
 {
-    renderer->setDoRender(false);
+    // renderer->setDoRender(false);
 }

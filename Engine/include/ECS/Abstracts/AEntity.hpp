@@ -32,11 +32,13 @@ template <typename T>
 class Engine::ECS::AEntity : public IEntity {
 protected:
     const size_t _id;
+    const Type _type{};
     std::vector<std::shared_ptr<IComponent>> _components{};
 
+
 public:
-    AEntity()
-        : _id{getNextEntityID()}
+    AEntity(const Type type)
+        : _id{getNextEntityID()}, _type{type}
     {
     }
 
@@ -76,4 +78,9 @@ public:
             throw ECSException<ECS_Entity>("Component unknown");
         return *pos;
     };
+
+    Type getType() const noexcept final
+    {
+        return _type;
+    }
 };
