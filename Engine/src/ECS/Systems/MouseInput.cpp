@@ -7,7 +7,7 @@
 
 #include "ECS/Systems/MouseInput.hpp"
 
-bool Engine::ECS::Systems::MouseInput::OnEvent(irr::SEvent &event)
+bool Engine::ECS::System::MouseInput::OnEvent(irr::SEvent &event)
 {
     if (event.EventType != irr::EET_MOUSE_INPUT_EVENT)
         return false;
@@ -18,7 +18,7 @@ bool Engine::ECS::Systems::MouseInput::OnEvent(irr::SEvent &event)
     return false;
 }
 
-const decltype(Engine::ECS::Systems::MouseInput::_pos) &Engine::ECS::Systems::MouseInput::pos() const noexcept
+const decltype(Engine::ECS::System::MouseInput::_pos) &Engine::ECS::System::MouseInput::pos() const noexcept
 {
     return _pos;
 }

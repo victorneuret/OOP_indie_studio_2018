@@ -9,11 +9,11 @@
 
 #include "ECS/Abstracts/Systems/AInput.hpp"
 
-namespace Engine::ECS::Systems {
+namespace Engine::ECS::System {
     class KeyboardInput;
 }
 
-class Engine::ECS::Systems::KeyboardInput : public Engine::ECS::Systems::AInput {
+class Engine::ECS::System::KeyboardInput final : public Engine::ECS::System::AInput {
 public:
 	bool OnEvent(irr::SEvent &event) final;
 };

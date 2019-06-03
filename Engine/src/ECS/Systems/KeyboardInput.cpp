@@ -7,7 +7,7 @@
 
 #include "ECS/Systems/KeyboardInput.hpp"
 
-bool Engine::ECS::Systems::KeyboardInput::OnEvent(irr::SEvent &event)
+bool Engine::ECS::System::KeyboardInput::OnEvent(irr::SEvent &event)
 {
     if (event.EventType == irr::EET_KEY_INPUT_EVENT)
         _keys[event.KeyInput.Char] = event.KeyInput.PressedDown;

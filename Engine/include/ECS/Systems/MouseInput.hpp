@@ -10,11 +10,11 @@
 #include "Math/Vector/Vec2.hpp"
 #include "ECS/Abstracts/Systems/AInput.hpp"
 
-namespace Engine::ECS::Systems {
+namespace Engine::ECS::System {
     class MouseInput;
 }
 
-class Engine::ECS::Systems::MouseInput : public Engine::ECS::Systems::AInput {
+class Engine::ECS::System::MouseInput final : public Engine::ECS::System::AInput {
 private:
     enum MouseKey {
         LEFT,
