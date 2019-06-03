@@ -24,25 +24,25 @@ private:
     std::wstring _windowName{};
     Math::Vec2u _windowSize{0, 0};
 
-    irr::IrrlichtDevice *_window{nullptr};
-    irr::video::IVideoDriver *_videoDrivers{nullptr};
-    irr::scene::ISceneManager *_sceneManager{nullptr};
-    irr::gui::IGUIEnvironment *_GUIEnvironment{nullptr};
+    decltype(irr::createDevice()) _window{nullptr};
+    decltype(_window->getVideoDriver()) _videoDrivers{nullptr};
+    decltype(_window->getSceneManager()) _sceneManager{nullptr};
+    decltype(_window->getGUIEnvironment()) _GUIEnvironment{nullptr};
 
 public:
-    explicit Renderer(const std::wstring &windowName, const Math::Vec2u &windowSize = Math::Vec2u{1920, 1080});
+    explicit Renderer(const decltype(_windowName) &windowName, const decltype(_windowSize) &windowSize = Math::Vec2u{1920, 1080});
     Renderer &operator=(const Renderer &) = delete;
     Renderer(const Renderer &) = delete;
     ~Renderer() override;
 
     void update(double dt) override;
-    void draw(std::shared_ptr<IEntity>) const;
+    void draw(const std::shared_ptr<IEntity> &entity) const;
     void refresh() const;
     bool closeRequested() const noexcept;
 
     irr::scene::IAnimatedMeshSceneNode *create3DModel(const std::string &res, const std::string &texture) const;
     irr::gui::IGUIFont *createFont(const std::string &fontPath) const;
 
-    void drawText(std::shared_ptr<IEntity> entity) const;
-    void draw3DModel(std::shared_ptr<IEntity> entity) const;
+    void drawText(const std::shared_ptr<IEntity> &entity) const;
+    void draw3DModel(const std::shared_ptr<IEntity> &entity) const;
 };

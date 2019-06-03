@@ -10,11 +10,11 @@
 #include "ECS/Interfaces/ISystem.hpp"
 
 namespace Engine::ECS {
-    template <typename T>
+    template<typename T>
     class ASystem;
 }
 
-template <typename T>
+template<typename T>
 class Engine::ECS::ASystem : public ISystem {
 public:
     ~ASystem() override = default;

@@ -12,11 +12,11 @@
 #include "ECS/Interfaces/IComponent.hpp"
 
 namespace Engine::ECS {
-    template <typename T>
+    template<typename T>
     class AComponent;
 }
 
-template <typename T>
+template<typename T>
 class Engine::ECS::AComponent : public IComponent {
 protected:
     const std::string _id;

@@ -21,7 +21,7 @@ namespace Engine::Math {
     using Vec3l = Vec3<long>;
 }
 
-template <typename T>
+template<typename T>
 class Engine::Math::Vec3 {
 public:
     T x{0};
