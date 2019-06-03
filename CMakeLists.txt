@@ -45,6 +45,10 @@ add_library(
     Engine/include/ECS/Interfaces/ISystem.hpp
     Engine/include/ECS/Engine.hpp
     Engine/src/ECS/Engine.cpp
+    Engine/include/ECS/Abstracts/Systems/AInput.hpp
+    Engine/src/ECS/Systems/KeyboardInput.cpp
+    Engine/include/ECS/Systems/MouseInput.hpp
+    Engine/src/ECS/Systems/MouseInput.cpp
     Engine/include/ECS/Components/Timer.hpp
     Engine/src/ECS/Components/Timer.cpp
     Engine/include/Utils/TypeDisplayer.hpp
