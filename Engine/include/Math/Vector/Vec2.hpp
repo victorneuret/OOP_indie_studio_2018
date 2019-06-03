@@ -13,16 +13,17 @@
 namespace Engine::Math {
     template<typename T>
     class Vec2;
-}
 
-template <typename T>
-class Engine::Math::Vec2 {
-public:
     using Vec2f = Vec2<float>;
     using Vec2d = Vec2<double>;
     using Vec2i = Vec2<int>;
     using Vec2u = Vec2<unsigned int>;
     using Vec2l = Vec2<long>;
+}
+
+template<typename T>
+class Engine::Math::Vec2 {
+public:
 
     T x{0};
     T y{0};
@@ -54,21 +55,21 @@ public:
     bool operator!=(const Vec2<T> &vec) const noexcept;
 };
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T>::Vec2() noexcept
 {}
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T>::Vec2(const Vec2<T> &vec) noexcept
     : x{vec.x}, y{vec.y}
 {}
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T>::Vec2(const T &x, const T &y) noexcept
     : x{x}, y{y}
 {}
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator+=(const Vec2<T> &vec) noexcept
 {
     x += vec.x;
@@ -76,7 +77,7 @@ Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator+=(const Vec2<T> &vec) noe
     return *this;
 }
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator+=(const T &val) noexcept
 {
     x += val;
@@ -84,7 +85,7 @@ Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator+=(const T &val) noexcept
     return *this;
 }
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator-=(const Vec2<T> &vec) noexcept
 {
     x -= vec.x;
@@ -92,7 +93,7 @@ Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator-=(const Vec2<T> &vec) noe
     return *this;
 }
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator-=(const T &val) noexcept
 {
     x -= val;
@@ -100,7 +101,7 @@ Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator-=(const T &val) noexcept
     return *this;
 }
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator*=(const Vec2<T> &vec) noexcept
 {
     x *= vec.x;
@@ -108,7 +109,7 @@ Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator*=(const Vec2<T> &vec) noe
     return *this;
 }
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator*=(const T &val) noexcept
 {
     x *= val;
@@ -116,7 +117,7 @@ Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator*=(const T &val) noexcept
     return *this;
 }
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator/=(const Vec2<T> &vec)
 {
     x /= vec.x;
@@ -124,7 +125,7 @@ Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator/=(const Vec2<T> &vec)
     return *this;
 }
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator/=(const T &val)
 {
     x /= val;
@@ -132,55 +133,55 @@ Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator/=(const T &val)
     return *this;
 }
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> Engine::Math::Vec2<T>::operator+(const Vec2<T> &vec) const noexcept
 {
     return Vec2<T>{x + vec.x, y + vec.y};
 }
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> Engine::Math::Vec2<T>::operator+(const T &val) const noexcept
 {
     return Vec2<T>{x + val, y + val};
 }
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> Engine::Math::Vec2<T>::operator-(const Vec2<T> &vec) const noexcept
 {
     return Vec2<T>{x - vec.x, y - vec.y};
 }
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> Engine::Math::Vec2<T>::operator-(const T &val) const noexcept
 {
     return Vec2<T>{x - val, y - val};
 }
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> Engine::Math::Vec2<T>::operator*(const Vec2<T> &vec) const noexcept
 {
     return Vec2<T>{x * vec.x, y * vec.y};
 }
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> Engine::Math::Vec2<T>::operator*(const T &val) const noexcept
 {
     return Vec2<T>{x * val, y * val};
 }
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> Engine::Math::Vec2<T>::operator/(const Vec2<T> &vec) const
 {
     return Vec2<T>{x / vec.x, y / vec.y};
 }
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> Engine::Math::Vec2<T>::operator/(const T &val) const
 {
     return Vec2<T>{x / val, y / val};
 }
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator=(const Vec2<T> &vec) noexcept
 {
     x = vec.x;
@@ -188,7 +189,7 @@ Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator=(const Vec2<T> &vec) noex
     return *this;
 }
 
-template <typename T>
+template<typename T>
 Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator=(const T &val) noexcept
 {
     x = val;
@@ -196,13 +197,13 @@ Engine::Math::Vec2<T> &Engine::Math::Vec2<T>::operator=(const T &val) noexcept
     return *this;
 }
 
-template <typename T>
+template<typename T>
 bool Engine::Math::Vec2<T>::operator==(const Vec2<T> &vec) const noexcept
 {
     return (x == vec.x && y == vec.y);
 }
 
-template <typename T>
+template<typename T>
 bool Engine::Math::Vec2<T>::operator!=(const Vec2<T> &vec) const noexcept
 {
     return !(vec == *this);
