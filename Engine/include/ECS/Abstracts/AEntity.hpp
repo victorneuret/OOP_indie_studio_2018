@@ -33,7 +33,7 @@ template<typename T>
 class Engine::ECS::AEntity : public IEntity {
 protected:
     const size_t _id;
-    const Type _type{};
+    Type _type{};
     std::vector<std::shared_ptr<IComponent>> _components{};
 
 
@@ -80,7 +80,7 @@ public:
         return *pos;
     };
 
-    Type getType() const noexcept final
+    decltype(_type) getType() const noexcept final
     {
         return _type;
     }
