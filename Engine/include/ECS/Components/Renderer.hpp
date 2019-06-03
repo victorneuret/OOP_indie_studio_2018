@@ -33,6 +33,6 @@ public:
     ~Renderer();
 
     void setDoRender(bool doRender) noexcept;
-    decltype(_doRender) doRenderer() const noexcept;
+    decltype(_doRender) doRender() const noexcept;
     decltype(_pos) getPosition() const noexcept;
 };

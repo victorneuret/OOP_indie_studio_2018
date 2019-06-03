@@ -7,8 +7,8 @@
 
 #include "ECS/Components/Model3D.hpp"
 
-Engine::ECS::Component::Model3D::Model3D(const Engine::ECS::System::Renderer &, const std::string &model, const std::string &texture) // TODO 3DMesh
-        : AComponent("Model3D"), _model{std::string{model}}, _texture{std::string{texture}}
+Engine::ECS::Component::Model3D::Model3D(const Engine::ECS::System::Renderer &renderer, const std::string &model, const std::string &texture)
+        : AComponent("Model3D"), _node{renderer.create3DModel(model, texture)}, _model{std::string{model}}, _texture{std::string{texture}}
 {
 }
 

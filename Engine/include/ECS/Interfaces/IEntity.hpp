@@ -31,4 +31,7 @@ public:
     virtual std::shared_ptr<IComponent> &getComponentByID(const std::string &id) = 0;
     virtual const std::vector<std::shared_ptr<IComponent>> &getComponents() const noexcept = 0;
     virtual Type getType() const noexcept = 0;
+
+    virtual void show() noexcept = 0;
+    virtual void hide() noexcept = 0;
 };

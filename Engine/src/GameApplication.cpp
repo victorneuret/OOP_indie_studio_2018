@@ -43,11 +43,10 @@ void Engine::GameApplication::_loop()
         _renderer.refresh();
         tick(elapsed.count());
 
-        for (const auto &_entity : engine.getEntities()) {
-            //auto _eRenderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer> (_entity->getComponentByID("Renderer"));
-            _renderer.draw(_entity);
-            // _renderer.hide(_eRenderer);
-            // _renderer.show(_eRenderer);
+        for (const auto &entity : engine.getEntities()) {
+            _renderer.draw(entity);
+            // entity->hide();
+            // entity->show();
         }
         _renderer.update(elapsed.count());
 

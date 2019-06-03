@@ -13,8 +13,9 @@
 #include <memory>
 
 #include "ECS/Interfaces/IEntity.hpp"
-#include "ECS/Interfaces/IComponent.hpp"
+#include "ECS/Components/Renderer.hpp"
 #include "ECS/Abstracts/AComponent.hpp"
+#include "ECS/Interfaces/IComponent.hpp"
 #include "Exception/Engine/ECS/ECSException.hpp"
 
 namespace Engine::ECS {
@@ -83,4 +84,19 @@ public:
     {
         return _type;
     }
+
+    void show() noexcept final
+    {
+        try {
+            std::shared_ptr<Component::Renderer> renderer = std::dynamic_pointer_cast<Component::Renderer> (getComponentByID("Renderer"));
+            renderer->setDoRender(true);
+        } catch (...) {}
+    };
+    void hide() noexcept final
+    {
+        try {
+            std::shared_ptr<Component::Renderer> renderer = std::dynamic_pointer_cast<Component::Renderer> (getComponentByID("Renderer"));
+            renderer->setDoRender(false);
+        } catch (...) {}
+    };
 };

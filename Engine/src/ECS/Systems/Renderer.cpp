@@ -10,12 +10,14 @@
 
 #include "ECS/Components/Text.hpp"
 #include "ECS/Systems/Renderer.hpp"
+#include "ECS/Components/Model3D.hpp"
+#include "ECS/Components/Renderer.hpp"
 #include "Exception/Memory/MemoryException.hpp"
 #include "Exception/NotImplementedException.hpp"
 #include "Exception/Engine/ECS/ECSException.hpp"
 
 Engine::ECS::System::Renderer::Renderer(const std::wstring &windowName, const Engine::Math::Vec2u &windowSize)
-    : _windowName{windowName}, _windowSize{windowSize},
+    : _windowName{std::wstring{windowName}}, _windowSize{windowSize},
     _window{irr::createDevice(irr::video::EDT_OPENGL, irr::core::dimension2d<irr::u32>(_windowSize.x, _windowSize.y), 16, false, false, false, nullptr)},
     _videoDrivers{_window->getVideoDriver()},
     _sceneManager{_window->getSceneManager()},
@@ -34,16 +36,26 @@ Engine::ECS::System::Renderer::~Renderer()
 
 void Engine::ECS::System::Renderer::update(double)
 {
+    _GUIEnvironment->drawAll();
+    _sceneManager->drawAll();
     if (!_videoDrivers->endScene())
         throw ECSException<ECS_System>{"Display error"};
 }
 
-irr::scene::IAnimatedMeshSceneNode *Engine::ECS::System::Renderer::create3DModel(const std::string &model) const
+irr::scene::IAnimatedMeshSceneNode *Engine::ECS::System::Renderer::create3DModel(const std::string &model, const std::string &texture) const
 {
-    auto *mesh = _sceneManager->getMesh(model.c_str());
+    auto mesh = _sceneManager->getMesh(model.c_str());
     if (mesh == nullptr)
         throw MemoryException<Memory_Allocation_Failed>{"Failed to create Mesh"};
-    return _sceneManager->addAnimatedMeshSceneNode(mesh);
+    auto animatedMesh = _sceneManager->addAnimatedMeshSceneNode(mesh);
+    if (animatedMesh == nullptr)
+        throw MemoryException<Memory_Allocation_Failed>{"Failed to create Mesh"};
+    animatedMesh->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+    animatedMesh->setMaterialTexture(0, _videoDrivers->getTexture(texture.c_str()));
+    animatedMesh->setPosition(irr::core::vector3df{0, 0, 0});
+    animatedMesh->setFrameLoop(0, 4000);
+    animatedMesh->setVisible(true);
+    return animatedMesh;
 }
 
 irr::gui::IGUIFont *Engine::ECS::System::Renderer::createFont(const std::string &fontPath) const
@@ -51,11 +63,11 @@ irr::gui::IGUIFont *Engine::ECS::System::Renderer::createFont(const std::string 
     irr::gui::IGUIFont *font{nullptr};
 
     if (fontPath.empty())
-        font =  _window->getGUIEnvironment()->getBuiltInFont();
+        font = _window->getGUIEnvironment()->getBuiltInFont();
     else
-        font =  _window->getGUIEnvironment()->getFont(fontPath.c_str());
+        font = _window->getGUIEnvironment()->getFont(fontPath.c_str());
     if (font == nullptr)
-        throw MemoryException<Memory_Allocation_Failed>{"Failed to initialise the window"};
+        throw MemoryException<Memory_Allocation_Failed>{"Failed to create the font"};
     return font;
 }
 
@@ -69,6 +81,9 @@ void Engine::ECS::System::Renderer::draw(std::shared_ptr<Engine::ECS::IEntity> e
     switch (entity->getType()) {
         case Engine::ECS::IEntity::Type::TEXT:
             drawText(entity);
+            break;
+        case Engine::ECS::IEntity::Type::MODEL3D:
+            draw3DModel(entity);
         default:
             break;
     }
@@ -76,23 +91,21 @@ void Engine::ECS::System::Renderer::draw(std::shared_ptr<Engine::ECS::IEntity> e
 
 void Engine::ECS::System::Renderer::drawText(std::shared_ptr<Engine::ECS::IEntity> entity) const
 {
-    std::shared_ptr<Engine::ECS::Component::Text> _component = std::dynamic_pointer_cast<Engine::ECS::Component::Text> (entity->getComponentByID("Text"));
+    std::shared_ptr<Engine::ECS::Component::Renderer> renderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer> (entity->getComponentByID("Renderer"));
+    std::shared_ptr<Engine::ECS::Component::Text> text = std::dynamic_pointer_cast<Engine::ECS::Component::Text> (entity->getComponentByID("Text"));
+    if (renderer->doRender())
+        text->getFont()->draw(text->getString().c_str(), irr::core::rect<irr::s32>{text->getPos().x, text->getPos().y, 300, 50}, irr::video::SColor{text->getColor().a, text->getColor().r, text->getColor().g, text->getColor().b});
+}
 
-    _component->getFont()->draw(_component->getString().c_str(), irr::core::rect<irr::s32>{_component->getPos().x, _component->getPos().y, 300, 50}, irr::video::SColor{_component->getColor().a, _component->getColor().r, _component->getColor().g, _component->getColor().b});
+void Engine::ECS::System::Renderer::draw3DModel(std::shared_ptr<Engine::ECS::IEntity> entity) const
+{
+    std::shared_ptr<Engine::ECS::Component::Renderer> renderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer> (entity->getComponentByID("Renderer"));
+    std::shared_ptr<Engine::ECS::Component::Model3D> model = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D> (entity->getComponentByID("Model3D"));
+    renderer->doRender() ? model->getNode()->setVisible(true) : model->getNode()->setVisible(false);
 }
 
 void Engine::ECS::System::Renderer::refresh() const
 {
     if (!_videoDrivers->beginScene(true, true, irr::video::SColor(0, 0, 0, 0)))
         throw ECSException<ECS_System>{"Display error"};
-}
-
-void Engine::ECS::System::Renderer::show(std::shared_ptr<Engine::ECS::IEntity>) const
-{
-    // renderer->setDoRender(true);
-}
-
-void Engine::ECS::System::Renderer::hide(std::shared_ptr<Engine::ECS::IEntity>) const
-{
-    // renderer->setDoRender(false);
 }

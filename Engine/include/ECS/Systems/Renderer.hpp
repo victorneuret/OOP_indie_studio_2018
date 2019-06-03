@@ -40,11 +40,9 @@ public:
     void refresh() const;
     bool closeRequested() const noexcept;
 
-    irr::scene::IAnimatedMeshSceneNode *create3DModel(const std::string &res) const;
+    irr::scene::IAnimatedMeshSceneNode *create3DModel(const std::string &res, const std::string &texture) const;
     irr::gui::IGUIFont *createFont(const std::string &fontPath) const;
 
-    void drawText(std::shared_ptr<IEntity>) const;
-
-    void show(std::shared_ptr<IEntity>) const;
-    void hide(std::shared_ptr<IEntity>) const;
+    void drawText(std::shared_ptr<IEntity> entity) const;
+    void draw3DModel(std::shared_ptr<IEntity> entity) const;
 };

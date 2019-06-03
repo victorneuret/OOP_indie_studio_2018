@@ -24,7 +24,7 @@ void Engine::ECS::Component::Renderer::setDoRender(bool doRender) noexcept
     _doRender = doRender;
 }
 
-bool Engine::ECS::Component::Renderer::doRenderer() const noexcept
+bool Engine::ECS::Component::Renderer::doRender() const noexcept
 {
     return _doRender;
 }

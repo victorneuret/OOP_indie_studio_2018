@@ -19,7 +19,7 @@ namespace Engine::ECS::Component {
 
 class Engine::ECS::Component::Model3D : public Engine::ECS::AComponent<Engine::ECS::Component::Model3D> {
 protected:
-    irr::scene::IAnimatedMeshSceneNode *_node{nullptr}; // TODO Confirm Type
+    irr::scene::IAnimatedMeshSceneNode *_node{nullptr};
     std::string _model{};
     std::string _texture{};
 
