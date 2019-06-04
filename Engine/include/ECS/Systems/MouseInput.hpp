@@ -21,9 +21,10 @@ private:
         RIGHT,
         MIDDLE
     };
-    Engine::Math::Vec2<decltype(irr::SEvent::SMouseInput::X)> _pos;
+    Engine::Math::Vec2<decltype(irr::SEvent::SMouseInput::X)> _pos{};
 
 public:
+    MouseInput();
     bool OnEvent(irr::SEvent &event) final;
     const decltype(_pos) &pos() const noexcept;
 };

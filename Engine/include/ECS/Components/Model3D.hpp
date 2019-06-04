@@ -11,6 +11,7 @@
 
 #include "ECS/Systems/Renderer.hpp"
 #include "ECS/Abstracts/AComponent.hpp"
+#include "Math/Vector/Vec3.hpp"
 
 namespace Engine::ECS::Component {
     class Model3D;
@@ -24,7 +25,7 @@ protected:
     std::string _texture{};
 
 public:
-    Model3D(const Engine::ECS::System::Renderer &renderer, const std::string &model, const std::string &texture);
+    Model3D(const Engine::ECS::System::Renderer &renderer, const Engine::Math::Vec3f &pos, const std::string &model, const std::string &texture);
     Model3D(const Model3D &) = delete;
     Model3D &operator=(const Model3D &) = delete;
 

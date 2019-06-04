@@ -13,6 +13,7 @@
 
 #include "ECS/Interfaces/IEntity.hpp"
 #include "ECS/Abstracts/ASystem.hpp"
+#include "ECS/Systems/Renderer.hpp"
 
 constexpr int MAP_WIDTH = 11;
 constexpr int MAP_HEIGHT = 11;
@@ -31,6 +32,7 @@ private:
     void _createMap(std::vector<std::shared_ptr<Engine::ECS::IEntity>> &entities) noexcept;
 
 public:
+    Map();
     void update(double dt, std::vector<std::shared_ptr<Engine::ECS::IEntity>> &entities) final;
 };
 

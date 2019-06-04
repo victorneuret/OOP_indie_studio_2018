@@ -7,6 +7,10 @@
 
 #include "ECS/Systems/MouseInput.hpp"
 
+Engine::ECS::System::MouseInput::MouseInput()
+    : AInput{"MouseInput"}
+{}
+
 bool Engine::ECS::System::MouseInput::OnEvent(irr::SEvent &event)
 {
     if (event.EventType != irr::EET_MOUSE_INPUT_EVENT)

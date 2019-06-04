@@ -18,5 +18,7 @@ namespace Engine::ECS {
 class Engine::ECS::ISystem {
 public:
     virtual ~ISystem() = default;
+    virtual const std::string &getID() const noexcept = 0;
     virtual void update(double dt, std::vector<std::shared_ptr<IEntity>> &entities) = 0;
+
 };

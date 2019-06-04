@@ -11,6 +11,7 @@
 
 #include "ECS/Systems/Renderer.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
+#include "Math/Vector/Vec3.hpp"
 
 namespace Game::Entity {
     class Block;
@@ -18,7 +19,7 @@ namespace Game::Entity {
 
 class Game::Entity::Block : public Engine::ECS::AEntity<Block> {
 public:
-    explicit Block(const Engine::ECS::System::Renderer &renderer, const std::string &model = std::string("res/models/weapon.md2"), const std::string &texture = std::string("res/models/weapon.pcx"));
+    explicit Block(const Engine::ECS::System::Renderer &renderer, const Engine::Math::Vec3f &pos = {0, 0, 0}, const std::string &model = std::string("res/models/weapon.md2"), const std::string &texture = std::string("res/models/weapon.pcx"));
     Block(const Block &) = delete;
     Block &operator=(const Block &) = delete;
 

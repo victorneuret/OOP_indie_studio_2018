@@ -18,7 +18,8 @@
 #include "Exception/Engine/ECS/ECSException.hpp"
 
 Engine::ECS::System::Renderer::Renderer(const decltype(_windowName) &windowName, const decltype(_windowSize) &windowSize)
-    : _windowName{std::wstring{windowName}}, _windowSize{windowSize},
+    : ASystem{"Renderer"},
+    _windowName{std::wstring{windowName}}, _windowSize{windowSize},
     _window{irr::createDevice(irr::video::EDT_OPENGL, irr::core::dimension2d<irr::u32>(_windowSize.x, _windowSize.y), 16, false, false, false, nullptr)},
     _videoDrivers{_window->getVideoDriver()},
     _sceneManager{_window->getSceneManager()},
@@ -27,7 +28,7 @@ Engine::ECS::System::Renderer::Renderer(const decltype(_windowName) &windowName,
     if (_window == nullptr || _videoDrivers == nullptr || _sceneManager == nullptr || _GUIEnvironment == nullptr)
         throw ECSException<ECS_Renderer>{"Failed to initialise the window"};
     _window->setWindowCaption(_windowName.c_str());
-    _sceneManager->addCameraSceneNode(nullptr, irr::core::vector3df(100, 0, 0), irr::core::vector3df(0, 0, 0));
+    _sceneManager->addCameraSceneNode(nullptr, irr::core::vector3df(0, 200, 0), irr::core::vector3df(0, 0, 0));
 }
 
 Engine::ECS::System::Renderer::~Renderer()
@@ -52,7 +53,8 @@ irr::scene::IAnimatedMeshSceneNode *Engine::ECS::System::Renderer::create3DModel
     if (animatedMesh == nullptr)
         throw ECSException<ECS_Renderer>{"Failed to create animated Mesh"};
     animatedMesh->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    animatedMesh->setMaterialTexture(0, _videoDrivers->getTexture(texture.c_str()));
+    if (texture != "")
+        animatedMesh->setMaterialTexture(0, _videoDrivers->getTexture(texture.c_str()));
     animatedMesh->setPosition(irr::core::vector3df{0, 0, 0});
     animatedMesh->setFrameLoop(0, 4000);
     animatedMesh->setVisible(true);

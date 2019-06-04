@@ -10,6 +10,14 @@
 
 #include "Systems/Map.hpp"
 #include "Utils/Random.hpp"
+#include "Entities/Block.hpp"
+#include "ECS/Engine.hpp"
+#include "ECS/Systems/Renderer.hpp"
+#include "Math/Vector/Vec3.hpp"
+
+Game::System::Map::Map()
+    : ASystem("Map")
+{}
 
 void Game::System::Map::_createFirstSquare() noexcept
 {
@@ -63,12 +71,21 @@ void Game::System::Map::_duplicateHeight() noexcept
 
 void Game::System::Map::_createMap(std::vector<std::shared_ptr<Engine::ECS::IEntity>> &) noexcept
 {
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Engine::getInstance().getSystemsByID("Renderer"));
     _createFirstSquare();
     _duplicateWidth();
     _duplicateHeight();
 
     for (const auto &elem : _map)
         std::cout << elem << std::endl;
+    for (float i = 0; i < _map.size(); i++) {
+        for (float j = 0; j <= MAP_WIDTH; j++) {
+            if (_map[i][j] == '.') {
+                std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Entity::Block>(*renderer.get(), Engine::Math::Vec3f{i * 10, 0, (j * 10)}, "res/models/Burning_Cube_by_3DHaupt-(Wavefront OBJ).obj", "");
+                Engine::ECS::Engine::getInstance().addEntity(block);
+            }
+        }
+    }
 }
 
 void Game::System::Map::update(double, std::vector<std::shared_ptr<Engine::ECS::IEntity>> &entities)

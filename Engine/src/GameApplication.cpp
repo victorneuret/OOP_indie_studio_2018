@@ -15,6 +15,7 @@
 #include "Entities/Player.hpp"
 #include "Exception/AException.hpp"
 #include "Systems/Map.hpp"
+#include "Math/Vector/Vec3.hpp"
 
 Engine::GameApplication::GameApplication(const decltype(_title) &title, long width, long height)
     : GameApplication(title, Math::Vec2<irr::u32>(width, height))
@@ -22,8 +23,10 @@ Engine::GameApplication::GameApplication(const decltype(_title) &title, long wid
 }
 
 Engine::GameApplication::GameApplication(const decltype(_title) &title, const decltype(_dimensions) &dimensions)
-    : _title(decltype(_title)(title)), _dimensions(dimensions), _renderer(_title, dimensions)
+    : _title(decltype(_title)(title)), _dimensions(dimensions)
 {
+    std::shared_ptr<Engine::ECS::ISystem> renderer = std::make_shared<Engine::ECS::System::Renderer>(_title, _dimensions);
+    Engine::ECS::Engine::getInstance().addSystem(renderer);
 }
 
 void Engine::GameApplication::_loop()
@@ -31,31 +34,31 @@ void Engine::GameApplication::_loop()
     std::chrono::duration<double> elapsed = std::chrono::seconds(0);
     auto begin = std::chrono::system_clock::now();
     decltype(begin) end;
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Engine::getInstance().getSystemsByID("Renderer"));
 
-    Engine::ECS::Engine engine;
 
-    std::shared_ptr<Engine::ECS::IEntity> entity1 = std::make_shared<Game::Entity::Player>(_renderer);
-    engine.addEntity(entity1);
-    std::shared_ptr<Engine::ECS::IEntity> entity2 = std::make_shared<Game::Entity::Block>(_renderer);
-    engine.addEntity(entity2);
-    std::shared_ptr<Engine::ECS::IEntity> entity3 = std::make_shared<Game::Entity::Text>(_renderer, L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0});
-    engine.addEntity(entity3);
-    std::shared_ptr<Engine::ECS::IEntity> entity4 = std::make_shared<Game::Entity::Button>(_renderer, Math::Rect_i{75, 15, 500, 30}, L"Un Button");
-    engine.addEntity(entity4);
+    std::shared_ptr<Engine::ECS::IEntity> entity1 = std::make_shared<Game::Entity::Player>(*renderer);
+    Engine::ECS::Engine::getInstance().addEntity(entity1);
+    std::shared_ptr<Engine::ECS::IEntity> entity2 = std::make_shared<Game::Entity::Block>(*renderer);
+    Engine::ECS::Engine::getInstance().addEntity(entity2);
+    std::shared_ptr<Engine::ECS::IEntity> entity3 = std::make_shared<Game::Entity::Text>(*renderer, L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0});
+    Engine::ECS::Engine::getInstance().addEntity(entity3);
+    std::shared_ptr<Engine::ECS::IEntity> entity4 = std::make_shared<Game::Entity::Button>(*renderer, Math::Rect_i{75, 15, 500, 30}, L"Un Button");
+    Engine::ECS::Engine::getInstance().addEntity(entity4);
     std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();
-    engine.addSystem(map);
+    Engine::ECS::Engine::getInstance().addSystem(map);
 
-    while (!_renderer.closeRequested()) {
-        _renderer.refresh();
+    while (!renderer->closeRequested()) {
+        renderer->refresh();
         tick(elapsed.count());
 
-        for (const auto &entity : engine.getEntities()) {
-            _renderer.draw(entity);
+        for (const auto &entity : Engine::ECS::Engine::getInstance().getEntities()) {
+            renderer->draw(entity);
             // entity->hide();
             // entity->show();
         }
-        map->update(elapsed.count(), engine.getEntities());
-        _renderer.update(elapsed.count(), engine.getEntities());
+        map->update(elapsed.count(), Engine::ECS::Engine::getInstance().getEntities());
+        renderer->update(elapsed.count(), Engine::ECS::Engine::getInstance().getEntities());
 
 
         end = std::chrono::system_clock::now();
@@ -88,9 +91,4 @@ decltype(Engine::GameApplication::_title) &Engine::GameApplication::getTitle() c
 decltype(Engine::GameApplication::_dimensions) &Engine::GameApplication::getDimensions() const noexcept
 {
     return _dimensions;
-}
-
-decltype(Engine::GameApplication::_renderer) &Engine::GameApplication::getRenderer() noexcept
-{
-    return _renderer;
 }
