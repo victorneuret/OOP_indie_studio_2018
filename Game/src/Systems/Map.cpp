@@ -11,43 +11,61 @@
 #include "Systems/Map.hpp"
 #include "Utils/Random.hpp"
 
-void Game::System::Map::_createMap(std::vector<std::shared_ptr<Engine::ECS::IEntity>> &) noexcept
+void Game::System::Map::_createFirstSquare() noexcept
 {
-    std::string widthString;
-    std::string halfWidthString;
+    std::string str;
     uint64_t randomValue = 0;
-    decltype(_map) mapCopy;
 
     for (size_t i = 0; i < (MAP_HEIGHT + (MAP_HEIGHT % 2)) / 2; i++) {
-        widthString.clear();
-        halfWidthString.clear();
+        str.clear();
 
         for (size_t iChar = 0; iChar < (MAP_WIDTH + (MAP_WIDTH % 2)) / 2; iChar++) {
             randomValue = Random::getUnsigned(0, 5);
             switch (randomValue) {
-                case 0: widthString.append("0"); break;
-                case 1: widthString.append("#"); break;
-                default: widthString.append(".");
+                case 0: str.append("0"); break;
+                case 1: str.append("#"); break;
+                default: str.append(".");
             }
         }
 
         if (_map.size() == 0) {
-            widthString[0] = '0';
-            widthString[1] = '0';
+            str[0] = '0';
+            str[1] = '0';
         } else if (_map.size() == 1) {
-            widthString[0] = '0';
+            str[0] = '0';
         }
 
-        halfWidthString.append(widthString);
-        std::reverse(halfWidthString.begin(), halfWidthString.end());
-        widthString.append(halfWidthString);
-
-        _map.push_back(widthString);
+        _map.push_back(str);
     }
-    mapCopy = _map;
+}
+
+void Game::System::Map::_duplicateWidth() noexcept
+{
+    std::string copy;
+
+    for (auto &elem : _map) {
+        copy.clear();
+        copy.append(elem);
+        std::reverse(copy.begin(), copy.end());
+        elem.append(copy);
+    }
+}
+
+void Game::System::Map::_duplicateHeight() noexcept
+{
+    decltype(_map) mapCopy = _map;
+
     std::reverse(mapCopy.begin(), mapCopy.end());
     for (const auto &elem : mapCopy)
         _map.push_back(elem);
+}
+
+
+void Game::System::Map::_createMap(std::vector<std::shared_ptr<Engine::ECS::IEntity>> &) noexcept
+{
+    _createFirstSquare();
+    _duplicateWidth();
+    _duplicateHeight();
 
     for (const auto &elem : _map)
         std::cout << elem << std::endl;

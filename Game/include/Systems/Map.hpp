@@ -25,6 +25,9 @@ class Game::System::Map : public Engine::ECS::ASystem<Map> {
 private:
     std::vector<std::string> _map{};
 
+    void _createFirstSquare() noexcept;
+    void _duplicateWidth() noexcept;
+    void _duplicateHeight() noexcept;
     void _createMap(std::vector<std::shared_ptr<Engine::ECS::IEntity>> &entities) noexcept;
 
 public:
