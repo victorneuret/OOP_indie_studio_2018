@@ -23,14 +23,14 @@ namespace Engine::ECS::Component {
 class Engine::ECS::Component::Renderer : public AComponent<Renderer> {
 protected:
     bool _doRender{true};
-    Math::Vec2<int32_t> _pos{0, 0};
+    Math::Vec2i _pos{0, 0};
 
 public:
-    Renderer(Math::Vec2<int32_t> pos = Math::Vec2<int32_t>{0, 0});
+    explicit Renderer(const decltype(_pos) &pos = Math::Vec2i{0, 0});
     Renderer(const Renderer &) = delete;
     Renderer &operator=(const Renderer &) = delete;
 
-    ~Renderer();
+    ~Renderer() override = default;
 
     void setDoRender(bool doRender) noexcept;
     decltype(_doRender) doRender() const noexcept;

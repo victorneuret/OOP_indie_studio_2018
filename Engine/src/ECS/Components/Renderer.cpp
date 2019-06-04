@@ -11,13 +11,10 @@
 #include "Exception/Memory/MemoryException.hpp"
 #include "Exception/NotImplementedException.hpp"
 
-Engine::ECS::Component::Renderer::Renderer(Engine::Math::Vec2<int32_t> pos)
+Engine::ECS::Component::Renderer::Renderer(const decltype(_pos) &pos)
     : AComponent{"Renderer"}, _pos{pos}
 {
 }
-
-Engine::ECS::Component::Renderer::~Renderer()
-{}
 
 void Engine::ECS::Component::Renderer::setDoRender(bool doRender) noexcept
 {

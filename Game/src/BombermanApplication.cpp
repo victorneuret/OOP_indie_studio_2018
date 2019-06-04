@@ -5,7 +5,7 @@
 ** BombermanApplication.cpp
 */
 
-#include "Logger.hpp"
+#include "Utils/Logger.hpp"
 #include "BombermanApplication.hpp"
 
 BombermanApplication::BombermanApplication()

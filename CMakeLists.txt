@@ -21,8 +21,8 @@ include_directories(
 
 add_library(
     engine STATIC
-    Engine/src/Logger.cpp
-    Engine/include/Logger.hpp
+    Engine/src/Utils/Logger.cpp
+    Engine/include/Utils/Logger.hpp
     Engine/include/ECS/Interfaces/IComponent.hpp
     Engine/include/ECS/Abstracts/AComponent.hpp
     Engine/src/ECS/Components/Chrono.cpp

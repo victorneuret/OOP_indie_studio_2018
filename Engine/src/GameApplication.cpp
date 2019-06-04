@@ -5,7 +5,7 @@
 ** GameApplication.cpp
 */
 
-#include "Logger.hpp"
+#include "Utils/Logger.hpp"
 #include "ECS/Engine.hpp"
 #include "Utils/Colors.hpp"
 #include "Entities/Text.hpp"
@@ -28,7 +28,7 @@ void Engine::GameApplication::_loop()
 {
     std::chrono::duration<double> elapsed = std::chrono::seconds(0);
     auto begin = std::chrono::system_clock::now();
-    auto end = begin;
+    decltype(begin) end;
 
     Engine::ECS::Engine engine;
 
@@ -36,7 +36,7 @@ void Engine::GameApplication::_loop()
     engine.addEntity(entity1);
     std::shared_ptr<Engine::ECS::IEntity> entity2 = std::make_shared<Game::Entity::Block> (_renderer);
     engine.addEntity(entity2);
-    std::shared_ptr<Engine::ECS::IEntity> entity3 = std::make_shared<Game::Entity::Text> (_renderer, L"Un test", Engine::Math::Vec2<int32_t>{50, 50}, Engine::Utils::Color{0, 255, 0});
+    std::shared_ptr<Engine::ECS::IEntity> entity3 = std::make_shared<Game::Entity::Text> (_renderer, L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0});
     engine.addEntity(entity3);
 
     while (!_renderer.closeRequested()) {

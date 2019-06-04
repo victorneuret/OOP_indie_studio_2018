@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <memory>
 
+#include "Utils/Logger.hpp"
 #include "ECS/Interfaces/IEntity.hpp"
 #include "ECS/Components/Renderer.hpp"
 #include "ECS/Abstracts/AComponent.hpp"
@@ -32,25 +33,25 @@ namespace Engine::ECS {
 template<typename T>
 class Engine::ECS::AEntity : public IEntity {
 protected:
-    const size_t _id;
+    size_t _id;
     Type _type{};
     std::vector<std::shared_ptr<IComponent>> _components{};
 
 
 public:
-    AEntity(const Type type)
+    explicit AEntity(const decltype(_type) type)
         : _id{getNextEntityID()}, _type{type}
     {
     }
 
     ~AEntity() override = default;
 
-    size_t getID() const noexcept final
+    decltype(_id) getID() const noexcept final
     {
         return _id;
     };
 
-    const std::vector<std::shared_ptr<IComponent>> &getComponents() const noexcept
+    const std::vector<std::shared_ptr<IComponent>> &getComponents() const noexcept final
     {
         return _components;
     };
@@ -70,7 +71,7 @@ public:
         _components.erase(pos);
     };
 
-    std::shared_ptr<IComponent> &getComponentByID(const std::string &id)
+    std::shared_ptr<IComponent> &getComponentByID(const std::string &id) override
     {
         auto pos = std::find_if(_components.begin(), _components.end(), [id](const std::shared_ptr<IComponent> &component) {
             return (component->getID() == id);
@@ -90,13 +91,17 @@ public:
         try {
             std::shared_ptr<Component::Renderer> renderer = std::dynamic_pointer_cast<Component::Renderer> (getComponentByID("Renderer"));
             renderer->setDoRender(true);
-        } catch (...) {}
+        } catch (const AException &exception) {
+            Logger::getInstance().warning(exception.what());
+        }
     };
     void hide() noexcept final
     {
         try {
             std::shared_ptr<Component::Renderer> renderer = std::dynamic_pointer_cast<Component::Renderer> (getComponentByID("Renderer"));
             renderer->setDoRender(false);
-        } catch (...) {}
+        } catch (const AException &exception) {
+            Logger::getInstance().warning(exception.what());
+        }
     };
 };

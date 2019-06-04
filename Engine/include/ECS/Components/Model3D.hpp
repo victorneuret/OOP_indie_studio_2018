@@ -28,7 +28,7 @@ public:
     Model3D(const Model3D &) = delete;
     Model3D &operator=(const Model3D &) = delete;
 
-    decltype(_model) getModel() const noexcept;
-    decltype(_texture) getTexture() const noexcept;
-    decltype(_node) getNode() const noexcept;
+    decltype(_model) &getModel() noexcept;
+    decltype(_texture) &getTexture() noexcept;
+    decltype(_node) &getNode() noexcept;
 };

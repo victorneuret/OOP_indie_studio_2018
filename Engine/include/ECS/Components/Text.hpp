@@ -21,7 +21,7 @@ namespace Engine::ECS::Component {
 class Engine::ECS::Component::Text : public Engine::ECS::AComponent<Engine::ECS::Component::Text> {
 protected:
     std::wstring _string{};
-    Math::Vec2<int32_t> _pos{};
+    Math::Vec2i _pos{};
     Engine::Utils::Color _color{255, 255, 255};
     std::string _fontPath{};
     irr::gui::IGUIFont *_font{nullptr};

@@ -12,17 +12,17 @@ Engine::ECS::Component::Model3D::Model3D(const Engine::ECS::System::Renderer &re
 {
 }
 
-decltype(Engine::ECS::Component::Model3D::_model) Engine::ECS::Component::Model3D::getModel() const noexcept
+decltype(Engine::ECS::Component::Model3D::_model) &Engine::ECS::Component::Model3D::getModel() noexcept
 {
     return _model;
 }
 
-decltype(Engine::ECS::Component::Model3D::_texture) Engine::ECS::Component::Model3D::getTexture() const noexcept
+decltype(Engine::ECS::Component::Model3D::_texture) &Engine::ECS::Component::Model3D::getTexture() noexcept
 {
     return _texture;
 }
 
-decltype(Engine::ECS::Component::Model3D::_node) Engine::ECS::Component::Model3D::getNode() const noexcept
+decltype(Engine::ECS::Component::Model3D::_node) &Engine::ECS::Component::Model3D::getNode() noexcept
 {
     return _node;
 }
