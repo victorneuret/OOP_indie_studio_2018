@@ -40,5 +40,4 @@ public:
     virtual decltype(_entities) &getEntities() noexcept;
     virtual const decltype(_entities) &getEntities() const noexcept;
     virtual void updateChild(bool updateChild);
-    virtual SceneType getType() const noexcept;
 };

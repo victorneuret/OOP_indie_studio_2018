@@ -52,8 +52,3 @@ void Engine::AScene::updateChild(const bool updateChild)
 {
     _updateChild = updateChild;
 }
-
-Engine::AScene::SceneType Engine::AScene::getType() const noexcept
-{
-    return _type;
-}
