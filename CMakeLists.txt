@@ -21,17 +21,16 @@ include_directories(
 
 add_library(
     engine STATIC
-    Engine/src/Logger.cpp
-    Engine/include/Logger.hpp
+    Engine/src/Utils/Logger.cpp
+    Engine/include/Utils/Logger.hpp
     Engine/include/ECS/Interfaces/IComponent.hpp
     Engine/include/ECS/Abstracts/AComponent.hpp
     Engine/src/ECS/Components/Chrono.cpp
     Engine/include/ECS/Components/Chrono.hpp
     Engine/include/ECS/Interfaces/IEntity.hpp
-    Engine/include/ECS/Entities/AEntity.hpp
     Engine/include/Math/Vector/Vec2.hpp
     Engine/include/Math/Vector/Vec3.hpp
-    Engine/include/Math/Vector/Rect.hpp
+    Engine/include/Math/Rect.hpp
     Engine/include/Exception/AException.hpp
     Engine/include/Exception/Engine/EngineException.hpp
     Engine/include/Exception/Exception.hpp
@@ -54,8 +53,18 @@ add_library(
     Engine/include/Utils/TypeDisplayer.hpp
     Engine/include/GameApplication.hpp
     Engine/src/GameApplication.cpp
-    Engine/src/IrrLichtContext.cpp
-    Engine/include/IrrLichtContext.hpp
+    Engine/include/ECS/Components/Renderer.hpp
+    Engine/src/ECS/Components/Renderer.cpp
+    Engine/include/ECS/Systems/Renderer.hpp
+    Engine/src/ECS/Systems/Renderer.cpp
+    Engine/include/ECS/Components/Timer.hpp
+    Engine/src/ECS/Components/Timer.cpp
+    Engine/include/Utils/Colors.hpp
+    Engine/src/Utils/Color.cpp
+    Engine/include/ECS/Components/Model3D.hpp
+    Engine/src/ECS/Components/Model3D.cpp
+    Engine/include/ECS/Components/Text.hpp
+    Engine/src/ECS/Components/Text.cpp
 )
 
 add_executable(
@@ -63,6 +72,12 @@ add_executable(
     Game/src/Main.cpp
     Game/src/BombermanApplication.cpp
     Game/include/BombermanApplication.hpp
+    Game/include/Entities/Block.hpp
+    Game/src/Entities/Block.cpp
+    Game/include/Entities/Player.hpp
+    Game/src/Entities/Player.cpp
+    Game/include/Entities/Text.hpp
+    Game/src/Entities/Text.cpp
 )
 
 target_link_libraries(bomberman engine Irrlicht sfml-audio)

@@ -24,7 +24,6 @@ namespace Engine::Math {
 template<typename T>
 class Engine::Math::Vec2 {
 public:
-
     T x{0};
     T y{0};
 

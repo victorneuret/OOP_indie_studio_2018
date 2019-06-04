@@ -19,7 +19,7 @@
     #include <sys/stat.h>
 #endif
 
-#include "Logger.hpp"
+#include "Utils/Logger.hpp"
 #include "Exception/NotImplementedException.hpp"
 #include "Exception/Memory/MemoryException.hpp"
 #include "Exception/Permission/PermissionException.hpp"

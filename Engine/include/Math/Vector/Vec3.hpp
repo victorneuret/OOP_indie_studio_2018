@@ -13,17 +13,17 @@
 namespace Engine::Math {
     template<typename T>
     class Vec3;
-}
 
-template<typename T>
-class Engine::Math::Vec3 {
-public:
     using Vec3f = Vec3<float>;
     using Vec3d = Vec3<double>;
     using Vec3i = Vec3<int>;
     using Vec3u = Vec3<unsigned int>;
     using Vec3l = Vec3<long>;
+}
 
+template<typename T>
+class Engine::Math::Vec3 {
+public:
     T x{0};
     T y{0};
     T z{0};

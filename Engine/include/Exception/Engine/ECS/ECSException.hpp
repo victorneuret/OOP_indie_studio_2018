@@ -12,7 +12,8 @@
 enum ECSExceptionType {
     ECS_Entity,
     ECS_Component,
-    ECS_System
+    ECS_System,
+    ECS_Renderer
 };
 
 template<ECSExceptionType Type>

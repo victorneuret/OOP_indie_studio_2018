@@ -15,17 +15,17 @@
 namespace Engine::Math {
     template<typename T>
     class Rect;
-}
 
-template<typename T>
-class Engine::Math::Rect {
-public:
     using Rect_f = Rect<float>;
     using Rect_d = Rect<double>;
     using Rect_i = Rect<int>;
     using Rect_u = Rect<unsigned int>;
     using Rect_l = Rect<long>;
+}
 
+template<typename T>
+class Engine::Math::Rect {
+public:
     T x{0};
     T y{0};
     T w{0};
