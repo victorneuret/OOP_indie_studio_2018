@@ -7,6 +7,10 @@
 
 #pragma once
 
+#include <vector>
+
+#include "ECS/Interfaces/IEntity.hpp"
+
 namespace Engine::ECS {
     class ISystem;
 }
@@ -14,5 +18,5 @@ namespace Engine::ECS {
 class Engine::ECS::ISystem {
 public:
     virtual ~ISystem() = default;
-    virtual void update(double dt) = 0;
+    virtual void update(double dt, std::vector<std::shared_ptr<IEntity>> entities) = 0;
 };

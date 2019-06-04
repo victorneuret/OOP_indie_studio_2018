@@ -34,7 +34,7 @@ Engine::ECS::System::Renderer::~Renderer()
     _window->drop();
 }
 
-void Engine::ECS::System::Renderer::update(double)
+void Engine::ECS::System::Renderer::update(double, std::vector<std::shared_ptr<IEntity>>)
 {
     _GUIEnvironment->drawAll();
     _sceneManager->drawAll();

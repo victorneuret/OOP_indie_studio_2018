@@ -48,7 +48,7 @@ void Engine::GameApplication::_loop()
             // entity->hide();
             // entity->show();
         }
-        _renderer.update(elapsed.count());
+        _renderer.update(elapsed.count(), engine.getEntities());
 
         end = std::chrono::system_clock::now();
         elapsed = end - begin;

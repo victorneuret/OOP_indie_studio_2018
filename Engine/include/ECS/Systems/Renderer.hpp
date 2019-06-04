@@ -35,7 +35,7 @@ public:
     Renderer(const Renderer &) = delete;
     ~Renderer() override;
 
-    void update(double dt) override;
+    void update(double dt, std::vector<std::shared_ptr<IEntity>>) override;
     void draw(const std::shared_ptr<IEntity> &entity) const;
     void refresh() const;
     bool closeRequested() const noexcept;
