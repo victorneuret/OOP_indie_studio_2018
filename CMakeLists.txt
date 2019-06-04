@@ -65,6 +65,8 @@ add_library(
     Engine/src/ECS/Components/Model3D.cpp
     Engine/include/ECS/Components/Text.hpp
     Engine/src/ECS/Components/Text.cpp
+    Engine/include/AScene.hpp
+    Engine/src/AScene.cpp
 )
 
 add_executable(

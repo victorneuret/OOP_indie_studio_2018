@@ -31,24 +31,24 @@ void Engine::GameApplication::_loop()
     decltype(begin) end;
 
     Engine::ECS::Engine engine;
+    std::vector<std::shared_ptr<Engine::ECS::IEntity>> entities{
+        std::make_shared<Game::Entity::Player> (_renderer),
+        std::make_shared<Game::Entity::Block> (_renderer),
+        std::make_shared<Game::Entity::Text> (_renderer, L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0})
+    };
 
-    std::shared_ptr<Engine::ECS::IEntity> entity1 = std::make_shared<Game::Entity::Player> (_renderer);
-    engine.addEntity(entity1);
-    std::shared_ptr<Engine::ECS::IEntity> entity2 = std::make_shared<Game::Entity::Block> (_renderer);
-    engine.addEntity(entity2);
-    std::shared_ptr<Engine::ECS::IEntity> entity3 = std::make_shared<Game::Entity::Text> (_renderer, L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0});
-    engine.addEntity(entity3);
+    Engine::AScene defaultScene(Engine::AScene::SceneType::GAME, entities, false, false);
 
     while (!_renderer.closeRequested()) {
         _renderer.refresh();
         tick(elapsed.count());
 
-        for (const auto &entity : engine.getEntities()) {
+        for (const auto &entity : defaultScene.getEntities()) {
             _renderer.draw(entity);
             // entity->hide();
             // entity->show();
         }
-        _renderer.update(elapsed.count(), engine.getEntities());
+        _renderer.update(elapsed.count(), defaultScene.getEntities());
 
         end = std::chrono::system_clock::now();
         elapsed = end - begin;
