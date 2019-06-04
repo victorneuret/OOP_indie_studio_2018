@@ -8,7 +8,8 @@
 #pragma once
 
 #include <vector>
-#include <ECS/Interfaces/IEntity.hpp>
+
+#include "ECS/Interfaces/IEntity.hpp"
 
 namespace Engine::ECS {
     class ISystem;
