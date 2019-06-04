@@ -76,6 +76,7 @@ add_library(
     Engine/src/ECS/Systems/Audio.cpp
     Engine/include/ECS/Systems/Audio.hpp
     Engine/include/Exception/Engine/ECS/Systems/SoundException.hpp
+    Engine/include/ECS/Components/Slider.hpp
 )
 
 add_executable(
