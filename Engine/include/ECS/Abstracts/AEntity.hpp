@@ -17,6 +17,7 @@
 #include "ECS/Components/Renderer.hpp"
 #include "ECS/Abstracts/AComponent.hpp"
 #include "ECS/Interfaces/IComponent.hpp"
+#include "Exception/Memory/MemoryException.hpp"
 #include "Exception/Engine/ECS/ECSException.hpp"
 
 namespace Engine::ECS {
@@ -58,6 +59,8 @@ public:
 
     void addComponent(std::shared_ptr<IComponent> &component)
     {
+        if (component == nullptr)
+            throw MemoryException<Memory_Allocation_Failed>{"cannot add a null component"};
         _components.push_back(component);
     };
 
@@ -89,7 +92,7 @@ public:
     void show() noexcept final
     {
         try {
-            std::shared_ptr<Component::Renderer> renderer = std::dynamic_pointer_cast<Component::Renderer> (getComponentByID("Renderer"));
+            std::shared_ptr<Component::Renderer> renderer = std::dynamic_pointer_cast<Component::Renderer>(getComponentByID("Renderer"));
             renderer->setDoRender(true);
         } catch (const AException &exception) {
             Logger::getInstance().warning(exception.what());
@@ -98,7 +101,7 @@ public:
     void hide() noexcept final
     {
         try {
-            std::shared_ptr<Component::Renderer> renderer = std::dynamic_pointer_cast<Component::Renderer> (getComponentByID("Renderer"));
+            std::shared_ptr<Component::Renderer> renderer = std::dynamic_pointer_cast<Component::Renderer>(getComponentByID("Renderer"));
             renderer->setDoRender(false);
         } catch (const AException &exception) {
             Logger::getInstance().warning(exception.what());

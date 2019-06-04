@@ -20,11 +20,11 @@ namespace Engine::ECS::Component {
 class Engine::ECS::Component::Button : public Engine::ECS::AComponent<Engine::ECS::Component::Button> {
 protected:
     std::wstring _text{};
-    Engine::Math::Rect_i _pos{};
+    Engine::Math::Rect_i _bounds{};
     irr::gui::IGUIButton *_button{nullptr};
 
 public:
-    Button(const Engine::ECS::System::Renderer &renderer, const decltype(_pos) &pos, const decltype(_text) &text);
+    Button(const Engine::ECS::System::Renderer &renderer, const decltype(_bounds) &pos, const decltype(_text) &text);
     Button(const Button &) = delete;
     Button &operator=(const Button &) = delete;
 

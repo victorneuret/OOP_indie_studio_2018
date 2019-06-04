@@ -7,8 +7,8 @@
 
 #include "ECS/Components/Button.hpp"
 
-Engine::ECS::Component::Button::Button(const Engine::ECS::System::Renderer &renderer, const decltype(_pos) &pos, const decltype(_text) &text)
-    : AComponent{"Button"}, _text{std::wstring{text}}, _pos{pos}, _button{renderer.createButton(_pos, _text)}
+Engine::ECS::Component::Button::Button(const Engine::ECS::System::Renderer &renderer, const decltype(_bounds) &pos, const decltype(_text) &text)
+    : AComponent{"Button"}, _text{std::wstring{text}}, _bounds{pos}, _button{renderer.createButton(_bounds, _text)}
 {
 }
 

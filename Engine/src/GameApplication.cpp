@@ -33,13 +33,13 @@ void Engine::GameApplication::_loop()
 
     Engine::ECS::Engine engine;
 
-    std::shared_ptr<Engine::ECS::IEntity> entity1 = std::make_shared<Game::Entity::Player> (_renderer);
+    std::shared_ptr<Engine::ECS::IEntity> entity1 = std::make_shared<Game::Entity::Player>(_renderer);
     engine.addEntity(entity1);
-    std::shared_ptr<Engine::ECS::IEntity> entity2 = std::make_shared<Game::Entity::Block> (_renderer);
+    std::shared_ptr<Engine::ECS::IEntity> entity2 = std::make_shared<Game::Entity::Block>(_renderer);
     engine.addEntity(entity2);
-    std::shared_ptr<Engine::ECS::IEntity> entity3 = std::make_shared<Game::Entity::Text> (_renderer, L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0});
+    std::shared_ptr<Engine::ECS::IEntity> entity3 = std::make_shared<Game::Entity::Text>(_renderer, L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0});
     engine.addEntity(entity3);
-    std::shared_ptr<Engine::ECS::IEntity> entity4 = std::make_shared<Game::Entity::Button> (_renderer, Math::Rect_i{75, 15, 500, 30}, L"Un Button");
+    std::shared_ptr<Engine::ECS::IEntity> entity4 = std::make_shared<Game::Entity::Button>(_renderer, Math::Rect_i{75, 15, 500, 30}, L"Un Button");
     engine.addEntity(entity4);
 
     while (!_renderer.closeRequested()) {
