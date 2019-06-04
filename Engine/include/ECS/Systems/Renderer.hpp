@@ -11,6 +11,7 @@
 #include <memory>
 #include <irrlicht/irrlicht.h>
 
+#include "Math/Rect.hpp"
 #include "Math/Vector/Vec2.hpp"
 #include "ECS/Abstracts/ASystem.hpp"
 #include "ECS/Interfaces/IEntity.hpp"
@@ -42,7 +43,9 @@ public:
 
     irr::scene::IAnimatedMeshSceneNode *create3DModel(const std::string &res, const std::string &texture) const;
     irr::gui::IGUIFont *createFont(const std::string &fontPath) const;
+    irr::gui::IGUIButton *createButton(const ::Engine::Math::Rect<int32_t> &pos, const std::wstring &text) const;
 
     void drawText(const std::shared_ptr<IEntity> &entity) const;
     void draw3DModel(const std::shared_ptr<IEntity> &entity) const;
+    void drawButton(const std::shared_ptr<IEntity> &entity) const;
 };

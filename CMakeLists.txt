@@ -65,6 +65,8 @@ add_library(
     Engine/src/ECS/Components/Model3D.cpp
     Engine/include/ECS/Components/Text.hpp
     Engine/src/ECS/Components/Text.cpp
+    Engine/include/ECS/Components/Button.hpp
+    Engine/src/ECS/Components/Button.cpp
 )
 
 add_executable(
@@ -78,6 +80,8 @@ add_executable(
     Game/src/Entities/Player.cpp
     Game/include/Entities/Text.hpp
     Game/src/Entities/Text.cpp
+    Game/include/Entities/Button.hpp
+    Game/src/Entities/Button.cpp
 )
 
 target_link_libraries(bomberman engine Irrlicht sfml-audio)
