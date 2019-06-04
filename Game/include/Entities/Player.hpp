@@ -24,8 +24,7 @@ protected:
     Engine::Math::Vec3d _pos{0, 0, 0};
 
 public:
-    explicit Player(const Engine::Math::Vec3f &pos = {0, 0, 0},
-                    const std::string &model = std::string("assets/models/tris.md2"));
+    explicit Player(const Engine::ECS::System::Renderer &renderer, const Engine::Math::Vec3f &pos = {0, 0, 0}, const std::string &model = std::string("assets/models/tris.md2"), const std::string &texture = std::string("assets/models/blade_blue2.pcx"));
     Player(const Player &) = delete;
     Player &operator=(const Player &) = delete;
 

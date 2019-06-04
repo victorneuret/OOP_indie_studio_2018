@@ -15,6 +15,7 @@
 #include "ECS/Manager.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "Math/Vector/Vec3.hpp"
+#include "AScene.hpp"
 
 Game::System::Map::Map()
     : ASystem("Map")

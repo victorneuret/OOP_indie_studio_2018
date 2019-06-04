@@ -80,6 +80,8 @@ add_library(
     Engine/src/ECS/Components/Slider.cpp
     Engine/include/ECS/Interfaces/Entities/IClickable.hpp
     Engine/include/ECS/Interfaces/Entities/IHoverable.hpp
+    Engine/include/AScene.hpp
+    Engine/src/AScene.cpp
 )
 
 add_executable(

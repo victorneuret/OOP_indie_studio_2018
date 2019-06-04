@@ -57,7 +57,21 @@ void Engine::GameApplication::_loop()
     std::chrono::duration<double> elapsed = std::chrono::seconds(0);
     auto begin = std::chrono::system_clock::now();
     decltype(begin) end;
-    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(_ecsManager.getSystemsByID("Renderer"));
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemsByID("Renderer"));
+
+
+    std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();
+    Engine::ECS::Manager::getInstance().addSystem(map);
+
+    std::vector<std::shared_ptr<Engine::ECS::IEntity>> entities{
+        std::make_shared<Game::Entity::Player>(*renderer),
+        std::make_shared<Game::Entity::Block>(*renderer),
+        std::make_shared<Game::Entity::Text>(*renderer, L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0}),
+        std::make_shared<Game::Entity::Button>(*renderer, Math::Rect_i{75, 15, 500, 30}, L"Un Button")
+    };
+
+    Engine::AScene defaultScene(Engine::AScene::SceneType::GAME, entities, false, false);
+    Engine::ECS::Manager::getInstance().addScene(defaultScene);
 
     while (!renderer->closeRequested()) {
         auto dt = elapsed.count();
