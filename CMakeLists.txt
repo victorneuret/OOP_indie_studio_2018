@@ -85,7 +85,7 @@ add_executable(
     Game/include/Entities/Button.hpp
     Game/src/Entities/Button.cpp
     Game/src/Systems/Map.cpp
-    Game/src/Systems/Map.hpp
+    Game/include/Systems/Map.hpp
 )
 
 target_link_libraries(bomberman engine Irrlicht sfml-audio)
