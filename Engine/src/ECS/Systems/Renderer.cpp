@@ -114,14 +114,14 @@ void Engine::ECS::System::Renderer::draw3DModel(const std::shared_ptr<Engine::EC
 {
     std::shared_ptr<Engine::ECS::Component::Renderer> renderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer> (entity->getComponentByID("Renderer"));
     std::shared_ptr<Engine::ECS::Component::Model3D> model = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D> (entity->getComponentByID("Model3D"));
-    renderer->doRender() ? model->getNode()->setVisible(true) : model->getNode()->setVisible(false);
+    model->getNode()->setVisible(renderer->doRender());
 }
 
 void Engine::ECS::System::Renderer::drawButton(const std::shared_ptr<Engine::ECS::IEntity> &entity) const
 {
     std::shared_ptr<Engine::ECS::Component::Renderer> renderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer> (entity->getComponentByID("Renderer"));
     std::shared_ptr<Engine::ECS::Component::Button> button = std::dynamic_pointer_cast<Engine::ECS::Component::Button> (entity->getComponentByID("Button"));
-    renderer->doRender() ? button->getButton()->setVisible(true) : button->getButton()->setVisible(false);
+    button->getButton()->setVisible(renderer->doRender());
 }
 
 void Engine::ECS::System::Renderer::refresh() const
