@@ -69,6 +69,8 @@ add_library(
     Engine/src/ECS/Components/Button.cpp
     Engine/src/Utils/Random.cpp
     Engine/include/Utils/Random.hpp
+    Engine/include/AScene.hpp
+    Engine/src/AScene.cpp
 )
 
 add_executable(

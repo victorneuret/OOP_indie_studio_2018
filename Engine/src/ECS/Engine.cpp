@@ -10,10 +10,11 @@
 #include "ECS/Engine.hpp"
 #include "Exception/Engine/ECS/ECSException.hpp"
 #include "Exception/Memory/MemoryException.hpp"
+#include "Exception/Engine/EngineException.hpp"
 
 std::unique_ptr<Engine::ECS::Engine> Engine::ECS::Engine::_instance{nullptr};
-std::vector<std::shared_ptr<Engine::ECS::IEntity>> Engine::ECS::Engine::_entities{};
 std::vector<std::shared_ptr<Engine::ECS::ISystem>> Engine::ECS::Engine::_systems{};
+std::map<Engine::AScene::SceneType , Engine::AScene*> Engine::ECS::Engine::_scenes{};
 
 Engine::ECS::Engine &Engine::ECS::Engine::getInstance()
 {
@@ -23,27 +24,6 @@ Engine::ECS::Engine &Engine::ECS::Engine::getInstance()
             throw MemoryException<Memory_Allocation_Failed>("Could not create engine instance.");
     }
     return *_instance;
-}
-
-decltype(Engine::ECS::Engine::_entities) &Engine::ECS::Engine::getEntities() noexcept
-{
-    return _entities;
-}
-
-std::shared_ptr<Engine::ECS::IEntity> &Engine::ECS::Engine::getEntityByID(const size_t id)
-{
-    auto search = std::find_if(_entities.begin(), _entities.end(), [id](const std::shared_ptr<IEntity> &entity) {
-        return entity->getID() == id;
-    });
-
-    if (search == _entities.end())
-        throw ECSException<ECS_Entity>{"Entity " + std::to_string(id) + " not found"};
-    return *search;
-}
-
-void Engine::ECS::Engine::addEntity(std::shared_ptr<IEntity> &entity)
-{
-    _entities.push_back(entity);
 }
 
 decltype(Engine::ECS::Engine::_systems) &Engine::ECS::Engine::getSystems() noexcept
@@ -62,4 +42,18 @@ std::shared_ptr<Engine::ECS::ISystem> &Engine::ECS::Engine::getSystemsByID(const
 void Engine::ECS::Engine::addSystem(std::shared_ptr<ISystem> &system)
 {
     _systems.push_back(system);
+}
+
+Engine::AScene &Engine::ECS::Engine::getScene(const AScene::SceneType type)
+{
+    auto search = _scenes.find(type);
+
+    if (search == _scenes.end())
+        throw EngineException<Engine_ECS>{"Could not find the scene."};
+    return *search->second;
+}
+
+void Engine::ECS::Engine::addScene(AScene &scene)
+{
+    _scenes[AScene::SceneType::GAME] = &scene;
 }

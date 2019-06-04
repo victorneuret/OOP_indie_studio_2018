@@ -14,6 +14,7 @@
 #include "ECS/Engine.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "Math/Vector/Vec3.hpp"
+#include "AScene.hpp"
 
 Game::System::Map::Map()
     : ASystem("Map")
@@ -82,7 +83,7 @@ void Game::System::Map::_createMap() noexcept
         for (float j = 0; j <= MAP_WIDTH; j++) {
             if (_map[i][j] == '.') {
                 std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Entity::Block>(*renderer.get(), Engine::Math::Vec3f{i * 10, 0, (j * 10)}, "assets/models/block/WoodenCube/WoodenCube.obj", "assets/models/block/WoodenCube/Textures/Wooden_Crate_Crate_Normal.png");
-                Engine::ECS::Engine::getInstance().addEntity(block);
+                Engine::ECS::Engine::getInstance().getScene(Engine::AScene::SceneType::GAME).addEntity(block);
             }
         }
     }

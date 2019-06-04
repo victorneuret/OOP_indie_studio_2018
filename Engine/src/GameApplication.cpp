@@ -37,29 +37,30 @@ void Engine::GameApplication::_loop()
     auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Engine::getInstance().getSystemsByID("Renderer"));
 
 
-    std::shared_ptr<Engine::ECS::IEntity> entity1 = std::make_shared<Game::Entity::Player>(*renderer);
-    Engine::ECS::Engine::getInstance().addEntity(entity1);
-    std::shared_ptr<Engine::ECS::IEntity> entity2 = std::make_shared<Game::Entity::Block>(*renderer);
-    Engine::ECS::Engine::getInstance().addEntity(entity2);
-    std::shared_ptr<Engine::ECS::IEntity> entity3 = std::make_shared<Game::Entity::Text>(*renderer, L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0});
-    Engine::ECS::Engine::getInstance().addEntity(entity3);
-    std::shared_ptr<Engine::ECS::IEntity> entity4 = std::make_shared<Game::Entity::Button>(*renderer, Math::Rect_i{75, 15, 500, 30}, L"Un Button");
-    Engine::ECS::Engine::getInstance().addEntity(entity4);
     std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();
     Engine::ECS::Engine::getInstance().addSystem(map);
+
+    std::vector<std::shared_ptr<Engine::ECS::IEntity>> entities{
+        std::make_shared<Game::Entity::Player>(*renderer),
+        std::make_shared<Game::Entity::Block>(*renderer),
+        std::make_shared<Game::Entity::Text>(*renderer, L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0}),
+        std::make_shared<Game::Entity::Button>(*renderer, Math::Rect_i{75, 15, 500, 30}, L"Un Button")
+    };
+
+    Engine::AScene defaultScene(Engine::AScene::SceneType::GAME, entities, false, false);
+    Engine::ECS::Engine::getInstance().addScene(defaultScene);
 
     while (!renderer->closeRequested()) {
         renderer->refresh();
         tick(elapsed.count());
 
-        for (const auto &entity : Engine::ECS::Engine::getInstance().getEntities()) {
+        for (const auto &entity : defaultScene.getEntities()) {
             renderer->draw(entity);
             // entity->hide();
             // entity->show();
         }
         map->update(elapsed.count());
         renderer->update(elapsed.count());
-
 
         end = std::chrono::system_clock::now();
         elapsed = end - begin;
