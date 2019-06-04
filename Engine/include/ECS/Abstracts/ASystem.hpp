@@ -22,6 +22,6 @@ class Engine::ECS::ASystem : public ISystem {
 public:
     ~ASystem() override = default;
 
-    void update(double dt, std::vector<std::shared_ptr<IEntity>> entities) override = 0;
+    void update(double dt, std::vector<std::shared_ptr<IEntity>> &entities) override = 0;
 };
 

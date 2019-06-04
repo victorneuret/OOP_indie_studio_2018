@@ -14,6 +14,7 @@
 #include "GameApplication.hpp"
 #include "Entities/Player.hpp"
 #include "Exception/AException.hpp"
+#include "Systems/Map.hpp"
 
 Engine::GameApplication::GameApplication(const decltype(_title) &title, long width, long height)
     : GameApplication(title, Math::Vec2<irr::u32>(width, height))
@@ -41,6 +42,8 @@ void Engine::GameApplication::_loop()
     engine.addEntity(entity3);
     std::shared_ptr<Engine::ECS::IEntity> entity4 = std::make_shared<Game::Entity::Button>(_renderer, Math::Rect_i{75, 15, 500, 30}, L"Un Button");
     engine.addEntity(entity4);
+    std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();
+    engine.addSystem(map);
 
     while (!_renderer.closeRequested()) {
         _renderer.refresh();
@@ -51,7 +54,9 @@ void Engine::GameApplication::_loop()
             // entity->hide();
             // entity->show();
         }
+        map->update(elapsed.count(), engine.getEntities());
         _renderer.update(elapsed.count(), engine.getEntities());
+
 
         end = std::chrono::system_clock::now();
         elapsed = end - begin;
