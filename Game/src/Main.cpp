@@ -17,13 +17,14 @@
 #include "BombermanApplication.hpp"
 
 class AudioVisualizer final {
+public:
+    static constexpr size_t BUFFER_SIZE = 512;
+    static constexpr double FREQ_MAX = 50000.0;
 private:
     using Complex = std::complex<double>;
     using ComplexArray = std::valarray<Complex>;
 
     const sf::Sound &_sound;
-
-    static constexpr size_t BUFFER_SIZE = 2048;
     const sf::SoundBuffer &_buffer;
 
     ComplexArray _array{};
@@ -68,12 +69,12 @@ private:
         }
     }
 
-    static void _smoothArray(std::array<double, BUFFER_SIZE> &vec)
+    static void _smoothArray(std::array<double, BUFFER_SIZE> &data)
     {
-        for (auto it = vec.begin(); it != vec.end(); ++it) {
-            if (it == vec.begin())
+        for (auto it = data.begin(); it != data.end(); ++it) {
+            if (it == data.begin())
                 *it = (*it + *(it + 1)) / 2.0;
-            else if (it == (vec.end() - 1))
+            else if (it == (data.end() - 1))
                 *it = (*it + *(it - 1)) / 2.0;
             else
                 *it = (*(it - 1) + *it + *(it + 1)) / 3.0;
@@ -105,14 +106,14 @@ public:
 
         size_t index = 0;
         for (auto &value : _array) {
-            const auto abs = std::abs(value);
+            const auto abs = std::abs(value) / FREQ_MAX;
 
             sum += abs;
             _scaleList[index++] = abs;
         }
 
         _smoothArray(_scaleList);
-        return VisualizationData{sum / _array.size() / 50000.0, &_scaleList};
+        return VisualizationData{sum / _array.size(), &_scaleList};
     }
 };
 
@@ -125,10 +126,14 @@ int main()
     sf::RenderWindow win{sf::VideoMode{1600, 900}, "Audio Test"};
     sf::Event event{};
 
+    const auto winWidth = static_cast<double>(win.getSize().x);
+    const auto winHeight = static_cast<double>(win.getSize().y);
     win.setFramerateLimit(144);
 
     sf::CircleShape circle;
     circle.setFillColor(sf::Color::Yellow);
+    circle.setOutlineColor(sf::Color::Black);
+    circle.setOutlineThickness(1);
     circle.setRadius(25);
     circle.setOrigin(25, 25);
     circle.setPosition(win.getSize().x / 2.f, win.getSize().y / 2.f);
@@ -155,10 +160,25 @@ int main()
 
         win.clear();
 
-        auto visu = audioVisualizer.getVisualizationData();
-        max = std::max(max, visu.scaleAverage);
+        auto visData = audioVisualizer.getVisualizationData();
+        max = std::max(max, visData.scaleAverage);
 
-        circle.setScale(visu.scaleAverage + 0.5, visu.scaleAverage + 0.5);
+        circle.setScale(visData.scaleAverage + 0.5, visData.scaleAverage + 0.5);
+
+        size_t index = 0;
+        for (const auto &data : *visData.scaleList) {
+            const auto ratio = data / 20.0;
+            const auto width = winWidth / static_cast<double>(visData.scaleList->size());
+            const auto height = ratio * winHeight;
+
+            sf::RectangleShape rect;
+            rect.setFillColor(sf::Color::Cyan);
+            rect.setSize(sf::Vector2f(width, height));
+            rect.setOrigin(0, height);
+            rect.setPosition(index++ * width, winHeight);
+
+            win.draw(rect);
+        }
 
         win.draw(circle);
         win.display();
