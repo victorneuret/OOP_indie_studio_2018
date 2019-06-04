@@ -78,6 +78,6 @@ add_executable(
     Game/src/Entities/Player.cpp
     Game/include/Entities/Text.hpp
     Game/src/Entities/Text.cpp
-)
+    Game/src/Systems/Map.cpp Game/src/Systems/Map.hpp)
 
 target_link_libraries(bomberman engine Irrlicht sfml-audio)
