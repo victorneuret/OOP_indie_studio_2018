@@ -23,7 +23,6 @@ class Engine::ECS::Engine {
 private:
     Engine() = default;
 
-    static std::vector<std::shared_ptr<IEntity>> _entities;
     static std::vector<std::shared_ptr<ISystem>> _systems;
     static std::map<AScene::SceneType , AScene*> _scenes;
 

@@ -36,7 +36,6 @@ void Engine::GameApplication::_loop()
     decltype(begin) end;
     auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Engine::getInstance().getSystemsByID("Renderer"));
 
-
     std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();
     Engine::ECS::Engine::getInstance().addSystem(map);
 
