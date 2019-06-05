@@ -10,6 +10,7 @@
 
 #include "ECS/Components/Text.hpp"
 #include "ECS/Systems/Renderer.hpp"
+#include "ECS/Components/Button.hpp"
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Components/Renderer.hpp"
 #include "Exception/Memory/MemoryException.hpp"
@@ -71,6 +72,15 @@ irr::gui::IGUIFont *Engine::ECS::System::Renderer::createFont(const std::string 
     return font;
 }
 
+irr::gui::IGUIButton *Engine::ECS::System::Renderer::createButton(const Engine::Math::Rect_i &pos, const std::wstring &text) const
+{
+    auto button = _GUIEnvironment->addButton(irr::core::rect<irr::s32>{pos.x, pos.y, pos.x + pos.w, pos.y + pos.h});
+    if (button == nullptr)
+        throw ECSException<ECS_Renderer>{"Failed to create the button"};
+    button->setText(text.c_str());
+    return button;
+}
+
 bool Engine::ECS::System::Renderer::closeRequested() const noexcept
 {
     return !_window->run();
@@ -84,6 +94,9 @@ void Engine::ECS::System::Renderer::draw(const std::shared_ptr<Engine::ECS::IEnt
             break;
         case Engine::ECS::IEntity::Type::MODEL3D:
             draw3DModel(entity);
+            break;
+        case Engine::ECS::IEntity::Type::BUTTON:
+            drawButton(entity);
         default:
             break;
     }
@@ -91,17 +104,24 @@ void Engine::ECS::System::Renderer::draw(const std::shared_ptr<Engine::ECS::IEnt
 
 void Engine::ECS::System::Renderer::drawText(const std::shared_ptr<Engine::ECS::IEntity> &entity) const
 {
-    std::shared_ptr<Engine::ECS::Component::Renderer> renderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer> (entity->getComponentByID("Renderer"));
-    std::shared_ptr<Engine::ECS::Component::Text> text = std::dynamic_pointer_cast<Engine::ECS::Component::Text> (entity->getComponentByID("Text"));
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer>(entity->getComponentByID("Renderer"));
+    auto text = std::dynamic_pointer_cast<Engine::ECS::Component::Text>(entity->getComponentByID("Text"));
     if (renderer->doRender())
         text->getFont()->draw(text->getString().c_str(), irr::core::rect<irr::s32>{text->getPos().x, text->getPos().y, 300, 50}, irr::video::SColor{text->getColor().a, text->getColor().r, text->getColor().g, text->getColor().b});
 }
 
 void Engine::ECS::System::Renderer::draw3DModel(const std::shared_ptr<Engine::ECS::IEntity> &entity) const
 {
-    std::shared_ptr<Engine::ECS::Component::Renderer> renderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer> (entity->getComponentByID("Renderer"));
-    std::shared_ptr<Engine::ECS::Component::Model3D> model = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D> (entity->getComponentByID("Model3D"));
-    renderer->doRender() ? model->getNode()->setVisible(true) : model->getNode()->setVisible(false);
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer>(entity->getComponentByID("Renderer"));
+    auto model = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(entity->getComponentByID("Model3D"));
+    model->getNode()->setVisible(renderer->doRender());
+}
+
+void Engine::ECS::System::Renderer::drawButton(const std::shared_ptr<Engine::ECS::IEntity> &entity) const
+{
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer>(entity->getComponentByID("Renderer"));
+    auto button = std::dynamic_pointer_cast<Engine::ECS::Component::Button>(entity->getComponentByID("Button"));
+    button->getButton()->setVisible(renderer->doRender());
 }
 
 void Engine::ECS::System::Renderer::refresh() const
