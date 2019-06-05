@@ -25,7 +25,7 @@ protected:
     std::string _texture{};
 
 public:
-    Model3D(const Engine::ECS::System::Renderer &renderer, const Engine::Math::Vec3f &pos, const std::string &model, const std::string &texture);
+    Model3D(const Engine::ECS::System::Renderer &renderer, const Engine::Math::Vec3f &pos, const decltype(_model) &model, const decltype(_texture) &texture);
     Model3D(const Model3D &) = delete;
     Model3D &operator=(const Model3D &) = delete;
 

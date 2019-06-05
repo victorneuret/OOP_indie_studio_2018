@@ -7,7 +7,7 @@
 
 #include "ECS/Components/Model3D.hpp"
 
-Engine::ECS::Component::Model3D::Model3D(const Engine::ECS::System::Renderer &renderer, const Engine::Math::Vec3f &pos, const std::string &model, const std::string &texture)
+Engine::ECS::Component::Model3D::Model3D(const Engine::ECS::System::Renderer &renderer, const Engine::Math::Vec3f &pos, const decltype(_model) &model, const decltype(_texture) &texture)
         : AComponent("Model3D"), _node{renderer.create3DModel(model, texture)}, _model{std::string{model}}, _texture{std::string{texture}}
 {
     _node->setPosition(irr::core::vector3df{pos.x, pos.y, pos.z});
