@@ -19,7 +19,7 @@ before_script:
   - unzip SFML-2.5.1.zip
   - mkdir -p SFML
   - mv SFML-2.5.1/lib/sfml-audio.lib .
-  - mv SFML-2.5.1/include SFML/SFML
+  - mv SFML-2.5.1/include/SFML SFML
 
 script:
   - cmake -A x64 CMakeLists.txt
