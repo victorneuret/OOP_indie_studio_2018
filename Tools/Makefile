@@ -19,7 +19,8 @@ all:
 ifndef ROOT_DIR
         $(error "ROOT_DIR undefined.")
 else
-		make --no-print-directory -k iwyu 2>&1 | egrep --color=auto "remove|\-\ "
+		# Filter: 2>&1 | egrep --color=auto "remove|\-\ "
+		make --no-print-directory -k iwyu
 endif
 
 iwyu:	$(OBJ)
