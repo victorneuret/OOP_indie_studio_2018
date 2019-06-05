@@ -57,8 +57,8 @@ void Engine::GameApplication::_loop()
             // entity->hide();
             // entity->show();
         }
-        map->update(elapsed.count(), Engine::ECS::Engine::getInstance().getEntities());
-        renderer->update(elapsed.count(), Engine::ECS::Engine::getInstance().getEntities());
+        map->update(elapsed.count());
+        renderer->update(elapsed.count());
 
 
         end = std::chrono::system_clock::now();

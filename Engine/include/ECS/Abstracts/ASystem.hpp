@@ -33,7 +33,7 @@ public:
         return _id;
     }
 
-    void update(double dt, std::vector<std::shared_ptr<IEntity>> &entities) override = 0;
+    void update(double dt) override = 0;
 
 };
 

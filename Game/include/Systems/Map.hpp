@@ -29,10 +29,10 @@ private:
     void _createFirstSquare() noexcept;
     void _duplicateWidth() noexcept;
     void _duplicateHeight() noexcept;
-    void _createMap(std::vector<std::shared_ptr<Engine::ECS::IEntity>> &entities) noexcept;
+    void _createMap() noexcept;
 
 public:
     Map();
-    void update(double dt, std::vector<std::shared_ptr<Engine::ECS::IEntity>> &entities) final;
+    void update(double dt) final;
 };
 

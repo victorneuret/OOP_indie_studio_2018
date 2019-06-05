@@ -69,7 +69,7 @@ void Game::System::Map::_duplicateHeight() noexcept
 }
 
 
-void Game::System::Map::_createMap(std::vector<std::shared_ptr<Engine::ECS::IEntity>> &) noexcept
+void Game::System::Map::_createMap() noexcept
 {
     auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Engine::getInstance().getSystemsByID("Renderer"));
     _createFirstSquare();
@@ -81,15 +81,15 @@ void Game::System::Map::_createMap(std::vector<std::shared_ptr<Engine::ECS::IEnt
     for (float i = 0; i < _map.size(); i++) {
         for (float j = 0; j <= MAP_WIDTH; j++) {
             if (_map[i][j] == '.') {
-                std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Entity::Block>(*renderer.get(), Engine::Math::Vec3f{i * 10, 0, (j * 10)}, "res/models/Burning_Cube_by_3DHaupt-(Wavefront OBJ).obj", "");
+                std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Entity::Block>(*renderer.get(), Engine::Math::Vec3f{i * 10, 0, (j * 10)}, "assets/models/block/WoodenCube/WoodenCube.obj", "assets/models/block/WoodenCube/Textures/Wooden_Crate_Crate_Normal.png");
                 Engine::ECS::Engine::getInstance().addEntity(block);
             }
         }
     }
 }
 
-void Game::System::Map::update(double, std::vector<std::shared_ptr<Engine::ECS::IEntity>> &entities)
+void Game::System::Map::update(double)
 {
     if (_map.empty())
-        _createMap(entities);
+        _createMap();
 }

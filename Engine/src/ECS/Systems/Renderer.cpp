@@ -36,7 +36,7 @@ Engine::ECS::System::Renderer::~Renderer()
     _window->drop();
 }
 
-void Engine::ECS::System::Renderer::update(double, std::vector<std::shared_ptr<IEntity>>&)
+void Engine::ECS::System::Renderer::update(double)
 {
     _GUIEnvironment->drawAll();
     _sceneManager->drawAll();
@@ -53,6 +53,7 @@ irr::scene::IAnimatedMeshSceneNode *Engine::ECS::System::Renderer::create3DModel
     if (animatedMesh == nullptr)
         throw ECSException<ECS_Renderer>{"Failed to create animated Mesh"};
     animatedMesh->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+    animatedMesh->setMaterialType(irr::video::EMT_TRANSPARENT_ALPHA_CHANNEL);
     if (texture != "")
         animatedMesh->setMaterialTexture(0, _videoDrivers->getTexture(texture.c_str()));
     animatedMesh->setPosition(irr::core::vector3df{0, 0, 0});
