@@ -15,8 +15,8 @@
 #include "ECS/Abstracts/ASystem.hpp"
 #include "ECS/Systems/Renderer.hpp"
 
-constexpr int MAP_WIDTH = 11;
-constexpr int MAP_HEIGHT = 11;
+constexpr uint8_t MAP_WIDTH = 11;
+constexpr uint8_t MAP_HEIGHT = 11;
 
 namespace Game::System {
     class Map;
