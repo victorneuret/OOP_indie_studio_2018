@@ -25,6 +25,7 @@ private:
 
 public:
     MouseInput();
-    bool OnEvent(irr::SEvent &event) final;
+    bool OnEvent(const irr::SEvent &event) override;
+    void update(double dt) override;
     const decltype(_pos) &pos() const noexcept;
 };

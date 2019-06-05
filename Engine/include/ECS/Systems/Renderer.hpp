@@ -22,6 +22,15 @@ namespace Engine::ECS::System {
 
 class Engine::ECS::System::Renderer final : public ASystem<System::Renderer> {
 private:
+    class EventMiddleware : public irr::IEventReceiver {
+    protected:
+        std::vector<std::shared_ptr<irr::IEventReceiver>> _handlers;
+
+    public:
+        bool OnEvent(const irr::SEvent &event);
+        void addEventHandler(const std::shared_ptr<irr::IEventReceiver> &handler);
+    };
+
     std::wstring _windowName{};
     Math::Vec2u _windowSize{0, 0};
 

@@ -69,6 +69,10 @@ add_library(
     Engine/src/ECS/Components/Button.cpp
     Engine/src/Utils/Random.cpp
     Engine/include/Utils/Random.hpp
+    Engine/include/ECS/Components/Player.hpp
+    Engine/include/ECS/Systems/JoystickInput.hpp
+    Engine/src/ECS/Systems/JoystickInput.cpp
+    Engine/include/ECS/Systems/EventHandler.hpp
 )
 
 add_executable(
