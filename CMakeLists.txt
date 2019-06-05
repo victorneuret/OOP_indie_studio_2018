@@ -62,6 +62,7 @@ add_library(
     Engine/src/ECS/Components/Model3D.cpp
     Engine/include/ECS/Components/Text.hpp
     Engine/src/ECS/Components/Text.cpp
+    Engine/include/ECS/Components/Particle.hpp
     Engine/include/ECS/Components/Button.hpp
     Engine/src/ECS/Components/Button.cpp
     Engine/src/Utils/Random.cpp
@@ -128,6 +129,12 @@ add_executable(
     Game/include/Entities/Player.hpp
     Game/include/Systems/Map.hpp
     Game/src/Entities/Player.cpp
+    Game/include/Entities/Text.hpp
+    Game/src/Entities/Text.cpp
+    Game/include/Entities/Particle.hpp
+    Game/src/Entities/Particle.cpp
+    Game/include/Entities/Button.hpp
+    Game/src/Entities/Button.cpp
     Game/src/Systems/Map.cpp
     Game/include/Scenes/MainMenu.hpp
     Game/src/Scenes/MainMenu.cpp
