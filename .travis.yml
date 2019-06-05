@@ -16,7 +16,7 @@ before_script:
   - mv Irrlicht\ x64\ Visual\ Studio\ 2019\ SDK\ 10.0.17763.0/Irrlicht.dll .
   - mv Irrlicht\ x64\ Visual\ Studio\ 2019\ SDK\ 10.0.17763.0/Irrlicht.lib .
   - curl http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/SFML-2.5.1 -o SFML-2.5.1.zip
-  - unzip SFML-2.5.1.zip .
+  - unzip SFML-2.5.1.zip
   - mv SFML-2.5.1/lib/sfml-audio.lib .
   - mv SFML-2.5.1/include SFML
 
