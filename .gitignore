@@ -1,5 +1,5 @@
-cmake-build-release
 cmake-build-debug
+cmake-build-release
 
 .idea
 .ccls-cache/*
@@ -16,4 +16,5 @@ logs/
 bomberman.cbp
 libengine.a
 *.rar
+
 !Tools/Makefile

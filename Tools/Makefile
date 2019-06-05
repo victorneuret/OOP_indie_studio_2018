@@ -18,10 +18,10 @@ all:
 ifndef ROOT_DIR
         $(error "ROOT_DIR undefined.")
 else
-		@make --no-print-directory -k iwuy
+		@make --no-print-directory -k iwyu
 endif
 
-iwuy:	$(OBJ)
+iwyu:	$(OBJ)
 		@make --no-print-directory clean
 		$(info "Done.")
 
