@@ -11,17 +11,18 @@
 #include <algorithm>
 #include <irrlicht/irrlicht.h>
 
-#include "ECS/Abstracts/AComponent.hpp"
+#include "ECS/Abstracts/ASystem.hpp"
 
 namespace Engine::ECS::System {
     class AInput;
 }
 
-class Engine::ECS::System::AInput : public Engine::ECS::AComponent<Engine::ECS::System::AInput>, public irr::IEventReceiver {
+class Engine::ECS::System::AInput : public Engine::ECS::ASystem<Engine::ECS::System::AInput>, public irr::IEventReceiver {
 protected:
-    std::map<decltype(irr::SEvent::SKeyInput::Char), bool> _keys;
+    std::map<decltype(irr::SEvent::SKeyInput::Char), bool> _keys{};
 
 public:
+    explicit AInput(const std::string &id) : ASystem{id} {}
     virtual ~AInput() override = default;
 
     virtual bool OnEvent(irr::SEvent &) = 0;

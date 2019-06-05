@@ -9,13 +9,23 @@
 
 #include "ECS/Engine.hpp"
 #include "Exception/Engine/ECS/ECSException.hpp"
+#include "Exception/Memory/MemoryException.hpp"
 
-decltype(Engine::ECS::Engine::_entities) &Engine::ECS::Engine::getEntities() noexcept
+std::unique_ptr<Engine::ECS::Engine> Engine::ECS::Engine::_instance{nullptr};
+std::vector<std::shared_ptr<Engine::ECS::IEntity>> Engine::ECS::Engine::_entities{};
+std::vector<std::shared_ptr<Engine::ECS::ISystem>> Engine::ECS::Engine::_systems{};
+
+Engine::ECS::Engine &Engine::ECS::Engine::getInstance()
 {
-    return _entities;
+    if (_instance == nullptr) {
+        _instance = std::unique_ptr<Engine>(new ECS::Engine());
+        if (_instance == nullptr)
+            throw MemoryException<Memory_Allocation_Failed>("Could not create engine instance.");
+    }
+    return *_instance;
 }
 
-const decltype(Engine::ECS::Engine::_entities) &Engine::ECS::Engine::getEntities() const noexcept
+decltype(Engine::ECS::Engine::_entities) &Engine::ECS::Engine::getEntities() noexcept
 {
     return _entities;
 }
@@ -41,9 +51,12 @@ decltype(Engine::ECS::Engine::_systems) &Engine::ECS::Engine::getSystems() noexc
     return _systems;
 }
 
-const decltype(Engine::ECS::Engine::_systems) &Engine::ECS::Engine::getSystems() const noexcept
+std::shared_ptr<Engine::ECS::ISystem> &Engine::ECS::Engine::getSystemsByID(const std::string &id)
 {
-    return _systems;
+    for (auto &elem : _systems)
+        if (elem->getID() == id)
+            return elem;
+    throw ECSException<ECS_System>{"System " + id + " not found"};
 }
 
 void Engine::ECS::Engine::addSystem(std::shared_ptr<ISystem> &system)

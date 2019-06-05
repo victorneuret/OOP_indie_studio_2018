@@ -19,16 +19,24 @@ namespace Engine::ECS {
 
 class Engine::ECS::Engine {
 private:
-    std::vector<std::shared_ptr<IEntity>> _entities{};
-    std::vector<std::shared_ptr<ISystem>> _systems{};
+    Engine() = default;
+
+    static std::vector<std::shared_ptr<IEntity>> _entities;
+    static std::vector<std::shared_ptr<ISystem>> _systems;
+
+    static std::unique_ptr<Engine> _instance;
 
 public:
+    static Engine &getInstance();
+
+    Engine(const Engine &) = delete;
+    Engine &operator=(const Engine &) = delete;
+
     std::shared_ptr<IEntity> &getEntityByID(size_t id);
     decltype(_entities) &getEntities() noexcept;
-    const decltype(_entities) &getEntities() const noexcept;
     void addEntity(std::shared_ptr<IEntity> &entity);
 
     decltype(_systems) &getSystems() noexcept;
-    const decltype(_systems) &getSystems() const noexcept;
+    std::shared_ptr<ISystem> &getSystemsByID(const std::string &id);
     void addSystem(std::shared_ptr<ISystem> &system);
 };
