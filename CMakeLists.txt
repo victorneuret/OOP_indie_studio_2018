@@ -135,6 +135,9 @@ add_executable(
     Game/src/Scenes/Game.cpp
     Game/include/Entities/Bomb.hpp
     Game/src/Entities/Bomb.cpp
+    Game/include/Systems/Map.hpp
+    Game/include/Entities/Particle.hpp
+    Game/src/Entities/Particle.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)
