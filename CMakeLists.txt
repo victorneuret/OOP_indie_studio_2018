@@ -73,6 +73,9 @@ add_library(
     Engine/include/ECS/Systems/JoystickInput.hpp
     Engine/src/ECS/Systems/JoystickInput.cpp
     Engine/include/ECS/Systems/EventHandler.hpp
+    Engine/src/ECS/Systems/Audio.cpp
+    Engine/include/ECS/Systems/Audio.hpp
+    Engine/include/Exception/Engine/ECS/Systems/SoundException.hpp
 )
 
 add_executable(
