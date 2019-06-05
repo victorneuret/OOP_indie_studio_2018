@@ -14,9 +14,10 @@ if (UNIX)
 endif (UNIX)
 
 include_directories(
-    Engine/include
-    Game/include
+    SFML
     irrlicht
+    Game/include
+    Engine/include
 )
 
 add_library(
