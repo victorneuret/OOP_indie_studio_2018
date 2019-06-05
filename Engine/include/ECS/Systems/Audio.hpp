@@ -31,8 +31,8 @@ public:
 
     void update(double dt) override;
 
-    void loadSound(const std::string &soundKey, const std::string &soundPath);
-    void unloadSound(const std::string &soundKey);
+    void loadSound(const std::string &key, const std::string &soundPath);
+    void unloadSound(const std::string &key);
     Sound getSound(const std::string &sound) const noexcept;
-    bool isLoaded(const std::string &soundKey) const noexcept;
+    bool isLoaded(const std::string &key) const noexcept;
 };

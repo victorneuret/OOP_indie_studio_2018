@@ -15,10 +15,10 @@
 void Engine::ECS::System::Audio::update(double)
 {}
 
-void Engine::ECS::System::Audio::loadSound(const std::string &soundKey, const std::string &soundPath)
+void Engine::ECS::System::Audio::loadSound(const std::string &key, const std::string &soundPath)
 {
-    if (isLoaded(soundKey)) {
-        Logger::getInstance().warning("Can't load sound \"" + soundKey + "\": sound is already loaded.");
+    if (isLoaded(key)) {
+        Logger::getInstance().warning("Can't load sound \"" + key + "\": sound is already loaded.");
         return;
     }
 
@@ -31,31 +31,31 @@ void Engine::ECS::System::Audio::loadSound(const std::string &soundKey, const st
         throw SoundException<Sound_File_Not_Found>{};
 
     sound->setBuffer(buffer);
-    _sounds.emplace(soundKey, sound);
+    _sounds.emplace(key, sound);
 }
 
-void Engine::ECS::System::Audio::unloadSound(const std::string &soundKey)
+void Engine::ECS::System::Audio::unloadSound(const std::string &key)
 {
-    auto it = _sounds.find(soundKey);
+    auto it = _sounds.find(key);
 
     if (it == _sounds.end()) {
-        Logger::getInstance().warning("Can't unload sound \"" + soundKey + "\": sound is not loaded.");
+        Logger::getInstance().warning("Can't unload sound \"" + key + "\": sound is not loaded.");
         return;
     }
 
     _sounds.erase(it);
 }
 
-Engine::ECS::System::Audio::Sound Engine::ECS::System::Audio::getSound(const std::string &soundKey) const noexcept
+Engine::ECS::System::Audio::Sound Engine::ECS::System::Audio::getSound(const std::string &key) const noexcept
 {
-    const auto it = _sounds.find(soundKey);
+    const auto it = _sounds.find(key);
 
     if (it == _sounds.cend())
         return nullptr;
     return it->second;
 }
 
-bool Engine::ECS::System::Audio::isLoaded(const std::string &soundKey) const noexcept
+bool Engine::ECS::System::Audio::isLoaded(const std::string &key) const noexcept
 {
-    return getSound(soundKey) != nullptr;
+    return getSound(key) != nullptr;
 }
