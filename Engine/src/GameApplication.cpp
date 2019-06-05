@@ -29,7 +29,7 @@ void Engine::GameApplication::_loop()
 {
     std::chrono::duration<double> elapsed = std::chrono::seconds(0);
     auto begin = std::chrono::system_clock::now();
-    auto end = begin;
+    decltype(begin) end;
 
     Engine::ECS::Engine engine;
 
