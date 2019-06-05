@@ -16,5 +16,5 @@ namespace Engine::ECS::System {
 class Engine::ECS::System::KeyboardInput final : public Engine::ECS::System::AInput {
 public:
     KeyboardInput();
-	bool OnEvent(irr::SEvent &event) final;
+    bool OnEvent(irr::SEvent &event) final;
 };
