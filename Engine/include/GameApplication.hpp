@@ -25,6 +25,7 @@ private:
     const std::wstring _title;
     const Math::Vec2u _dimensions;
 
+    void _startup();
     void _loop();
 public:
     GameApplication(const decltype(_title) &title, long width, long height);

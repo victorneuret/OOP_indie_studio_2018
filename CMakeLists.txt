@@ -16,7 +16,6 @@ endif (UNIX)
 include_directories(
     SFML
     irrlicht
-    Game/include
     Engine/include
 )
 
@@ -96,4 +95,5 @@ add_executable(
     Game/include/Systems/Map.hpp
 )
 
+target_include_directories(bomberman PUBLIC Game/include)
 target_link_libraries(bomberman engine Irrlicht sfml-audio)
