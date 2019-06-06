@@ -52,9 +52,9 @@ void Engine::ECS::System::Audio::unloadSound(const std::string &key)
 
 Engine::ECS::System::Audio::Sound Engine::ECS::System::Audio::getSound(const std::string &key) const noexcept
 {
-    const auto it = _sounds.find(key);
+    auto it = _sounds.find(key);
 
-    if (it == _sounds.cend())
+    if (it == _sounds.end())
         return nullptr;
     return it->second;
 }
