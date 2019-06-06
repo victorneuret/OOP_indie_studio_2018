@@ -15,11 +15,15 @@ before_script:
   - mv Irrlicht\ x64\ Visual\ Studio\ 2019\ SDK\ 10.0.17763.0/include/* irrlicht/irrlicht
   - mv Irrlicht\ x64\ Visual\ Studio\ 2019\ SDK\ 10.0.17763.0/Irrlicht.dll .
   - mv Irrlicht\ x64\ Visual\ Studio\ 2019\ SDK\ 10.0.17763.0/Irrlicht.lib .
-  - curl http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/sfml-audio.lib -o sfml-audio.lib
+  - curl http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/SFML-2.5.1.zip -o SFML-2.5.1.zip
+  - unzip SFML-2.5.1.zip
+  - mkdir -p SFML
+  - mv SFML-2.5.1/lib/sfml-audio.lib .
+  - mv SFML-2.5.1/include/SFML SFML
 
 script:
   - cmake -A x64 CMakeLists.txt
   - cmake --build .
 
 after_failure:
-  - bash <(curl -s http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/notify-discord.sh) "$TRAVIS_BRANCH Windows build failed"
+  - bash <(curl -s http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/notify-discord.sh) "\`$TRAVIS_BRANCH\` Windows build failed."

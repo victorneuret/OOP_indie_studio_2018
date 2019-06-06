@@ -14,9 +14,9 @@ if (UNIX)
 endif (UNIX)
 
 include_directories(
-    Engine/include
-    Game/include
+    SFML
     irrlicht
+    Engine/include
 )
 
 add_library(
@@ -42,8 +42,8 @@ add_library(
     Engine/include/ECS/Abstracts/ASystem.hpp
     Engine/include/ECS/Abstracts/AEntity.hpp
     Engine/include/ECS/Interfaces/ISystem.hpp
-    Engine/include/ECS/Engine.hpp
-    Engine/src/ECS/Engine.cpp
+    Engine/include/ECS/Manager.hpp
+    Engine/src/ECS/Manager.cpp
     Engine/include/ECS/Abstracts/Systems/AInput.hpp
     Engine/src/ECS/Systems/KeyboardInput.cpp
     Engine/include/ECS/Systems/MouseInput.hpp
@@ -76,7 +76,11 @@ add_library(
     Engine/src/ECS/Systems/JoystickInput.cpp
     Engine/include/ECS/Systems/EventHandler.hpp
     Engine/include/Scenes/MainMenu.hpp
-    Engine/src/Scenes/MainMenu.cpp)
+    Engine/src/Scenes/MainMenu.cpp
+    Engine/src/ECS/Systems/Audio.cpp
+    Engine/include/ECS/Systems/Audio.hpp
+    Engine/include/Exception/Engine/ECS/Systems/SoundException.hpp
+)
 
 add_executable(
     bomberman
@@ -95,4 +99,5 @@ add_executable(
     Game/include/Systems/Map.hpp
 )
 
+target_include_directories(bomberman PUBLIC Game/include)
 target_link_libraries(bomberman engine Irrlicht sfml-audio)

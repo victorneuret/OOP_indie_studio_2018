@@ -18,7 +18,7 @@ namespace Game::Entity {
 
 class Game::Entity::Button final : public Engine::ECS::AEntity<Button> {
 public:
-    explicit Button(const Engine::ECS::System::Renderer &renderer, const Engine::Math::Rect_i &pos, const std::wstring &text);
+    explicit Button(const Engine::Math::Rect_i &pos, const std::wstring &text);
     Button(const Button &) = delete;
     Button &operator=(const Button &) = delete;
 

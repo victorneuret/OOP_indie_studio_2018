@@ -15,10 +15,10 @@ namespace Engine::Scene {
 
 class Engine::Scene::MainMenu final : public AScene {
 public:
-    MainMenu();
+    explicit MainMenu(decltype(_entities) &entities);
 
     MainMenu(const MainMenu &) = delete;
     MainMenu &operator=(const MainMenu &) = delete;
 
-    void tick(double deltaTime) override;
+    void tick(double deltaTime) final;
 };

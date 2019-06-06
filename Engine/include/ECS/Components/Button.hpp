@@ -24,7 +24,7 @@ protected:
     irr::gui::IGUIButton *_button{nullptr};
 
 public:
-    Button(const Engine::ECS::System::Renderer &renderer, const decltype(_bounds) &bounds, const decltype(_text) &text);
+    Button(const decltype(_bounds) &bounds, const decltype(_text) &text);
     Button(const Button &) = delete;
     Button &operator=(const Button &) = delete;
 

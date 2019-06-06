@@ -6,10 +6,15 @@
 */
 
 #include "ECS/Components/Text.hpp"
+#include "ECS/Manager.hpp"
 
-Engine::ECS::Component::Text::Text(const Engine::ECS::System::Renderer &renderer, const decltype(_string) &string, const decltype(_pos) &pos, const decltype(_color) &color, const decltype(_fontPath) &fontPath)
-    : AComponent{"Text"}, _string{std::wstring{string}}, _pos{pos}, _color{color}, _fontPath{std::string{fontPath}}, _font{renderer.createFont(_fontPath)}
+Engine::ECS::Component::Text::Text(const decltype(_string) &string, const decltype(_pos) &pos, const decltype(_color) &color, const decltype(_fontPath) &fontPath)
+    : AComponent{"Text"}, _string{std::wstring{string}}, _pos{pos}, _color{color}, _fontPath{std::string{fontPath}}
 {
+    const auto renderer = std::dynamic_pointer_cast<System::Renderer>(Manager::getInstance().getSystemByID("Renderer"));
+
+    _font = renderer->createFont(_fontPath);
+
 }
 
 decltype(Engine::ECS::Component::Text::_string) Engine::ECS::Component::Text::getString() const noexcept
@@ -27,7 +32,7 @@ decltype(Engine::ECS::Component::Text::_pos) Engine::ECS::Component::Text::getPo
     return _pos;
 }
 
-void Engine::ECS::Component::Text::setPos(const decltype(Engine::ECS::Component::Text::_pos) &pos) noexcept
+void Engine::ECS::Component::Text::setPos(const decltype(ECS::Component::Text::_pos) &pos) noexcept
 {
     _pos = pos;
 }
@@ -37,7 +42,7 @@ decltype(Engine::ECS::Component::Text::_color) Engine::ECS::Component::Text::get
     return _color;
 }
 
-void Engine::ECS::Component::Text::setColor(const Engine::Utils::Color &color) noexcept
+void Engine::ECS::Component::Text::setColor(const Utils::Color &color) noexcept
 {
     _color = color;
 }

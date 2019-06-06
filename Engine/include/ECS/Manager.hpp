@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** bomberman
 ** File description:
-** Engine.hpp
+** Manager.hpp
 */
 
 #pragma once
@@ -15,22 +15,23 @@
 #include "Scenes/AScene.hpp"
 
 namespace Engine::ECS {
-    class Engine;
+    class Manager;
 }
 
-class Engine::ECS::Engine {
+class Engine::ECS::Manager {
 private:
-    Engine() = default;
+    Manager() = default;
 
     static std::vector<std::shared_ptr<ISystem>> _systems;
     static std::vector<std::shared_ptr<Scene::AScene>> _scenes;
-    static std::unique_ptr<Engine> _instance;
+
+    static std::unique_ptr<Manager> _instance;
 
 public:
-    static Engine &getInstance();
+    static Manager &getInstance();
 
-    Engine(const Engine &) = delete;
-    Engine &operator=(const Engine &) = delete;
+    Manager(const Manager &) = delete;
+    Manager &operator=(const Manager &) = delete;
 
     decltype(_systems) &getSystems() noexcept;
     std::shared_ptr<ISystem> &getSystemByID(const std::string &id);
@@ -39,6 +40,6 @@ public:
     decltype(_scenes) &getScenes() noexcept;
     std::shared_ptr<Scene::AScene> &getSceneByID(const std::string &id);
     void addScene(std::shared_ptr<Scene::AScene> &scene);
-    void sceneManager(double deltaTime);
+    void sceneManager(double dt);
 
 };

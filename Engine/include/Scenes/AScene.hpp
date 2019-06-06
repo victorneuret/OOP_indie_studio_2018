@@ -30,7 +30,7 @@ public:
 
     AScene(const AScene &) = delete;
     AScene &operator=(const AScene &) = delete;
-    
+
     virtual void addEntity(std::shared_ptr<Engine::ECS::IEntity> &entity) final;
     virtual void removeEntity(const std::shared_ptr<Engine::ECS::IEntity> &entity) final;
 

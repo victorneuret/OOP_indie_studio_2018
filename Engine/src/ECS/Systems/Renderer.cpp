@@ -67,7 +67,7 @@ void Engine::ECS::System::Renderer::update(double)
         throw ECSException<ECS_Renderer>{"Display error"};
 }
 
-irr::scene::IAnimatedMeshSceneNode *Engine::ECS::System::Renderer::create3DModel(const std::string &model, const std::string &texture) const
+irr::scene::IAnimatedMeshSceneNode *Engine::ECS::System::Renderer::create3DModel(const std::string &model) const
 {
     auto mesh = _sceneManager->getMesh(model.c_str());
     if (mesh == nullptr)
@@ -77,8 +77,6 @@ irr::scene::IAnimatedMeshSceneNode *Engine::ECS::System::Renderer::create3DModel
         throw ECSException<ECS_Renderer>{"Failed to create animated Mesh"};
     animatedMesh->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     animatedMesh->setMaterialType(irr::video::EMT_TRANSPARENT_ALPHA_CHANNEL);
-    if (texture != "")
-        animatedMesh->setMaterialTexture(0, _videoDrivers->getTexture(texture.c_str()));
     animatedMesh->setPosition(irr::core::vector3df{0, 0, 0});
     animatedMesh->setFrameLoop(0, 4000);
     animatedMesh->setVisible(true);
@@ -154,4 +152,9 @@ void Engine::ECS::System::Renderer::refresh() const
 {
     if (!_videoDrivers->beginScene(true, true, irr::video::SColor(0, 0, 0, 0)))
         throw ECSException<ECS_Renderer>{"Display error"};
+}
+
+decltype(Engine::ECS::System::Renderer::_window->getVideoDriver()) Engine::ECS::System::Renderer::getVideoDriver() const
+{
+    return _videoDrivers;
 }
