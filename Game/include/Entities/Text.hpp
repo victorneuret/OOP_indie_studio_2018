@@ -19,7 +19,7 @@ namespace Game::Entity {
 
 class Game::Entity::Text final : public Engine::ECS::AEntity<Text> {
 public:
-    explicit Text(Engine::ECS::System::Renderer &renderer, const std::wstring &&text, const Engine::Math::Vec2i &pos, const Engine::Utils::Color &color, const std::string &font = "");
+    explicit Text(const std::wstring &&text, const Engine::Math::Vec2i &pos, const Engine::Utils::Color &color, const std::string &font = "");
     Text(const Text &) = delete;
     Text &operator=(const Text &) = delete;
 

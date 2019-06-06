@@ -10,11 +10,14 @@
 #include "Entities/Block.hpp"
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Components/Renderer.hpp"
+#include "ECS/Engine.hpp"
 
-Game::Entity::Block::Block(const Engine::ECS::System::Renderer &renderer, const Engine::Math::Vec3f &pos, const std::string &model)
+Game::Entity::Block::Block(const Engine::Math::Vec3f &pos, const std::string &model)
     : AEntity(AEntity::Type::MODEL3D)
 {
-    std::shared_ptr<Engine::ECS::IComponent> _3DModel = std::make_shared<Engine::ECS::Component::Model3D>(renderer, pos, model);
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Engine::getInstance().getSystemsByID("Renderer"));
+
+    std::shared_ptr<Engine::ECS::IComponent> _3DModel = std::make_shared<Engine::ECS::Component::Model3D>(*renderer, pos, model);
     addComponent(_3DModel);
 
     std::shared_ptr<Engine::ECS::IComponent> _renderer = std::make_shared<Engine::ECS::Component::Renderer>();
