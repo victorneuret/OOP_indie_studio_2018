@@ -82,7 +82,7 @@ void Game::System::Map::_createMap() noexcept
     for (float i = 0; i < _map.size(); i++) {
         for (float j = 0; j <= MAP_WIDTH; j++) {
             if (_map[i][j] == '.') {
-                std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(*renderer, Engine::Math::Vec3f{i * 10, 0, (j * 10)}, "assets/models/block/WoodenCube/WoodenCube.obj");
+                std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(Engine::Math::Vec3f{i * 10, 0, (j * 10)}, "assets/models/block/WoodenCube/WoodenCube.obj");
                 std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture("assets/models/block/WoodenCube/Textures/Wooden_Crate_Crate_Normal.png");
                 std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture("assets/models/block/WoodenCube/Textures/Wooden_Crate_Crate_BaseColor.png");
                 std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture("assets/models/block/WoodenCube/Textures/Wooden_Crate_Crate_Roughness.png");

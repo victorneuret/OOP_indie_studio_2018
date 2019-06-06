@@ -27,7 +27,7 @@ protected:
     irr::gui::IGUIFont *_font{nullptr};
 
 public:
-    Text(const Engine::ECS::System::Renderer &renderer, const decltype(_string) &string, const decltype(_pos) &pos, const decltype(_color) &color = Engine::Utils::Color{255, 255, 255}, const decltype(_fontPath) &fontPath = "");
+    Text(const decltype(_string) &string, const decltype(_pos) &pos, const decltype(_color) &color = Engine::Utils::Color{255, 255, 255}, const decltype(_fontPath) &fontPath = "");
     Text(const Text &) = delete;
     Text &operator=(const Text &) = delete;
 

@@ -38,11 +38,11 @@ void Engine::GameApplication::_loop()
     auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Engine::getInstance().getSystemsByID("Renderer"));
 
 
-    std::shared_ptr<Engine::ECS::IEntity> entity1 = std::make_shared<Game::Entity::Player>(*renderer);
+    std::shared_ptr<Engine::ECS::IEntity> entity1 = std::make_shared<Game::Entity::Player>();
     Engine::ECS::Engine::getInstance().addEntity(entity1);
-    std::shared_ptr<Engine::ECS::IEntity> entity3 = std::make_shared<Game::Entity::Text>(*renderer, L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0});
+    std::shared_ptr<Engine::ECS::IEntity> entity3 = std::make_shared<Game::Entity::Text>(L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0});
     Engine::ECS::Engine::getInstance().addEntity(entity3);
-    std::shared_ptr<Engine::ECS::IEntity> entity4 = std::make_shared<Game::Entity::Button>(*renderer, Math::Rect_i{75, 15, 500, 30}, L"Un Button");
+    std::shared_ptr<Engine::ECS::IEntity> entity4 = std::make_shared<Game::Entity::Button>(Math::Rect_i{75, 15, 500, 30}, L"Un Button");
     Engine::ECS::Engine::getInstance().addEntity(entity4);
     std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();
     Engine::ECS::Engine::getInstance().addSystem(map);
