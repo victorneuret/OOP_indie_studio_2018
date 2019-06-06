@@ -19,16 +19,28 @@ Engine::GameApplication::GameApplication(const decltype(_title) &title, long wid
 }
 
 Engine::GameApplication::GameApplication(const decltype(_title) &title, const decltype(_dimensions) &dimensions)
-    : _title(decltype(_title)(title)), _dimensions(dimensions)
+    : _title{decltype(_title){title}}, _dimensions{dimensions}
 {
     std::shared_ptr<Engine::ECS::ISystem> renderer = std::make_shared<Engine::ECS::System::Renderer>(_title, _dimensions);
-    Engine::ECS::Engine::getInstance().addSystem(renderer);
+    _engine.addSystem(renderer);
 }
 
 void Engine::GameApplication::_startup()
 {
     std::shared_ptr<Engine::ECS::ISystem> audio = std::make_shared<Engine::ECS::System::Audio>();
-    Engine::ECS::Engine::getInstance().addSystem(audio);
+    _engine.addSystem(audio);
+}
+
+void Engine::GameApplication::_tick(double dt, std::shared_ptr<Engine::ECS::System::Renderer> &renderer)
+{
+    for (const auto &system : _engine.getSystems())
+        if (system->getID() != "Renderer")
+            system->update(dt);
+
+    tick(dt);
+
+    for (const auto &entity : _engine.getEntities())
+        renderer->draw(entity);
 }
 
 void Engine::GameApplication::_loop()
@@ -36,16 +48,13 @@ void Engine::GameApplication::_loop()
     std::chrono::duration<double> elapsed = std::chrono::seconds(0);
     auto begin = std::chrono::system_clock::now();
     decltype(begin) end;
-    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Engine::getInstance().getSystemsByID("Renderer"));
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(_engine.getSystemsByID("Renderer"));
 
     while (!renderer->closeRequested()) {
         auto dt = elapsed.count();
 
         renderer->refresh();
-        tick(dt);
-
-        for (const auto &entity : Engine::ECS::Engine::getInstance().getEntities())
-            renderer->draw(entity);
+        _tick(dt, renderer);
         renderer->update(dt);
 
         end = std::chrono::system_clock::now();
