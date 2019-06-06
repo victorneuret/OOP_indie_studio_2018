@@ -25,7 +25,7 @@ protected:
     uint8_t _textureLayer{0};
 
 public:
-    Model3D(const System::Renderer &renderer, const Math::Vec3f &pos, const decltype(_model) &model);
+    Model3D(const Math::Vec3f &pos, const decltype(_model) &model);
     Model3D(const Model3D &) = delete;
     Model3D &operator=(const Model3D &) = delete;
 
