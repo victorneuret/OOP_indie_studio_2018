@@ -62,7 +62,6 @@ add_library(
     Engine/src/ECS/Components/Model3D.cpp
     Engine/include/ECS/Components/Text.hpp
     Engine/src/ECS/Components/Text.cpp
-    Engine/include/ECS/Components/Particle.hpp
     Engine/include/ECS/Components/Button.hpp
     Engine/src/ECS/Components/Button.cpp
     Engine/src/Utils/Random.cpp

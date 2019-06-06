@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2019
 ** bomberman
 ** File description:
-** Particle.hpp
+** Particles.hpp
 */
 
 #pragma once
@@ -11,6 +11,7 @@
 
 #include "ECS/Abstracts/AEntity.hpp"
 #include "ECS/Components/Renderer.hpp"
+#include "ECS/Components/Timer.hpp"
 
 namespace Game::Entity {
     class Particle;
