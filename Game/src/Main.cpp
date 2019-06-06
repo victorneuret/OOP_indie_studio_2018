@@ -11,14 +11,14 @@
 #include <complex>
 #include <valarray>
 
-#include "Logger.hpp"
+#include "Utils/Logger.hpp"
 #include "Utils/TypeDisplayer.hpp" // TODO: REMOVE
 #include "GameApplication.hpp"
 #include "BombermanApplication.hpp"
 
 class AudioVisualizer final {
 public:
-    static constexpr size_t BUFFER_SIZE = 512;
+    static constexpr size_t BUFFER_SIZE = 8196;
     static constexpr double FREQ_MAX = 50000.0;
 private:
     using Complex = std::complex<double>;
@@ -138,8 +138,11 @@ int main()
     circle.setOrigin(25, 25);
     circle.setPosition(win.getSize().x / 2.f, win.getSize().y / 2.f);
 
+    sf::RectangleShape rect;
+    rect.setFillColor(sf::Color::Cyan);
+
     sf::SoundBuffer buffer{};
-    if (!buffer.loadFromFile("bp.ogg")) {
+    if (!buffer.loadFromFile("ignite.ogg")) {
         std::cerr << "no" << std::endl;
         win.close();
     }
@@ -171,8 +174,6 @@ int main()
             const auto width = winWidth / static_cast<double>(visData.scaleList->size());
             const auto height = ratio * winHeight;
 
-            sf::RectangleShape rect;
-            rect.setFillColor(sf::Color::Cyan);
             rect.setSize(sf::Vector2f(width, height));
             rect.setOrigin(0, height);
             rect.setPosition(index++ * width, winHeight);

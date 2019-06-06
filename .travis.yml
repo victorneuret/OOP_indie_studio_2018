@@ -18,7 +18,8 @@ before_script:
   - curl http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/SFML-2.5.1.zip -o SFML-2.5.1.zip
   - unzip SFML-2.5.1.zip
   - mkdir -p SFML
-  - mv SFML-2.5.1/lib/sfml-audio.lib .
+    # TODO: Remove SFML test libs
+  - mv SFML-2.5.1/lib/sfml-audio.lib SFML-2.5.1/lib/sfml-system.lib SFML-2.5.1/lib/sfml-graphics.lib SFML-2.5.1/lib/sfml-window.lib .
   - mv SFML-2.5.1/include/SFML SFML
 
 script:
