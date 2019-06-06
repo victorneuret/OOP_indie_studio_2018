@@ -14,7 +14,7 @@
 
 std::unique_ptr<Engine::ECS::Engine> Engine::ECS::Engine::_instance{nullptr};
 std::vector<std::shared_ptr<Engine::ECS::ISystem>> Engine::ECS::Engine::_systems{};
-std::map<Engine::AScene::SceneType , Engine::AScene*> Engine::ECS::Engine::_scenes{};
+std::vector<std::shared_ptr<Engine::Scene::AScene>> Engine::ECS::Engine::_scenes{};
 
 Engine::ECS::Engine &Engine::ECS::Engine::getInstance()
 {
@@ -31,7 +31,7 @@ decltype(Engine::ECS::Engine::_systems) &Engine::ECS::Engine::getSystems() noexc
     return _systems;
 }
 
-std::shared_ptr<Engine::ECS::ISystem> &Engine::ECS::Engine::getSystemsByID(const std::string &id)
+std::shared_ptr<Engine::ECS::ISystem> &Engine::ECS::Engine::getSystemByID(const std::string &id)
 {
     for (auto &elem : _systems)
         if (elem->getID() == id)
@@ -44,16 +44,30 @@ void Engine::ECS::Engine::addSystem(std::shared_ptr<ISystem> &system)
     _systems.push_back(system);
 }
 
-Engine::AScene &Engine::ECS::Engine::getScene(const AScene::SceneType type)
+std::shared_ptr<Engine::Scene::AScene> &Engine::ECS::Engine::getSceneByID(const std::string &id)
 {
-    auto search = _scenes.find(type);
-
-    if (search == _scenes.end())
-        throw EngineException<Engine_ECS>{"Could not find the scene."};
-    return *search->second;
+    for (auto &scene : _scenes)
+        if (scene->getID() == id)
+            return scene;
+    throw ECSException<ECS_AScene>{"AScene " + id + " not found"};
 }
 
-void Engine::ECS::Engine::addScene(AScene &scene)
+void Engine::ECS::Engine::addScene(std::shared_ptr<Scene::AScene> &scene)
 {
-    _scenes[AScene::SceneType::GAME] = &scene;
+    _scenes.push_back(scene);
+}
+
+decltype(Engine::ECS::Engine::_scenes) &Engine::ECS::Engine::getScenes() noexcept
+{
+    return _scenes;
+}
+
+void Engine::ECS::Engine::sceneManager(double deltaTime)
+{
+    for (auto it = _scenes.end(); it >= _scenes.begin(); it++) {
+        if ((*it)->isUpdateChild())
+           (*it)->tick(deltaTime);
+        if  ((*it)->isOpaque())
+            break;
+    }
 }

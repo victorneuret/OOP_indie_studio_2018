@@ -69,13 +69,14 @@ add_library(
     Engine/src/ECS/Components/Button.cpp
     Engine/src/Utils/Random.cpp
     Engine/include/Utils/Random.hpp
-    Engine/include/AScene.hpp
-    Engine/src/AScene.cpp
+    Engine/include/Scenes/AScene.hpp
+    Engine/src/Scenes/AScene.cpp
     Engine/include/ECS/Components/Player.hpp
     Engine/include/ECS/Systems/JoystickInput.hpp
     Engine/src/ECS/Systems/JoystickInput.cpp
     Engine/include/ECS/Systems/EventHandler.hpp
-)
+    Engine/include/Scenes/MainMenu.hpp
+    Engine/src/Scenes/MainMenu.cpp)
 
 add_executable(
     bomberman
