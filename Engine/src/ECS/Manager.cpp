@@ -62,11 +62,11 @@ decltype(Engine::ECS::Manager::_scenes) &Engine::ECS::Manager::getScenes() noexc
     return _scenes;
 }
 
-void Engine::ECS::Manager::sceneManager(double)
+void Engine::ECS::Manager::sceneManager(double dt)
 {
-    for (auto it = _scenes.end(); it >= _scenes.begin(); it--) {
-//        if ((*it)->isUpdateChild())
-//           (*it)->tick(dt); => SEGFAULT :(
+    for (auto it = _scenes.rbegin(); it != _scenes.rend(); it++) {
+        if ((*it)->isUpdateChild())
+           (*it)->tick(dt);
         if  ((*it)->isOpaque())
             break;
     }
