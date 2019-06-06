@@ -9,11 +9,10 @@
 
 #include <vector>
 #include <memory>
-#include <map>
 
 #include "ECS/Interfaces/IEntity.hpp"
 #include "ECS/Interfaces/ISystem.hpp"
-#include "AScene.hpp"
+#include "Scenes/AScene.hpp"
 
 namespace Engine::ECS {
     class Manager;
@@ -25,8 +24,7 @@ private:
 
     static std::vector<std::shared_ptr<IEntity>> _entities;
     static std::vector<std::shared_ptr<ISystem>> _systems;
-    static std::map<AScene::SceneType , AScene*> _scenes;
-
+    static std::vector<std::shared_ptr<Scene::AScene>> _scenes;
     static std::unique_ptr<Manager> _instance;
 
 public:
@@ -36,10 +34,12 @@ public:
     Manager &operator=(const Manager &) = delete;
 
     decltype(_systems) &getSystems() noexcept;
-    std::shared_ptr<ISystem> &getSystemsByID(const std::string &id);
+    std::shared_ptr<ISystem> &getSystemByID(const std::string &id);
     void addSystem(std::shared_ptr<ISystem> &system);
 
-    AScene &getScene(const AScene::SceneType type);
-    void addScene(AScene &scene);
+    decltype(_scenes) &getScenes() noexcept;
+    std::shared_ptr<Scene::AScene> &getSceneByID(const std::string &id);
+    void addScene(std::shared_ptr<Scene::AScene> &scene);
+    void sceneManager(double deltaTime);
 
 };
