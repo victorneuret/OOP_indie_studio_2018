@@ -12,6 +12,10 @@
 #include "Exception/Memory/MemoryException.hpp"
 #include "Exception/Engine/ECS/Systems/SoundException.hpp"
 
+Engine::ECS::System::Audio::Audio()
+    : ASystem("Audio")
+{}
+
 void Engine::ECS::System::Audio::update(double)
 {}
 

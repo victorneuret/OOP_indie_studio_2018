@@ -15,6 +15,7 @@
 #include "Entities/Player.hpp"
 #include "Exception/AException.hpp"
 #include "Systems/Map.hpp"
+#include "ECS/Systems/Audio.hpp"
 #include "Math/Vector/Vec3.hpp"
 
 Engine::GameApplication::GameApplication(const decltype(_title) &title, long width, long height)
@@ -47,6 +48,8 @@ void Engine::GameApplication::_loop()
     Engine::ECS::Engine::getInstance().addEntity(entity4);
     std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();
     Engine::ECS::Engine::getInstance().addSystem(map);
+    std::shared_ptr<Engine::ECS::ISystem> audio = std::make_shared<Engine::ECS::System::Audio>();
+    Engine::ECS::Engine::getInstance().addSystem(audio);
 
     while (!renderer->closeRequested()) {
         renderer->refresh();

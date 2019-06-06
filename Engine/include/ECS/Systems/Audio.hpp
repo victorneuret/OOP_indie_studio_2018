@@ -27,6 +27,7 @@ public:
 private:
     std::map<std::string, Sound> _sounds{};
 public:
+    Audio();
     ~Audio() override = default;
 
     void update(double dt) override;
