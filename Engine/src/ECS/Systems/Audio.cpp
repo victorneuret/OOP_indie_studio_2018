@@ -32,7 +32,7 @@ void Engine::ECS::System::Audio::loadSound(const std::string &key, const std::st
 
     BufferType buffer;
     if (!buffer.loadFromFile(soundPath))
-        throw SoundException<Sound_File_Not_Found>{};
+        throw SoundException<Sound_File_Not_Found>{"File Not Found: " + soundPath};
 
     sound->setBuffer(buffer);
     _sounds.emplace(key, sound);
