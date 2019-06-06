@@ -1,6 +1,6 @@
 # Blender v2.80 (sub 51) OBJ File: 'Wooden Crate.blend'
 # www.blender.org
-mtllib cube.mtl
+#mtllib WoodenCube.mtl
 o Crate_Plane.005
 v 2.052328 0.437319 1.773644
 v 2.052328 4.273644 -2.062680
