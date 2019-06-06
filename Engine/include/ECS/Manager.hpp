@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** bomberman
 ** File description:
-** Engine.hpp
+** Manager.hpp
 */
 
 #pragma once
@@ -14,23 +14,23 @@
 #include "ECS/Interfaces/ISystem.hpp"
 
 namespace Engine::ECS {
-    class Engine;
+    class Manager;
 }
 
-class Engine::ECS::Engine {
+class Engine::ECS::Manager {
 private:
-    Engine() = default;
+    Manager() = default;
 
     static std::vector<std::shared_ptr<IEntity>> _entities;
     static std::vector<std::shared_ptr<ISystem>> _systems;
 
-    static std::unique_ptr<Engine> _instance;
+    static std::unique_ptr<Manager> _instance;
 
 public:
-    static Engine &getInstance();
+    static Manager &getInstance();
 
-    Engine(const Engine &) = delete;
-    Engine &operator=(const Engine &) = delete;
+    Manager(const Manager &) = delete;
+    Manager &operator=(const Manager &) = delete;
 
     std::shared_ptr<IEntity> &getEntityByID(size_t id);
     decltype(_entities) &getEntities() noexcept;

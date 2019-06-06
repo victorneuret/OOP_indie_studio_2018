@@ -6,12 +6,12 @@
 */
 
 #include "ECS/Components/Text.hpp"
-#include "ECS/Engine.hpp"
+#include "ECS/Manager.hpp"
 
 Engine::ECS::Component::Text::Text(const decltype(_string) &string, const decltype(_pos) &pos, const decltype(_color) &color, const decltype(_fontPath) &fontPath)
     : AComponent{"Text"}, _string{std::wstring{string}}, _pos{pos}, _color{color}, _fontPath{std::string{fontPath}}
 {
-    const auto renderer = std::dynamic_pointer_cast<System::Renderer>(Engine::getInstance().getSystemsByID("Renderer"));
+    const auto renderer = std::dynamic_pointer_cast<System::Renderer>(Manager::getInstance().getSystemsByID("Renderer"));
 
     _font = renderer->createFont(_fontPath);
 

@@ -6,15 +6,10 @@
 */
 
 #include "Utils/Logger.hpp"
-#include "ECS/Engine.hpp"
+#include "ECS/Manager.hpp"
 #include "Utils/Colors.hpp"
-#include "Entities/Text.hpp"
-#include "Entities/Block.hpp"
-#include "Entities/Button.hpp"
 #include "GameApplication.hpp"
-#include "Entities/Player.hpp"
 #include "Exception/AException.hpp"
-#include "Systems/Map.hpp"
 #include "ECS/Systems/Audio.hpp"
 #include "Math/Vector/Vec3.hpp"
 
@@ -24,10 +19,28 @@ Engine::GameApplication::GameApplication(const decltype(_title) &title, long wid
 }
 
 Engine::GameApplication::GameApplication(const decltype(_title) &title, const decltype(_dimensions) &dimensions)
-    : _title(decltype(_title)(title)), _dimensions(dimensions)
+    : _title{decltype(_title){title}}, _dimensions{dimensions}
 {
     std::shared_ptr<Engine::ECS::ISystem> renderer = std::make_shared<Engine::ECS::System::Renderer>(_title, _dimensions);
-    Engine::ECS::Engine::getInstance().addSystem(renderer);
+    _ecsManager.addSystem(renderer);
+}
+
+void Engine::GameApplication::_startup()
+{
+    std::shared_ptr<Engine::ECS::ISystem> audio = std::make_shared<Engine::ECS::System::Audio>();
+    _ecsManager.addSystem(audio);
+}
+
+void Engine::GameApplication::_tick(double dt, std::shared_ptr<Engine::ECS::System::Renderer> &renderer)
+{
+    for (const auto &system : _ecsManager.getSystems())
+        if (system->getID() != "Renderer")
+            system->update(dt);
+
+    tick(dt);
+
+    for (const auto &entity : _ecsManager.getEntities())
+        renderer->draw(entity);
 }
 
 void Engine::GameApplication::_loop()
@@ -35,32 +48,14 @@ void Engine::GameApplication::_loop()
     std::chrono::duration<double> elapsed = std::chrono::seconds(0);
     auto begin = std::chrono::system_clock::now();
     decltype(begin) end;
-    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Engine::getInstance().getSystemsByID("Renderer"));
-
-
-    std::shared_ptr<Engine::ECS::IEntity> entity1 = std::make_shared<Game::Entity::Player>();
-    Engine::ECS::Engine::getInstance().addEntity(entity1);
-    std::shared_ptr<Engine::ECS::IEntity> entity3 = std::make_shared<Game::Entity::Text>(L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0});
-    Engine::ECS::Engine::getInstance().addEntity(entity3);
-    std::shared_ptr<Engine::ECS::IEntity> entity4 = std::make_shared<Game::Entity::Button>(Math::Rect_i{75, 15, 500, 30}, L"Un Button");
-    Engine::ECS::Engine::getInstance().addEntity(entity4);
-    std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();
-    Engine::ECS::Engine::getInstance().addSystem(map);
-    std::shared_ptr<Engine::ECS::ISystem> audio = std::make_shared<Engine::ECS::System::Audio>();
-    Engine::ECS::Engine::getInstance().addSystem(audio);
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(_ecsManager.getSystemsByID("Renderer"));
 
     while (!renderer->closeRequested()) {
+        auto dt = elapsed.count();
+
         renderer->refresh();
-        tick(elapsed.count());
-
-        for (const auto &entity : Engine::ECS::Engine::getInstance().getEntities()) {
-            renderer->draw(entity);
-            // entity->hide();
-            // entity->show();
-        }
-        map->update(elapsed.count());
-        renderer->update(elapsed.count());
-
+        _tick(dt, renderer);
+        renderer->update(dt);
 
         end = std::chrono::system_clock::now();
         elapsed = end - begin;
@@ -70,6 +65,7 @@ void Engine::GameApplication::_loop()
 
 bool Engine::GameApplication::run()
 {
+    _startup();
     onAppStartup();
 
     try {

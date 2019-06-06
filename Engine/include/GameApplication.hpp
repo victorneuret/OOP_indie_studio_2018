@@ -10,8 +10,9 @@
 #include <irrlicht/irrlicht.h>
 #include <string>
 
-#include "Math/Vector/Vec2.hpp"
+#include "ECS/Manager.hpp"
 #include "ECS/Systems/Renderer.hpp"
+#include "Math/Vector/Vec2.hpp"
 
 constexpr int APP_SUCCESS = 0;
 constexpr int APP_FAILURE = 84;
@@ -24,7 +25,10 @@ class Engine::GameApplication {
 private:
     const std::wstring _title;
     const Math::Vec2u _dimensions;
+    decltype(Engine::ECS::Manager::getInstance()) _ecsManager = Engine::ECS::Manager::getInstance();
 
+    void _startup();
+    void _tick(double dt, std::shared_ptr<Engine::ECS::System::Renderer> &renderer);
     void _loop();
 public:
     GameApplication(const decltype(_title) &title, long width, long height);
