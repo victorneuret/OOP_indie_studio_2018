@@ -6,12 +6,12 @@
 */
 
 #include "ECS/Components/Button.hpp"
-#include "ECS/Engine.hpp"
+#include "ECS/Manager.hpp"
 
 Engine::ECS::Component::Button::Button(const decltype(_bounds) &bounds, const decltype(_text) &text)
     : AComponent{"Button"}, _text{std::wstring{text}}, _bounds{bounds}
 {
-    const auto renderer = std::dynamic_pointer_cast<System::Renderer>(Engine::getInstance().getSystemsByID("Renderer"));
+    const auto renderer = std::dynamic_pointer_cast<System::Renderer>(Manager::getInstance().getSystemsByID("Renderer"));
 
     _button = renderer->createButton(_bounds, _text);
 }

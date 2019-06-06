@@ -42,8 +42,8 @@ add_library(
     Engine/include/ECS/Abstracts/ASystem.hpp
     Engine/include/ECS/Abstracts/AEntity.hpp
     Engine/include/ECS/Interfaces/ISystem.hpp
-    Engine/include/ECS/Engine.hpp
-    Engine/src/ECS/Engine.cpp
+    Engine/include/ECS/Manager.hpp
+    Engine/src/ECS/Manager.cpp
     Engine/include/ECS/Abstracts/Systems/AInput.hpp
     Engine/src/ECS/Systems/KeyboardInput.cpp
     Engine/include/ECS/Systems/MouseInput.hpp
