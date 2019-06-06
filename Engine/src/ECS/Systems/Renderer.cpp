@@ -6,9 +6,11 @@
 */
 
 #include <memory>
+#include <iostream>
 #include <irrlicht/irrlicht.h>
 
 #include "ECS/Components/Text.hpp"
+#include "ECS/Systems/JoystickInput.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "ECS/Components/Button.hpp"
 #include "ECS/Components/Model3D.hpp"
@@ -16,6 +18,20 @@
 #include "Exception/Memory/MemoryException.hpp"
 #include "Exception/NotImplementedException.hpp"
 #include "Exception/Engine/ECS/ECSException.hpp"
+
+bool Engine::ECS::System::Renderer::EventMiddleware::OnEvent(const irr::SEvent &event)
+{
+    for (auto &h : _handlers) {
+        if (h->OnEvent(event))
+            return true;
+    }
+    return false;
+}
+
+void Engine::ECS::System::Renderer::EventMiddleware::addEventHandler(const std::shared_ptr<irr::IEventReceiver> &handler)
+{
+    _handlers.push_back(handler);
+}
 
 Engine::ECS::System::Renderer::Renderer(const decltype(_windowName) &windowName, const decltype(_windowSize) &windowSize)
     : ASystem{"Renderer"},
@@ -29,6 +45,13 @@ Engine::ECS::System::Renderer::Renderer(const decltype(_windowName) &windowName,
         throw ECSException<ECS_Renderer>{"Failed to initialise the window"};
     _window->setWindowCaption(_windowName.c_str());
     _sceneManager->addCameraSceneNode(nullptr, irr::core::vector3df(0, 200, 0), irr::core::vector3df(0, 0, 0));
+
+    irr::core::array<irr::SJoystickInfo> joystickInfo;
+    if (!_window->activateJoysticks(joystickInfo)) {
+        std::cerr << "Joystick support is not enabled." << std::endl;
+    }
+
+    _sceneManager->addCameraSceneNode(nullptr, irr::core::vector3df(100, 0, 0), irr::core::vector3df(0, 0, 0));
 }
 
 Engine::ECS::System::Renderer::~Renderer()

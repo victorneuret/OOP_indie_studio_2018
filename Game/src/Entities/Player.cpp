@@ -10,6 +10,7 @@
 #include "Entities/Player.hpp"
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Components/Renderer.hpp"
+#include "ECS/Abstracts/Systems/AInput.hpp"
 
 Game::Entity::Player::Player(const Engine::ECS::System::Renderer &renderer, const Engine::Math::Vec3f &pos, const std::string &model, const std::string &texture)
     : AEntity(AEntity::Type::MODEL3D)

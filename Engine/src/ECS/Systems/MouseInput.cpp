@@ -11,7 +11,7 @@ Engine::ECS::System::MouseInput::MouseInput()
     : AInput{"MouseInput"}
 {}
 
-bool Engine::ECS::System::MouseInput::OnEvent(irr::SEvent &event)
+bool Engine::ECS::System::MouseInput::OnEvent(const irr::SEvent &event)
 {
     if (event.EventType != irr::EET_MOUSE_INPUT_EVENT)
         return false;
@@ -26,3 +26,6 @@ const decltype(Engine::ECS::System::MouseInput::_pos) &Engine::ECS::System::Mous
 {
     return _pos;
 }
+
+void Engine::ECS::System::MouseInput::update(double)
+{}

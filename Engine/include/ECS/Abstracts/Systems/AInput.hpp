@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <irrlicht/irrlicht.h>
 
+#include "ECS/Abstracts/AComponent.hpp"
 #include "ECS/Abstracts/ASystem.hpp"
 
 namespace Engine::ECS::System {
@@ -25,7 +26,7 @@ public:
     explicit AInput(const std::string &id) : ASystem{id} {}
     virtual ~AInput() override = default;
 
-    virtual bool OnEvent(irr::SEvent &) = 0;
+    virtual bool OnEvent(const irr::SEvent &) = 0;
 
     decltype(_keys)::value_type::second_type isKeyDown(const decltype(irr::SEvent::SKeyInput::Char) key)
     {
