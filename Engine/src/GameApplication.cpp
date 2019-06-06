@@ -39,8 +39,6 @@ void Engine::GameApplication::_loop()
 
     std::shared_ptr<Engine::ECS::IEntity> entity1 = std::make_shared<Game::Entity::Player>(*renderer);
     Engine::ECS::Engine::getInstance().addEntity(entity1);
-    std::shared_ptr<Engine::ECS::IEntity> entity2 = std::make_shared<Game::Entity::Block>(*renderer);
-    Engine::ECS::Engine::getInstance().addEntity(entity2);
     std::shared_ptr<Engine::ECS::IEntity> entity3 = std::make_shared<Game::Entity::Text>(*renderer, L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0});
     Engine::ECS::Engine::getInstance().addEntity(entity3);
     std::shared_ptr<Engine::ECS::IEntity> entity4 = std::make_shared<Game::Entity::Button>(*renderer, Math::Rect_i{75, 15, 500, 30}, L"Un Button");

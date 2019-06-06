@@ -50,11 +50,13 @@ public:
     void refresh() const;
     bool closeRequested() const noexcept;
 
-    irr::scene::IAnimatedMeshSceneNode *create3DModel(const std::string &res, const std::string &texture) const;
+    irr::scene::IAnimatedMeshSceneNode *create3DModel(const std::string &res) const;
     irr::gui::IGUIFont *createFont(const std::string &fontPath) const;
     irr::gui::IGUIButton *createButton(const ::Engine::Math::Rect_i &pos, const std::wstring &text) const;
 
     void drawText(const std::shared_ptr<IEntity> &entity) const;
     void draw3DModel(const std::shared_ptr<IEntity> &entity) const;
     void drawButton(const std::shared_ptr<IEntity> &entity) const;
+
+    decltype(_window->getVideoDriver()) getVideoDriver() const;
 };
