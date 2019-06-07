@@ -5,13 +5,17 @@
 ** GameApplication.cpp
 */
 
-#include "Utils/Logger.hpp"
-#include "ECS/Manager.hpp"
-#include "Utils/Colors.hpp"
+#include <irrlicht/irrTypes.h>
+#include <chrono>
+#include <vector>
+
 #include "GameApplication.hpp"
-#include "Exception/AException.hpp"
+#include "ECS/Interfaces/ISystem.hpp"
+#include "ECS/Manager.hpp"
 #include "ECS/Systems/Audio.hpp"
-#include "Math/Vector/Vec3.hpp"
+#include "ECS/Systems/Renderer.hpp"
+#include "Exception/AException.hpp"
+#include "Utils/Logger.hpp"
 
 Engine::GameApplication::GameApplication(const decltype(_title) &title, long width, long height)
     : GameApplication(title, Math::Vec2<irr::u32>(width, height))

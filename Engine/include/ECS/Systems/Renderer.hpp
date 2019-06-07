@@ -14,7 +14,6 @@
 #include "Math/Rect.hpp"
 #include "Math/Vector/Vec2.hpp"
 #include "ECS/Abstracts/ASystem.hpp"
-#include "ECS/Interfaces/IEntity.hpp"
 
 namespace Engine::ECS::System {
     class Renderer;

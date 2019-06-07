@@ -7,10 +7,11 @@
 
 #pragma once
 
+#include <string>
+
 #include <irrlicht/irrlicht.h>
 
 #include "Math/Rect.hpp"
-#include "ECS/Systems/Renderer.hpp"
 #include "ECS/Abstracts/AComponent.hpp"
 
 namespace Engine::ECS::Component {

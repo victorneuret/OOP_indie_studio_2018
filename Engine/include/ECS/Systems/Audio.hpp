@@ -11,7 +11,8 @@
 #include <string>
 #include <memory>
 
-#include <SFML/Audio.hpp>
+#include <SFML/Audio/Sound.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
 
 #include "ECS/Abstracts/ASystem.hpp"
 

@@ -7,8 +7,10 @@
 
 #pragma once
 
-#include "Math/Vector/Vec2.hpp"
+#include <irrlicht/IEventReceiver.h>
+
 #include "ECS/Abstracts/Systems/AInput.hpp"
+#include "Math/Vector/Vec2.hpp"
 
 namespace Engine::ECS::System {
     class MouseInput;

@@ -5,12 +5,15 @@
 ** Model3D.cpp
 */
 
+#include <memory>
+
+#include "ECS/Systems/Renderer.hpp"
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Manager.hpp"
 #include "Math/Vector/Vec3.hpp"
 
 Engine::ECS::Component::Model3D::Model3D(const Math::Vec3f &pos, const decltype(_model) &model)
-        : AComponent("Model3D"), _model{std::string{model}}
+    : AComponent("Model3D"), _model{std::string{model}}
 {
     const auto renderer = std::dynamic_pointer_cast<System::Renderer>(Manager::getInstance().getSystemsByID("Renderer"));
 
@@ -35,7 +38,7 @@ decltype(Engine::ECS::Component::Model3D::_node) &Engine::ECS::Component::Model3
 
 void Engine::ECS::Component::Model3D::setPosition(const Math::Vec3f &pos)
 {
-   _node->setPosition(irr::core::vector3df{pos.x, pos.y, pos.z});
+    _node->setPosition(irr::core::vector3df{pos.x, pos.y, pos.z});
 }
 
 void Engine::ECS::Component::Model3D::setScale(const Math::Vec3f &scale)

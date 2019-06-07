@@ -7,10 +7,13 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
+#include <vector>
 
-#include "ECS/Systems/Renderer.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
+#include "Exception/AException.hpp"
+#include "Math/Rect.hpp"
 
 namespace Game::Entity {
     class Button;

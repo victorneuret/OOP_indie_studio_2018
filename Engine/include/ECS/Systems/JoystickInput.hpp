@@ -7,11 +7,9 @@
 
 #pragma once
 
-#include <vector>
-#include <memory>
+#include <type_traits>
 #include <irrlicht/irrlicht.h>
 
-#include "ECS/Interfaces/IEntity.hpp"
 #include "ECS/Abstracts/Systems/AInput.hpp"
 
 namespace Engine::ECS::System {

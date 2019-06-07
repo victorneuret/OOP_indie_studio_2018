@@ -7,7 +7,8 @@
 
 #include "Entities/Button.hpp"
 #include "ECS/Components/Button.hpp"
-#include "ECS/Manager.hpp"
+#include "ECS/Components/Renderer.hpp"
+#include "ECS/Interfaces/IEntity.hpp"
 
 Game::Entity::Button::Button(const Engine::Math::Rect_i &pos, const std::wstring &text)
     : AEntity(AEntity::Type::BUTTON)

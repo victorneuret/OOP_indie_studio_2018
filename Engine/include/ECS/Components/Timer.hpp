@@ -7,9 +7,7 @@
 
 #pragma once
 
-#include <chrono>
 #include <functional>
-#include <memory>
 
 #include "ECS/Abstracts/AComponent.hpp"
 #include "ECS/Components/Chrono.hpp"

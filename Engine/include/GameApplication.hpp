@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <irrlicht/irrlicht.h>
+#include <memory>
 #include <string>
 
 #include "ECS/Manager.hpp"

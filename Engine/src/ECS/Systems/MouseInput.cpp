@@ -5,6 +5,8 @@
 ** MouseInput
 */
 
+#include <map>
+
 #include "ECS/Systems/MouseInput.hpp"
 
 Engine::ECS::System::MouseInput::MouseInput()

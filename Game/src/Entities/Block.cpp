@@ -10,7 +10,7 @@
 #include "Entities/Block.hpp"
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Components/Renderer.hpp"
-#include "ECS/Manager.hpp"
+#include "ECS/Interfaces/IEntity.hpp"
 
 Game::Entity::Block::Block(const Engine::Math::Vec3f &pos, const std::string &model)
     : AEntity(AEntity::Type::MODEL3D)

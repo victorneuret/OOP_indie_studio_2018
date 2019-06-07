@@ -7,10 +7,10 @@
 
 #pragma once
 
-#include <mutex>
-#include <memory>
 #include <fstream>
-#include <iostream>
+#include <memory>
+#include <mutex>
+#include <string>
 
 constexpr const char *const LOG_FOLDER = "./logs/";
 

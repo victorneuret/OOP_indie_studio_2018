@@ -24,9 +24,9 @@ protected:
 
 public:
     explicit AInput(const std::string &id) : ASystem{id} {}
-    virtual ~AInput() override = default;
+    ~AInput() override = default;
 
-    virtual bool OnEvent(const irr::SEvent &) = 0;
+    bool OnEvent(const irr::SEvent &) override = 0;
 
     decltype(_keys)::value_type::second_type isKeyDown(const decltype(irr::SEvent::SKeyInput::Char) key)
     {

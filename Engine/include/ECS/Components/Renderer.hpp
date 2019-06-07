@@ -7,12 +7,8 @@
 
 #pragma once
 
-#include <string>
-#include <irrlicht/irrlicht.h>
-
-#include "Utils/Colors.hpp"
-#include "Math/Vector/Vec3.hpp"
 #include "ECS/Abstracts/AComponent.hpp"
+#include "Math/Vector/Vec2.hpp"
 
 namespace Engine::ECS::Component {
     class Renderer;
