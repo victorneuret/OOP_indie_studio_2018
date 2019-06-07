@@ -12,6 +12,7 @@
 
 #include "ECS/Interfaces/IEntity.hpp"
 #include "ECS/Interfaces/ISystem.hpp"
+#include "ECS/Systems/Renderer.hpp"
 #include "Abstracts/AScene.hpp"
 
 namespace Engine::ECS {
@@ -41,5 +42,5 @@ public:
     decltype(_scenes) &getScenes() noexcept;
     std::shared_ptr<Abstracts::AScene> &getSceneByID(const std::string &id);
     void addScene(std::shared_ptr<Abstracts::AScene> &scene);
-    void sceneManager(double dt);
+    void sceneManager(double dt, std::shared_ptr<System::Renderer> &renderer);
 };

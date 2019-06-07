@@ -7,7 +7,7 @@
 
 #include "Utils/Logger.hpp"
 #include "ECS/Manager.hpp"
-#include "Utils/Colors.hpp"
+#include "Utils/Color.hpp"
 #include "ECS/Entities/Text.hpp"
 #include "ECS/Entities/Button.hpp"
 #include <irrlicht/irrTypes.h>
@@ -45,9 +45,7 @@ void Engine::GameApplication::_tick(double dt, std::shared_ptr<Engine::ECS::Syst
             system->update(dt);
 
     tick(dt);
-
-    for (const auto &entity : _ecsManager.getEntities())
-        renderer->draw(entity);
+    _ecsManager.sceneManager(dt, renderer);
 }
 
 void Engine::GameApplication::_loop()
@@ -55,21 +53,7 @@ void Engine::GameApplication::_loop()
     std::chrono::duration<double> elapsed = std::chrono::seconds(0);
     auto begin = std::chrono::system_clock::now();
     decltype(begin) end;
-    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemsByID("Renderer"));
-
-
-    std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();
-    Engine::ECS::Manager::getInstance().addSystem(map);
-
-    std::vector<std::shared_ptr<Engine::ECS::IEntity>> entities{
-        std::make_shared<Game::Entity::Player>(*renderer),
-        std::make_shared<Game::Entity::Block>(*renderer),
-        std::make_shared<Game::Entity::Text>(*renderer, L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0}),
-        std::make_shared<Game::Entity::Button>(*renderer, Math::Rect_i{75, 15, 500, 30}, L"Un Button")
-    };
-
-    Engine::AScene defaultScene(Engine::AScene::SceneType::GAME, entities, false, false);
-    Engine::ECS::Manager::getInstance().addScene(defaultScene);
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"));
 
     while (!renderer->closeRequested()) {
         auto dt = elapsed.count();

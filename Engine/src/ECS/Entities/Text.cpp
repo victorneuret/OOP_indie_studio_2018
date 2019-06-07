@@ -7,7 +7,7 @@
 
 #include <memory>
 
-#include "Utils/Colors.hpp"
+#include "Utils/Color.hpp"
 #include "ECS/Entities/Text.hpp"
 #include "ECS/Components/Text.hpp"
 #include "ECS/Components/Renderer.hpp"

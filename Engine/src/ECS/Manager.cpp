@@ -65,7 +65,7 @@ decltype(Engine::ECS::Manager::_scenes) &Engine::ECS::Manager::getScenes() noexc
     return _scenes;
 }
 
-void Engine::ECS::Manager::sceneManager(double dt)
+void Engine::ECS::Manager::sceneManager(double dt, std::shared_ptr<Engine::ECS::System::Renderer> &renderer)
 {
     for (auto it = _scenes.rbegin(); it != _scenes.rend(); it++) {
         if ((*it)->isUpdateChild())
@@ -75,7 +75,7 @@ void Engine::ECS::Manager::sceneManager(double dt)
     }
     for (auto &scene : _scenes) {
         for (auto &entity : scene->getEntities()) {
-            entity->hide();
+            renderer->draw(entity);
         }
     }
 }

@@ -15,7 +15,7 @@
 Engine::ECS::Component::Model3D::Model3D(const Math::Vec3f &pos, const decltype(_model) &model)
     : AComponent("Model3D"), _model{std::string{model}}
 {
-    const auto renderer = std::dynamic_pointer_cast<System::Renderer>(Manager::getInstance().getSystemsByID("Renderer"));
+    const auto renderer = std::dynamic_pointer_cast<System::Renderer>(Manager::getInstance().getSystemByID("Renderer"));
 
     _node = renderer->create3DModel(model);
     _node->setPosition(irr::core::vector3df{pos.x, pos.y, pos.z});
@@ -48,7 +48,7 @@ void Engine::ECS::Component::Model3D::setScale(const Math::Vec3f &scale)
 
 void Engine::ECS::Component::Model3D::addTexture(const decltype(_texture) &texture)
 {
-    auto renderer = std::dynamic_pointer_cast<System::Renderer>(Manager::getInstance().getSystemsByID("Renderer"));
+    auto renderer = std::dynamic_pointer_cast<System::Renderer>(Manager::getInstance().getSystemByID("Renderer"));
 
     _node->setMaterialTexture(_textureLayer++, renderer->getVideoDriver()->getTexture(texture.c_str()));
 }

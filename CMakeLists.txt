@@ -48,18 +48,14 @@ add_library(
     Engine/src/ECS/Systems/KeyboardInput.cpp
     Engine/include/ECS/Systems/MouseInput.hpp
     Engine/src/ECS/Systems/MouseInput.cpp
-    Engine/include/ECS/Components/Timer.hpp
-    Engine/src/ECS/Components/Timer.cpp
     Engine/include/Utils/TypeDisplayer.hpp
     Engine/include/GameApplication.hpp
     Engine/src/GameApplication.cpp
-    Engine/include/ECS/Components/Renderer.hpp
-    Engine/src/ECS/Components/Renderer.cpp
     Engine/include/ECS/Systems/Renderer.hpp
     Engine/src/ECS/Systems/Renderer.cpp
     Engine/include/ECS/Components/Timer.hpp
     Engine/src/ECS/Components/Timer.cpp
-    Engine/include/Utils/Colors.hpp
+    Engine/include/Utils/Color.hpp
     Engine/src/Utils/Color.cpp
     Engine/include/ECS/Components/Model3D.hpp
     Engine/src/ECS/Components/Model3D.cpp
@@ -67,6 +63,8 @@ add_library(
     Engine/src/ECS/Components/Text.cpp
     Engine/include/ECS/Components/Button.hpp
     Engine/src/ECS/Components/Button.cpp
+    Engine/include/ECS/Components/Renderer.hpp
+    Engine/src/ECS/Components/Renderer.cpp
     Engine/src/Utils/Random.cpp
     Engine/include/Utils/Random.hpp
     Engine/include/Abstracts/AScene.hpp
@@ -82,8 +80,13 @@ add_library(
     Engine/src/ECS/Components/Slider.cpp
     Engine/include/ECS/Interfaces/Entities/IClickable.hpp
     Engine/include/ECS/Interfaces/Entities/IHoverable.hpp
-    Engine/include/Scenes/MainMenu.hpp
-    Engine/src/Scenes/MainMenu.cpp
+    Engine/include/ECS/Entities/Button.hpp
+    Engine/src/ECS/Entities/Button.cpp
+    Engine/include/ECS/Entities/Slider.hpp
+    Engine/src/ECS/Entities/Slider.cpp
+    Engine/include/ECS/Entities/Text.hpp
+    Engine/src/ECS/Entities/Text.cpp
+
 )
 
 add_executable(
@@ -96,12 +99,6 @@ add_executable(
     Game/include/Systems/Map.hpp
     Game/src/Entities/Player.cpp
     Game/src/Systems/Map.cpp
-    Engine/include/ECS/Entities/Text.hpp
-    Engine/src/ECS/Entities/Text.cpp
-    Engine/include/ECS/Entities/Button.hpp
-    Engine/src/ECS/Entities/Button.cpp
-    Engine/include/ECS/Entities/Slider.hpp
-    Engine/src/ECS/Entities/Slider.cpp
     Game/include/Scenes/MainMenu.hpp
     Game/src/Scenes/MainMenu.cpp
 )
