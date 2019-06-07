@@ -19,7 +19,7 @@ namespace Game::Entity {
 
 class Game::Entity::Particle : public Engine::ECS::AEntity<Particle> {
 public:
-    explicit Particle(const Engine::ECS::System::Renderer &renderer, const Engine::Math::Vec3f &pos, const double &duration, const std::string &model = std::string("assets/models/weapon.md2"), const std::string &texture = std::string("assets/models/weapon.pcx"));
+    explicit Particle( const Engine::Math::Vec3f &pos, const double &duration, const std::string &model = std::string("assets/models/tris.md2"));
 
     Particle(const Particle &) = delete;
     Particle &operator=(const Particle &) = delete;

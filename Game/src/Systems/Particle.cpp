@@ -11,7 +11,7 @@
 #include <Entities/Particle.hpp>
 #include "Systems/Particle.hpp"
 #include "Exception/AException.hpp"
-#include "ECS/Engine.hpp"
+#include "ECS/Manager.hpp"
 #include "Utils/Logger.hpp"
 
 Game::System::Particle::Particle()
@@ -20,16 +20,16 @@ Game::System::Particle::Particle()
 
 std::vector<std::shared_ptr<Engine::ECS::IEntity>> Game::System::Particle::getEntityList()
 {
-    return Engine::ECS::Engine::getInstance().getEntities();
+    return Engine::ECS::Manager::getInstance().getEntities();
 }
 
-bool Game::System::Particle::checkParticleState(const std::shared_ptr<Game::Entity::Particle> &particle)
+void Game::System::Particle::checkParticleState(const std::shared_ptr<Game::Entity::Particle> &particle)
 {
     auto timer = std::dynamic_pointer_cast<Engine::ECS::Component::Timer>(particle->getComponentByID("Timer"));
 
     timer->isCooldownFinished([](){
-        //Engine::ECS::Engine::getInstance().
-        std::cout << "Destroy particle" << std::endl;
+        std::cout << "Particle destroy" << std::endl;
+        // Destroy entity Particle here
     });
 }
 
