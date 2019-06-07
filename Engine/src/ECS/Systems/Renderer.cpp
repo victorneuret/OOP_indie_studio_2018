@@ -42,14 +42,13 @@ Engine::ECS::System::Renderer::Renderer(const decltype(_windowName) &windowName,
     if (_window == nullptr || _videoDrivers == nullptr || _sceneManager == nullptr || _GUIEnvironment == nullptr)
         throw ECSException<ECS_Renderer>{"Failed to initialise the window"};
     _window->setWindowCaption(_windowName.c_str());
-    _sceneManager->addCameraSceneNode(nullptr, irr::core::vector3df(0, 200, 0), irr::core::vector3df(0, 0, 0));
+    _sceneManager->addCameraSceneNode(nullptr, irr::core::vector3df(60, 100, 0), irr::core::vector3df(60, 0, 60));
+    _window->getSceneManager()->addLightSceneNode(0, irr::core::vector3df(0, 200, 0), irr::video::SColorf(255.0f, 255.0f, 255.0f));
 
     irr::core::array<irr::SJoystickInfo> joystickInfo;
     if (!_window->activateJoysticks(joystickInfo)) {
         std::cerr << "Joystick support is not enabled." << std::endl;
     }
-
-    _sceneManager->addCameraSceneNode(nullptr, irr::core::vector3df(100, 0, 0), irr::core::vector3df(0, 0, 0));
 }
 
 Engine::ECS::System::Renderer::~Renderer()
@@ -73,9 +72,7 @@ irr::scene::IAnimatedMeshSceneNode *Engine::ECS::System::Renderer::create3DModel
     auto animatedMesh = _sceneManager->addAnimatedMeshSceneNode(mesh);
     if (animatedMesh == nullptr)
         throw ECSException<ECS_Renderer>{"Failed to create animated Mesh"};
-    animatedMesh->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-    animatedMesh->setMaterialType(irr::video::EMT_TRANSPARENT_ALPHA_CHANNEL);
-    animatedMesh->setPosition(irr::core::vector3df{0, 0, 0});
+    animatedMesh->setMaterialFlag(irr::video::EMF_LIGHTING, true);
     animatedMesh->setFrameLoop(0, 4000);
     animatedMesh->setVisible(true);
     return animatedMesh;

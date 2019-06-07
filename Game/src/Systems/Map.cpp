@@ -38,7 +38,7 @@ void Game::System::Map::_createFirstSquare() noexcept
             }
         }
 
-        if (_map.size() == 0) {
+        if (_map.empty()) {
             str[0] = '0';
             str[1] = '0';
         } else if (_map.size() == 1) {
@@ -70,6 +70,13 @@ void Game::System::Map::_duplicateHeight() noexcept
         _map.push_back(elem);
 }
 
+void Game::System::Map::_createBlock(const Engine::Math::Vec3f vec, const std::string &texture) noexcept
+{
+    std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(vec, "assets/models/block/Column.obj");
+    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture(texture);
+    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->setScale(Engine::Math::Vec3{5.f, 2.f, 5.f});
+    Engine::ECS::Engine::getInstance().addEntity(block);
+}
 
 void Game::System::Map::_createMap() noexcept
 {
@@ -80,19 +87,17 @@ void Game::System::Map::_createMap() noexcept
 
     for (const auto &elem : _map)
         std::cout << elem << std::endl;
-    for (float i = 0; i < _map.size(); i++) {
-        for (float j = 0; j <= MAP_WIDTH; j++) {
-            if (_map[i][j] == '.') {
-                std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(Engine::Math::Vec3f{i * 10, 0, (j * 10)}, "assets/models/block/WoodenCube/WoodenCube.obj");
-                std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture("assets/models/block/WoodenCube/Textures/Wooden_Crate_Crate_Normal.png");
-                std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture("assets/models/block/WoodenCube/Textures/Wooden_Crate_Crate_BaseColor.png");
-                std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture("assets/models/block/WoodenCube/Textures/Wooden_Crate_Crate_Roughness.png");
-                std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture("assets/models/block/WoodenCube/Textures/Wooden_Crate_Crate_Height.png");
-                std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->setScale(Engine::Math::Vec3{2.f, 2.f, 2.f});
-                Engine::ECS::Manager::getInstance().getSceneByID("MainMenu")->addEntity(block);
-            }
+    for (size_t i = 0; i < _map.size(); i++) {
+        for (size_t j = 0; j <= MAP_WIDTH; j++) {
+            if (_map[i][j] == '.')
+                _createBlock(Engine::Math::Vec3f{INDEX_TO_POS(static_cast<float>(i)), 0, INDEX_TO_POS(static_cast<float>(j))}, "assets/models/block/Column.png");
+            else if (_map[i][j] == '#')
+                _createBlock(Engine::Math::Vec3f{INDEX_TO_POS(static_cast<float>(i)), 0, INDEX_TO_POS(static_cast<float>(j))}, "assets/models/block/unbreakable.png");
         }
     }
+    std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(Engine::Math::Vec3f{INDEX_TO_POS(MAP_WIDTH) / 2.f, -3, INDEX_TO_POS(MAP_WIDTH) / 2.f}, "assets/models/block/cube.obj");
+    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->setScale(Engine::Math::Vec3{160.f, 6.f, 160.f});
+    Engine::ECS::Engine::getInstance().addEntity(block);
 }
 
 void Game::System::Map::update(double)

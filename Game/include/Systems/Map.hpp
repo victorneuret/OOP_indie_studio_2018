@@ -15,8 +15,10 @@
 #include "ECS/Abstracts/ASystem.hpp"
 #include "ECS/Systems/Renderer.hpp"
 
-constexpr uint8_t MAP_WIDTH = 11;
-constexpr uint8_t MAP_HEIGHT = 11;
+#define INDEX_TO_POS(index) (index * 10)
+
+constexpr uint8_t MAP_WIDTH = 15;
+constexpr uint8_t MAP_HEIGHT = 15;
 
 namespace Game::System {
     class Map;
@@ -30,6 +32,7 @@ private:
     void _duplicateWidth() noexcept;
     void _duplicateHeight() noexcept;
     void _createMap() noexcept;
+    void _createBlock(const Engine::Math::Vec3f vec, const std::string &texture) noexcept;
 
 public:
     Map();
