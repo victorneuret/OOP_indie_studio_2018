@@ -5,23 +5,27 @@
 ** Button.cpp
 */
 
-#include "ECS/Systems/Renderer.hpp"
+#include <iostream>
+
 #include "ECS/Components/Button.hpp"
 #include "ECS/Manager.hpp"
 
-Engine::ECS::Component::Button::Button(const decltype(_bounds) &bounds, const decltype(_text) &text)
-    : AComponent{"Button"}, _text{std::wstring{text}}, _bounds{bounds}
+Engine::ECS::Component::Button::Button(const decltype(_bounds) &bounds, const decltype(_color) &color)
+    : AComponent("Button"), _bounds{bounds}, _color{color}
 {
-    const auto renderer = std::dynamic_pointer_cast<System::Renderer>(Manager::getInstance().getSystemsByID("Renderer"));
-
-    _button = renderer->createButton(_bounds, _text);
 }
 
-decltype(Engine::ECS::Component::Button::_button) Engine::ECS::Component::Button::getButton() const noexcept
+decltype(Engine::ECS::Component::Button::_bounds) &Engine::ECS::Component::Button::getBounds() noexcept
 {
-    return _button;
+    return _bounds;
+}
+
+decltype(Engine::ECS::Component::Button::_color) &Engine::ECS::Component::Button::getColor() noexcept
+{
+    return _color;
 }
 
 void Engine::ECS::Component::Button::onClick()
 {
+    std::cout << "Button clicked" << std::endl;
 }

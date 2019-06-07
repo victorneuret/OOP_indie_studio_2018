@@ -7,11 +7,11 @@
 
 #pragma once
 
-#include <string>
-
 #include <irrlicht/irrlicht.h>
 
 #include "Math/Rect.hpp"
+#include "Utils/Colors.hpp"
+#include "ECS/Systems/Renderer.hpp"
 #include "ECS/Abstracts/AComponent.hpp"
 
 namespace Engine::ECS::Component {
@@ -20,15 +20,15 @@ namespace Engine::ECS::Component {
 
 class Engine::ECS::Component::Button : public Engine::ECS::AComponent<Engine::ECS::Component::Button> {
 protected:
-    std::wstring _text{};
     Engine::Math::Rect_i _bounds{};
-    irr::gui::IGUIButton *_button{nullptr};
+    Utils::Color _color{0, 0, 0};
 
 public:
-    Button(const decltype(_bounds) &bounds, const decltype(_text) &text);
+    Button(const decltype(_bounds) &bounds, const decltype(_color) &color);
     Button(const Button &) = delete;
     Button &operator=(const Button &) = delete;
 
-    decltype(_button) getButton() const noexcept;
     void onClick();
+    decltype(_bounds) &getBounds() noexcept;
+    decltype(_color) &getColor() noexcept;
 };
