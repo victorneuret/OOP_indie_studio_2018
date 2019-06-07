@@ -46,10 +46,10 @@ void Game::System::Particle::update(double)
     }
 }
 
-void Game::System::Particle::createParticles(const double &quantity, const double &minDuration, const double &maxDuration /*, Direction  */)
+void Game::System::Particle::createParticles(const double &quantity, const double &minDuration, const double &maxDuration, const Engine::Math::Vec3f &startPoint /*, Direction  */)
 {
     for (float i = 0; i < quantity; ++i) {
-        std::shared_ptr<Engine::ECS::IEntity> newParticle = std::make_shared<Game::Entity::Particle>(Engine::Math::Vec3f{(10 + i), 0, 10}, Random::getDouble(minDuration, maxDuration));
+        std::shared_ptr<Engine::ECS::IEntity> newParticle = std::make_shared<Game::Entity::Particle>(startPoint, Random::getDouble(minDuration, maxDuration));
         Engine::ECS::Manager::getInstance().addEntity(newParticle);
     }
     std::cout << "Successfully created " + std::to_string(quantity) + " particles" << std::endl;
