@@ -5,11 +5,16 @@
 ** Main.hpp
 */
 
+// Needs to be absolute first include
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
-#include <complex>
+#include <array>
 #include <valarray>
+#include <complex>
 
 #include "Utils/Logger.hpp"
 #include "Utils/TypeDisplayer.hpp" // TODO: REMOVE
