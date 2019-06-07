@@ -7,13 +7,13 @@
 
 #pragma once
 
-#include "AScene.hpp"
+#include "Abstracts/AScene.hpp"
 
-namespace Engine::Scene {
+namespace Game::Scene {
     class MainMenu;
 }
 
-class Engine::Scene::MainMenu final : public AScene {
+class Game::Scene::MainMenu final : public Engine::Abstracts::AScene {
 public:
     MainMenu();
 

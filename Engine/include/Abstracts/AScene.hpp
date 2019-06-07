@@ -13,11 +13,11 @@
 
 #include "ECS/Interfaces/IEntity.hpp"
 
-namespace Engine::Scene {
+namespace Engine::Abstracts {
     class AScene;
 }
 
-class Engine::Scene::AScene {
+class Engine::Abstracts::AScene {
 protected:
     std::string _id{};
     std::vector<std::shared_ptr<Engine::ECS::IEntity>> _entities{};
