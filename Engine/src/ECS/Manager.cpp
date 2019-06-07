@@ -15,7 +15,6 @@
 #include "Exception/Engine/EngineException.hpp"
 
 std::unique_ptr<Engine::ECS::Manager> Engine::ECS::Manager::_instance{nullptr};
-std::vector<std::shared_ptr<Engine::ECS::IEntity>> Engine::ECS::Manager::_entities{};
 std::vector<std::shared_ptr<Engine::ECS::ISystem>> Engine::ECS::Manager::_systems{};
 std::vector<std::shared_ptr<Engine::Abstracts::AScene>> Engine::ECS::Manager::_scenes{};
 

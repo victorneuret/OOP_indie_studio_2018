@@ -43,7 +43,6 @@ void Engine::GameApplication::_tick(double dt, std::shared_ptr<Engine::ECS::Syst
     for (const auto &system : _ecsManager.getSystems())
         if (system->getID() != "Renderer")
             system->update(dt);
-
     tick(dt);
     _ecsManager.sceneManager(dt, renderer);
 }

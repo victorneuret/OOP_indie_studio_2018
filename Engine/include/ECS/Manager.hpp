@@ -23,7 +23,6 @@ class Engine::ECS::Manager {
 private:
     Manager() = default;
 
-    static std::vector<std::shared_ptr<IEntity>> _entities;
     static std::vector<std::shared_ptr<ISystem>> _systems;
     static std::vector<std::shared_ptr<Abstracts::AScene>> _scenes;
 
