@@ -5,6 +5,11 @@
 ** GameApplication.cpp
 */
 
+#include "Utils/Logger.hpp"
+#include "ECS/Manager.hpp"
+#include "Utils/Colors.hpp"
+#include "ECS/Entities/Text.hpp"
+#include "ECS/Entities/Button.hpp"
 #include <irrlicht/irrTypes.h>
 #include <chrono>
 #include <vector>

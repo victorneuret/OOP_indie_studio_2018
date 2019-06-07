@@ -77,6 +77,9 @@ add_library(
     Engine/include/ECS/Systems/Audio.hpp
     Engine/include/Exception/Engine/ECS/Systems/SoundException.hpp
     Engine/include/ECS/Components/Slider.hpp
+    Engine/src/ECS/Components/Slider.cpp
+    Engine/include/ECS/Interfaces/Entities/IClickable.hpp
+    Engine/include/ECS/Interfaces/Entities/IHoverable.hpp
 )
 
 add_executable(
@@ -84,16 +87,16 @@ add_executable(
     Game/src/Main.cpp
     Game/src/BombermanApplication.cpp
     Game/include/BombermanApplication.hpp
-    Game/include/Entities/Block.hpp
     Game/src/Entities/Block.cpp
     Game/include/Entities/Player.hpp
-    Game/src/Entities/Player.cpp
-    Game/include/Entities/Text.hpp
-    Game/src/Entities/Text.cpp
-    Game/include/Entities/Button.hpp
-    Game/src/Entities/Button.cpp
-    Game/src/Systems/Map.cpp
     Game/include/Systems/Map.hpp
+    Game/src/Entities/Player.cpp
+    Game/src/Systems/Map.cpp
+    Engine/include/ECS/Entities/Text.hpp
+    Engine/src/ECS/Entities/Text.cpp
+    Engine/include/ECS/Entities/Button.hpp
+    Engine/src/ECS/Entities/Button.cpp
+    Engine/include/ECS/Entities/Slider.hpp Engine/src/ECS/Entities/Slider.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)

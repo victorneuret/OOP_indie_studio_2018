@@ -12,6 +12,7 @@
 #include "ECS/Components/Text.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "ECS/Components/Button.hpp"
+#include "ECS/Components/Slider.hpp"
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Components/Renderer.hpp"
 #include "Exception/Engine/ECS/ECSException.hpp"
@@ -93,15 +94,6 @@ irr::gui::IGUIFont *Engine::ECS::System::Renderer::createFont(const std::string 
     return font;
 }
 
-irr::gui::IGUIButton *Engine::ECS::System::Renderer::createButton(const Engine::Math::Rect_i &pos, const std::wstring &text) const
-{
-    auto button = _GUIEnvironment->addButton(irr::core::rect<irr::s32>{pos.x, pos.y, pos.x + pos.w, pos.y + pos.h});
-    if (button == nullptr)
-        throw ECSException<ECS_Renderer>{"Failed to create the button"};
-    button->setText(text.c_str());
-    return button;
-}
-
 bool Engine::ECS::System::Renderer::closeRequested() const noexcept
 {
     return !_window->run();
@@ -118,9 +110,19 @@ void Engine::ECS::System::Renderer::draw(const std::shared_ptr<Engine::ECS::IEnt
             break;
         case Engine::ECS::IEntity::Type::BUTTON:
             drawButton(entity);
+            drawText(entity);
+            break;
+        case Engine::ECS::IEntity::Type::SLIDER:
+            drawSlider(entity);
+            break;
         default:
             break;
     }
+}
+
+void Engine::ECS::System::Renderer::drawRectangle(const Engine::Math::Rect_i &pos, const Engine::Utils::Color &color) const
+{
+    _videoDrivers->draw2DRectangle(irr::video::SColor{color.a, color.r, color.g, color.b}, irr::core::rect<irr::s32>{pos.x, pos.y, pos.x + pos.w, pos.y + pos.h});
 }
 
 void Engine::ECS::System::Renderer::drawText(const std::shared_ptr<Engine::ECS::IEntity> &entity) const
@@ -142,7 +144,19 @@ void Engine::ECS::System::Renderer::drawButton(const std::shared_ptr<Engine::ECS
 {
     auto renderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer>(entity->getComponentByID("Renderer"));
     auto button = std::dynamic_pointer_cast<Engine::ECS::Component::Button>(entity->getComponentByID("Button"));
-    button->getButton()->setVisible(renderer->doRender());
+    if (renderer->doRender())
+        drawRectangle(button->getBounds(), button->getColor());
+}
+
+void Engine::ECS::System::Renderer::drawSlider(const std::shared_ptr<Engine::ECS::IEntity> &entity) const
+{
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer>(entity->getComponentByID("Renderer"));
+    auto slider = std::dynamic_pointer_cast<Engine::ECS::Component::Slider>(entity->getComponentByID("Slider"));
+    if (renderer->doRender()) {
+        drawRectangle(slider->getBounds(), slider->getBackgroundColor());
+        auto bounds = Math::Rect_i{slider->getBounds().x, slider->getBounds().y, slider->getValue(), slider->getBounds().h};
+        drawRectangle(bounds, slider->getValueColor());
+    }
 }
 
 void Engine::ECS::System::Renderer::refresh() const
