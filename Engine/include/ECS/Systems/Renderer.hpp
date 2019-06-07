@@ -60,5 +60,6 @@ public:
     void drawButton(const std::shared_ptr<IEntity> &entity) const;
     void drawSlider(const std::shared_ptr<IEntity> &entity) const;
 
-    decltype(_window->getVideoDriver()) getVideoDriver() const;
+    decltype(_videoDrivers) getVideoDriver() const;
+    decltype(_sceneManager) getSceneManager() const;
 };

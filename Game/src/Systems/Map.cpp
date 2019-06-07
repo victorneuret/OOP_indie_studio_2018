@@ -98,6 +98,9 @@ void Game::System::Map::_createMap() noexcept
     std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(Engine::Math::Vec3f{INDEX_TO_POS(MAP_WIDTH) / 2.f, -3, INDEX_TO_POS(MAP_WIDTH) / 2.f}, "assets/models/block/cube.obj");
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->setScale(Engine::Math::Vec3{160.f, 6.f, 160.f});
     Engine::ECS::Engine::getInstance().addEntity(block);
+
+    renderer->getSceneManager()->addCameraSceneNode(nullptr, irr::core::vector3df(INDEX_TO_POS(static_cast<float>(MAP_WIDTH / 2.f)), 125, INDEX_TO_POS(static_cast<float>(MAP_HEIGHT))), irr::core::vector3df(INDEX_TO_POS(static_cast<float>(MAP_WIDTH / 2.f)), 0, INDEX_TO_POS(static_cast<float>(MAP_WIDTH / 2.f))));
+    renderer->getSceneManager()->addLightSceneNode(nullptr, irr::core::vector3df(INDEX_TO_POS(static_cast<float>(MAP_WIDTH / 2.f)), 20, 0), irr::video::SColorf(254.0f, 201.0f, 32.0f));
 }
 
 void Game::System::Map::update(double)

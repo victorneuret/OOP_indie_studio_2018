@@ -42,8 +42,6 @@ Engine::ECS::System::Renderer::Renderer(const decltype(_windowName) &windowName,
     if (_window == nullptr || _videoDrivers == nullptr || _sceneManager == nullptr || _GUIEnvironment == nullptr)
         throw ECSException<ECS_Renderer>{"Failed to initialise the window"};
     _window->setWindowCaption(_windowName.c_str());
-    _sceneManager->addCameraSceneNode(nullptr, irr::core::vector3df(60, 100, 0), irr::core::vector3df(60, 0, 60));
-    _window->getSceneManager()->addLightSceneNode(0, irr::core::vector3df(0, 200, 0), irr::video::SColorf(255.0f, 255.0f, 255.0f));
 
     irr::core::array<irr::SJoystickInfo> joystickInfo;
     if (!_window->activateJoysticks(joystickInfo)) {
@@ -162,7 +160,12 @@ void Engine::ECS::System::Renderer::refresh() const
         throw ECSException<ECS_Renderer>{"Display error"};
 }
 
-decltype(Engine::ECS::System::Renderer::_window->getVideoDriver()) Engine::ECS::System::Renderer::getVideoDriver() const
+decltype(Engine::ECS::System::Renderer::_videoDrivers) Engine::ECS::System::Renderer::getVideoDriver() const
 {
     return _videoDrivers;
+}
+
+decltype(Engine::ECS::System::Renderer::_sceneManager) Engine::ECS::System::Renderer::getSceneManager() const
+{
+    return _sceneManager;
 }
