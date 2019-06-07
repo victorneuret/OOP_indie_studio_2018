@@ -12,8 +12,7 @@
 
 Engine::ECS::Component::Button::Button(const decltype(_bounds) &bounds, const decltype(_color) &color)
     : AComponent("Button"), _bounds{bounds}, _color{color}
-{
-}
+{}
 
 decltype(Engine::ECS::Component::Button::_bounds) &Engine::ECS::Component::Button::getBounds() noexcept
 {

@@ -80,6 +80,8 @@ add_library(
     Engine/src/ECS/Components/Slider.cpp
     Engine/include/ECS/Interfaces/Entities/IClickable.hpp
     Engine/include/ECS/Interfaces/Entities/IHoverable.hpp
+    Engine/include/Abstracts/AScene.hpp
+    Engine/src/Abstracts/AScene.cpp
 )
 
 add_executable(
@@ -98,6 +100,8 @@ add_executable(
     Engine/src/ECS/Entities/Button.cpp
     Engine/include/ECS/Entities/Slider.hpp
     Engine/src/ECS/Entities/Slider.cpp
+    Game/include/Scenes/MainMenu.hpp
+    Game/src/Scenes/MainMenu.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)

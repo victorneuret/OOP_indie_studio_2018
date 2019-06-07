@@ -15,6 +15,7 @@
 #include "ECS/Manager.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "Math/Vector/Vec3.hpp"
+#include "Abstracts/AScene.hpp"
 
 Game::System::Map::Map()
     : ASystem("Map")
@@ -72,7 +73,7 @@ void Game::System::Map::_duplicateHeight() noexcept
 
 void Game::System::Map::_createMap() noexcept
 {
-    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemsByID("Renderer"));
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"));
     _createFirstSquare();
     _duplicateWidth();
     _duplicateHeight();
@@ -88,7 +89,7 @@ void Game::System::Map::_createMap() noexcept
                 std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture("assets/models/block/WoodenCube/Textures/Wooden_Crate_Crate_Roughness.png");
                 std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture("assets/models/block/WoodenCube/Textures/Wooden_Crate_Crate_Height.png");
                 std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->setScale(Engine::Math::Vec3{2.f, 2.f, 2.f});
-                Engine::ECS::Manager::getInstance().addEntity(block);
+                Engine::ECS::Manager::getInstance().getSceneByID("MainMenu")->addEntity(block);
             }
         }
     }

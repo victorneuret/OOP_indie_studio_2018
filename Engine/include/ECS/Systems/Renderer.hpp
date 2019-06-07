@@ -12,7 +12,7 @@
 #include <irrlicht/irrlicht.h>
 
 #include "Math/Rect.hpp"
-#include "Utils/Colors.hpp"
+#include "Utils/Color.hpp"
 #include "Math/Vector/Vec2.hpp"
 #include "ECS/Abstracts/ASystem.hpp"
 
