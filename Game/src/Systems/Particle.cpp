@@ -27,9 +27,10 @@ void Game::System::Particle::checkParticleState(const std::shared_ptr<Game::Enti
 {
     auto timer = std::dynamic_pointer_cast<Engine::ECS::Component::Timer>(particle->getComponentByID("Timer"));
 
-    timer->isCooldownFinished([](){
-        std::cout << "Particle destroy" << std::endl;
+    timer->isCooldownFinished([&](){
+        //std::cout << "Particle destroy" << std::endl;
         // Destroy entity Particle here
+        particle->hide();
     });
 }
 
