@@ -9,7 +9,7 @@
 
 #include <irrlicht/irrlicht.h>
 
-#include "Utils/Colors.hpp"
+#include "Utils/Color.hpp"
 #include "Math/Vector/Vec2.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "ECS/Abstracts/AComponent.hpp"

@@ -21,8 +21,7 @@ namespace Game::Entity {
 
 class Game::Entity::Block : public Engine::ECS::AEntity<Block> {
 public:
-    explicit Block(const Engine::Math::Vec3f &pos = {0, 0, 0},
-                   const std::string &model = std::string("assets/models/weapon.md2"));
+    explicit Block(const Engine::Math::Vec3f &pos = {0, 0, 0}, const std::string &model = std::string("assets/models/weapon.md2"));
     Block(const Block &) = delete;
     Block &operator=(const Block &) = delete;
 

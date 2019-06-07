@@ -12,6 +12,8 @@
 
 #include "ECS/Interfaces/IEntity.hpp"
 #include "ECS/Interfaces/ISystem.hpp"
+#include "ECS/Systems/Renderer.hpp"
+#include "Abstracts/AScene.hpp"
 
 namespace Engine::ECS {
     class Manager;
@@ -21,8 +23,8 @@ class Engine::ECS::Manager {
 private:
     Manager() = default;
 
-    static std::vector<std::shared_ptr<IEntity>> _entities;
     static std::vector<std::shared_ptr<ISystem>> _systems;
+    static std::vector<std::shared_ptr<Abstracts::AScene>> _scenes;
 
     static std::unique_ptr<Manager> _instance;
 
@@ -32,11 +34,12 @@ public:
     Manager(const Manager &) = delete;
     Manager &operator=(const Manager &) = delete;
 
-    std::shared_ptr<IEntity> &getEntityByID(size_t id);
-    decltype(_entities) &getEntities() noexcept;
-    void addEntity(std::shared_ptr<IEntity> &entity);
-
     decltype(_systems) &getSystems() noexcept;
-    std::shared_ptr<ISystem> &getSystemsByID(const std::string &id);
+    std::shared_ptr<ISystem> &getSystemByID(const std::string &id);
     void addSystem(std::shared_ptr<ISystem> &system);
+
+    decltype(_scenes) &getScenes() noexcept;
+    std::shared_ptr<Abstracts::AScene> &getSceneByID(const std::string &id);
+    void addScene(std::shared_ptr<Abstracts::AScene> &scene);
+    void sceneManager(double dt, std::shared_ptr<System::Renderer> &renderer);
 };

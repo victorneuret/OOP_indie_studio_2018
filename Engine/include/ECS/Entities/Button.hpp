@@ -9,7 +9,7 @@
 
 #include <string>
 
-#include "Utils/Colors.hpp"
+#include "Utils/Color.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
 #include "ECS/Interfaces/Entities/IClickable.hpp"

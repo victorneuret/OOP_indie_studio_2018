@@ -7,7 +7,7 @@
 
 #include "Utils/Logger.hpp"
 #include "ECS/Manager.hpp"
-#include "Utils/Colors.hpp"
+#include "Utils/Color.hpp"
 #include "ECS/Entities/Text.hpp"
 #include "ECS/Entities/Button.hpp"
 #include <irrlicht/irrTypes.h>
@@ -18,9 +18,7 @@
 #include "ECS/Interfaces/ISystem.hpp"
 #include "ECS/Manager.hpp"
 #include "ECS/Systems/Audio.hpp"
-#include "ECS/Systems/Renderer.hpp"
-#include "Exception/AException.hpp"
-#include "Utils/Logger.hpp"
+#include "Math/Vector/Vec3.hpp"
 
 Engine::GameApplication::GameApplication(const decltype(_title) &title, long width, long height)
     : GameApplication(title, Math::Vec2<irr::u32>(width, height))
@@ -45,11 +43,8 @@ void Engine::GameApplication::_tick(double dt, std::shared_ptr<Engine::ECS::Syst
     for (const auto &system : _ecsManager.getSystems())
         if (system->getID() != "Renderer")
             system->update(dt);
-
     tick(dt);
-
-    for (const auto &entity : _ecsManager.getEntities())
-        renderer->draw(entity);
+    _ecsManager.sceneManager(dt, renderer);
 }
 
 void Engine::GameApplication::_loop()
@@ -57,7 +52,7 @@ void Engine::GameApplication::_loop()
     std::chrono::duration<double> elapsed = std::chrono::seconds(0);
     auto begin = std::chrono::system_clock::now();
     decltype(begin) end;
-    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(_ecsManager.getSystemsByID("Renderer"));
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(_ecsManager.getSystemByID("Renderer"));
 
     while (!renderer->closeRequested()) {
         auto dt = elapsed.count();
