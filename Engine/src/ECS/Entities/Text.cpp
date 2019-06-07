@@ -10,7 +10,6 @@
 #include "Utils/Colors.hpp"
 #include "ECS/Entities/Text.hpp"
 #include "ECS/Components/Text.hpp"
-#include "Entities/Text.hpp"
 #include "ECS/Components/Renderer.hpp"
 #include "ECS/Components/Text.hpp"
 #include "ECS/Interfaces/IEntity.hpp"

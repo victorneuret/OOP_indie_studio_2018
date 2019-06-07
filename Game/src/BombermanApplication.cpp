@@ -13,7 +13,6 @@
 #include "Systems/Map.hpp"
 #include "Entities/Block.hpp"
 #include "Entities/Player.hpp"
-#include "Entities/Text.hpp"
 #include "Math/Rect.hpp"
 #include "Math/Vector/Vec2.hpp"
 #include "Systems/Map.hpp"
