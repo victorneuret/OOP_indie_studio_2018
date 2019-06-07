@@ -17,11 +17,14 @@ namespace Game::System {
 
 class Game::System::Particle : public Engine::ECS::ASystem<Particle> {
 private:
+
+    std::vector<std::shared_ptr<Engine::ECS::IEntity>> getEntityList();
+
 public:
 
     Particle();
 
+    void createParticles(const double &quantity, const double &minDuration, const double &maxDuration);
     void checkParticleState(const std::shared_ptr<Game::Entity::Particle> &particle);
-    std::vector<std::shared_ptr<Engine::ECS::IEntity>> getEntityList();
     void update(double) final;
 };
