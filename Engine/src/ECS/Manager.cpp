@@ -51,7 +51,7 @@ std::shared_ptr<Engine::Abstracts::AScene> &Engine::ECS::Manager::getSceneByID(c
     for (auto &scene : _scenes)
         if (scene->getID() == id)
             return scene;
-    throw ECSException<ECS_Scene>{"AScene " + id + " not found"};
+    throw ECSException<ECS_Scene>{"Scene " + id + " not found"};
 }
 
 void Engine::ECS::Manager::addScene(std::shared_ptr<Abstracts::AScene> &scene)
