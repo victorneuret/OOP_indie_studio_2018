@@ -14,6 +14,7 @@
 #include "Exception/AException.hpp"
 #include "Math/Vector/Vec2.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
+#include "Utils/Colors.hpp"
 
 namespace Game::Entity {
     class Text;

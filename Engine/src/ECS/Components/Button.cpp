@@ -5,6 +5,7 @@
 ** Button.cpp
 */
 
+#include "ECS/Systems/Renderer.hpp"
 #include "ECS/Components/Button.hpp"
 #include "ECS/Manager.hpp"
 

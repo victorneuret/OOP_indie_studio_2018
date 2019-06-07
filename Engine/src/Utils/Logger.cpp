@@ -10,6 +10,7 @@
 #include <ctime>
 #include <cerrno>
 #include <iomanip>
+#include <iostream>
 #if defined _MSC_VER
     #include <direct.h>
 #elif defined __GNUC__
