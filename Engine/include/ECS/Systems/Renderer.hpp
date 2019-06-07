@@ -54,6 +54,8 @@ public:
     irr::gui::IGUIFont *createFont(const std::string &fontPath) const;
     irr::gui::IGUIButton *createButton(const ::Engine::Math::Rect_i &pos, const std::wstring &text) const;
 
+    decltype(_window) &getWindow();
+
     void drawText(const std::shared_ptr<IEntity> &entity) const;
     void draw3DModel(const std::shared_ptr<IEntity> &entity) const;
     void drawButton(const std::shared_ptr<IEntity> &entity) const;

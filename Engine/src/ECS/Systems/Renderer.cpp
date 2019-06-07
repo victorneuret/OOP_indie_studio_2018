@@ -10,7 +10,7 @@
 #include <irrlicht/irrlicht.h>
 
 #include "ECS/Components/Text.hpp"
-#include "ECS/Systems/JoystickInput.hpp"
+#include "ECS/Systems/Input/JoystickInput.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "ECS/Components/Button.hpp"
 #include "ECS/Components/Model3D.hpp"
@@ -154,4 +154,9 @@ void Engine::ECS::System::Renderer::refresh() const
 {
     if (!_videoDrivers->beginScene(true, true, irr::video::SColor(0, 0, 0, 0)))
         throw ECSException<ECS_Renderer>{"Display error"};
+}
+
+decltype(Engine::ECS::System::Renderer::_window) &Engine::ECS::System::Renderer::getWindow()
+{
+    return _window;
 }

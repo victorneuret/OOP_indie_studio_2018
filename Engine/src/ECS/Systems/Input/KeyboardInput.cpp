@@ -5,7 +5,7 @@
 ** KeyboardInput
 */
 
-#include "ECS/Systems/KeyboardInput.hpp"
+#include "ECS/Systems/Input/KeyboardInput.hpp"
 
 Engine::ECS::System::KeyboardInput::KeyboardInput()
         : AInput{"KeyboardInput"}

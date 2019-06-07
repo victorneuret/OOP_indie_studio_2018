@@ -45,9 +45,9 @@ add_library(
     Engine/include/ECS/Engine.hpp
     Engine/src/ECS/Engine.cpp
     Engine/include/ECS/Abstracts/Systems/AInput.hpp
-    Engine/src/ECS/Systems/KeyboardInput.cpp
-    Engine/include/ECS/Systems/MouseInput.hpp
-    Engine/src/ECS/Systems/MouseInput.cpp
+        Engine/src/ECS/Systems/Input/KeyboardInput.cpp
+        Engine/include/ECS/Systems/Input/MouseInput.hpp
+        Engine/src/ECS/Systems/Input/MouseInput.cpp
     Engine/include/ECS/Components/Timer.hpp
     Engine/src/ECS/Components/Timer.cpp
     Engine/include/Utils/TypeDisplayer.hpp
@@ -70,10 +70,10 @@ add_library(
     Engine/src/Utils/Random.cpp
     Engine/include/Utils/Random.hpp
     Engine/include/ECS/Components/Player.hpp
-    Engine/include/ECS/Systems/JoystickInput.hpp
-    Engine/src/ECS/Systems/JoystickInput.cpp
+        Engine/include/ECS/Systems/Input/JoystickInput.hpp
+        Engine/src/ECS/Systems/Input/JoystickInput.cpp
     Engine/include/ECS/Systems/EventHandler.hpp
-)
+        Engine/src/ECS/Systems/EventHandler.cpp Engine/src/ECS/Systems/Input/AInput.cpp Engine/include/ECS/Abstracts/Systems/AEvent.hpp Engine/src/ECS/Systems/AEvent.cpp Engine/include/ECS/Systems/Event/ButtonEvent.hpp Engine/src/ECS/Systems/Event/ButtonEvent.cpp)
 
 add_executable(
     bomberman

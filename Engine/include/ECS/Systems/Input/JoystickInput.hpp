@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <map>
 #include <vector>
 #include <memory>
 #include <irrlicht/irrlicht.h>
@@ -18,14 +19,19 @@ namespace Engine::ECS::System {
     class JoystickInput;
 }
 
-class Engine::ECS::System::JoystickInput final : public Engine::ECS::System::AInput {
+struct Controller {
+    irr::u16 POV;
+    irr::s16 Axis[irr::SEvent::SJoystickEvent::NUMBER_OF_AXES];
+    irr::u32 ButtonStates;
+};
+
+class Engine::ECS::System::JoystickInput final : public AInput {
 protected:
-    irr::u8 _controller{0};
-    decltype(irr::SEvent::SJoystickEvent::Axis) _axis{0};
+    std::map<irr::u8, Controller> _controllers{};
 
 public:
-    explicit JoystickInput(decltype(_controller) controller);
+    explicit JoystickInput();
+
     bool OnEvent(const irr::SEvent &event) override;
-    void update(double dt) override;
-    const std::remove_all_extents<decltype(_axis)>::type &getAxis(irr::u8 axis);
+    // const std::remove_all_extents<decltype(_axis)>::type &getAxis(irr::u8 axis);
 };

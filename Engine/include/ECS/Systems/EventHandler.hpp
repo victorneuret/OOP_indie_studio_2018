@@ -15,12 +15,17 @@
 
 namespace Engine::ECS::System {
     class EventHandler;
+
+    constexpr const char *TYPE_STR = "EventHandler";
 }
 
 class Engine::ECS::System::EventHandler : public ASystem<EventHandler> {
 protected:
-    std::vector<std::shared_ptr<irr::IEventReceiver>> _middlewares{};
+    std::vector<irr::IEventReceiver *> _handlers{};
 
 public:
+    EventHandler();
 
+    void add(irr::IEventReceiver *handler);
+    bool OnEvent(const irr::SEvent &event);
 };

@@ -36,7 +36,7 @@ void Game::System::Map::_createFirstSquare() noexcept
             }
         }
 
-        if (_map.size() == 0) {
+        if (_map.empty()) {
             str[0] = '0';
             str[1] = '0';
         } else if (_map.size() == 1) {
