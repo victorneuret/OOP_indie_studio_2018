@@ -96,7 +96,8 @@ add_executable(
     Engine/src/ECS/Entities/Text.cpp
     Engine/include/ECS/Entities/Button.hpp
     Engine/src/ECS/Entities/Button.cpp
-    Engine/include/ECS/Entities/Slider.hpp Engine/src/ECS/Entities/Slider.cpp
+    Engine/include/ECS/Entities/Slider.hpp
+    Engine/src/ECS/Entities/Slider.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)

@@ -27,7 +27,7 @@ public:
 
     ~Button() final = default;
 
-    void onHover() final;
-    void onRelease() final;
-    void onPressed() final;
+    void onHover() override;
+    void onRelease() override;
+    void onPressed() override;
 };

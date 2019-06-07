@@ -24,6 +24,6 @@ public:
     Slider &operator=(const Slider &) = delete;
 
     ~Slider() final = default;
-    void onPressed() final;
-    void onRelease() final;
+    void onPressed() override;
+    void onRelease() override;
 };
