@@ -23,6 +23,8 @@
 #include "GameApplication.hpp"
 #include "ECS/Interfaces/ISystem.hpp"
 #include "ECS/Systems/Audio.hpp"
+#include "Systems/Map.hpp"
+#include "Systems/Particle.hpp"
 #include "Math/Vector/Vec3.hpp"
 #include "ECS/Systems/Timer.hpp"
 
