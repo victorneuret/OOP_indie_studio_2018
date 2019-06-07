@@ -10,13 +10,10 @@
 #include <irrlicht/irrlicht.h>
 
 #include "ECS/Components/Text.hpp"
-#include "ECS/Systems/JoystickInput.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "ECS/Components/Button.hpp"
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Components/Renderer.hpp"
-#include "Exception/Memory/MemoryException.hpp"
-#include "Exception/NotImplementedException.hpp"
 #include "Exception/Engine/ECS/ECSException.hpp"
 
 bool Engine::ECS::System::Renderer::EventMiddleware::OnEvent(const irr::SEvent &event)

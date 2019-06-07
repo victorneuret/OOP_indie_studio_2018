@@ -9,11 +9,10 @@
 
 #include <string>
 #include <memory>
-#include <irrlicht/irrlicht.h>
+#include <vector>
 
-#include "ECS/Systems/Renderer.hpp"
+#include "Exception/AException.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
-#include "ECS/Components/Model3D.hpp"
 #include "Math/Vector/Vec3.hpp"
 
 namespace Game::Entity {
@@ -25,7 +24,8 @@ protected:
     Engine::Math::Vec3d _pos{0, 0, 0};
 
 public:
-    explicit Player(const Engine::Math::Vec3f &pos = {0, 0, 0}, const std::string &model = std::string("assets/models/tris.md2"));
+    explicit Player(const Engine::Math::Vec3f &pos = {0, 0, 0},
+                    const std::string &model = std::string("assets/models/tris.md2"));
     Player(const Player &) = delete;
     Player &operator=(const Player &) = delete;
 

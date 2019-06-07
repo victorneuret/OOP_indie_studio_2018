@@ -8,9 +8,11 @@
 #pragma once
 
 #include <string>
+#include <memory>
+#include <vector>
 
-#include "Utils/Colors.hpp"
-#include "ECS/Systems/Renderer.hpp"
+#include "Exception/AException.hpp"
+#include "Math/Vector/Vec2.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
 
 namespace Game::Entity {
@@ -19,7 +21,8 @@ namespace Game::Entity {
 
 class Game::Entity::Text final : public Engine::ECS::AEntity<Text> {
 public:
-    explicit Text(const std::wstring &&text, const Engine::Math::Vec2i &pos, const Engine::Utils::Color &color, const std::string &font = "");
+    explicit Text(const std::wstring &&text, const Engine::Math::Vec2i &pos, const Engine::Utils::Color &color,
+                  const std::string &font = "");
     Text(const Text &) = delete;
     Text &operator=(const Text &) = delete;
 

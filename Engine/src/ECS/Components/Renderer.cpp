@@ -5,11 +5,7 @@
 ** Renderer.cpp
 */
 
-#include <iostream> // DEBUG
-
 #include "ECS/Components/Renderer.hpp"
-#include "Exception/Memory/MemoryException.hpp"
-#include "Exception/NotImplementedException.hpp"
 
 Engine::ECS::Component::Renderer::Renderer(const decltype(_pos) &pos)
     : AComponent{"Renderer"}, _pos{pos}

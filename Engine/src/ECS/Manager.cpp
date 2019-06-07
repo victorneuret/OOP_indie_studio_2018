@@ -8,6 +8,8 @@
 #include <algorithm>
 
 #include "ECS/Manager.hpp"
+#include "ECS/Interfaces/IEntity.hpp"
+#include "ECS/Interfaces/ISystem.hpp"
 #include "Exception/Engine/ECS/ECSException.hpp"
 #include "Exception/Memory/MemoryException.hpp"
 

@@ -5,8 +5,6 @@
 ** Timer.cpp
 */
 
-#include <iostream>
-
 #include "ECS/Components/Timer.hpp"
 #include "ECS/Components/Chrono.hpp"
 

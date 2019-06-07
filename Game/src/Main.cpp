@@ -5,6 +5,7 @@
 ** Main.hpp
 */
 
+#include "GameApplication.hpp"
 #include "BombermanApplication.hpp"
 
 int main()

@@ -7,11 +7,10 @@
 
 #include <memory>
 
+#include "ECS/Interfaces/IEntity.hpp"
 #include "Entities/Player.hpp"
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Components/Renderer.hpp"
-#include "ECS/Abstracts/Systems/AInput.hpp"
-#include "ECS/Manager.hpp"
 
 Game::Entity::Player::Player(const Engine::Math::Vec3f &pos, const std::string &model)
     : AEntity(AEntity::Type::MODEL3D)

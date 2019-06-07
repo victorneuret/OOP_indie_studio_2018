@@ -7,9 +7,10 @@
 
 #pragma once
 
+#include <string>
+
 #include <irrlicht/irrlicht.h>
 
-#include "ECS/Systems/Renderer.hpp"
 #include "ECS/Abstracts/AComponent.hpp"
 #include "Math/Vector/Vec3.hpp"
 
