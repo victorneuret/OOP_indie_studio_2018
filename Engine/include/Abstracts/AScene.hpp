@@ -41,7 +41,7 @@ public:
     virtual decltype(_opaque) isOpaque() const noexcept final;
     virtual decltype(_updateChild) isUpdateChild() const noexcept final;
 
-    virtual void updateChild(bool updateChild) final;
+    virtual void updateChild(bool updateChild) noexcept final;
 
     virtual void tick(double deltaTime) = 0;
 };
