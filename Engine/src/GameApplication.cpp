@@ -25,8 +25,7 @@ Engine::GameApplication::GameApplication(const decltype(_title) &title, long wid
 Engine::GameApplication::GameApplication(const decltype(_title) &title, const decltype(_dimensions) &dimensions)
     : _title{decltype(_title){title}}, _dimensions{dimensions}
 {
-    std::shared_ptr<Engine::ECS::ISystem> renderer = std::make_shared<Engine::ECS::System::Renderer>(_title,
-                                                                                                     _dimensions);
+    std::shared_ptr<Engine::ECS::ISystem> renderer = std::make_shared<Engine::ECS::System::Renderer>(_title, _dimensions);
     _ecsManager.addSystem(renderer);
 }
 
