@@ -69,14 +69,12 @@ add_library(
     Engine/src/ECS/Components/Button.cpp
     Engine/src/Utils/Random.cpp
     Engine/include/Utils/Random.hpp
-    Engine/include/Scenes/AScene.hpp
-    Engine/src/Scenes/AScene.cpp
+    Engine/include/Abstracts/AScene.hpp
+    Engine/src/Abstracts/AScene.cpp
     Engine/include/ECS/Components/Player.hpp
     Engine/include/ECS/Systems/JoystickInput.hpp
     Engine/src/ECS/Systems/JoystickInput.cpp
     Engine/include/ECS/Systems/EventHandler.hpp
-    Engine/include/Scenes/MainMenu.hpp
-    Engine/src/Scenes/MainMenu.cpp
     Engine/src/ECS/Systems/Audio.cpp
     Engine/include/ECS/Systems/Audio.hpp
     Engine/include/Exception/Engine/ECS/Systems/SoundException.hpp
@@ -97,6 +95,8 @@ add_executable(
     Game/src/Entities/Button.cpp
     Game/src/Systems/Map.cpp
     Game/include/Systems/Map.hpp
+    Game/include/Scenes/MainMenu.hpp
+    Game/src/Scenes/MainMenu.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)

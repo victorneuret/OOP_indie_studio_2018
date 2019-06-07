@@ -11,10 +11,6 @@
 
 #include "ECS/Manager.hpp"
 #include "Systems/Map.hpp"
-#include "Entities/Text.hpp"
-#include "Entities/Block.hpp"
-#include "Entities/Button.hpp"
-#include "Entities/Player.hpp"
 #include "Scenes/MainMenu.hpp"
 
 BombermanApplication::BombermanApplication()
@@ -24,12 +20,7 @@ BombermanApplication::BombermanApplication()
 
 void BombermanApplication::onAppStartup()
 {
-    std::vector<std::shared_ptr<Engine::ECS::IEntity>> mainMenuEntities = {
-        std::make_shared<Game::Entity::Player>(),
-        std::make_shared<Game::Entity::Text>(L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0}),
-        std::make_shared<Game::Entity::Button>(Engine::Math::Rect_i{75, 15, 500, 30}, L"Un Button"),
-    };
-    std::shared_ptr<Engine::Scene::AScene> mainMenu = std::make_shared<Engine::Scene::MainMenu>(mainMenuEntities);
+    std::shared_ptr<Engine::Abstracts::AScene> mainMenu = std::make_shared<Game::Scene::MainMenu>();
     Engine::ECS::Manager::getInstance().addScene(mainMenu);
 
     std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();

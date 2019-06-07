@@ -14,7 +14,7 @@
 
 std::unique_ptr<Engine::ECS::Manager> Engine::ECS::Manager::_instance{nullptr};
 std::vector<std::shared_ptr<Engine::ECS::ISystem>> Engine::ECS::Manager::_systems{};
-std::vector<std::shared_ptr<Engine::Scene::AScene>> Engine::ECS::Manager::_scenes{};
+std::vector<std::shared_ptr<Engine::Abstracts::AScene>> Engine::ECS::Manager::_scenes{};
 
 Engine::ECS::Manager &Engine::ECS::Manager::getInstance()
 {
@@ -44,15 +44,15 @@ void Engine::ECS::Manager::addSystem(std::shared_ptr<ISystem> &system)
     _systems.push_back(system);
 }
 
-std::shared_ptr<Engine::Scene::AScene> &Engine::ECS::Manager::getSceneByID(const std::string &id)
+std::shared_ptr<Engine::Abstracts::AScene> &Engine::ECS::Manager::getSceneByID(const std::string &id)
 {
     for (auto &scene : _scenes)
         if (scene->getID() == id)
             return scene;
-    throw ECSException<ECS_AScene>{"AScene " + id + " not found"};
+    throw ECSException<ECS_Scene>{"AScene " + id + " not found"};
 }
 
-void Engine::ECS::Manager::addScene(std::shared_ptr<Scene::AScene> &scene)
+void Engine::ECS::Manager::addScene(std::shared_ptr<Abstracts::AScene> &scene)
 {
     _scenes.push_back(scene);
 }
@@ -69,5 +69,10 @@ void Engine::ECS::Manager::sceneManager(double dt)
            (*it)->tick(dt);
         if  ((*it)->isOpaque())
             break;
+    }
+    for (auto &scene : _scenes) {
+        for (auto &entity : scene->getEntities()) {
+            entity->hide();
+        }
     }
 }

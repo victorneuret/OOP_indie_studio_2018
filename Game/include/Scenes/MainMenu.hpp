@@ -7,18 +7,18 @@
 
 #pragma once
 
-#include "AScene.hpp"
+#include "Abstracts/AScene.hpp"
 
-namespace Engine::Scene {
+namespace Game::Scene {
     class MainMenu;
 }
 
-class Engine::Scene::MainMenu final : public AScene {
+class Game::Scene::MainMenu final : public Engine::Abstracts::AScene {
 public:
-    explicit MainMenu(decltype(_entities) &entities);
+    explicit MainMenu();
 
     MainMenu(const MainMenu &) = delete;
     MainMenu &operator=(const MainMenu &) = delete;
 
-    void tick(double deltaTime) final;
+    void tick(double deltaTime) override;
 };
