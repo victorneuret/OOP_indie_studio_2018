@@ -14,6 +14,7 @@
 #include "ECS/Interfaces/IEntity.hpp"
 #include "ECS/Abstracts/ASystem.hpp"
 #include "ECS/Systems/Renderer.hpp"
+#include "Math/Vector/Vec3.hpp"
 
 #define INDEX_TO_POS(index) ((index) * 10)
 
