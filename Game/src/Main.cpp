@@ -5,68 +5,12 @@
 ** Main.hpp
 */
 
-#include <irrlicht/irrlicht.h>
-
-#include "Exception/AException.hpp"
-#include "Exception/Engine/EngineException.hpp"
-#include "Logger.hpp"
-
-//static void error()
-//{
-//    throw EngineException<Engine_Sound>("This is an exception");
-//}
+#include "GameApplication.hpp"
+#include "BombermanApplication.hpp"
 
 int main()
 {
-//    Logger examples
-//    Engine::Logger::getInstance().info("Hello world!", false);
-//    Engine::Logger::getInstance().info("Hello prefix!");
-//    Engine::Logger::getInstance().warning("Hello warning!");
-//    Engine::Logger::getInstance().error("Hello error!");
-//    Engine::Logger::getInstance().print(Engine::Logger::Level::INFO, "Hello info!");
+    BombermanApplication app;
 
-//    try {
-//        error();
-//        Engine::Logger::getInstance().info("This should never be printed.");
-//    } catch (const AException &e) {
-//        Engine::Logger::getInstance().error(e.what());
-//    }
-
-    irr::IrrlichtDevice *device = irr::createDevice(irr::video::EDT_OPENGL,
-                                                    irr::core::dimension2d<irr::u32>(1920, 1080), 16, false, false,
-                                                    false, nullptr);
-    irr::video::IVideoDriver *driver = device->getVideoDriver();
-    irr::scene::ISceneManager *smgr = device->getSceneManager();
-    irr::gui::IGUIEnvironment *guienv = device->getGUIEnvironment();
-    irr::scene::IAnimatedMesh *mesh = smgr->getMesh("res/models/weapon.md2");
-    irr::scene::IAnimatedMeshSceneNode *node = smgr->addAnimatedMeshSceneNode(mesh);
-    irr::scene::IAnimatedMesh *mesh2 = smgr->getMesh("res/models/tris.md2");
-    irr::scene::IAnimatedMeshSceneNode *node2 = smgr->addAnimatedMeshSceneNode(mesh2);
-
-    device->setWindowCaption(L"Hello World! - Irrlicht Engine Demo");
-    guienv->addStaticText(L"Hello World! This is the Irrlicht Software engine!",
-                          irr::core::rect<irr::s32>(10, 10, 200, 22), true);
-
-    if (node) {
-        node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-        node->setFrameLoop(0, 310);
-        node->setMaterialTexture(0, driver->getTexture("res/models/weapon.pcx"));
-    }
-    if (node2) {
-        node2->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-        node2->setFrameLoop(0, 310);
-        node2->setMaterialTexture(0, driver->getTexture("res/models/blade_blue2.pcx"));
-    }
-
-    smgr->addCameraSceneNode(nullptr, irr::core::vector3df(100, 0, 0), irr::core::vector3df(0, 0, 0));
-
-    while (device->run()) {
-        driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
-        smgr->drawAll();
-        guienv->drawAll();
-        driver->endScene();
-    }
-
-    device->drop();
-    return 0;
+    return app.run() ? APP_SUCCESS : APP_FAILURE;
 }

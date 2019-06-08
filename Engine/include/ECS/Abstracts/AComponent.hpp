@@ -7,24 +7,26 @@
 
 #pragma once
 
-#include <cstddef>
+#include <string>
 
 #include "ECS/Interfaces/IComponent.hpp"
 
 namespace Engine::ECS {
+    template<typename T>
     class AComponent;
 }
 
-class Engine::ECS::AComponent : public Engine::ECS::IComponent {
-private:
-
+template<typename T>
+class Engine::ECS::AComponent : public IComponent {
 protected:
-    size_t _id{++ID};
+    const std::string _id;
 
 public:
-    static size_t ID;
-
+    explicit AComponent(const std::string &id) : _id(std::string(id)) {};
     ~AComponent() override = default;
 
-    decltype(_id) id() const noexcept;
+    std::string getID() const noexcept final
+    {
+        return _id;
+    };
 };

@@ -11,15 +11,18 @@
 
 #include "ECS/Abstracts/AComponent.hpp"
 
-namespace Engine::Component {
+namespace Engine::ECS::Component {
     class Chrono;
 }
 
-class Engine::Component::Chrono : public Engine::ECS::AComponent {
+class Engine::ECS::Component::Chrono : public Engine::ECS::AComponent<Engine::ECS::Component::Chrono> {
 public:
-    double getElapsedTime() const noexcept;
+    Chrono();
+
+    double getElapsedTime() noexcept;
     void reset() noexcept;
 
 private:
-    std::chrono::_V2::system_clock::time_point _start{std::chrono::system_clock::now()};
+    std::chrono::time_point<std::chrono::system_clock> _start{std::chrono::system_clock::now()};
+    std::chrono::duration<double> _elapsedTime = _start - _start;
 };

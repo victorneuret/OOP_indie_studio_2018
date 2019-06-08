@@ -1,0 +1,29 @@
+/*
+** EPITECH PROJECT, 2019
+** bomberman
+** File description:
+** Timer.cpp
+*/
+
+#include "ECS/Components/Timer.hpp"
+#include "ECS/Components/Chrono.hpp"
+
+Engine::Component::Timer::Timer()
+    : AComponent("Timer")
+{
+}
+
+void Engine::Component::Timer::startCooldown(const double &duration)
+{
+    _duration = duration;
+    _timer.reset();
+}
+
+bool Engine::Component::Timer::isCooldownFinished(const std::function<void()> &func)
+{
+    if (_timer.getElapsedTime() >= _duration) {
+        func();
+        return true;
+    }
+    return false;
+}

@@ -27,4 +27,9 @@ public:
     explicit Exception(const std::string &what = "Exception")
         : AException(what)
     {}
+
+    const char *what() const noexcept override
+    {
+        return _what.c_str();
+    }
 };
