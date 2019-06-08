@@ -38,7 +38,7 @@ void Game::System::Map::_createFirstSquare() noexcept
             }
         }
 
-        if (_map.size() == 0) {
+        if (_map.empty()) {
             str[0] = '0';
             str[1] = '0';
         } else if (_map.size() == 1) {
@@ -56,6 +56,8 @@ void Game::System::Map::_duplicateWidth() noexcept
     for (auto &elem : _map) {
         copy.clear();
         copy.append(elem);
+        if (MAP_WIDTH % 2 == 1)
+            copy.pop_back();
         std::reverse(copy.begin(), copy.end());
         elem.append(copy);
     }
@@ -65,11 +67,19 @@ void Game::System::Map::_duplicateHeight() noexcept
 {
     decltype(_map) mapCopy = _map;
 
-    std::reverse(mapCopy.begin(), mapCopy.end());
-    for (const auto &elem : mapCopy)
-        _map.push_back(elem);
+    if (MAP_HEIGHT % 2 == 1)
+        mapCopy.pop_back();
+    for (auto it = mapCopy.rbegin(); it != mapCopy.rend(); it++)
+        _map.push_back(*it);
 }
 
+void Game::System::Map::_createBlock(Engine::Math::Vec3f vec, const std::string &texture) noexcept
+{
+    std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(vec, "assets/models/block/Column.obj");
+    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture(texture);
+    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->setScale(Engine::Math::Vec3{5.f, 2.f, 5.f});
+    Engine::ECS::Manager::getInstance().getSceneByID("MainMenu")->addEntity(block);
+}
 
 void Game::System::Map::_createMap() noexcept
 {
@@ -80,23 +90,31 @@ void Game::System::Map::_createMap() noexcept
 
     for (const auto &elem : _map)
         std::cout << elem << std::endl;
-    for (float i = 0; i < _map.size(); i++) {
-        for (float j = 0; j <= MAP_WIDTH; j++) {
-            if (_map[i][j] == '.') {
-                std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(Engine::Math::Vec3f{i * 10, 0, (j * 10)}, "assets/models/block/WoodenCube/WoodenCube.obj");
-                std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture("assets/models/block/WoodenCube/Textures/Wooden_Crate_Crate_Normal.png");
-                std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture("assets/models/block/WoodenCube/Textures/Wooden_Crate_Crate_BaseColor.png");
-                std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture("assets/models/block/WoodenCube/Textures/Wooden_Crate_Crate_Roughness.png");
-                std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture("assets/models/block/WoodenCube/Textures/Wooden_Crate_Crate_Height.png");
-                std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->setScale(Engine::Math::Vec3{2.f, 2.f, 2.f});
-                Engine::ECS::Manager::getInstance().getSceneByID("MainMenu")->addEntity(block);
-            }
+    for (size_t i = 0; i < _map.size(); i++) {
+        for (size_t j = 0; j <= MAP_WIDTH; j++) {
+            if (_map[i][j] == '.')
+                _createBlock(Engine::Math::Vec3f{INDEX_TO_POS(static_cast<float>(i)), 0, INDEX_TO_POS(static_cast<float>(j))}, "assets/models/block/Column.png");
+            else if (_map[i][j] == '#')
+                _createBlock(Engine::Math::Vec3f{INDEX_TO_POS(static_cast<float>(i)), 0, INDEX_TO_POS(static_cast<float>(j))}, "assets/models/block/unbreakable.png");
         }
     }
+    std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(Engine::Math::Vec3f{INDEX_TO_POS(MAP_WIDTH - 1) / 2.f, -3, INDEX_TO_POS(MAP_HEIGHT - 1) / 2.f}, "assets/models/block/cube.obj");
+    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->setScale(Engine::Math::Vec3{150.f, 6.f, 150.f});
+    Engine::ECS::Manager::getInstance().getSceneByID("MainMenu")->addEntity(block);
+}
+
+void Game::System::Map::_placeCameraAndLight() noexcept
+{
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"));
+
+    renderer->getSceneManager()->addCameraSceneNode(nullptr, irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 125, INDEX_TO_POS(static_cast<float>(MAP_HEIGHT - 1))), irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 0, INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f))));
+    renderer->getSceneManager()->addLightSceneNode(nullptr, irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 20, 0), irr::video::SColorf(254.0f, 201.0f, 32.0f));
 }
 
 void Game::System::Map::update(double)
 {
-    if (_map.empty())
+    if (_map.empty()) {
         _createMap();
+        _placeCameraAndLight();
+    }
 }

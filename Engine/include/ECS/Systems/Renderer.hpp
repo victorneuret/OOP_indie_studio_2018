@@ -35,7 +35,7 @@ private:
     Math::Vec2u _windowSize{0, 0};
 
     decltype(irr::createDevice()) _window{nullptr};
-    decltype(_window->getVideoDriver()) _videoDrivers{nullptr};
+    decltype(_window->getVideoDriver()) _videoDriver{nullptr};
     decltype(_window->getSceneManager()) _sceneManager{nullptr};
     decltype(_window->getGUIEnvironment()) _GUIEnvironment{nullptr};
 
@@ -60,5 +60,6 @@ public:
     void drawButton(const std::shared_ptr<IEntity> &entity) const;
     void drawSlider(const std::shared_ptr<IEntity> &entity) const;
 
-    decltype(_window->getVideoDriver()) getVideoDriver() const;
+    decltype(_videoDriver) getVideoDriver() const noexcept;
+    decltype(_sceneManager) getSceneManager() const noexcept;
 };
