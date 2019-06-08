@@ -70,7 +70,7 @@ irr::scene::IAnimatedMeshSceneNode *Engine::ECS::System::Renderer::create3DModel
     auto animatedMesh = _sceneManager->addAnimatedMeshSceneNode(mesh);
     if (animatedMesh == nullptr)
         throw ECSException<ECS_Renderer>{"Failed to create animated Mesh"};
-    animatedMesh->setMaterialFlag(irr::video::EMF_LIGHTING, true);
+    animatedMesh->setMaterialFlag(irr::video::EMF_LIGHTING, false);
     animatedMesh->setFrameLoop(0, 4000);
     animatedMesh->setVisible(true);
     return animatedMesh;

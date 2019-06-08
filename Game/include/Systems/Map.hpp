@@ -15,7 +15,7 @@
 #include "ECS/Abstracts/ASystem.hpp"
 #include "ECS/Systems/Renderer.hpp"
 
-#define INDEX_TO_POS(index) (index * 10)
+#define INDEX_TO_POS(index) ((index) * 10)
 
 constexpr uint8_t MAP_WIDTH = 15;
 constexpr uint8_t MAP_HEIGHT = 15;
@@ -32,7 +32,8 @@ private:
     void _duplicateWidth() noexcept;
     void _duplicateHeight() noexcept;
     void _createMap() noexcept;
-    void _createBlock(const Engine::Math::Vec3f vec, const std::string &texture) noexcept;
+    void _createBlock(Engine::Math::Vec3f vec, const std::string &texture) noexcept;
+    void _placeCameraAndLight() noexcept;
 
 public:
     Map();
