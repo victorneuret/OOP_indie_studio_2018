@@ -35,11 +35,11 @@ Engine::ECS::System::Renderer::Renderer(const decltype(_windowName) &windowName,
     : ASystem{"Renderer"},
     _windowName{std::wstring{windowName}}, _windowSize{windowSize},
     _window{irr::createDevice(irr::video::EDT_OPENGL, irr::core::dimension2d<irr::u32>(_windowSize.x, _windowSize.y), 16, false, false, false, nullptr)},
-    _videoDrivers{_window->getVideoDriver()},
+    _videoDriver{_window->getVideoDriver()},
     _sceneManager{_window->getSceneManager()},
     _GUIEnvironment{_window->getGUIEnvironment()}
 {
-    if (_window == nullptr || _videoDrivers == nullptr || _sceneManager == nullptr || _GUIEnvironment == nullptr)
+    if (_window == nullptr || _videoDriver == nullptr || _sceneManager == nullptr || _GUIEnvironment == nullptr)
         throw ECSException<ECS_Renderer>{"Failed to initialise the window"};
     _window->setWindowCaption(_windowName.c_str());
 
@@ -58,7 +58,7 @@ void Engine::ECS::System::Renderer::update(double)
 {
     _GUIEnvironment->drawAll();
     _sceneManager->drawAll();
-    if (!_videoDrivers->endScene())
+    if (!_videoDriver->endScene())
         throw ECSException<ECS_Renderer>{"Display error"};
 }
 
@@ -117,7 +117,7 @@ void Engine::ECS::System::Renderer::draw(const std::shared_ptr<Engine::ECS::IEnt
 
 void Engine::ECS::System::Renderer::drawRectangle(const Engine::Math::Rect_i &pos, const Engine::Utils::Color &color) const
 {
-    _videoDrivers->draw2DRectangle(irr::video::SColor{color.a, color.r, color.g, color.b}, irr::core::rect<irr::s32>{pos.x, pos.y, pos.x + pos.w, pos.y + pos.h});
+    _videoDriver->draw2DRectangle(irr::video::SColor{color.a, color.r, color.g, color.b}, irr::core::rect<irr::s32>{pos.x, pos.y, pos.x + pos.w, pos.y + pos.h});
 }
 
 void Engine::ECS::System::Renderer::drawText(const std::shared_ptr<Engine::ECS::IEntity> &entity) const
@@ -156,16 +156,16 @@ void Engine::ECS::System::Renderer::drawSlider(const std::shared_ptr<Engine::ECS
 
 void Engine::ECS::System::Renderer::refresh() const
 {
-    if (!_videoDrivers->beginScene(true, true, irr::video::SColor(0, 0, 0, 0)))
+    if (!_videoDriver->beginScene(true, true, irr::video::SColor(0, 0, 0, 0)))
         throw ECSException<ECS_Renderer>{"Display error"};
 }
 
-decltype(Engine::ECS::System::Renderer::_videoDrivers) Engine::ECS::System::Renderer::getVideoDriver() const
+decltype(Engine::ECS::System::Renderer::_videoDriver) Engine::ECS::System::Renderer::getVideoDriver() const noexcept
 {
-    return _videoDrivers;
+    return _videoDriver;
 }
 
-decltype(Engine::ECS::System::Renderer::_sceneManager) Engine::ECS::System::Renderer::getSceneManager() const
+decltype(Engine::ECS::System::Renderer::_sceneManager) Engine::ECS::System::Renderer::getSceneManager() const noexcept
 {
     return _sceneManager;
 }

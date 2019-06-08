@@ -69,9 +69,8 @@ void Game::System::Map::_duplicateHeight() noexcept
 
     if (MAP_HEIGHT % 2 == 1)
         mapCopy.pop_back();
-    std::reverse(mapCopy.begin(), mapCopy.end());
-    for (const auto &elem : mapCopy)
-        _map.push_back(elem);
+    for (auto it = mapCopy.rbegin(); it != mapCopy.rend(); it++)
+        _map.push_back(*it);
 }
 
 void Game::System::Map::_createBlock(Engine::Math::Vec3f vec, const std::string &texture) noexcept
