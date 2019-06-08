@@ -82,6 +82,12 @@ add_library(
     Engine/include/ECS/Interfaces/Entities/IHoverable.hpp
     Engine/include/Abstracts/AScene.hpp
     Engine/src/Abstracts/AScene.cpp
+    Engine/include/ECS/Entities/Text.hpp
+    Engine/src/ECS/Entities/Text.cpp
+    Engine/include/ECS/Entities/Button.hpp
+    Engine/src/ECS/Entities/Button.cpp
+    Engine/include/ECS/Entities/Slider.hpp
+    Engine/src/ECS/Entities/Slider.cpp
 )
 
 add_executable(
@@ -94,12 +100,6 @@ add_executable(
     Game/include/Systems/Map.hpp
     Game/src/Entities/Player.cpp
     Game/src/Systems/Map.cpp
-    Engine/include/ECS/Entities/Text.hpp
-    Engine/src/ECS/Entities/Text.cpp
-    Engine/include/ECS/Entities/Button.hpp
-    Engine/src/ECS/Entities/Button.cpp
-    Engine/include/ECS/Entities/Slider.hpp
-    Engine/src/ECS/Entities/Slider.cpp
     Game/include/Scenes/MainMenu.hpp
     Game/src/Scenes/MainMenu.cpp
 )
