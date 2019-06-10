@@ -132,8 +132,6 @@ add_executable(
     Game/include/Entities/Player.hpp
     Game/include/Systems/Map.hpp
     Game/src/Entities/Player.cpp
-    Game/include/Entities/Button.hpp
-    Game/src/Entities/Button.cpp
     Game/src/Systems/Map.cpp
     Game/include/Scenes/MainMenu.hpp
     Game/src/Scenes/MainMenu.cpp

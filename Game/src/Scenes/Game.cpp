@@ -11,6 +11,7 @@
 #include "ECS/Entities/Text.hpp"
 #include "ECS/Entities/Button.hpp"
 #include "Entities/Block.hpp"
+#include "Entities/Player.hpp"
 #include "ECS/Entities/Image.hpp"
 #include "Entities/Player.hpp"
 #include "ECS/Manager.hpp"
@@ -26,9 +27,12 @@ Game::Scene::Game::Game()
     _entities = {
         std::make_shared<Engine::Entity::Image>("assets/img/city.png", Engine::Math::Vec2i{0, 0}),
         std::make_shared<Engine::Entity::Image>("assets/img/sun.png", Engine::Math::Vec2i{static_cast<int>(driver->getScreenSize().Width / 2 - (894 / 2)), -200}),
-        std::make_shared<Entity::Player>(),
         std::make_shared<Engine::ECS::Entity::Text>(L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0}),
         std::make_shared<Entity::Bomb>(Engine::Math::Vec2i{2, MAP_HEIGHT}),
+        std::make_shared<Entity::Player>(Engine::Math::Vec3f{INDEX_TO_POS(0), 0, INDEX_TO_POS(0)}, "assets/models/characters/BlackBombermanTextures.png"),
+        std::make_shared<Entity::Player>(Engine::Math::Vec3f{INDEX_TO_POS(0), 0, INDEX_TO_POS(MAP_WIDTH - 1)}, "assets/models/characters/PinkBombermanTextures.png"),
+        std::make_shared<Entity::Player>(Engine::Math::Vec3f{INDEX_TO_POS(MAP_HEIGHT - 1), 0, INDEX_TO_POS(0)}, "assets/models/characters/RedBombermanTextures.png"),
+        std::make_shared<Entity::Player>(Engine::Math::Vec3f{INDEX_TO_POS(MAP_HEIGHT - 1), 0, INDEX_TO_POS(MAP_WIDTH - 1)}, "assets/models/characters/WhiteBombermanTextures.png"),
     };
 }
 

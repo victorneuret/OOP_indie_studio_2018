@@ -14,7 +14,7 @@ namespace Game::Entity {
     class Character;
 }
 
-class Game::Entity::Character : public Engine::ECS::AEntity<Character> {
+class Game::Entity::Character : public Engine::ECS::AEntity {
 public:
     explicit Character();
     Character(const Character &) = delete;
