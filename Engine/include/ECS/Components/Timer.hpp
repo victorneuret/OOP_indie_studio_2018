@@ -13,15 +13,17 @@
 #include "ECS/Components/Chrono.hpp"
 
 namespace Engine::ECS::Component {
+    template <typename ReturnType, typename... Args>
     class Timer;
 }
 
+template <typename ReturnType, typename... Args>
 class Engine::ECS::Component::Timer : public Engine::ECS::AComponent<Engine::ECS::Component::Timer> {
 public:
     explicit Timer(const double &duration);
 
     void startCooldown();
-    bool isCooldownFinished(const std::function<void()> &func);
+    bool execIfCooldownFinished(const std::function<void()> &func);
 
 private:
 

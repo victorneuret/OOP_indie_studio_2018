@@ -18,7 +18,7 @@ void Engine::ECS::Component::Timer::startCooldown()
     _timer.reset();
 }
 
-bool Engine::ECS::Component::Timer::isCooldownFinished(const std::function<void()> &func)
+bool Engine::ECS::Component::Timer::execIfCooldownFinished(const std::function<void()> &func)
 {
     if (_timer.getElapsedTime() >= _duration) {
         func();
