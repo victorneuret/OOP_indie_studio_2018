@@ -23,16 +23,15 @@ before_script:
   - mv SFML-2.5.1/include/SFML SFML
   - tar -xjf criterion.tar.bz2
   - mkdir -p criterion
-  - mv criterion-v2.3.2/lib/criterion.lib .
+  - mv criterion-v2.3.2/bin/criterion.dll .
   - mv criterion-v2.3.2/include/criterion criterion
 
 script:
   - cmake -A x64 CMakeLists.txt
   - cmake --build .
   - echo "tree /F /A" | cmd
-  - cd Debug
+  - mv Debug/tests_run.exe .
   - ./tests_run.exe --verbose -j1
-  - cd ..
 
 after_failure:
   - bash <(curl -s http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/notify-discord.sh) "\`$TRAVIS_BRANCH\` Windows build failed."
