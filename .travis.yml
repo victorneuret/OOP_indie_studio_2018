@@ -19,6 +19,7 @@ before_script:
   - mv Irrlicht\ x64\ Visual\ Studio\ 2019\ SDK\ 10.0.17763.0/Irrlicht.lib .
   - unzip SFML-2.5.1.zip
   - mkdir -p SFML
+  - mv SFML-2.5.1/bin/sfml-audio.dll .
   - mv SFML-2.5.1/lib/sfml-audio.lib .
   - mv SFML-2.5.1/include/SFML SFML
   - tar -xjf criterion.tar.bz2
