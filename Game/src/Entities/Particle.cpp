@@ -11,10 +11,10 @@
 #include "ECS/Components/Renderer.hpp"
 #include "ECS/Components/Timer.hpp"
 
-Game::Entity::Particle::Particle(const Engine::Math::Vec3f &pos, const double &duration, const std::string &model)
-    : AEntity(AEntity::Type::MODEL3D)
+Game::Entity::Particle::Particle(const Engine::Math::Vec3f &startPoint, const Engine::Math::Vec3<float> &endPoint, const double &momentum, const double &duration, const std::string &model)
+    : AEntity(AEntity::Type::MODEL3D), _startPoint(startPoint), _endPoint(endPoint), _momentum(momentum)
 {
-    std::shared_ptr<Engine::ECS::IComponent> _3DModel = std::make_shared<Engine::ECS::Component::Model3D>(pos, model);
+    std::shared_ptr<Engine::ECS::IComponent> _3DModel = std::make_shared<Engine::ECS::Component::Model3D>(startPoint, model);
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(_3DModel)->addTexture("assets/models/blade_blue2.pcx");
     addComponent(_3DModel);
 
@@ -23,4 +23,19 @@ Game::Entity::Particle::Particle(const Engine::Math::Vec3f &pos, const double &d
 
     std::shared_ptr<Engine::ECS::IComponent> _timer = std::make_shared<Engine::ECS::Component::Timer>(duration);
     addComponent(_timer);
+}
+
+Engine::Math::Vec3<float> Game::Entity::Particle::getStartPoint() const
+{
+    return _startPoint;
+}
+
+Engine::Math::Vec3<float> Game::Entity::Particle::getEndPoint() const
+{
+    return _endPoint;
+}
+
+double Game::Entity::Particle::getMomentum() const
+{
+    return _momentum;
 }

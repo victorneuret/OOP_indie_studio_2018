@@ -19,13 +19,20 @@ namespace Game::Entity {
 }
 
 class Game::Entity::Particle : public Engine::ECS::AEntity<Particle> {
-private:
+protected:
+    Engine::Math::Vec3<float> _startPoint{0, 0, 0};
+    Engine::Math::Vec3<float> _endPoint{0, 0, 0};
     double _momentum{0};
+
 public:
-    explicit Particle( const Engine::Math::Vec3f &pos, const double &duration, const std::string &model = std::string("assets/models/weapon.md2"));
+    explicit Particle(const Engine::Math::Vec3<float> &startPoint, const Engine::Math::Vec3<float> &endPoint, const double &momentum, const double &duration, const std::string &model = std::string("assets/models/weapon.md2"));
 
     Particle(const Particle &) = delete;
     Particle &operator=(const Particle &) = delete;
 
     ~Particle() override = default;
+
+    Engine::Math::Vec3<float> getStartPoint() const;
+    Engine::Math::Vec3<float> getEndPoint() const;
+    double getMomentum() const;
 };

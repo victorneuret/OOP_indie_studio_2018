@@ -25,7 +25,8 @@ public:
 
     Particle();
 
-    void createParticles(const double &quantity, const double &minDuration, const double &maxDuration, const Engine::Math::Vec3f &startPoint);
+    void applyMovement(const std::shared_ptr<Game::Entity::Particle> &particle, const double &dt);
+    void createParticles(const double &quantity, const double &minDuration, const double &maxDuration, const Engine::Math::Vec3<float> &startPoint, const Engine::Math::Vec3<float> &endPoint, const double &momentum);
     void checkParticleState(const std::shared_ptr<Game::Entity::Particle> &particle);
     void update(double) final;
 };
