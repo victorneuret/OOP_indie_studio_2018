@@ -18,13 +18,14 @@ namespace Engine::ECS::Component {
 
 class Engine::ECS::Component::Timer : public Engine::ECS::AComponent<Engine::ECS::Component::Timer> {
 public:
-    explicit Timer(const double &duration);
+    explicit Timer(const double &duration, std::function<void()> &func);
 
     void startCooldown();
-    bool execIfCooldownFinished(const std::function<void()> &func);
+    bool execIfCooldownFinished();
 
 private:
 
     Engine::ECS::Component::Chrono _timer{};
     double _duration{0};
+    std::function<void()> _func;
 };
