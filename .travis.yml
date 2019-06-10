@@ -29,7 +29,7 @@ before_script:
 script:
   - cmake -A x64 CMakeLists.txt
   - cmake --build .
-  - echo "tree /F" | cmd
+  - echo "tree /F /A" | cmd
 # ./Debug/tests_run.exe --verbose -j1
 
 after_failure:
