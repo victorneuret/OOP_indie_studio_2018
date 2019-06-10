@@ -60,7 +60,7 @@ template<typename T>
 Engine::Math::Vec2<T> Engine::Math::Vec2<T>::normalize() const noexcept
 {
     auto distance = static_cast<T>(std::sqrt(x * x + y * y));
-    return Vec2<T>(x / distance, y / distance);
+    return Vec2<T>{x / distance, y / distance};
 }
 
 template<typename T>

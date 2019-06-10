@@ -60,7 +60,7 @@ template<typename T>
 Engine::Math::Vec3<T> Engine::Math::Vec3<T>::normalize() const noexcept
 {
     auto distance = static_cast<T>(std::sqrt(x * x + y * y + z * z));
-    return Vec3<T>(x / distance, y / distance, z / distance);
+    return Vec3<T>{x / distance, y / distance, z / distance};
 }
 
 
