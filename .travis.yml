@@ -24,6 +24,7 @@ before_script:
   - tar -xjf criterion.tar.bz2
   - mkdir -p criterion
   - mv criterion-v2.3.2/bin/criterion.dll .
+  - mv criterion-v2.3.2/lib/criterion.lib .
   - mv criterion-v2.3.2/include/criterion criterion
 
 script:
