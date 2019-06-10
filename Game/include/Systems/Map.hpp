@@ -42,5 +42,7 @@ public:
     void update(double dt) final;
 
     decltype(_actualMap) getActualMap() const noexcept;
+    void setActualMap(decltype(_actualMap) &map) noexcept;
+
 };
 

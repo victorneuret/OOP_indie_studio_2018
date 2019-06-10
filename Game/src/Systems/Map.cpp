@@ -123,3 +123,8 @@ decltype(Game::System::Map::_actualMap) Game::System::Map::getActualMap() const 
 {
     return _actualMap;
 }
+
+void Game::System::Map::setActualMap(decltype(Game::System::Map::_actualMap) &map) noexcept
+{
+    _actualMap = map;
+}
