@@ -194,5 +194,5 @@ if (UNIX)
     target_link_options(tests_run PUBLIC --coverage)
 endif (UNIX)
 
-target_include_directories(tests_run PUBLIC Game/include Engine/include)
+target_include_directories(tests_run PUBLIC Game/include Engine/include criterion)
 target_link_libraries(tests_run sfml-audio Irrlicht criterion gcov)
