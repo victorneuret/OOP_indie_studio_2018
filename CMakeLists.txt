@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.11)
 project(bomberman)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_VERBOSE_MAKEFILE off) # Turn on to debug cmake
+set(CMAKE_VERBOSE_MAKEFILE on) # Turn on to debug cmake
 
 if (UNIX)
     add_compile_options(-Wall -Wextra -Weffc++)
@@ -189,10 +189,11 @@ add_executable(
     Tests/Test.cpp
 )
 
+target_include_directories(tests_run PUBLIC Game/include Engine/include criterion)
+target_link_libraries(tests_run sfml-audio Irrlicht criterion)
+
 if (UNIX)
     target_compile_options(tests_run PUBLIC --coverage)
     target_link_options(tests_run PUBLIC --coverage)
+    target_link_libraries(tests_run gcov)
 endif (UNIX)
-
-target_include_directories(tests_run PUBLIC Game/include Engine/include criterion)
-target_link_libraries(tests_run sfml-audio Irrlicht criterion gcov)
