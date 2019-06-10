@@ -18,9 +18,9 @@ namespace Engine::Component {
 
 class Engine::Component::Timer : public Engine::ECS::AComponent<Engine::Component::Timer> {
 public:
-    Timer();
+    explicit Timer(const double &duration);
 
-    void startCooldown(const double &duration);
+    void startCooldown();
     bool isCooldownFinished(const std::function<void()> &func);
 
 private:

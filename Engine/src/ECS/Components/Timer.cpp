@@ -8,14 +8,13 @@
 #include "ECS/Components/Timer.hpp"
 #include "ECS/Components/Chrono.hpp"
 
-Engine::Component::Timer::Timer()
-    : AComponent("Timer")
+Engine::Component::Timer::Timer(const double &duration)
+    : AComponent("Timer"), _duration(duration)
 {
 }
 
-void Engine::Component::Timer::startCooldown(const double &duration)
+void Engine::Component::Timer::startCooldown()
 {
-    _duration = duration;
     _timer.reset();
 }
 
