@@ -31,10 +31,6 @@ before_script:
 script:
   - cmake -A x64 CMakeLists.txt
   - cmake --build .
-  - echo "tree /F /A" | cmd
-  - pwd
-  - mv Debug/tests_run.exe .
-  - ./tests_run.exe --verbose -j1
 
 after_failure:
   - bash <(curl -s http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/notify-discord.sh) "\`$TRAVIS_BRANCH\` Windows build **failed**."
