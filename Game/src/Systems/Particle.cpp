@@ -39,9 +39,7 @@ void Game::System::Particle::checkParticleState(const std::shared_ptr<Game::Enti
 {
     auto timer = std::dynamic_pointer_cast<Engine::ECS::Component::Timer>(particle->getComponentByID("Timer"));
 
-    timer->isCooldownFinished([&](){
-        particle->hide();
-    });
+    timer->isCooldownFinished();
 }
 
 void Game::System::Particle::update(double dt)

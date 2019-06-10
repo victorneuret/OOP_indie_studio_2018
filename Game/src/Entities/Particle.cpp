@@ -7,6 +7,7 @@
 
 #include "Utils/Random.hpp"
 #include "Entities/Particle.hpp"
+#include "ECS/Abstracts/AEntity.hpp"
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Components/Renderer.hpp"
 #include "ECS/Components/Timer.hpp"
@@ -21,7 +22,9 @@ Game::Entity::Particle::Particle(const Engine::Math::Vec3f &startPoint, const En
     std::shared_ptr<Engine::ECS::IComponent> _renderer = std::make_shared<Engine::ECS::Component::Renderer>();
     addComponent(_renderer);
 
-    std::shared_ptr<Engine::ECS::IComponent> _timer = std::make_shared<Engine::ECS::Component::Timer>(duration);
+    std::shared_ptr<Engine::ECS::IComponent> _timer = std::make_shared<Engine::ECS::Component::Timer>(duration, [&](){
+        Engine::ECS::AEntity<Game::Entity::Particle>::hide();
+    });
     addComponent(_timer);
 }
 
