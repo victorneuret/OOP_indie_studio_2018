@@ -23,6 +23,9 @@ public:
     void startCooldown();
     bool execIfCooldownFinished();
 
+    void setDuration(const double &duration);
+    double getDuration() const;
+
 private:
 
     Engine::ECS::Component::Chrono _timer{};

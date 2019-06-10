@@ -26,3 +26,13 @@ bool Engine::ECS::Component::Timer::execIfCooldownFinished()
     }
     return false;
 }
+
+void Engine::ECS::Component::Timer::setDuration(const double &duration)
+{
+    _duration = duration;
+}
+
+double Engine::ECS::Component::Timer::getDuration() const
+{
+    return _duration;
+}
