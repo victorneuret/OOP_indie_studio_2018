@@ -30,5 +30,5 @@ public:
     bool execIfCooldownFinished();
 
     void setDuration(const decltype(_duration) &duration);
-    double getDuration() const;
+    decltype(_duration) getDuration() const;
 };
