@@ -32,7 +32,7 @@ void Engine::ECS::Component::Timer::setDuration(const decltype(_duration) &durat
     _duration = duration;
 }
 
-double Engine::ECS::Component::Timer::getDuration() const
+decltype(Engine::ECS::Component::Timer::_duration) Engine::ECS::Component::Timer::getDuration() const
 {
     return _duration;
 }
