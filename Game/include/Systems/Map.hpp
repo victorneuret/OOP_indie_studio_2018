@@ -28,16 +28,19 @@ namespace Game::System {
 class Game::System::Map : public Engine::ECS::ASystem<Map> {
 private:
     std::vector<std::string> _map{};
+    std::vector<std::string> _actualMap{};
 
     void _createFirstSquare() noexcept;
     void _duplicateWidth() noexcept;
     void _duplicateHeight() noexcept;
     void _createMap() noexcept;
-    void _createBlock(Engine::Math::Vec3f vec, const std::string &texture) noexcept;
+    void _createBlock(Engine::Math::Vec3f vec, const std::string &texture, bool breakable) noexcept;
     void _placeCameraAndLight() noexcept;
 
 public:
     Map();
     void update(double dt) final;
+
+    decltype(_actualMap) getActualMap() const noexcept;
 };
 

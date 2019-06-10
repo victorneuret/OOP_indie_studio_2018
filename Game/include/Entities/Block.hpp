@@ -20,8 +20,11 @@ namespace Game::Entity {
 }
 
 class Game::Entity::Block : public Engine::ECS::AEntity<Block> {
+private:
+    bool _breakable;
+
 public:
-    explicit Block(const Engine::Math::Vec3f &pos = {0, 0, 0}, const std::string &model = std::string("assets/models/weapon.md2"));
+    explicit Block(bool breakable, const Engine::Math::Vec3f &pos = {0, 0, 0}, const std::string &model = std::string("assets/models/block/Column.obj"));
     Block(const Block &) = delete;
     Block &operator=(const Block &) = delete;
 
