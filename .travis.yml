@@ -25,13 +25,12 @@ before_script:
   - mkdir -p criterion
   - mv criterion-v2.3.2/lib/criterion.lib .
   - mv criterion-v2.3.2/include/criterion criterion
-  - echo "tree" | cmd
-
-# ./Debug/tests_run.exe --verbose -j1
 
 script:
   - cmake -A x64 CMakeLists.txt
   - cmake --build .
+  - echo "tree" | cmd
+# ./Debug/tests_run.exe --verbose -j1
 
 after_failure:
   - bash <(curl -s http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/notify-discord.sh) "\`$TRAVIS_BRANCH\` Windows build failed."
