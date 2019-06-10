@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.11)
 project(bomberman CXX)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_VERBOSE_MAKEFILE on) # Turn on to debug cmake
+set(CMAKE_VERBOSE_MAKEFILE off) # Turn on to debug cmake
 
 if (UNIX)
     add_compile_options(-Wall -Wextra -Weffc++)

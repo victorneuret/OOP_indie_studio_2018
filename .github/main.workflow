@@ -10,5 +10,5 @@ action "Linux compilation" {
 
 action "Linux unit tests" {
   uses = "victorneuret/epitech-cmake-action/unit_tests@v2"
-  args = "tests_run"
+  args = "tests_run --verbose -j1"
 }
