@@ -1,4 +1,4 @@
-workflow "Linux compilaiton" {
+workflow "Linux Continuous Integration" {
   resolves = ["Linux unit tests"]
   on = "push"
 }
