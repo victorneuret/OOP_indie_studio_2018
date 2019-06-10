@@ -10,6 +10,7 @@
 #include "ECS/Abstracts/ASystem.hpp"
 #include "ECS/Interfaces/IEntity.hpp"
 #include "Entities/Particle.hpp"
+#include "Math/Vector/Vec3.hpp"
 
 namespace Game::System {
     class Particle;

@@ -21,7 +21,7 @@ Game::System::Particle::Particle()
 
 std::vector<std::shared_ptr<Engine::ECS::IEntity>> Game::System::Particle::getEntityList()
 {
-    return Engine::ECS::Manager::getInstance().getEntities();
+    return Engine::ECS::Manager::getInstance().getSceneByID("MainMenu")->getEntities();
 }
 
 void Game::System::Particle::checkParticleState(const std::shared_ptr<Game::Entity::Particle> &particle)
@@ -46,11 +46,11 @@ void Game::System::Particle::update(double)
     }
 }
 
-void Game::System::Particle::createParticles(const double &quantity, const double &minDuration, const double &maxDuration, const Engine::Math::Vec3f &startPoint /*, Direction  */)
+void Game::System::Particle::createParticles(const double &quantity, const double &minDuration, const double &maxDuration, const Engine::Math::Vec3<float> &startPoint /*, Direction  */)
 {
     for (float i = 0; i < quantity; ++i) {
         std::shared_ptr<Engine::ECS::IEntity> newParticle = std::make_shared<Game::Entity::Particle>(startPoint, Random::getDouble(minDuration, maxDuration));
-        Engine::ECS::Manager::getInstance().addEntity(newParticle);
+        Engine::ECS::Manager::getInstance().getSceneByID("MainMenu")->addEntity(newParticle);
     }
     std::cout << "Successfully created " + std::to_string(quantity) + " particles" << std::endl;
 }

@@ -12,6 +12,7 @@
 #include "ECS/Abstracts/AEntity.hpp"
 #include "ECS/Components/Renderer.hpp"
 #include "ECS/Components/Timer.hpp"
+#include "Math/Vector/Vec3.hpp"
 
 namespace Game::Entity {
     class Particle;
