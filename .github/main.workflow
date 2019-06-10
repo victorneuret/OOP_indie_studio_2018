@@ -1,5 +1,5 @@
 workflow "Linux compilaiton" {
-  resolves = ["Linux compilation", "Linux unit tests"]
+  resolves = ["Linux unit tests"]
   on = "push"
 }
 
@@ -10,5 +10,6 @@ action "Linux compilation" {
 
 action "Linux unit tests" {
   uses = "victorneuret/epitech-cmake-action/unit_tests@v2"
+  needs = "Linux compilation"
   args = "tests_run --verbose -j1"
 }
