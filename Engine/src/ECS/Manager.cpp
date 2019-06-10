@@ -69,12 +69,23 @@ void Engine::ECS::Manager::sceneManager(double dt, std::shared_ptr<Engine::ECS::
     for (auto it = _scenes.rbegin(); it != _scenes.rend(); it++) {
         if ((*it)->isUpdateChild())
            (*it)->tick(dt);
+        for (auto &entity : (*it)->getEntities())
+            renderer->draw(entity);
+        if  ((*it)->isOpaque()) {
+            break;
+        }
+    }
+}
+
+std::vector<std::shared_ptr<Engine::ECS::IEntity>> Engine::ECS::Manager::getUpdatedEntities()
+{
+    std::vector<std::shared_ptr<Engine::ECS::IEntity>> updatedEntities;
+
+    for (auto it = _scenes.rbegin(); it != _scenes.rend(); it++) {
+        if ((*it)->isUpdateChild())
+            updatedEntities.insert(updatedEntities.end(), (*it)->getEntities().begin(), (*it)->getEntities().end());
         if  ((*it)->isOpaque())
             break;
     }
-    for (auto &scene : _scenes) {
-        for (auto &entity : scene->getEntities()) {
-            renderer->draw(entity);
-        }
-    }
+    return updatedEntities;
 }

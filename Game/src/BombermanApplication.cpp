@@ -11,6 +11,7 @@
 #include "ECS/Manager.hpp"
 #include "Systems/Map.hpp"
 #include "Scenes/MainMenu.hpp"
+#include "Scenes/Game.hpp"
 
 BombermanApplication::BombermanApplication()
     : Engine::GameApplication(L"Bomberman", 1920, 1080)
@@ -19,8 +20,8 @@ BombermanApplication::BombermanApplication()
 
 void BombermanApplication::onAppStartup()
 {
-    std::shared_ptr<Engine::Abstracts::AScene> mainMenu = std::make_shared<Game::Scene::MainMenu>();
-    Engine::ECS::Manager::getInstance().addScene(mainMenu);
+    std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<Game::Scene::Game>();
+    Engine::ECS::Manager::getInstance().addScene(game);
 
     std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();
     Engine::ECS::Manager::getInstance().addSystem(map);
