@@ -73,9 +73,9 @@ void Game::System::Map::_duplicateHeight() noexcept
         _map.push_back(*it);
 }
 
-void Game::System::Map::_createBlock(Engine::Math::Vec3f vec, const std::string &texture) noexcept
+void Game::System::Map::_createBlock(Engine::Math::Vec3f vec, const std::string &texture, bool breakable) noexcept
 {
-    std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(vec, "assets/models/block/Column.obj");
+    std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(breakable, vec);
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture(texture);
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->setScale(Engine::Math::Vec3{5.f, 2.f, 5.f});
     Engine::ECS::Manager::getInstance().getSceneByID("MainMenu")->addEntity(block);
@@ -93,12 +93,12 @@ void Game::System::Map::_createMap() noexcept
     for (size_t i = 0; i < _map.size(); i++) {
         for (size_t j = 0; j <= MAP_WIDTH; j++) {
             if (_map[i][j] == '.')
-                _createBlock(Engine::Math::Vec3f{INDEX_TO_POS(static_cast<float>(i)), 0, INDEX_TO_POS(static_cast<float>(j))}, "assets/models/block/Column.png");
+                _createBlock(Engine::Math::Vec3f{INDEX_TO_POS(static_cast<float>(i)), 0, INDEX_TO_POS(static_cast<float>(j))}, "assets/models/block/Column.png", true);
             else if (_map[i][j] == '#')
-                _createBlock(Engine::Math::Vec3f{INDEX_TO_POS(static_cast<float>(i)), 0, INDEX_TO_POS(static_cast<float>(j))}, "assets/models/block/unbreakable.png");
+                _createBlock(Engine::Math::Vec3f{INDEX_TO_POS(static_cast<float>(i)), 0, INDEX_TO_POS(static_cast<float>(j))}, "assets/models/block/unbreakable.png", false);
         }
     }
-    std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(Engine::Math::Vec3f{INDEX_TO_POS(MAP_WIDTH - 1) / 2.f, -3, INDEX_TO_POS(MAP_HEIGHT - 1) / 2.f}, "assets/models/block/cube.obj");
+    std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(true, Engine::Math::Vec3f{INDEX_TO_POS(MAP_WIDTH - 1) / 2.f, -3, INDEX_TO_POS(MAP_HEIGHT - 1) / 2.f}, "assets/models/block/cube.obj");
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->setScale(Engine::Math::Vec3{150.f, 6.f, 150.f});
     Engine::ECS::Manager::getInstance().getSceneByID("MainMenu")->addEntity(block);
 }
@@ -117,4 +117,14 @@ void Game::System::Map::update(double)
         _createMap();
         _placeCameraAndLight();
     }
+}
+
+decltype(Game::System::Map::_actualMap) Game::System::Map::getActualMap() const noexcept
+{
+    return _actualMap;
+}
+
+void Game::System::Map::setActualMap(decltype(Game::System::Map::_actualMap) &map) noexcept
+{
+    _actualMap = map;
 }
