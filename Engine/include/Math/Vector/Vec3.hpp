@@ -9,6 +9,7 @@
 
 #include <ostream>
 #include <typeinfo>
+#include <cmath>
 
 namespace Engine::Math {
     template<typename T>
@@ -33,6 +34,7 @@ public:
     Vec3<T>(const T &x, const T &y, const T &z) noexcept;
     ~Vec3<T>() = default;
 
+    Vec3<T> normalize() const noexcept;
     Vec3<T> &operator+=(const Vec3<T> &vec) noexcept;
     Vec3<T> &operator+=(const T &val) noexcept;
     Vec3<T> &operator-=(const Vec3<T> &vec) noexcept;
@@ -54,10 +56,17 @@ public:
     bool operator==(const Vec3<T> &vec) const noexcept;
     bool operator!=(const Vec3<T> &vec) const noexcept;
 };
+template<typename T>
+Engine::Math::Vec3<T> Engine::Math::Vec3<T>::normalize() const noexcept
+{
+    auto distance = static_cast<T>(std::sqrt(x * x + y * y + z * z));
+    return Vec3<T>{x / distance, y / distance, z / distance};
+}
+
 
 template<typename T>
 Engine::Math::Vec3<T>::Vec3() noexcept
-{}
+= default;
 
 template<typename T>
 Engine::Math::Vec3<T>::Vec3(const Vec3<T> &vec) noexcept
