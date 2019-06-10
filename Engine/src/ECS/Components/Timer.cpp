@@ -8,17 +8,17 @@
 #include "ECS/Components/Timer.hpp"
 #include "ECS/Components/Chrono.hpp"
 
-Engine::Component::Timer::Timer(const double &duration)
+Engine::ECS::Component::Timer::Timer(const double &duration)
     : AComponent("Timer"), _duration(duration)
 {
 }
 
-void Engine::Component::Timer::startCooldown()
+void Engine::ECS::Component::Timer::startCooldown()
 {
     _timer.reset();
 }
 
-bool Engine::Component::Timer::isCooldownFinished(const std::function<void()> &func)
+bool Engine::ECS::Component::Timer::isCooldownFinished(const std::function<void()> &func)
 {
     if (_timer.getElapsedTime() >= _duration) {
         func();

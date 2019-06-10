@@ -12,11 +12,11 @@
 #include "ECS/Abstracts/AComponent.hpp"
 #include "ECS/Components/Chrono.hpp"
 
-namespace Engine::Component {
+namespace Engine::ECS::Component {
     class Timer;
 }
 
-class Engine::Component::Timer : public Engine::ECS::AComponent<Engine::Component::Timer> {
+class Engine::ECS::Component::Timer : public Engine::ECS::AComponent<Engine::ECS::Component::Timer> {
 public:
     explicit Timer(const double &duration);
 
