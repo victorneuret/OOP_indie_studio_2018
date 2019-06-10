@@ -9,6 +9,7 @@
 
 #include <ostream>
 #include <typeinfo>
+#include <cmath>
 
 namespace Engine::Math {
     template<typename T>
