@@ -104,6 +104,19 @@ add_library(
     Engine/src/ECS/Components/Image.cpp
     Engine/include/ECS/Entities/Image.hpp
     Engine/src/ECS/Entities/Image.cpp
+    Engine/include/ECS/Interfaces/Entities/IGuiElement.hpp
+    Engine/src/ECS/Entities/IGuiElement.cpp
+    Engine/src/ECS/Systems/AEvent.cpp
+    Engine/src/ECS/Systems/EventHandler.cpp
+    Engine/src/ECS/Systems/Event/ButtonEvent.cpp
+    Engine/src/ECS/Entities/IGuiElement.cpp
+    Engine/src/ECS/Systems/Input/AInput.cpp
+    Engine/src/ECS/Systems/Input/KeyboardInput.cpp
+    Engine/src/ECS/Systems/Input/MouseInput.cpp
+    Engine/include/ECS/Systems/Input/JoystickInput.hpp
+    Engine/src/ECS/Systems/Input/JoystickInput.cpp
+    Engine/include/ECS/Systems/Input/KeyboardInput.hpp
+    Engine/include/ECS/Systems/Input/MouseInput.hpp
 )
 
 add_executable(

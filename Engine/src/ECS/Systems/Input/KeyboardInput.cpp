@@ -5,6 +5,8 @@
 ** KeyboardInput
 */
 
+#include "ECS/Manager.hpp"
+#include "ECS/Systems/Renderer.hpp"
 #include "ECS/Abstracts/Systems/AInput.hpp"
 #include "ECS/Systems/Input/KeyboardInput.hpp"
 #include "Exception/Engine/ECS/ECSException.hpp"
@@ -12,6 +14,7 @@
 Engine::ECS::System::KeyboardInput::KeyboardInput()
     : AInput{"KeyboardInput"}
 {}
+
 
 bool Engine::ECS::System::KeyboardInput::OnEvent(const irr::SEvent &event)
 {

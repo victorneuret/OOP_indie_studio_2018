@@ -185,3 +185,13 @@ decltype(Engine::ECS::System::Renderer::_GUIEnvironment) Engine::ECS::System::Re
 {
     return _GUIEnvironment;
 }
+
+decltype(Engine::ECS::System::Renderer::_window) Engine::ECS::System::Renderer::getWindow()
+{
+    return _window;
+}
+
+decltype(Engine::ECS::System::Renderer::_eventHandler) *Engine::ECS::System::Renderer::getEventHandler() noexcept
+{
+    return &_eventHandler;
+}
