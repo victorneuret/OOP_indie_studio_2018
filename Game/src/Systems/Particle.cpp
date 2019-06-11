@@ -27,12 +27,18 @@ std::vector<std::shared_ptr<Engine::ECS::IEntity>> Game::System::Particle::getEn
 
 void Game::System::Particle::applyMovement(const std::shared_ptr<Game::Entity::Particle> &particle, const double &dt)
 {
-    Engine::Math::Vec3<float> newVec{(particle->getEndPoint().x - particle->getStartPoint().x), (particle->getEndPoint().y - particle->getStartPoint().y), (particle->getEndPoint().z - particle->getStartPoint().z)};
+    Engine::Math::Vec3<float> dir{(particle->getEndPoint().x - particle->getStartPoint().x), (particle->getEndPoint().y - particle->getStartPoint().y), (particle->getEndPoint().z - particle->getStartPoint().z)};
 
-    std::cout << "x: " + std::to_string(newVec.x) + " y: " + std::to_string(newVec.y) + " z: " + std::to_string(newVec.z) << std::endl;
+    std::cout << "x: " + std::to_string(dir.x) + " y: " + std::to_string(dir.y) + " z: " + std::to_string(dir.z) << std::endl;
     std::cout << "Momentum: " + std::to_string(particle->getMomentum()) << std::endl;
     std::cout << "Delta Time: " + std::to_string(dt) << std::endl;
     std::cout << "------------------------" << std::endl;
+
+    auto dist = std::sqrt((std::pow(2, dir.x) + std::pow(dir.y, 2) + std::pow(dir.z, 2)));
+    auto norm = dir / dist;
+    auto final = Engine::Math::Vec3<float>{(2 * norm.x - 1), (2 * norm.y - 1), (2 * norm.z - 1)};
+
+    std::cout << std::to_string(final.x) << " " << std::to_string(final.y) << " " << std::to_string(final.z) << std::endl;
 }
 
 void Game::System::Particle::checkParticleState(const std::shared_ptr<Game::Entity::Particle> &particle)
