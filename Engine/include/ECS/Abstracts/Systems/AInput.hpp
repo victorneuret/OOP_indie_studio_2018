@@ -23,15 +23,8 @@ protected:
     std::map<decltype(irr::SEvent::SKeyInput::Char), bool> _keys{};
 
 public:
-    explicit AInput(const std::string &id) : ASystem{id} {}
+    explicit AInput(const std::string &id);
     ~AInput() override = default;
 
-    bool OnEvent(const irr::SEvent &) override = 0;
-
-    decltype(_keys)::value_type::second_type isKeyDown(const decltype(irr::SEvent::SKeyInput::Char) key)
-    {
-        if (_keys.find(key) != _keys.end())
-            return _keys[key];
-        return false;
-    }
+    bool isKeyDown(const decltype(irr::SEvent::SKeyInput::Char) &key);
 };

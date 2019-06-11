@@ -46,9 +46,6 @@ add_library(
     Engine/include/ECS/Manager.hpp
     Engine/src/ECS/Manager.cpp
     Engine/include/ECS/Abstracts/Systems/AInput.hpp
-    Engine/src/ECS/Systems/KeyboardInput.cpp
-    Engine/include/ECS/Systems/MouseInput.hpp
-    Engine/src/ECS/Systems/MouseInput.cpp
     Engine/include/ECS/Components/Timer.hpp
     Engine/src/ECS/Components/Timer.cpp
     Engine/include/Utils/TypeDisplayer.hpp
@@ -70,8 +67,6 @@ add_library(
     Engine/src/Utils/Random.cpp
     Engine/include/Utils/Random.hpp
     Engine/include/ECS/Components/Player.hpp
-    Engine/include/ECS/Systems/JoystickInput.hpp
-    Engine/src/ECS/Systems/JoystickInput.cpp
     Engine/include/ECS/Systems/EventHandler.hpp
     Engine/src/ECS/Systems/Audio.cpp
     Engine/include/ECS/Systems/Audio.hpp
@@ -86,8 +81,6 @@ add_library(
     Engine/src/ECS/Entities/Text.cpp
     Engine/include/ECS/Entities/Button.hpp
     Engine/src/ECS/Entities/Button.cpp
-    Engine/include/ECS/Entities/Slider.hpp
-    Engine/src/ECS/Entities/Slider.cpp
     Engine/src/ECS/Abstract/ASystem.cpp
     Engine/src/ECS/Abstract/AEntity.cpp
     Engine/src/ECS/Abstract/AComponent.cpp
@@ -98,6 +91,19 @@ add_library(
     Engine/include/ECS/Systems/Timer.hpp
     Engine/src/ECS/Systems/Timer.cpp
     Engine/src/Abstracts/AEntity.cpp
+    Engine/include/ECS/Interfaces/Entities/IGuiElement.hpp
+    Engine/src/ECS/Entities/IGuiElement.cpp
+    Engine/src/ECS/Systems/AEvent.cpp
+    Engine/src/ECS/Systems/EventHandler.cpp
+    Engine/src/ECS/Systems/Event/ButtonEvent.cpp
+    Engine/src/ECS/Entities/IGuiElement.cpp
+    Engine/src/ECS/Systems/Input/AInput.cpp
+    Engine/src/ECS/Systems/Input/KeyboardInput.cpp
+    Engine/src/ECS/Systems/Input/MouseInput.cpp
+    Engine/include/ECS/Systems/Input/JoystickInput.hpp
+    Engine/src/ECS/Systems/Input/JoystickInput.cpp
+    Engine/include/ECS/Systems/Input/KeyboardInput.hpp
+    Engine/include/ECS/Systems/Input/MouseInput.hpp
 )
 
 add_executable(

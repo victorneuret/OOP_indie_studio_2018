@@ -5,6 +5,8 @@
 ** Button.cpp
 */
 
+#include <iostream>
+
 #include "ECS/Entities/Button.hpp"
 #include "ECS/Components/Text.hpp"
 #include "ECS/Components/Button.hpp"
@@ -27,17 +29,9 @@ Engine::ECS::Entity::Button::Button(const Engine::Math::Rect_i &bounds, const st
     addComponent(_renderer);
 }
 
-void Engine::ECS::Entity::Button::onHover()
+bool Game::Entity::Button::onEvent(irr::gui::EGUI_EVENT_TYPE eventType)
 {
-    throw std::runtime_error{"Hover"};
-}
-
-void Engine::ECS::Entity::Button::onRelease()
-{
-    throw std::runtime_error{"Released"};
-}
-
-void Engine::ECS::Entity::Button::onPressed()
-{
-    throw std::runtime_error{"Pressed"};
+    if (eventType == irr::gui::EGUI_EVENT_TYPE::EGET_BUTTON_CLICKED)
+        std::cout << "BUTTON CLICKED" << std::endl;
+    return false;
 }
