@@ -32,7 +32,7 @@ void BombermanApplication::onAppStartup()
     std::shared_ptr<Engine::ECS::ISystem> particles = std::make_shared<Game::System::Particle>();
     Engine::ECS::Manager::getInstance().addSystem(particles);
 
-    std::dynamic_pointer_cast<Game::System::Particle>(particles)->createParticles(10, 2, 3, Engine::Math::Vec3<float>{10, 0, 10}, Engine::Math::Vec3<float>{30, 0, 10}, 5);
+    std::dynamic_pointer_cast<Game::System::Particle>(particles)->createParticles(1, 2, 3, Engine::Math::Vec3<float>{10, 0, 10}, Engine::Math::Vec3<float>{30, 5, 20}, 5);
 }
 
 void BombermanApplication::tick(double)
