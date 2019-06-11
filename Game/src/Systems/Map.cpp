@@ -7,8 +7,8 @@
 
 #include <algorithm>
 #include <iostream>
-#include <ECS/Components/Model3D.hpp>
 
+#include "ECS/Components/Model3D.hpp"
 #include "Systems/Map.hpp"
 #include "Utils/Random.hpp"
 #include "Entities/Block.hpp"
@@ -16,6 +16,7 @@
 #include "ECS/Systems/Renderer.hpp"
 #include "Math/Vector/Vec3.hpp"
 #include "Abstracts/AScene.hpp"
+#include "Exception/AException.hpp"
 
 Game::System::Map::Map()
     : ASystem("Map")
@@ -78,7 +79,7 @@ void Game::System::Map::_createBlock(Engine::Math::Vec3f vec, const std::string 
     std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(breakable, vec);
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture(texture);
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->setScale(Engine::Math::Vec3{5.f, 2.f, 5.f});
-    Engine::ECS::Manager::getInstance().getSceneByID("MainMenu")->addEntity(block);
+    Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(block);
 }
 
 void Game::System::Map::_createMap() noexcept
@@ -100,7 +101,7 @@ void Game::System::Map::_createMap() noexcept
     }
     std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(true, Engine::Math::Vec3f{INDEX_TO_POS(MAP_WIDTH - 1) / 2.f, -3, INDEX_TO_POS(MAP_HEIGHT - 1) / 2.f}, "assets/models/block/cube.obj");
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->setScale(Engine::Math::Vec3{150.f, 6.f, 150.f});
-    Engine::ECS::Manager::getInstance().getSceneByID("MainMenu")->addEntity(block);
+    Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(block);
 }
 
 void Game::System::Map::_placeCameraAndLight() noexcept
@@ -113,10 +114,14 @@ void Game::System::Map::_placeCameraAndLight() noexcept
 
 void Game::System::Map::update(double)
 {
-    if (_map.empty()) {
-        _createMap();
-        _placeCameraAndLight();
-    }
+    try {
+        Engine::ECS::Manager::getInstance().getSceneByID("Game");
+        if (_map.empty()) {
+            _createMap();
+            _placeCameraAndLight();
+        }
+    } catch (const ECSException<ECS_Scene> &e) {}
+
 }
 
 decltype(Game::System::Map::_actualMap) Game::System::Map::getActualMap() const noexcept
