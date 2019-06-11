@@ -5,6 +5,12 @@
 ** Random.cpp
 */
 
+#if defined _MSC_VER
+#pragma warning(disable:4244)
+// Conversion from 'x' to 'y', possible loss of data
+//      -> No data loss possible in this file.
+#endif
+
 #include <cmath>
 
 #include "Utils/Random.hpp"

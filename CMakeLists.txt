@@ -113,6 +113,7 @@ add_executable(
     Engine/include/Math/Vector/Vec3.hpp
     Tests/TestsVectors.cpp
     Tests/TestsRect.cpp
+    Tests/Criterion.hpp
 )
 
 target_include_directories(tests_run PUBLIC Game/include Engine/include criterion)
