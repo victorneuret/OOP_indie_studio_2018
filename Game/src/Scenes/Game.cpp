@@ -23,9 +23,7 @@ Game::Scene::Game::Game()
             std::make_shared<Entity::Player>(),
             std::make_shared<Entity::Text>(L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0}),
             std::make_shared<Entity::Button>(Engine::Math::Rect_i{75, 15, 500, 30}, L"Un Button", Engine::Utils::Color{255, 0, 0}),
-            std::make_shared<Engine::Entity::Image>("assets/img/star.jpg", Engine::Math::Vec2u{0, 0}),
-            std::make_shared<Engine::Entity::Image>("assets/img/sun.png", Engine::Math::Vec2u{driver->getScreenSize().Width / 2 - (894 / 2), 0}),
-            std::make_shared<Engine::Entity::Image>("assets/img/mountain.png", Engine::Math::Vec2u{0, 0})
+            std::make_shared<Engine::Entity::Image>("assets/img/sun.png", Engine::Math::Vec2u{driver->getScreenSize().Width / 2 - (894 / 2), 0})
     };
 }
 

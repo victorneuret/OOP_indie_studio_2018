@@ -17,7 +17,6 @@
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Components/Renderer.hpp"
 #include "Exception/Engine/ECS/ECSException.hpp"
-#include "Utils/Random.hpp"
 
 bool Engine::ECS::System::Renderer::EventMiddleware::OnEvent(const irr::SEvent &event)
 {

@@ -19,7 +19,6 @@ Engine::ECS::Component::Image::Image(const decltype(_texturePath) &texturePath, 
     _texture = driver->getTexture(texturePath.c_str());
     _size = {_texture->getSize().Width, _texture->getSize().Height};
     _guiImage = guiEnv->addImage(_texture, irr::core::vector2d<irr::s32>(_position.x, _position.y));
-
 }
 
 decltype(Engine::ECS::Component::Image::_texturePath) Engine::ECS::Component::Image::getTexturePath() const noexcept

@@ -23,7 +23,7 @@ public:
         MODEL2D = 2,
         TEXT = 3,
         BUTTON = 4,
-        SLIDER = 5
+        SLIDER = 5,
     };
 
 public:
