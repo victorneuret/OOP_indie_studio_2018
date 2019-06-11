@@ -42,7 +42,7 @@ public:
 
 template<typename T>
 Engine::Math::Rect<T>::Rect() noexcept
-{}
+= default;
 
 template<typename T>
 Engine::Math::Rect<T>::Rect(const Vec2<T> &pos, const Vec2<T> &size) noexcept
