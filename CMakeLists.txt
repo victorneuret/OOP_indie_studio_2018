@@ -60,7 +60,6 @@ add_library(
     Engine/src/ECS/Systems/Renderer.cpp
     Engine/include/ECS/Components/Timer.hpp
     Engine/src/ECS/Components/Timer.cpp
-    Engine/include/Utils/Colors.hpp
     Engine/src/Utils/Color.cpp
     Engine/include/ECS/Components/Model3D.hpp
     Engine/src/ECS/Components/Model3D.cpp
@@ -113,6 +112,7 @@ add_executable(
     Engine/include/Math/Vector/Vec2.hpp
     Engine/include/Math/Vector/Vec3.hpp
     Tests/TestsVectors.cpp
+    Tests/TestsRect.cpp
 )
 
 target_include_directories(tests_run PUBLIC Game/include Engine/include criterion)
