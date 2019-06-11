@@ -12,10 +12,12 @@
 #include "ECS/Components/Text.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "ECS/Components/Button.hpp"
+#include "ECS/Components/Image.hpp"
 #include "ECS/Components/Slider.hpp"
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Components/Renderer.hpp"
 #include "Exception/Engine/ECS/ECSException.hpp"
+#include "Utils/Random.hpp"
 
 bool Engine::ECS::System::Renderer::EventMiddleware::OnEvent(const irr::SEvent &event)
 {
@@ -110,6 +112,9 @@ void Engine::ECS::System::Renderer::draw(const std::shared_ptr<Engine::ECS::IEnt
         case Engine::ECS::IEntity::Type::SLIDER:
             drawSlider(entity);
             break;
+        case Engine::ECS::IEntity::Type::MODEL2D:
+            drawImage(entity);
+            break;
         default:
             break;
     }
@@ -154,6 +159,27 @@ void Engine::ECS::System::Renderer::drawSlider(const std::shared_ptr<Engine::ECS
     }
 }
 
+void Engine::ECS::System::Renderer::drawImage(const std::shared_ptr<Engine::ECS::IEntity> &entity) const
+{
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer>(entity->getComponentByID("Renderer"));
+    auto image = std::dynamic_pointer_cast<Engine::ECS::Component::Image>(entity->getComponentByID("Image"));
+
+    if (renderer->doRender()) {
+        image->getGUIImage()->setMaxSize(irr::core::dimension2du{image->getSize().x, image->getSize().y});
+        image->getGUIImage()->setMinSize(irr::core::dimension2du{image->getSize().x, image->getSize().y});
+    }
+
+
+//        _videoDriver->draw2DImage(
+//            image->getTexture(),
+//            irr::core::vector2d<irr::s32>(image->getPosition().x, image->getPosition().y),
+//            irr::core::rect<irr::s32>(0, 0, image->getTexture()->getSize().Width, image->getTexture()->getSize().Height),
+//            0,
+//            irr::video::SColor(255, 255, 255, 255),
+//            true
+//        );
+}
+
 void Engine::ECS::System::Renderer::refresh() const
 {
     if (!_videoDriver->beginScene(true, true, irr::video::SColor(0, 0, 0, 0)))
@@ -168,4 +194,9 @@ decltype(Engine::ECS::System::Renderer::_videoDriver) Engine::ECS::System::Rende
 decltype(Engine::ECS::System::Renderer::_sceneManager) Engine::ECS::System::Renderer::getSceneManager() const noexcept
 {
     return _sceneManager;
+}
+
+decltype(Engine::ECS::System::Renderer::_GUIEnvironment) Engine::ECS::System::Renderer::getGUIEnvironment() const noexcept
+{
+    return _GUIEnvironment;
 }

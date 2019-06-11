@@ -59,7 +59,9 @@ public:
     void draw3DModel(const std::shared_ptr<IEntity> &entity) const;
     void drawButton(const std::shared_ptr<IEntity> &entity) const;
     void drawSlider(const std::shared_ptr<IEntity> &entity) const;
+    void drawImage(const std::shared_ptr<IEntity> &entity) const;
 
     decltype(_videoDriver) getVideoDriver() const noexcept;
     decltype(_sceneManager) getSceneManager() const noexcept;
+    decltype(_GUIEnvironment) getGUIEnvironment() const noexcept;
 };

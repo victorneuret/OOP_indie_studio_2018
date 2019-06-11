@@ -20,7 +20,7 @@ BombermanApplication::BombermanApplication()
 
 void BombermanApplication::onAppStartup()
 {
-    std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<Game::Scene::Game>();
+    std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<Game::Scene::MainMenu>();
     Engine::ECS::Manager::getInstance().addScene(game);
 
     std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();
