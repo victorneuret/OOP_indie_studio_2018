@@ -102,7 +102,9 @@ add_executable(
     Game/src/Systems/Map.cpp
     Game/include/Scenes/MainMenu.hpp
     Game/src/Scenes/MainMenu.cpp
-    Game/include/Scenes/Game.hpp Game/src/Scenes/Game.cpp)
+    Game/include/Scenes/Game.hpp
+    Game/src/Scenes/Game.cpp
+)
 
 target_include_directories(bomberman PUBLIC Game/include)
 target_link_libraries(bomberman engine Irrlicht sfml-audio)
