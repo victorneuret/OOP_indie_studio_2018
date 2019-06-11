@@ -28,11 +28,11 @@ Game::Scene::MainMenu::MainMenu()
 
     for (auto image : _entities) {
         if (image->getType() == Engine::ECS::IEntity::Type::MODEL2D) {
-            try {
-                auto imgComponent = std::dynamic_pointer_cast<Engine::ECS::Component::Image>(image->getComponentByID("Image"));
-                if (imgComponent->getTexturePath() == "assets/img/sun.png")
-                    imgComponent->getGUIImage()->setScaleImage(true);
-            } catch (...) {}
+            auto imgComponent = std::dynamic_pointer_cast<Engine::ECS::Component::Image>(image->getComponentByID("Image"));
+            if (imgComponent == nullptr)
+                continue;
+            if (imgComponent->getTexturePath() == "assets/img/sun.png")
+                imgComponent->getGUIImage()->setScaleImage(true);
         }
     }
 }
@@ -48,13 +48,13 @@ void Game::Scene::MainMenu::tick(double dt)
     size -= 1 * dt;
     for (auto image : _entities) {
         if (image->getType() == Engine::ECS::IEntity::Type::MODEL2D) {
-            try {
-                auto imgComponent = std::dynamic_pointer_cast<Engine::ECS::Component::Image>(image->getComponentByID("Image"));
-                if (imgComponent->getTexturePath() == "assets/img/sun.png") {
-                    imgComponent->setSize(Engine::Math::Vec2u{size, size});
-                    imgComponent->setPosition(Engine::Math::Vec2u{driver->getScreenSize().Width / 2 - (size / 2), 0});
-                }
-            } catch (...) {}
+            auto imgComponent = std::dynamic_pointer_cast<Engine::ECS::Component::Image>(image->getComponentByID("Image"));
+            if (imgComponent == nullptr)
+                continue;
+            if (imgComponent->getTexturePath() == "assets/img/sun.png") {
+                imgComponent->setSize(Engine::Math::Vec2u{size, size});
+                imgComponent->setPosition(Engine::Math::Vec2u{driver->getScreenSize().Width / 2 - (size / 2), 0});
+            }
         }
     }
 }
