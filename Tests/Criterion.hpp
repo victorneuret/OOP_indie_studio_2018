@@ -15,4 +15,6 @@
 
 #if defined _MSC_VER
 #pragma warning(pop)
+#pragma warning(disable:4305)
+// Disables "truncation from 'x' to 'y'" because Windows can't tell the difference between a float and a double.
 #endif
