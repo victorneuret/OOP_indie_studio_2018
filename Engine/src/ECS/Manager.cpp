@@ -79,7 +79,7 @@ void Engine::ECS::Manager::sceneManager(double dt, std::shared_ptr<Engine::ECS::
 
 std::vector<std::shared_ptr<Engine::ECS::IEntity>> Engine::ECS::Manager::getUpdatedEntities()
 {
-    std::vector<std::shared_ptr<Engine::ECS::IEntity>> updatedEntities;
+    std::vector<std::shared_ptr<Engine::ECS::IEntity>> updatedEntities{};
 
     for (auto it = _scenes.rbegin(); it != _scenes.rend(); it++) {
         if ((*it)->isUpdateChild())
