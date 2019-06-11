@@ -5,7 +5,7 @@
 ** RectTests.cpp
 */
 
-#include <criterion/criterion.h>
+#include "Criterion.hpp"
 
 #include "Math/Rect.hpp"
 

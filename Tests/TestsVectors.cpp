@@ -5,7 +5,7 @@
 ** Test.cpp
 */
 
-#include <criterion/criterion.h>
+#include "Criterion.hpp"
 
 #include "Math/Vector/Vec2.hpp"
 #include "Math/Vector/Vec3.hpp"
