@@ -33,6 +33,8 @@ Game::Scene::MainMenu::MainMenu()
                 continue;
             if (imgComponent->getTexturePath() == "assets/img/sun.png")
                 imgComponent->getGUIImage()->setScaleImage(true);
+            else if (imgComponent->getTexturePath() == "assets/img/mountain.png")
+                imgComponent->setPosition(Engine::Math::Vec2u{0, imgComponent->getSize().y - driver->getScreenSize().Height});
         }
     }
 }

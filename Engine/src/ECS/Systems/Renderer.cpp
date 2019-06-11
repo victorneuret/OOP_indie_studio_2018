@@ -168,16 +168,6 @@ void Engine::ECS::System::Renderer::drawImage(const std::shared_ptr<Engine::ECS:
         image->getGUIImage()->setMaxSize(irr::core::dimension2du{image->getSize().x, image->getSize().y});
         image->getGUIImage()->setMinSize(irr::core::dimension2du{image->getSize().x, image->getSize().y});
     }
-
-
-//        _videoDriver->draw2DImage(
-//            image->getTexture(),
-//            irr::core::vector2d<irr::s32>(image->getPosition().x, image->getPosition().y),
-//            irr::core::rect<irr::s32>(0, 0, image->getTexture()->getSize().Width, image->getTexture()->getSize().Height),
-//            0,
-//            irr::video::SColor(255, 255, 255, 255),
-//            true
-//        );
 }
 
 void Engine::ECS::System::Renderer::refresh() const
