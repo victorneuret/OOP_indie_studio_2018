@@ -86,7 +86,6 @@ void Engine::ECS::System::Renderer::draw(const std::shared_ptr<Engine::ECS::IEnt
             break;
         case Engine::ECS::IEntity::Type::BUTTON:
             drawButton(entity);
-            drawText(entity);
             break;
         case Engine::ECS::IEntity::Type::MODEL2D:
             drawImage(entity);
@@ -135,18 +134,18 @@ void Engine::ECS::System::Renderer::drawButton(const std::shared_ptr<Engine::ECS
         return;
 
     const auto button = std::dynamic_pointer_cast<Engine::ECS::Component::Button>(entity->getComponentByID("Button"));
-    const auto text = std::dynamic_pointer_cast<Engine::ECS::Component::Text>(entity->getComponentByID("Text"));
     const auto guiElement = std::dynamic_pointer_cast<Entity::IGuiElement>(entity);
 
-    if (!button || !text || !guiElement)
+    if (!button || !guiElement)
         throw ECSException<ECS_Renderer>{"Failed to create button"};
 
     const auto pos = button->getBounds();
     auto guiButton = _window->getGUIEnvironment()->addButton(
         irr::core::rect<irr::s32>{pos.x, pos.y, pos.x + pos.w, pos.y + pos.h},
-        nullptr, guiElement->getGuiID(), text->getString().c_str(), nullptr);
+        nullptr, guiElement->getGuiID(), 0, nullptr);
 
-    guiButton->setOverrideFont(text->getFont());
+    guiButton->setImage(_videoDriver->getTexture("assets/img/pink.png"));
+    guiButton->setScaleImage(true);
     guiButton->draw();
 }
 

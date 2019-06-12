@@ -32,38 +32,20 @@ Game::Scene::MainMenu::MainMenu()
         std::make_shared<Engine::Entity::Image>("assets/img/mountain.png", Engine::Math::Vec2i{0, 0}),
 
         std::make_shared<Engine::ECS::Entity::Button>(
-            Engine::Math::Rect_i{
-                static_cast<int>(screenSize.Width * 0.06),
-                static_cast<int>(screenSize.Height - 100),
-                static_cast<int>(screenSize.Width * 0.25),
-                30
-            },
-            L"New Game",
+            Engine::Math::Rect_i{90, 60, 400, 90},
             []() {
                 std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<Game>();
                 Engine::ECS::Manager::getInstance().addScene(game);
             }
         ),
         std::make_shared<Engine::ECS::Entity::Button>(
-            Engine::Math::Rect_i{
-                static_cast<int>(screenSize.Width * 0.06 * 2 + (screenSize.Width * 0.25)),
-                static_cast<int>(screenSize.Height - 100),
-                static_cast<int>(screenSize.Width * 0.25),
-                30
-            },
-            L"Load Game",
+            Engine::Math::Rect_i{90, 60 * 3, 400, 90},
             []() {
                 std::cout << "Load Game" << std::endl;
             }
         ),
         std::make_shared<Engine::ECS::Entity::Button>(
-            Engine::Math::Rect_i{
-                static_cast<int>(screenSize.Width * 0.06 * 3 + (screenSize.Width * 0.25 * 2)),
-                static_cast<int>(screenSize.Height - 100),
-                static_cast<int>(screenSize.Width * 0.25),
-                30
-            },
-            L"Quit",
+            Engine::Math::Rect_i{90, 60 * 5, 400, 90},
             []() {
                 auto window = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getWindow();
                 window->closeDevice();
