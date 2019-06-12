@@ -7,7 +7,7 @@
 
 #include "ECS/Abstracts/AEntity.hpp"
 
-size_t Engine::ECS::getNextEntityID()
+size_t Engine::ECS::getNextEntityID() noexcept
 {
     static size_t ID = 0;
     return ID++;

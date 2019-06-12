@@ -23,7 +23,7 @@
 namespace Engine::ECS {
     class AEntity;
 
-    size_t getNextEntityID();
+    size_t getNextEntityID() noexcept;
 }
 
 class Engine::ECS::AEntity : public IEntity {
