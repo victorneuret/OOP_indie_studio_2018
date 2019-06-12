@@ -39,16 +39,17 @@ Engine::GameApplication::GameApplication(const decltype(_title) &title, const de
 
 void Engine::GameApplication::_startup()
 {
-    std::shared_ptr<Engine::ECS::ISystem> audio = std::make_shared<Engine::ECS::System::Audio>();
     std::shared_ptr<Engine::ECS::ISystem> renderer = std::make_shared<Engine::ECS::System::Renderer>(_title, _dimensions);
+
+    _ecsManager.addSystem(renderer);
+
+    std::shared_ptr<Engine::ECS::ISystem> audio = std::make_shared<Engine::ECS::System::Audio>();
     std::shared_ptr<Engine::ECS::ISystem> timer = std::make_shared<Engine::ECS::System::Timer>();
     std::shared_ptr<Engine::ECS::ISystem> button = std::make_shared<Engine::ECS::System::ButtonEvent>();
     std::shared_ptr<Engine::ECS::ISystem> keyboard = std::make_shared<Engine::ECS::System::KeyboardInput>();
     std::shared_ptr<Engine::ECS::ISystem> mouse = std::make_shared<Engine::ECS::System::MouseInput>();
     std::shared_ptr<Engine::ECS::ISystem> joystick = std::make_shared<Engine::ECS::System::JoystickInput>();
 
-    _ecsManager.addSystem(audio);
-    _ecsManager.addSystem(renderer);
     _ecsManager.addSystem(timer);
     _ecsManager.addSystem(audio);
     _ecsManager.addSystem(button);

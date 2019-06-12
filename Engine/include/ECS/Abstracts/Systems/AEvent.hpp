@@ -18,10 +18,7 @@ namespace Engine::ECS::System {
     class AEvent;
 }
 
-class Engine::ECS::System::AEvent : public ASystem<System::AEvent>, public irr::IEventReceiver {
+class Engine::ECS::System::AEvent : public ASystem, public irr::IEventReceiver {
 public:
     explicit AEvent(const std::string &id);
-    virtual ~AEvent() override = default;
-
-    virtual bool OnEvent(const irr::SEvent &event) = 0;
 };

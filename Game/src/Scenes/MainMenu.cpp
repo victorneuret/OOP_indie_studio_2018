@@ -29,7 +29,7 @@ Game::Scene::MainMenu::MainMenu()
         std::make_shared<Engine::Entity::Image>("assets/img/sun.png", Engine::Math::Vec2u{screenSize.Width / 2 - (894 / 2), 0}),
         std::make_shared<Engine::Entity::Image>("assets/img/mountain.png", Engine::Math::Vec2u{0, 0}),
 
-        std::make_shared<Entity::Button>(
+        std::make_shared<Engine::ECS::Entity::Button>(
             Engine::Math::Rect_i{
                 static_cast<int>(screenSize.Width * 0.06),
                 static_cast<int>(screenSize.Height - 100),
@@ -41,7 +41,7 @@ Game::Scene::MainMenu::MainMenu()
                 std::cout << "New Game" << std::endl;
             }
         ),
-        std::make_shared<Entity::Button>(
+        std::make_shared<Engine::ECS::Entity::Button>(
             Engine::Math::Rect_i{
                 static_cast<int>(screenSize.Width * 0.06 * 2 + (screenSize.Width * 0.25)),
                 static_cast<int>(screenSize.Height - 100),
@@ -53,7 +53,7 @@ Game::Scene::MainMenu::MainMenu()
                 std::cout << "Load Game" << std::endl;
             }
         ),
-        std::make_shared<Entity::Button>(
+        std::make_shared<Engine::ECS::Entity::Button>(
             Engine::Math::Rect_i{
                 static_cast<int>(screenSize.Width * 0.06 * 3 + (screenSize.Width * 0.25 * 2)),
                 static_cast<int>(screenSize.Height - 100),

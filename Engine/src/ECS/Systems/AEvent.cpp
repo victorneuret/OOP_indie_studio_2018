@@ -19,8 +19,3 @@ Engine::ECS::System::AEvent::AEvent(const std::string &id)
         throw ECSException<ECS_System>("Failed to get Renderer instance");
     renderer->getEventHandler()->add(this);
 }
-
-bool Engine::ECS::System::AEvent::OnEvent(const irr::SEvent &)
-{
-    return false;
-}

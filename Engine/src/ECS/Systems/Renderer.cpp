@@ -180,8 +180,3 @@ decltype(Engine::ECS::System::Renderer::_eventHandler) *Engine::ECS::System::Ren
 {
     return &_eventHandler;
 }
-
-decltype(Engine::ECS::System::Renderer::_GUIEnvironment) Engine::ECS::System::Renderer::getGUIEnvironment() const noexcept
-{
-    return _GUIEnvironment;
-}

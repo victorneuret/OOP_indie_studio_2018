@@ -37,49 +37,18 @@ public:
     explicit AEntity(decltype(_type) type);
     ~AEntity() override = default;
 
-    decltype(_id) getID() const noexcept final
-    {
-        return _id;
-    };
+    decltype(_id) getID() const noexcept final;
 
-    const std::vector<std::shared_ptr<IComponent>> &getComponents() const noexcept final
-    {
-        return _components;
-    };
+    const std::vector<std::shared_ptr<IComponent>> &getComponents() const noexcept final;
 
-    void addComponent(std::shared_ptr<IComponent> &component)
-    {
-        if (component == nullptr)
-            throw MemoryException<Memory_Allocation_Failed>{"cannot add a null component"};
-        _components.push_back(component);
-    };
+    void addComponent(std::shared_ptr<IComponent> &component);
 
-    void removeComponent(const std::string &id)
-    {
-        auto pos = std::find_if(_components.begin(), _components.end(), [id](const std::shared_ptr<IComponent> &component) {
-            return (component->getID() == id);
-        });
-        if (pos == _components.end())
-            throw ECSException<ECS_Entity>("Can't remove component " + id);
-        _components.erase(pos);
-    };
+    void removeComponent(const std::string &id);
 
-    std::shared_ptr<IComponent> &getComponentByID(const std::string &id) override
-    {
-        auto pos = std::find_if(_components.begin(), _components.end(), [id](const std::shared_ptr<IComponent> &component) {
-            return (component->getID() == id);
-        });
-        if (pos == _components.end())
-            throw ECSException<ECS_Entity>("Component " + id + " unknown");
-        return *pos;
-    };
+    std::shared_ptr<IComponent> &getComponentByID(const std::string &id) override;
 
     void show() noexcept final;
     void hide() noexcept final;
-    void addComponent(std::shared_ptr<IComponent> &component);
-    void removeComponent(const std::string &id);
 
     decltype(_type) getType() const noexcept final;
-    const std::vector<std::shared_ptr<IComponent>> &getComponents() const noexcept final;
-    std::shared_ptr<IComponent> &getComponentByID(const std::string &id) override;
 };
