@@ -19,7 +19,7 @@ namespace Game::Entity {
     class Particle;
 }
 
-class Game::Entity::Particle : public Engine::ECS::AEntity<Particle> {
+class Game::Entity::Particle : public Engine::ECS::AEntity {
 protected:
     Engine::Math::Vec3<float> _startPoint{0, 0, 0};
     Engine::Math::Vec3<float> _endPoint{0, 0, 0};

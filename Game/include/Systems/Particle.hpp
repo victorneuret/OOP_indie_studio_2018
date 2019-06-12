@@ -16,7 +16,7 @@ namespace Game::System {
     class Particle;
 }
 
-class Game::System::Particle : public Engine::ECS::ASystem<Particle> {
+class Game::System::Particle : public Engine::ECS::ASystem {
 private:
 
     std::vector<std::shared_ptr<Engine::ECS::IEntity>> getEntityList();

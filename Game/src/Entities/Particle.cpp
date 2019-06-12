@@ -25,7 +25,7 @@ Game::Entity::Particle::Particle(const Engine::Math::Vec3f &startPoint,
     addComponent(_renderer);
 
     std::shared_ptr<Engine::ECS::IComponent> _timer = std::make_shared<Engine::ECS::Component::Timer>(duration, [&](){
-        Engine::ECS::AEntity<Game::Entity::Particle>::hide();
+        Engine::ECS::AEntity::hide();
     });
     addComponent(_timer);
 }
