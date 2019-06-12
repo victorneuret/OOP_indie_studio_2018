@@ -16,5 +16,6 @@ logs/
 bomberman.cbp
 libengine.a
 *.rar
+tests_run
 
 !Tools/Makefile

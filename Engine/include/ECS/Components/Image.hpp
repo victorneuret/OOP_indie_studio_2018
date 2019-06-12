@@ -22,7 +22,7 @@ class Engine::ECS::Component::Image : public Engine::ECS::AComponent {
 protected:
     std::string _texturePath{};
     irr::video::ITexture *_texture{};
-    Math::Vec2u _position{};
+    Math::Vec2i _position{};
     Math::Vec2u _size{};
     irr::gui::IGUIImage *_guiImage{};
 

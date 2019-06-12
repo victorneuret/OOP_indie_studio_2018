@@ -25,9 +25,9 @@ Game::Scene::MainMenu::MainMenu()
     auto screenSize = driver->getScreenSize();
 
     _entities = {
-        std::make_shared<Engine::Entity::Image>("assets/img/star.jpg", Engine::Math::Vec2u{0, 0}),
-        std::make_shared<Engine::Entity::Image>("assets/img/sun.png", Engine::Math::Vec2u{screenSize.Width / 2 - (894 / 2), 0}),
-        std::make_shared<Engine::Entity::Image>("assets/img/mountain.png", Engine::Math::Vec2u{0, 0}),
+        std::make_shared<Engine::Entity::Image>("assets/img/star.jpg", Engine::Math::Vec2i{0, 0}),
+        std::make_shared<Engine::Entity::Image>("assets/img/sun.png", Engine::Math::Vec2i{static_cast<int>(screenSize.Width / 2 - (894 / 2)), 0}),
+        std::make_shared<Engine::Entity::Image>("assets/img/mountain.png", Engine::Math::Vec2i{0, 0}),
 
         std::make_shared<Engine::ECS::Entity::Button>(
             Engine::Math::Rect_i{
@@ -75,7 +75,7 @@ Game::Scene::MainMenu::MainMenu()
             if (imgComponent->getTexturePath() == "assets/img/sun.png")
                 imgComponent->getGUIImage()->setScaleImage(true);
             else if (imgComponent->getTexturePath() == "assets/img/mountain.png")
-                imgComponent->setPosition(Engine::Math::Vec2u{0, imgComponent->getSize().y - driver->getScreenSize().Height});
+                imgComponent->setPosition(Engine::Math::Vec2i{0, static_cast<int>(imgComponent->getSize().y - driver->getScreenSize().Height)});
         }
     }
 }
@@ -96,7 +96,7 @@ void Game::Scene::MainMenu::tick(double dt)
                 continue;
             if (imgComponent->getTexturePath() == "assets/img/sun.png") {
                 imgComponent->setSize(Engine::Math::Vec2u{size, size});
-                imgComponent->setPosition(Engine::Math::Vec2u{driver->getScreenSize().Width / 2 - (size / 2), 0});
+                imgComponent->setPosition(Engine::Math::Vec2i{static_cast<int>(driver->getScreenSize().Width / 2 - (size / 2)), 0});
             }
         }
     }

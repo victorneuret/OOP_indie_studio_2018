@@ -25,7 +25,7 @@ namespace Game::System {
     class Map;
 }
 
-class Game::System::Map : public Engine::ECS::ASystem {
+class Game::System::Map final : public Engine::ECS::ASystem {
 private:
     std::vector<std::string> _map{};
     std::vector<std::string> _actualMap{};
