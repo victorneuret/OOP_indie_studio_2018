@@ -23,11 +23,14 @@ private:
         RIGHT,
         MIDDLE
     };
+
     Engine::Math::Vec2<decltype(irr::SEvent::SMouseInput::X)> _pos{};
+    std::map<MouseKey, bool> _keys{};
 
 public:
     MouseInput();
+
     bool OnEvent(const irr::SEvent &event) override;
-    void update(double dt) override;
+    bool isKeyDown(MouseKey key) const;
     const decltype(_pos) &pos() const noexcept;
 };

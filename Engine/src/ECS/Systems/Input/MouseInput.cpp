@@ -29,5 +29,11 @@ const decltype(Engine::ECS::System::MouseInput::_pos) &Engine::ECS::System::Mous
     return _pos;
 }
 
-void Engine::ECS::System::MouseInput::update(double)
-{}
+bool Engine::ECS::System::MouseInput::isKeyDown(Engine::ECS::System::MouseInput::MouseKey key) const
+{
+    const auto keyPressed = _keys.find(key);
+
+    if (keyPressed == _keys.end())
+        return false;
+    return keyPressed->second;
+}

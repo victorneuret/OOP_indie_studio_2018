@@ -18,13 +18,10 @@ namespace Engine::ECS::System {
     class AInput;
 }
 
-class Engine::ECS::System::AInput : public Engine::ECS::ASystem, public irr::IEventReceiver {
-protected:
-    std::map<decltype(irr::SEvent::SKeyInput::Char), bool> _keys{};
-
+class Engine::ECS::System::AInput : public ASystem<System::AInput>, public irr::IEventReceiver {
 public:
     explicit AInput(const std::string &id);
     ~AInput() override = default;
 
-    bool isKeyDown(const decltype(irr::SEvent::SKeyInput::Char) &key);
+    void update(double dt) override;
 };

@@ -20,9 +20,5 @@ Engine::ECS::System::AInput::AInput(const std::string &id)
     renderer->getEventHandler()->add(this);
 }
 
-bool Engine::ECS::System::AInput::isKeyDown(const decltype(irr::SEvent::SKeyInput::Char) &key)
-{
-    if (_keys.find(key) != _keys.end())
-        return _keys[key];
-    return false;
-}
+void Engine::ECS::System::AInput::update(double)
+{}

@@ -39,5 +39,11 @@ bool Engine::ECS::System::JoystickInput::OnEvent(const irr::SEvent &event)
     return false;
 }
 
-void Engine::ECS::System::JoystickInput::update(double)
-{}
+bool Engine::ECS::System::JoystickInput::isKeyDown(irr::u8 axis, irr::u8 key) const
+{
+    const auto controller = _controllers.find(axis);
+
+    if (controller == _controllers.end())
+        return false;
+    return ((controller->second.buttonStates & (1u << key)) >> key);
+}

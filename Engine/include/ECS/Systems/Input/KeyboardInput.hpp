@@ -16,7 +16,7 @@ namespace Engine::ECS::System {
     class KeyboardInput;
 }
 
-class Engine::ECS::System::KeyboardInput : public ASystem<System::KeyboardInput>, public irr::IEventReceiver {
+class Engine::ECS::System::KeyboardInput : public AInput {
 protected:
     std::map<irr::EKEY_CODE, bool> _keys{};
 
@@ -24,8 +24,6 @@ public:
     KeyboardInput();
     ~KeyboardInput() override = default;
 
-    void update(double dt) override;
     bool OnEvent(const irr::SEvent &event) override;
-
     bool isKeyDown(irr::EKEY_CODE key) const;
 };
