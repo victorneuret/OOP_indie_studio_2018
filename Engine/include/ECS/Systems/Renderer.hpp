@@ -52,7 +52,6 @@ public:
     void drawText(const std::shared_ptr<IEntity> &entity) const;
     void draw3DModel(const std::shared_ptr<IEntity> &entity) const;
     void drawButton(const std::shared_ptr<IEntity> &entity) const;
-    void drawSlider(const std::shared_ptr<IEntity> &entity) const;
     void drawImage(const std::shared_ptr<IEntity> &entity) const;
 
     decltype(_window) getWindow();

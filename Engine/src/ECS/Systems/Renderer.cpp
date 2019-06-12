@@ -116,6 +116,17 @@ void Engine::ECS::System::Renderer::draw3DModel(const std::shared_ptr<Engine::EC
     model->getNode()->setVisible(renderer->doRender());
 }
 
+void Engine::ECS::System::Renderer::drawImage(const std::shared_ptr<Engine::ECS::IEntity> &entity) const
+{
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer>(entity->getComponentByID("Renderer"));
+    auto image = std::dynamic_pointer_cast<Engine::ECS::Component::Image>(entity->getComponentByID("Image"));
+
+    if (renderer->doRender()) {
+        image->getGUIImage()->setMaxSize(irr::core::dimension2du{image->getSize().x, image->getSize().y});
+        image->getGUIImage()->setMinSize(irr::core::dimension2du{image->getSize().x, image->getSize().y});
+    }
+}
+
 void Engine::ECS::System::Renderer::drawButton(const std::shared_ptr<Engine::ECS::IEntity> &entity) const
 {
     auto renderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer>(entity->getComponentByID("Renderer"));
