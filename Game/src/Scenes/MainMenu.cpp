@@ -47,7 +47,9 @@ Game::Scene::MainMenu::MainMenu()
                 30
             },
             L"Load Game",
-            Engine::Utils::Color{255, 0, 0}
+            []() {
+                std::cout << "FIRST BUTTON" << std::endl;
+            }
         ),
         std::make_shared<Entity::Button>(
             Engine::Math::Rect_i{
@@ -57,7 +59,9 @@ Game::Scene::MainMenu::MainMenu()
                 30
             },
             L"Quit",
-            Engine::Utils::Color{255, 0, 0}
+            []() {
+                std::cout << "SECOND BUTTON" << std::endl;
+            }
         )
     };
 
