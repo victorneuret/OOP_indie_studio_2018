@@ -11,7 +11,7 @@
 #include "ECS/Systems/Renderer.hpp"
 
 Engine::ECS::System::EventHandler::EventHandler()
-    : ASystem(TYPE_STR)
+    : ASystem{"EventHandler"}
 {}
 
 void Engine::ECS::System::EventHandler::add(irr::IEventReceiver *handler)

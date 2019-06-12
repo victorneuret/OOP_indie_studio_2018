@@ -5,6 +5,8 @@
 ** MainMenu.cpp
 */
 
+#include <iostream>
+
 #include "Scenes/MainMenu.hpp"
 #include "ECS/Entities/Text.hpp"
 #include "ECS/Entities/Button.hpp"

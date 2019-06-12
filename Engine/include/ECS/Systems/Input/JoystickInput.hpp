@@ -34,6 +34,6 @@ public:
     JoystickInput();
     ~JoystickInput() override = default;
 
-    bool OnEvent(const irr::SEvent &event) final;
+    bool OnEvent(const irr::SEvent &event) override;
     bool isKeyDown(irr::u8 axis, irr::u8 key) const;
 };

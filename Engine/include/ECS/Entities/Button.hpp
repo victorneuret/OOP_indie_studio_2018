@@ -8,6 +8,7 @@
 #pragma once
 
 #include <string>
+#include <functional>
 
 #include "Utils/Color.hpp"
 #include "ECS/Systems/Renderer.hpp"
@@ -18,10 +19,10 @@ namespace Engine::ECS::Entity {
     class Button;
 }
 
-class Game::Entity::Button final : public Engine::ECS::Entity::IGuiElement, public Engine::ECS::AEntity<Button> {
+class Game::Entity::Button : public Engine::ECS::Entity::IGuiElement, public Engine::ECS::AEntity<Button> {
 public:
-    explicit Button(const Engine::Math::Rect_i &pos, const std::wstring &text, const Engine::Utils::Color &color,
-                    const Engine::Utils::Color &textColor = Engine::Utils::Color{0, 0, 0});
+    explicit Button(const Engine::Math::Rect_i &pos, const std::wstring &text, const std::function<void()> &func,
+                    const Engine::Utils::Color &color = {0, 0, 0}, const Engine::Utils::Color &textColor = {0, 0, 0});
     Button(const Button &) = delete;
     Button &operator=(const Button &) = delete;
 

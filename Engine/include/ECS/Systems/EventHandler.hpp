@@ -15,11 +15,9 @@
 
 namespace Engine::ECS::System {
     class EventHandler;
-
-    constexpr const char *TYPE_STR = "EventHandler";
 }
 
-class Engine::ECS::System::EventHandler : public ASystem<EventHandler>, public irr::IEventReceiver {
+class Engine::ECS::System::EventHandler final : public ASystem<EventHandler>, public irr::IEventReceiver {
 protected:
     std::vector<irr::IEventReceiver *> _handlers{};
 
