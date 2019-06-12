@@ -8,8 +8,8 @@
 #include <memory>
 #include <irrlicht/irrlicht.h>
 
-#include "ECS/Components/Text.hpp"
 #include "ECS/Systems/Renderer.hpp"
+#include "ECS/Components/Text.hpp"
 #include "ECS/Components/Button.hpp"
 #include "ECS/Components/Image.hpp"
 #include "ECS/Components/Model3D.hpp"
@@ -147,6 +147,7 @@ void Engine::ECS::System::Renderer::drawImage(const std::shared_ptr<Engine::ECS:
     if (renderer->doRender()) {
         image->getGUIImage()->setMaxSize(irr::core::dimension2du{image->getSize().x, image->getSize().y});
         image->getGUIImage()->setMinSize(irr::core::dimension2du{image->getSize().x, image->getSize().y});
+
     }
 }
 
