@@ -8,7 +8,6 @@
 #include <memory>
 
 #include "BombermanApplication.hpp"
-#include "ECS/Systems/Timer.hpp"
 #include "ECS/Manager.hpp"
 #include "Systems/Map.hpp"
 #include "Scenes/MainMenu.hpp"
@@ -28,9 +27,6 @@ void BombermanApplication::onAppStartup()
 
     std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();
     Engine::ECS::Manager::getInstance().addSystem(map);
-
-    std::shared_ptr<Engine::ECS::ISystem> timer = std::make_shared<Engine::ECS::System::Timer>();
-    Engine::ECS::Manager::getInstance().addSystem(timer);
 }
 
 void BombermanApplication::tick(double)

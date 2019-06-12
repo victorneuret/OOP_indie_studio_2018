@@ -10,8 +10,6 @@
 #include "ECS/Systems/Timer.hpp"
 #include "ECS/Components/Timer.hpp"
 
-#include <iostream>
-
 Engine::ECS::System::Timer::Timer()
     : ASystem{"Timer"}
 {}

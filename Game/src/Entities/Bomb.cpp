@@ -30,37 +30,35 @@ Game::Entity::Bomb::Bomb(const Engine::Math::Vec2i &pos)
     addComponent(timer);
 }
 
-#include <iostream>
-
 void Game::Entity::Bomb::onExplode()
 {
-    auto mapS = std::dynamic_pointer_cast<Game::System::Map>(Engine::ECS::Manager::getInstance().getSystemByID("Map"));
-    auto map = mapS->getActualMap();
+    auto mapSystem = std::dynamic_pointer_cast<Game::System::Map>(Engine::ECS::Manager::getInstance().getSystemByID("Map"));
+    auto map = mapSystem->getActualMap();
 
     for (int i = _pos.x; _pos.x - i != _range - 1 && i < MAP_WIDTH - 1; i++) {
         if (map[i - 1][_pos.y - 1] != '0') {
-            mapS->removeBlock(Engine::Math::Vec2i{i, _pos.y});
+            mapSystem->removeBlock(Engine::Math::Vec2i{i, _pos.y});
             break;
         }
     }
 
     for (int i = _pos.x; _pos.x - i != _range - 1 && i > 0; i--) {
         if (map[i - 1][_pos.y - 1] != '0') {
-            mapS->removeBlock(Engine::Math::Vec2i{i, _pos.y});
+            mapSystem->removeBlock(Engine::Math::Vec2i{i, _pos.y});
             break;
         }
     }
 
     for (int i = _pos.y; _pos.y - i != _range - 1 && i < MAP_HEIGHT - 1; i++) {
         if (map[_pos.x - 1][i - 1] != '0') {
-            mapS->removeBlock(Engine::Math::Vec2i{_pos.x, i});
+            mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x, i});
             break;
         }
     }
 
     for (int i = _pos.y; _pos.y - i != _range - 1 && i > 0; i--) {
         if (map[_pos.x - 1][i - 1] != '0') {
-            mapS->removeBlock(Engine::Math::Vec2i{_pos.x, i});
+            mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x, i});
             break;
         }
     }
