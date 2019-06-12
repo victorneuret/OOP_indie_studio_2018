@@ -36,5 +36,4 @@ public:
 
     bool OnEvent(const irr::SEvent &event) override;
     bool isKeyDown(irr::u8 axis, irr::u8 key) const;
-
 };

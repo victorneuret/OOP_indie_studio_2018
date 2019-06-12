@@ -7,8 +7,6 @@
 
 #include <algorithm>
 
-#include <iostream>
-
 #include "ECS/Components/Model3D.hpp"
 #include "Systems/Map.hpp"
 #include "Utils/Random.hpp"
