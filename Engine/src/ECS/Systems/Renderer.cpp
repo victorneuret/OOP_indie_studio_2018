@@ -144,7 +144,7 @@ void Engine::ECS::System::Renderer::drawButton(const std::shared_ptr<Engine::ECS
         irr::core::rect<irr::s32>{pos.x, pos.y, pos.x + pos.w, pos.y + pos.h},
         nullptr, guiElement->getGuiID(), 0, nullptr);
 
-    guiButton->setImage(_videoDriver->getTexture("assets/img/pink.png"));
+    guiButton->setImage(_videoDriver->getTexture(button->getImagePath().c_str()));
     guiButton->setScaleImage(true);
     guiButton->draw();
 }

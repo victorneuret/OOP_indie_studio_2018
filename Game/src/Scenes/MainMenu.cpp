@@ -33,6 +33,7 @@ Game::Scene::MainMenu::MainMenu()
 
         std::make_shared<Engine::ECS::Entity::Button>(
             Engine::Math::Rect_i{90, 60, 400, 90},
+            "assets/img/pink.png",
             []() {
                 std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<Game>();
                 Engine::ECS::Manager::getInstance().addScene(game);
@@ -40,12 +41,14 @@ Game::Scene::MainMenu::MainMenu()
         ),
         std::make_shared<Engine::ECS::Entity::Button>(
             Engine::Math::Rect_i{90, 60 * 3, 400, 90},
+            "assets/img/pink.png",
             []() {
                 std::cout << "Load Game" << std::endl;
             }
         ),
         std::make_shared<Engine::ECS::Entity::Button>(
             Engine::Math::Rect_i{90, 60 * 5, 400, 90},
+            "assets/img/pink.png",
             []() {
                 auto window = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getWindow();
                 window->closeDevice();

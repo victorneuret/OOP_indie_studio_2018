@@ -13,10 +13,10 @@
 #include "Math/Vector/Vec2.hpp"
 
 
-Engine::ECS::Entity::Button::Button(const Engine::Math::Rect_i &bounds, const std::function<void()> &func)
+Engine::ECS::Entity::Button::Button(const Engine::Math::Rect_i &bounds, const std::string &imagePath, const std::function<void()> &func)
     : AEntity(AEntity::Type::BUTTON)
 {
-    std::shared_ptr<Engine::ECS::IComponent> button = std::make_shared<Engine::ECS::Component::Button>(bounds, func);
+    std::shared_ptr<Engine::ECS::IComponent> button = std::make_shared<Engine::ECS::Component::Button>(bounds, imagePath, func);
     addComponent(button);
 
     std::shared_ptr<Engine::ECS::IComponent> _renderer = std::make_shared<Engine::ECS::Component::Renderer>();

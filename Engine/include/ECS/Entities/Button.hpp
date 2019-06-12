@@ -21,7 +21,7 @@ namespace Engine::ECS::Entity {
 
 class Engine::ECS::Entity::Button : public Engine::ECS::Entity::IGuiElement, public Engine::ECS::AEntity {
 public:
-    explicit Button(const Engine::Math::Rect_i &pos, const std::function<void()> &func);
+    explicit Button(const Engine::Math::Rect_i &pos, const std::string &imagePath, const std::function<void()> &func);
     Button(const Button &) = delete;
     Button &operator=(const Button &) = delete;
 
