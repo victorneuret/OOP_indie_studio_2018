@@ -13,8 +13,9 @@
 Engine::ECS::Component::Image::Image(const decltype(_texturePath) &texturePath, const decltype(_position) &position)
         : AComponent{"Image"}, _texturePath{texturePath}, _position{position}
 {
-    auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
-    auto guiEnv = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getGUIEnvironment();
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"));
+    auto driver = renderer->getVideoDriver();
+    auto guiEnv = renderer->getGUIEnvironment();
 
     _texture = driver->getTexture(texturePath.c_str());
     _size = {_texture->getSize().Width, _texture->getSize().Height};
