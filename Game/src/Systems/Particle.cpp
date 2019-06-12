@@ -28,13 +28,17 @@ std::vector<std::shared_ptr<Engine::ECS::IEntity>> Game::System::Particle::getEn
 
 void Game::System::Particle::applyMovement(const std::shared_ptr<Game::Entity::Particle> &particle)
 {
-    Engine::Math::Vec3<float> dir{(particle->getEndPoint().x - particle->getStartPoint().x), (particle->getEndPoint().y - particle->getStartPoint().y), (particle->getEndPoint().z - particle->getStartPoint().z)};
+    Engine::Math::Vec3<float> dir{(particle->getEndPoint().x - particle->getStartPoint().x),
+				(particle->getEndPoint().y - particle->getStartPoint().y),
+				(particle->getEndPoint().z - particle->getStartPoint().z)};
 
-    auto norm = dir.normalize();
-    auto getPos = (std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(particle->getComponentByID("Model3D"))->getNode()->getPosition());
-    Engine::Math::Vec3<float> actualPos{getPos.X, getPos.Y, getPos.Z};
-    //std::cout << std::to_string(actualPos.x) << " " << std::to_string(actualPos.y) << " " << std::to_string(actualPos.z) << std::endl;
-    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(particle->getComponentByID("Model3D"))->setPosition(actualPos + norm);
+    auto spray = particle->getSpray();
+    auto norm = dir.normalize() + spray;
+    auto getPos = (std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>
+        (particle->getComponentByID("Model3D"))->getNode()->getPosition());
+    decltype(dir) actualPos{getPos.X, getPos.Y, getPos.Z};
+    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>
+		(particle->getComponentByID("Model3D"))->setPosition(actualPos + (norm * particle->getMomentum()));
 }
 
 void Game::System::Particle::checkParticleState(const std::shared_ptr<Game::Entity::Particle> &particle)
@@ -58,10 +62,15 @@ void Game::System::Particle::update(double)
     }
 }
 
-void Game::System::Particle::createParticles(const double &quantity, const Engine::Math::Vec2<int> &duration, const Engine::Math::Vec3<float> &startPoint, const Engine::Math::Vec3<float> &endPoint, const double &momentum)
+void Game::System::Particle::createParticles(const double &quantity,
+                                            const Engine::Math::Vec2<float> &duration,
+                                            const Engine::Math::Vec3<float> &startPoint,
+                                            const Engine::Math::Vec3<float> &directionRange,
+                                            const double &momentum)
 {
     for (float i = 0; i < quantity; ++i) {
-        std::shared_ptr<Engine::ECS::IEntity> newParticle = std::make_shared<Game::Entity::Particle>(startPoint, endPoint, momentum, Random::getDouble(duration.x, duration.y));
+        std::shared_ptr<Engine::ECS::IEntity> newParticle = std::make_shared<Game::Entity::Particle>
+			(startPoint, directionRange, momentum, Random::getDouble(duration.x, duration.y));
         Engine::ECS::Manager::getInstance().getSceneByID("MainMenu")->addEntity(newParticle);
     }
     std::cout << "Successfully created " + std::to_string(quantity) + " particles" << std::endl;
