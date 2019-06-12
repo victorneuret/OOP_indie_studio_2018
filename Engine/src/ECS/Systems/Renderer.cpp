@@ -149,6 +149,7 @@ void Engine::ECS::System::Renderer::drawImage(const std::shared_ptr<Engine::ECS:
         image->getGUIImage()->setMinSize(irr::core::dimension2du{image->getSize().x, image->getSize().y});
     }
 }
+
 void Engine::ECS::System::Renderer::refresh() const
 {
     if (!_videoDriver->beginScene(true, true, irr::video::SColor(0, 0, 0, 0)))
@@ -178,4 +179,9 @@ decltype(Engine::ECS::System::Renderer::_window) Engine::ECS::System::Renderer::
 decltype(Engine::ECS::System::Renderer::_eventHandler) *Engine::ECS::System::Renderer::getEventHandler() noexcept
 {
     return &_eventHandler;
+}
+
+decltype(Engine::ECS::System::Renderer::_GUIEnvironment) Engine::ECS::System::Renderer::getGUIEnvironment() const noexcept
+{
+    return _GUIEnvironment;
 }

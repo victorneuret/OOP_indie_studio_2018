@@ -18,7 +18,7 @@ namespace Engine::ECS::Component {
     class Image;
 }
 
-class Engine::ECS::Component::Image : public Engine::ECS::AComponent {
+class Engine::ECS::Component::Image : public Engine::ECS::AComponent<Engine::ECS::Component::Image> {
 protected:
     std::string _texturePath{};
     irr::video::ITexture *_texture{};

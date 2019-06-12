@@ -18,7 +18,7 @@ namespace Engine::Entity {
     class Image;
 }
 
-class Engine::Entity::Image final : public Engine::ECS::AEntity {
+class Engine::Entity::Image final : public Engine::ECS::AEntity<Image> {
 public:
     explicit Image(const std::string &texturePath, const Math::Vec2u &position);
     Image(const Image &) = delete;
