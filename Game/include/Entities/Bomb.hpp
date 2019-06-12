@@ -17,7 +17,7 @@ namespace Game::Entity {
 class Game::Entity::Bomb final : public Engine::ECS::AEntity<Bomb> {
 protected:
     Engine::Math::Vec2i _pos{0, 0};
-    int _range{10};
+    int _range{1};
 
 public:
     explicit Bomb(const decltype(_pos) &pos);
