@@ -95,6 +95,9 @@ add_library(
     Engine/src/ECS/Components/Image.cpp
     Engine/include/ECS/Entities/Image.hpp
     Engine/src/ECS/Entities/Image.cpp
+    Engine/include/ECS/Systems/Timer.hpp
+    Engine/src/ECS/Systems/Timer.cpp
+    Engine/src/Abstracts/AEntity.cpp
 )
 
 add_executable(
@@ -111,6 +114,8 @@ add_executable(
     Game/src/Scenes/MainMenu.cpp
     Game/include/Scenes/Game.hpp
     Game/src/Scenes/Game.cpp
+    Game/include/Entities/Bomb.hpp
+    Game/src/Entities/Bomb.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)

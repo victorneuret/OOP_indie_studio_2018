@@ -13,6 +13,7 @@
 #include <memory>
 
 #include "Utils/Logger.hpp"
+#include "ECS/Components/Model3D.hpp"
 #include "ECS/Interfaces/IEntity.hpp"
 #include "ECS/Components/Renderer.hpp"
 #include "ECS/Abstracts/AComponent.hpp"

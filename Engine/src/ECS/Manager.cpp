@@ -82,10 +82,21 @@ std::vector<std::shared_ptr<Engine::ECS::IEntity>> Engine::ECS::Manager::getUpda
     std::vector<std::shared_ptr<Engine::ECS::IEntity>> updatedEntities{};
 
     for (auto it = _scenes.rbegin(); it != _scenes.rend(); it++) {
-        if ((*it)->isUpdateChild())
-            updatedEntities.insert(updatedEntities.end(), (*it)->getEntities().begin(), (*it)->getEntities().end());
-        if  ((*it)->isOpaque())
+        updatedEntities.insert(updatedEntities.end(), (*it)->getEntities().begin(), (*it)->getEntities().end());
+        if (!(*it)->isUpdateChild() || (*it)->isOpaque())
             break;
     }
     return updatedEntities;
+}
+
+std::vector<std::shared_ptr<Engine::Abstracts::AScene>> Engine::ECS::Manager::getUpdatedScenes()
+{
+    std::vector<std::shared_ptr<Engine::Abstracts::AScene>> updatedScenes;
+
+    for (auto it = _scenes.rbegin(); it != _scenes.rend(); it++) {
+        updatedScenes.push_back(*it);
+        if (!(*it)->isUpdateChild() || (*it)->isOpaque())
+            break;
+    }
+    return updatedScenes;
 }
