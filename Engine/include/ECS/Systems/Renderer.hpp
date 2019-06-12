@@ -20,7 +20,7 @@ namespace Engine::ECS::System {
     class Renderer;
 }
 
-class Engine::ECS::System::Renderer final : public ASystem<System::Renderer> {
+class Engine::ECS::System::Renderer final : public ASystem {
 private:
     class EventMiddleware : public irr::IEventReceiver {
     protected:

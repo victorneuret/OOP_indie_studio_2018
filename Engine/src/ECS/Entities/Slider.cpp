@@ -8,7 +8,7 @@
 #include "ECS/Entities/Slider.hpp"
 #include "ECS/Components/Slider.hpp"
 
-Game::Entity::Slider::Slider(const Engine::Math::Rect_i &pos, const Engine::Utils::Color &backgroundColor, const Engine::Utils::Color &valueColor)
+Engine::ECS::Entity::Slider::Slider(const Engine::Math::Rect_i &pos, const Engine::Utils::Color &backgroundColor, const Engine::Utils::Color &valueColor)
     : AEntity(AEntity::Type::SLIDER)
 {
     std::shared_ptr<Engine::ECS::IComponent> slider = std::make_shared<Engine::ECS::Component::Slider>(pos, backgroundColor, valueColor);
@@ -18,10 +18,10 @@ Game::Entity::Slider::Slider(const Engine::Math::Rect_i &pos, const Engine::Util
     addComponent(_renderer);
 }
 
-void Game::Entity::Slider::onPressed()
+void Engine::ECS::Entity::Slider::onPressed()
 {
     throw std::runtime_error{"Slider Pressed"};
 }
 
-void Game::Entity::Slider::onRelease()
+void Engine::ECS::Entity::Slider::onRelease()
 {}

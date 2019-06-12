@@ -16,11 +16,11 @@
 #include "ECS/Abstracts/AEntity.hpp"
 #include "Utils/Color.hpp"
 
-namespace Game::Entity {
+namespace Engine::ECS::Entity {
     class Text;
 }
 
-class Game::Entity::Text final : public Engine::ECS::AEntity<Text> {
+class Engine::ECS::Entity::Text final : public Engine::ECS::AEntity {
 public:
     explicit Text(const std::wstring &&text, const Engine::Math::Vec2i &pos, const Engine::Utils::Color &color,
                   const std::string &font = "");

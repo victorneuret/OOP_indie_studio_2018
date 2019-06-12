@@ -19,7 +19,7 @@ namespace Game::Entity {
     class Player;
 }
 
-class Game::Entity::Player final : public Engine::ECS::AEntity<Player> {
+class Game::Entity::Player final : public Engine::ECS::AEntity {
 protected:
     Engine::Math::Vec3d _pos{0, 0, 0};
 

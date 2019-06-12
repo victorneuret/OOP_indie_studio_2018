@@ -18,7 +18,7 @@ namespace Engine::ECS::Component {
     class Slider;
 }
 
-class Engine::ECS::Component::Slider : public Engine::ECS::AComponent<Engine::ECS::Component::Slider> {
+class Engine::ECS::Component::Slider : public Engine::ECS::AComponent {
 protected:
     Engine::Math::Rect_i _bounds{};
     Utils::Color _backgroundColor{0, 0, 0};

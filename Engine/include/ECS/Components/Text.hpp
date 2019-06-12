@@ -18,7 +18,7 @@ namespace Engine::ECS::Component {
     class Text;
 }
 
-class Engine::ECS::Component::Text : public Engine::ECS::AComponent<Engine::ECS::Component::Text> {
+class Engine::ECS::Component::Text : public Engine::ECS::AComponent {
 protected:
     std::wstring _string{};
     Math::Vec2i _pos{};
@@ -27,7 +27,8 @@ protected:
     irr::gui::IGUIFont *_font{nullptr};
 
 public:
-    Text(const decltype(_string) &string, const decltype(_pos) &pos, const decltype(_color) &color = Engine::Utils::Color{255, 255, 255}, const decltype(_fontPath) &fontPath = "");
+    Text(const decltype(_string) &string, const decltype(_pos) &pos,
+         const decltype(_color) &color = Engine::Utils::Color{255, 255, 255}, const decltype(_fontPath) &fontPath = "");
     Text(const Text &) = delete;
     Text &operator=(const Text &) = delete;
 

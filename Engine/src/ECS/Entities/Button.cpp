@@ -10,7 +10,7 @@
 #include "ECS/Components/Button.hpp"
 #include "Math/Vector/Vec2.hpp"
 
-Game::Entity::Button::Button(const Engine::Math::Rect_i &bounds, const std::wstring &string, const Engine::Utils::Color &buttonColor, const Engine::Utils::Color &textColor)
+Engine::ECS::Entity::Button::Button(const Engine::Math::Rect_i &bounds, const std::wstring &string, const Engine::Utils::Color &buttonColor, const Engine::Utils::Color &textColor)
     : AEntity(AEntity::Type::BUTTON)
 {
     std::shared_ptr<Engine::ECS::IComponent> button = std::make_shared<Engine::ECS::Component::Button>(bounds, buttonColor);
@@ -27,17 +27,17 @@ Game::Entity::Button::Button(const Engine::Math::Rect_i &bounds, const std::wstr
     addComponent(_renderer);
 }
 
-void Game::Entity::Button::onHover()
+void Engine::ECS::Entity::Button::onHover()
 {
     throw std::runtime_error{"Hover"};
 }
 
-void Game::Entity::Button::onRelease()
+void Engine::ECS::Entity::Button::onRelease()
 {
     throw std::runtime_error{"Released"};
 }
 
-void Game::Entity::Button::onPressed()
+void Engine::ECS::Entity::Button::onPressed()
 {
     throw std::runtime_error{"Pressed"};
 }
