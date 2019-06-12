@@ -11,7 +11,7 @@
 #include "Math/Vector/Vec2.hpp"
 
 Engine::Entity::Image::Image(const std::string &texturePath, const Math::Vec2u &position)
-        : AEntity(AEntity::Type::MODEL2D)
+        : AEntity{AEntity::Type::MODEL2D}
 {
     std::shared_ptr<Engine::ECS::IComponent> image = std::make_shared<Engine::ECS::Component::Image>(texturePath, position);
     addComponent(image);
