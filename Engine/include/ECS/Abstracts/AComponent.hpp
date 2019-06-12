@@ -20,11 +20,8 @@ protected:
     const std::string _id;
 
 public:
-    explicit AComponent(const std::string &id) : _id(std::string(id)) {};
+    explicit AComponent(const decltype(_id) &id);
     ~AComponent() override = default;
 
-    std::string getID() const noexcept final
-    {
-        return _id;
-    };
+    const decltype(_id) &getID() const noexcept final;
 };
