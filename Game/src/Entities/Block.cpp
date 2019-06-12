@@ -22,7 +22,7 @@ Game::Entity::Block::Block(bool breakable, const Engine::Math::Vec3f &pos, const
     addComponent(_renderer);
 }
 
-decltype(Game::Entity::Block::_breakable) Game::Entity::Block::isBreackable() const noexcept
+decltype(Game::Entity::Block::_breakable) Game::Entity::Block::isBreakable() const noexcept
 {
     return _breakable;
 }

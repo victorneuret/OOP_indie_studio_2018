@@ -23,10 +23,8 @@ void Engine::Abstracts::AScene::removeEntity(const std::shared_ptr<ECS::IEntity>
 {
     auto search = std::find(_entities.begin(), _entities.end(), entity);
 
-    if (search != _entities.end()) {
+    if (search != _entities.end())
         _entities.erase(search);
-        // search->reset();
-    }
 }
 
 void Engine::Abstracts::AScene::removeEntityByID(size_t id)
@@ -38,7 +36,6 @@ void Engine::Abstracts::AScene::removeEntityByID(size_t id)
     if (search == _entities.end())
         throw ECSException<ECS_Entity>{"Entity " + std::to_string(id) + " not found"};
     _entities.erase(search);
-    // search->reset();
 }
 
 std::shared_ptr<Engine::ECS::IEntity> &Engine::Abstracts::AScene::getEntityByID(const size_t id)

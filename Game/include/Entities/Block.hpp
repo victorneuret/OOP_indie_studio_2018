@@ -28,7 +28,7 @@ public:
     Block(const Block &) = delete;
     Block &operator=(const Block &) = delete;
 
-    decltype(_breakable) isBreackable() const noexcept;
+    decltype(_breakable) isBreakable() const noexcept;
 
     ~Block() override = default;
 };

@@ -15,7 +15,7 @@
 #include "ECS/Components/Renderer.hpp"
 
 Game::Entity::Bomb::Bomb(const Engine::Math::Vec2i &pos)
-    : AEntity(AEntity::Type::MODEL3D), _pos{pos}
+    : AEntity{AEntity::Type::MODEL3D}, _pos{pos}
 {
     std::shared_ptr<Engine::ECS::IComponent> _3DModel = std::make_shared<Engine::ECS::Component::Model3D>(Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y - 1) - 1)}, "assets/models/bomb/Bomb.obj");
     addComponent(_3DModel);

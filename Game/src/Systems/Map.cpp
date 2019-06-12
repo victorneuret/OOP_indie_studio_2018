@@ -144,7 +144,10 @@ void Game::System::Map::removeBlock(const Engine::Math::Vec2i &pos)
 {
     auto backupPos = pos - 1;
     if (_blocks[backupPos.x][backupPos.y] != nullptr) {
-        if (!(std::dynamic_pointer_cast<Game::Entity::Block>(Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(_blocks[backupPos.x][backupPos.y]->getID()))->isBreackable()))
+        if (!(std::dynamic_pointer_cast<Game::Entity::Block>(
+                Engine::ECS::Manager::getInstance().getSceneByID(
+                        "Game")->getEntityByID(
+                        _blocks[backupPos.x][backupPos.y]->getID()))->isBreakable()))
             return;
         std::dynamic_pointer_cast<Engine::ECS::Component::Model3D> (Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(_blocks[backupPos.x][backupPos.y]->getID())->getComponentByID("Model3D"))->getNode()->remove();
         Engine::ECS::Manager::getInstance().getSceneByID("Game")->removeEntityByID(_blocks[backupPos.x][backupPos.y]->getID());
