@@ -17,7 +17,7 @@
 #include "Math/Rect.hpp"
 
 Game::Scene::MainMenu::MainMenu()
-    : AScene("MainMenu", {}, false, true)
+    : AScene{"MainMenu", {}, false, true}
 {
     auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
     auto screenSize = driver->getScreenSize();
