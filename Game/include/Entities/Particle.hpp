@@ -39,8 +39,8 @@ public:
 
     ~Particle() override = default;
 
-    Engine::Math::Vec3<float> getStartPoint() const;
-    Engine::Math::Vec3<float> getEndPoint() const;
-    Engine::Math::Vec3<float> getSpray() const;
+    decltype(_startPoint) getStartPoint() const;
+    decltype(_endPoint) getEndPoint() const;
+    decltype(_spray) getSpray() const;
     double getMomentum() const;
 };
