@@ -71,10 +71,6 @@ add_library(
     Engine/src/ECS/Systems/Audio.cpp
     Engine/include/ECS/Systems/Audio.hpp
     Engine/include/Exception/Engine/ECS/Systems/SoundException.hpp
-    Engine/include/ECS/Components/Slider.hpp
-    Engine/src/ECS/Components/Slider.cpp
-    Engine/include/ECS/Interfaces/Entities/IClickable.hpp
-    Engine/include/ECS/Interfaces/Entities/IHoverable.hpp
     Engine/include/Abstracts/AScene.hpp
     Engine/src/Abstracts/AScene.cpp
     Engine/include/ECS/Entities/Text.hpp

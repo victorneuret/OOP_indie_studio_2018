@@ -4,6 +4,7 @@
 ** File description:
 ** Button.cpp
 */
+
 #include <iostream>
 
 #include "ECS/Components/Button.hpp"
@@ -23,7 +24,7 @@ decltype(Engine::ECS::Component::Button::_color) &Engine::ECS::Component::Button
     return _color;
 }
 
-void Engine::ECS::Component::Button::onClick()
+void Engine::ECS::Component::Button::onClick() const
 {
-    std::cout << "Button clicked" << std::endl;
+    _func();
 }

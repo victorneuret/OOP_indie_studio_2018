@@ -21,9 +21,9 @@ namespace Engine::ECS::System {
 }
 
 struct Controller {
-    irr::u16 POV;
-    irr::s16 Axis[irr::SEvent::SJoystickEvent::NUMBER_OF_AXES];
-    irr::u32 ButtonStates;
+    irr::u16 pov;
+    irr::s16 axis[irr::SEvent::SJoystickEvent::NUMBER_OF_AXES];
+    irr::u32 buttonStates;
 };
 
 class Engine::ECS::System::JoystickInput final : public AInput {
@@ -31,7 +31,7 @@ protected:
     std::map<irr::u8, Controller> _controllers{};
 
 public:
-    explicit JoystickInput();
+    JoystickInput();
     ~JoystickInput() override = default;
 
     void update(double) override;

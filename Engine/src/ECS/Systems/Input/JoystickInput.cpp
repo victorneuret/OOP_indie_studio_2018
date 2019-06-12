@@ -7,22 +7,34 @@
 
 #include <iostream>
 
-#include "ECS/Systems/Renderer.hpp"
+#include "ECS/Manager.hpp"
+#include "Utils/Logger.hpp"
 #include "ECS/Systems/EventHandler.hpp"
 #include "ECS/Systems/Input/JoystickInput.hpp"
 
 Engine::ECS::System::JoystickInput::JoystickInput()
     : AInput{"JoystickInput"}
-{}
+{
+    auto renderer = std::dynamic_pointer_cast<Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"));
+
+    irr::core::array<irr::SJoystickInfo> joystickInfo{};
+
+    if (!renderer->getWindow()->activateJoysticks(joystickInfo))
+        Logger::getInstance().error("Failed to activate joystick");
+    else
+        Logger::getInstance().info(std::to_string(joystickInfo.size()) + " controllers connected");
+}
 
 bool Engine::ECS::System::JoystickInput::OnEvent(const irr::SEvent &event)
 {
     if (event.EventType == irr::EET_JOYSTICK_INPUT_EVENT) {
         _controllers[event.JoystickEvent.Joystick] = {};
-        _controllers[event.JoystickEvent.Joystick].POV = event.JoystickEvent.POV;
+        _controllers[event.JoystickEvent.Joystick].pov = event.JoystickEvent.POV;
+
         for (auto i = 0; i < irr::SEvent::SJoystickEvent::NUMBER_OF_AXES; i++)
-            _controllers[event.JoystickEvent.Joystick].Axis[i] = event.JoystickEvent.Axis[i];
-        _controllers[event.JoystickEvent.Joystick].ButtonStates = event.JoystickEvent.ButtonStates;
+            _controllers[event.JoystickEvent.Joystick].axis[i] = event.JoystickEvent.Axis[i];
+
+        _controllers[event.JoystickEvent.Joystick].buttonStates = event.JoystickEvent.ButtonStates;
     }
     return false;
 }

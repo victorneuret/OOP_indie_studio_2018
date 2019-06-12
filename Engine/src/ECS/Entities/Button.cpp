@@ -31,7 +31,6 @@ Engine::ECS::Entity::Button::Button(const Engine::Math::Rect_i &bounds, const st
 
 bool Game::Entity::Button::onEvent(irr::gui::EGUI_EVENT_TYPE eventType)
 {
-    if (eventType == irr::gui::EGUI_EVENT_TYPE::EGET_BUTTON_CLICKED)
-        std::cout << "BUTTON CLICKED" << std::endl;
+    std::cout << "CLICKED" << std::endl;
     return false;
 }

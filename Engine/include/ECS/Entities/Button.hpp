@@ -12,8 +12,6 @@
 #include "Utils/Color.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
-#include "ECS/Interfaces/Entities/IClickable.hpp"
-#include "ECS/Interfaces/Entities/IHoverable.hpp"
 #include "ECS/Interfaces/Entities/IGuiElement.hpp"
 
 namespace Engine::ECS::Entity {

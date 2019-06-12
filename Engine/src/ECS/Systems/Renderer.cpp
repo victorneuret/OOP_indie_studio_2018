@@ -12,7 +12,6 @@
 #include "ECS/Systems/Renderer.hpp"
 #include "ECS/Components/Button.hpp"
 #include "ECS/Components/Image.hpp"
-#include "ECS/Components/Slider.hpp"
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Components/Renderer.hpp"
 #include "ECS/Interfaces/Entities/IGuiElement.hpp"
@@ -89,9 +88,6 @@ void Engine::ECS::System::Renderer::draw(const std::shared_ptr<Engine::ECS::IEnt
             drawButton(entity);
             drawText(entity);
             break;
-        case Engine::ECS::IEntity::Type::SLIDER:
-            drawSlider(entity);
-            break;
         case Engine::ECS::IEntity::Type::MODEL2D:
             drawImage(entity);
             break;
@@ -143,17 +139,6 @@ void Engine::ECS::System::Renderer::drawButton(const std::shared_ptr<Engine::ECS
     guiButton->draw();
 }
 
-void Engine::ECS::System::Renderer::drawSlider(const std::shared_ptr<Engine::ECS::IEntity> &entity) const
-{
-    auto renderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer>(entity->getComponentByID("Renderer"));
-    auto slider = std::dynamic_pointer_cast<Engine::ECS::Component::Slider>(entity->getComponentByID("Slider"));
-    if (renderer->doRender()) {
-        drawRectangle(slider->getBounds(), slider->getBackgroundColor());
-        auto bounds = Math::Rect_i{slider->getBounds().x, slider->getBounds().y, slider->getValue(), slider->getBounds().h};
-        drawRectangle(bounds, slider->getValueColor());
-    }
-}
-
 void Engine::ECS::System::Renderer::drawImage(const std::shared_ptr<Engine::ECS::IEntity> &entity) const
 {
     auto renderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer>(entity->getComponentByID("Renderer"));
@@ -164,7 +149,6 @@ void Engine::ECS::System::Renderer::drawImage(const std::shared_ptr<Engine::ECS:
         image->getGUIImage()->setMinSize(irr::core::dimension2du{image->getSize().x, image->getSize().y});
     }
 }
-
 void Engine::ECS::System::Renderer::refresh() const
 {
     if (!_videoDriver->beginScene(true, true, irr::video::SColor(0, 0, 0, 0)))
