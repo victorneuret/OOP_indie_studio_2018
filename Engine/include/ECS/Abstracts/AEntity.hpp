@@ -38,13 +38,15 @@ public:
     ~AEntity() override = default;
 
     decltype(_id) getID() const noexcept final;
+    const std::vector<std::shared_ptr<IComponent>> &getComponents() const noexcept final;
 
-    void show() noexcept final;
-    void hide() noexcept final;
     void addComponent(std::shared_ptr<IComponent> &component);
     void removeComponent(const std::string &id);
 
-    decltype(_type) getType() const noexcept final;
-    const std::vector<std::shared_ptr<IComponent>> &getComponents() const noexcept final;
     std::shared_ptr<IComponent> &getComponentByID(const std::string &id) override;
+
+    void show() noexcept final;
+    void hide() noexcept final;
+
+    decltype(_type) getType() const noexcept final;
 };

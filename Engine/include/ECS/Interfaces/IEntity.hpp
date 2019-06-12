@@ -19,11 +19,10 @@ namespace Engine::ECS {
 class Engine::ECS::IEntity {
 public:
     enum class Type {
-        MODEL3D = 1,
-        MODEL2D = 2,
-        TEXT = 3,
-        BUTTON = 4,
-        SLIDER = 5,
+        MODEL3D,
+        MODEL2D,
+        TEXT,
+        BUTTON,
     };
 
 public:

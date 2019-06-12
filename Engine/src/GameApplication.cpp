@@ -9,6 +9,12 @@
 #include <chrono>
 #include <vector>
 
+#include "GameApplication.hpp"
+#include "ECS/Interfaces/ISystem.hpp"
+#include "ECS/Systems/Event/ButtonEvent.hpp"
+#include "ECS/Systems/Input/JoystickInput.hpp"
+#include "ECS/Systems/Input/KeyboardInput.hpp"
+#include "ECS/Systems/Input/MouseInput.hpp"
 #include "Utils/Logger.hpp"
 #include "ECS/Manager.hpp"
 #include "Utils/Color.hpp"
@@ -16,7 +22,6 @@
 #include "ECS/Entities/Button.hpp"
 #include "GameApplication.hpp"
 #include "ECS/Interfaces/ISystem.hpp"
-#include "ECS/Manager.hpp"
 #include "ECS/Systems/Audio.hpp"
 #include "Math/Vector/Vec3.hpp"
 #include "ECS/Systems/Timer.hpp"
@@ -33,13 +38,23 @@ Engine::GameApplication::GameApplication(const decltype(_title) &title, const de
 
 void Engine::GameApplication::_startup()
 {
-    std::shared_ptr<Engine::ECS::ISystem> audio = std::make_shared<Engine::ECS::System::Audio>();
     std::shared_ptr<Engine::ECS::ISystem> renderer = std::make_shared<Engine::ECS::System::Renderer>(_title, _dimensions);
-    std::shared_ptr<Engine::ECS::ISystem> timer = std::make_shared<Engine::ECS::System::Timer>();
 
-    _ecsManager.addSystem(audio);
     _ecsManager.addSystem(renderer);
+
+    std::shared_ptr<Engine::ECS::ISystem> audio = std::make_shared<Engine::ECS::System::Audio>();
+    std::shared_ptr<Engine::ECS::ISystem> timer = std::make_shared<Engine::ECS::System::Timer>();
+    std::shared_ptr<Engine::ECS::ISystem> button = std::make_shared<Engine::ECS::System::ButtonEvent>();
+    std::shared_ptr<Engine::ECS::ISystem> keyboard = std::make_shared<Engine::ECS::System::KeyboardInput>();
+    std::shared_ptr<Engine::ECS::ISystem> mouse = std::make_shared<Engine::ECS::System::MouseInput>();
+    std::shared_ptr<Engine::ECS::ISystem> joystick = std::make_shared<Engine::ECS::System::JoystickInput>();
+
     _ecsManager.addSystem(timer);
+    _ecsManager.addSystem(audio);
+    _ecsManager.addSystem(button);
+    _ecsManager.addSystem(keyboard);
+    _ecsManager.addSystem(mouse);
+    _ecsManager.addSystem(joystick);
 }
 
 void Engine::GameApplication::_tick(double dt, std::shared_ptr<Engine::ECS::System::Renderer> &renderer)

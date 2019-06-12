@@ -5,6 +5,8 @@
 ** MainMenu.cpp
 */
 
+#include <iostream>
+
 #include "Scenes/MainMenu.hpp"
 #include "ECS/Entities/Text.hpp"
 #include "ECS/Entities/Button.hpp"
@@ -23,40 +25,46 @@ Game::Scene::MainMenu::MainMenu()
     auto screenSize = driver->getScreenSize();
 
     _entities = {
-            std::make_shared<Engine::Entity::Image>("assets/img/star.jpg", Engine::Math::Vec2u{0, 0}),
-            std::make_shared<Engine::Entity::Image>("assets/img/sun.png", Engine::Math::Vec2u{screenSize.Width / 2 - (894 / 2), 0}),
-            std::make_shared<Engine::Entity::Image>("assets/img/mountain.png", Engine::Math::Vec2u{0, 0}),
+        std::make_shared<Engine::Entity::Image>("assets/img/star.jpg", Engine::Math::Vec2u{0, 0}),
+        std::make_shared<Engine::Entity::Image>("assets/img/sun.png", Engine::Math::Vec2u{screenSize.Width / 2 - (894 / 2), 0}),
+        std::make_shared<Engine::Entity::Image>("assets/img/mountain.png", Engine::Math::Vec2u{0, 0}),
 
-            std::make_shared<Engine::ECS::Entity::Button>(
-                Engine::Math::Rect_i{
-                    static_cast<int>(screenSize.Width * 0.06),
-                    static_cast<int>(screenSize.Height - 100),
-                    static_cast<int>(screenSize.Width * 0.25),
-                    30
-                },
-                L"New Game",
-                Engine::Utils::Color{255, 0, 0}
-            ),
-            std::make_shared<Engine::ECS::Entity::Button>(
-                Engine::Math::Rect_i{
-                    static_cast<int>(screenSize.Width * 0.06 * 2 + (screenSize.Width * 0.25)),
-                    static_cast<int>(screenSize.Height - 100),
-                    static_cast<int>(screenSize.Width * 0.25),
-                    30
-                },
-                L"Load Game",
-                Engine::Utils::Color{255, 0, 0}
-            ),
-            std::make_shared<Engine::ECS::Entity::Button>(
-                Engine::Math::Rect_i{
-                    static_cast<int>(screenSize.Width * 0.06 * 3 + (screenSize.Width * 0.25 * 2)),
-                    static_cast<int>(screenSize.Height - 100),
-                    static_cast<int>(screenSize.Width * 0.25),
-                    30
-                },
-                L"Quit",
-                Engine::Utils::Color{255, 0, 0}
-            )
+        std::make_shared<Engine::ECS::Entity::Button>(
+            Engine::Math::Rect_i{
+                static_cast<int>(screenSize.Width * 0.06),
+                static_cast<int>(screenSize.Height - 100),
+                static_cast<int>(screenSize.Width * 0.25),
+                30
+            },
+            L"New Game",
+            []() {
+                std::cout << "New Game" << std::endl;
+            }
+        ),
+        std::make_shared<Engine::ECS::Entity::Button>(
+            Engine::Math::Rect_i{
+                static_cast<int>(screenSize.Width * 0.06 * 2 + (screenSize.Width * 0.25)),
+                static_cast<int>(screenSize.Height - 100),
+                static_cast<int>(screenSize.Width * 0.25),
+                30
+            },
+            L"Load Game",
+            []() {
+                std::cout << "Load Game" << std::endl;
+            }
+        ),
+        std::make_shared<Engine::ECS::Entity::Button>(
+            Engine::Math::Rect_i{
+                static_cast<int>(screenSize.Width * 0.06 * 3 + (screenSize.Width * 0.25 * 2)),
+                static_cast<int>(screenSize.Height - 100),
+                static_cast<int>(screenSize.Width * 0.25),
+                30
+            },
+            L"Quit",
+            []() {
+                std::cout << "Quit" << std::endl;
+            }
+        )
     };
 
     for (auto &image : _entities) {
