@@ -88,11 +88,14 @@ add_library(
     Engine/src/ECS/Entities/Button.cpp
     Engine/include/ECS/Entities/Slider.hpp
     Engine/src/ECS/Entities/Slider.cpp
+    Engine/src/ECS/Abstract/ASystem.cpp
+    Engine/src/ECS/Abstract/AEntity.cpp
+    Engine/src/ECS/Abstract/AComponent.cpp
     Engine/include/ECS/Components/Image.hpp
     Engine/src/ECS/Components/Image.cpp
     Engine/include/ECS/Entities/Image.hpp
     Engine/src/ECS/Entities/Image.cpp
-    Engine/src/ECS/Abstract/ASystem.cpp Engine/src/ECS/Abstract/AEntity.cpp Engine/src/ECS/Abstract/AComponent.cpp)
+)
 
 add_executable(
     bomberman
