@@ -16,7 +16,7 @@ namespace Engine::ECS::Component {
     class Timer;
 }
 
-class Engine::ECS::Component::Timer : public Engine::ECS::AComponent<Engine::ECS::Component::Timer> {
+class Engine::ECS::Component::Timer : public Engine::ECS::AComponent {
 private:
 
     Engine::ECS::Component::Chrono _timer{};

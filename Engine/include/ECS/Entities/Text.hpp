@@ -20,7 +20,7 @@ namespace Game::Entity {
     class Text;
 }
 
-class Game::Entity::Text final : public Engine::ECS::AEntity<Text> {
+class Game::Entity::Text final : public Engine::ECS::AEntity {
 public:
     explicit Text(const std::wstring &&text, const Engine::Math::Vec2i &pos, const Engine::Utils::Color &color,
                   const std::string &font = "");

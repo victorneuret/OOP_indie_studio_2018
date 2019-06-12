@@ -18,7 +18,7 @@ namespace Engine::ECS::Component {
     class Button;
 }
 
-class Engine::ECS::Component::Button : public Engine::ECS::AComponent<Engine::ECS::Component::Button> {
+class Engine::ECS::Component::Button : public Engine::ECS::AComponent {
 protected:
     Engine::Math::Rect_i _bounds{};
     Utils::Color _color{0, 0, 0};

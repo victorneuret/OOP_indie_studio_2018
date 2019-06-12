@@ -17,9 +17,11 @@ namespace Game::Entity {
     class Slider;
 }
 
-class Game::Entity::Slider final : public Engine::ECS::Entity::IClickable, public Engine::ECS::AEntity<Slider> {
+class Game::Entity::Slider final : public Engine::ECS::Entity::IClickable, public Engine::ECS::AEntity {
 public:
-    explicit Slider(const Engine::Math::Rect_i &pos, const Engine::Utils::Color &backgroudColor = Engine::Utils::Color{0, 0, 0}, const Engine::Utils::Color &valueColor  = Engine::Utils::Color{255, 255, 255});
+    explicit Slider(const Engine::Math::Rect_i &pos,
+                    const Engine::Utils::Color &backgroudColor = Engine::Utils::Color{0, 0, 0},
+                    const Engine::Utils::Color &valueColor = Engine::Utils::Color{255, 255, 255});
     Slider(const Slider &) = delete;
     Slider &operator=(const Slider &) = delete;
 

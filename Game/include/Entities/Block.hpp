@@ -19,7 +19,7 @@ namespace Game::Entity {
     class Block;
 }
 
-class Game::Entity::Block : public Engine::ECS::AEntity<Block> {
+class Game::Entity::Block : public Engine::ECS::AEntity {
 private:
     bool _breakable;
 

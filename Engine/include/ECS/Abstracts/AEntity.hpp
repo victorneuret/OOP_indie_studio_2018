@@ -21,7 +21,6 @@
 #include "Exception/Engine/ECS/ECSException.hpp"
 
 namespace Engine::ECS {
-    template<typename T>
     class AEntity;
 
     static size_t getNextEntityID()
@@ -31,7 +30,6 @@ namespace Engine::ECS {
     }
 }
 
-template<typename T>
 class Engine::ECS::AEntity : public IEntity {
 protected:
     size_t _id;

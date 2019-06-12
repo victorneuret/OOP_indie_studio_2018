@@ -13,11 +13,9 @@
 #include "ECS/Interfaces/ISystem.hpp"
 
 namespace Engine::ECS {
-    template<typename T>
     class ASystem;
 }
 
-template<typename T>
 class Engine::ECS::ASystem : public ISystem {
 private:
     std::string _id{};
@@ -34,6 +32,5 @@ public:
     }
 
     void update(double dt) override = 0;
-
 };
 

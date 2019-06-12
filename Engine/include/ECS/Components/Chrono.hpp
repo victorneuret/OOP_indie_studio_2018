@@ -15,7 +15,7 @@ namespace Engine::ECS::Component {
     class Chrono;
 }
 
-class Engine::ECS::Component::Chrono : public Engine::ECS::AComponent<Engine::ECS::Component::Chrono> {
+class Engine::ECS::Component::Chrono : public Engine::ECS::AComponent {
 public:
     Chrono();
 

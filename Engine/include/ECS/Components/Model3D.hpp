@@ -18,7 +18,7 @@ namespace Engine::ECS::Component {
     class Model3D;
 }
 
-class Engine::ECS::Component::Model3D : public AComponent<Component::Model3D> {
+class Engine::ECS::Component::Model3D : public AComponent {
 protected:
     irr::scene::IAnimatedMeshSceneNode *_node{nullptr};
     std::string _model{};

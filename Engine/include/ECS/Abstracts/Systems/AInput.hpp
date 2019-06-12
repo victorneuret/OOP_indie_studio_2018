@@ -18,7 +18,7 @@ namespace Engine::ECS::System {
     class AInput;
 }
 
-class Engine::ECS::System::AInput : public Engine::ECS::ASystem<Engine::ECS::System::AInput>, public irr::IEventReceiver {
+class Engine::ECS::System::AInput : public Engine::ECS::ASystem, public irr::IEventReceiver {
 protected:
     std::map<decltype(irr::SEvent::SKeyInput::Char), bool> _keys{};
 
