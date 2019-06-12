@@ -30,7 +30,8 @@ public:
                         const Engine::Math::Vec2<float> &duration,
                         const Engine::Math::Vec3<float> &startPoint,
                         const Engine::Math::Vec3<float> &directionRange,
-                        const double &momentum);
+                        const double &momentum,
+                        const std::string &sceneID);
     void checkParticleState(const std::shared_ptr<Game::Entity::Particle> &particle);
     void update(double) final;
 };
