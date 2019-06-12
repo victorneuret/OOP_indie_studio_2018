@@ -14,7 +14,7 @@
 #include "ECS/Components/Text.hpp"
 #include "ECS/Interfaces/IEntity.hpp"
 
-Game::Entity::Text::Text(const std::wstring &&text, const Engine::Math::Vec2i &pos, const Engine::Utils::Color &color,
+Engine::ECS::Entity::Text::Text(const std::wstring &&text, const Engine::Math::Vec2i &pos, const Engine::Utils::Color &color,
                          const std::string &font)
     : AEntity(AEntity::Type::TEXT)
 {

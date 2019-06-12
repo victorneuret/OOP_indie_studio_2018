@@ -13,11 +13,11 @@
 #include "ECS/Abstracts/AEntity.hpp"
 #include "ECS/Interfaces/Entities/IClickable.hpp"
 
-namespace Game::Entity {
+namespace Engine::ECS::Entity {
     class Slider;
 }
 
-class Game::Entity::Slider final : public Engine::ECS::Entity::IClickable, public Engine::ECS::AEntity {
+class Engine::ECS::Entity::Slider final : public Engine::ECS::Entity::IClickable, public Engine::ECS::AEntity {
 public:
     explicit Slider(const Engine::Math::Rect_i &pos,
                     const Engine::Utils::Color &backgroudColor = Engine::Utils::Color{0, 0, 0},
