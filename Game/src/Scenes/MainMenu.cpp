@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include <memory>
 
 #include "Scenes/MainMenu.hpp"
 #include "ECS/Entities/Text.hpp"
@@ -17,6 +18,7 @@
 #include "ECS/Manager.hpp"
 #include "Math/Vector/Vec2.hpp"
 #include "Math/Rect.hpp"
+#include "Scenes/Game.hpp"
 
 Game::Scene::MainMenu::MainMenu()
     : AScene{"MainMenu", {}, false, true}
@@ -38,7 +40,8 @@ Game::Scene::MainMenu::MainMenu()
             },
             L"New Game",
             []() {
-                std::cout << "New Game" << std::endl;
+                std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<Game>();
+                Engine::ECS::Manager::getInstance().addScene(game);
             }
         ),
         std::make_shared<Engine::ECS::Entity::Button>(
@@ -62,7 +65,8 @@ Game::Scene::MainMenu::MainMenu()
             },
             L"Quit",
             []() {
-                std::cout << "Quit" << std::endl;
+                auto window = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getWindow();
+                window->closeDevice();
             }
         )
     };
