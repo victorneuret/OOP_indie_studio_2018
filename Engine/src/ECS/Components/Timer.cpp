@@ -36,3 +36,8 @@ decltype(Engine::ECS::Component::Timer::_duration) Engine::ECS::Component::Timer
 {
     return _duration;
 }
+
+double Engine::ECS::Component::Timer::getElapsed() noexcept
+{
+    return _timer.getElapsedTime();
+}

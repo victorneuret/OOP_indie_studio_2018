@@ -21,3 +21,8 @@ Game::Entity::Block::Block(bool breakable, const Engine::Math::Vec3f &pos, const
     std::shared_ptr<Engine::ECS::IComponent> _renderer = std::make_shared<Engine::ECS::Component::Renderer>();
     addComponent(_renderer);
 }
+
+decltype(Game::Entity::Block::_breakable) Game::Entity::Block::isBreakable() const noexcept
+{
+    return _breakable;
+}

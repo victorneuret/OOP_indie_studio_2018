@@ -30,6 +30,8 @@ public:
     Model3D(const Model3D &) = delete;
     Model3D &operator=(const Model3D &) = delete;
 
+    ~Model3D() override = default;
+
     decltype(_model) &getModel() noexcept;
     decltype(_texture) &getTexture() noexcept;
     decltype(_node) &getNode() noexcept;

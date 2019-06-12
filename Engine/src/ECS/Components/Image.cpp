@@ -5,8 +5,6 @@
 ** Image.cpp
 */
 
-#include <iostream>
-
 #include "ECS/Components/Image.hpp"
 #include "ECS/Manager.hpp"
 

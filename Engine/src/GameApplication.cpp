@@ -5,20 +5,21 @@
 ** GameApplication.cpp
 */
 
+#include <irrlicht/irrTypes.h>
+#include <chrono>
+#include <vector>
+
 #include "Utils/Logger.hpp"
 #include "ECS/Manager.hpp"
 #include "Utils/Color.hpp"
 #include "ECS/Entities/Text.hpp"
 #include "ECS/Entities/Button.hpp"
-#include <irrlicht/irrTypes.h>
-#include <chrono>
-#include <vector>
-
 #include "GameApplication.hpp"
 #include "ECS/Interfaces/ISystem.hpp"
 #include "ECS/Manager.hpp"
 #include "ECS/Systems/Audio.hpp"
 #include "Math/Vector/Vec3.hpp"
+#include "ECS/Systems/Timer.hpp"
 
 Engine::GameApplication::GameApplication(const decltype(_title) &title, long width, long height)
     : GameApplication(title, Math::Vec2<irr::u32>(width, height))
@@ -28,14 +29,17 @@ Engine::GameApplication::GameApplication(const decltype(_title) &title, long wid
 Engine::GameApplication::GameApplication(const decltype(_title) &title, const decltype(_dimensions) &dimensions)
     : _title{decltype(_title){title}}, _dimensions{dimensions}
 {
-    std::shared_ptr<Engine::ECS::ISystem> renderer = std::make_shared<Engine::ECS::System::Renderer>(_title, _dimensions);
-    _ecsManager.addSystem(renderer);
 }
 
 void Engine::GameApplication::_startup()
 {
     std::shared_ptr<Engine::ECS::ISystem> audio = std::make_shared<Engine::ECS::System::Audio>();
+    std::shared_ptr<Engine::ECS::ISystem> renderer = std::make_shared<Engine::ECS::System::Renderer>(_title, _dimensions);
+    std::shared_ptr<Engine::ECS::ISystem> timer = std::make_shared<Engine::ECS::System::Timer>();
+
     _ecsManager.addSystem(audio);
+    _ecsManager.addSystem(renderer);
+    _ecsManager.addSystem(timer);
 }
 
 void Engine::GameApplication::_tick(double dt, std::shared_ptr<Engine::ECS::System::Renderer> &renderer)

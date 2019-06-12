@@ -30,11 +30,13 @@ private:
     std::vector<std::string> _map{};
     std::vector<std::string> _actualMap{};
 
+    std::vector<std::vector<std::shared_ptr<Engine::ECS::IEntity>>> _blocks{};
+
     void _createFirstSquare() noexcept;
     void _duplicateWidth() noexcept;
     void _duplicateHeight() noexcept;
     void _createMap() noexcept;
-    void _createBlock(Engine::Math::Vec3f vec, const std::string &texture, bool breakable) noexcept;
+    std::shared_ptr<Engine::ECS::IEntity> _createBlock(Engine::Math::Vec3f vec, const std::string &texture, bool breakable) noexcept;
     void _placeCameraAndLight() noexcept;
 
 public:
@@ -43,6 +45,7 @@ public:
 
     decltype(_actualMap) getActualMap() const noexcept;
     void setActualMap(decltype(_actualMap) &map) noexcept;
+    void removeBlock(const Engine::Math::Vec2i &pos);
 
 };
 

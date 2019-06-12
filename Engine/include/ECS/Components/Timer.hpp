@@ -31,4 +31,5 @@ public:
 
     void setDuration(const decltype(_duration) &duration);
     decltype(_duration) getDuration() const;
+    double getElapsed() noexcept;
 };
