@@ -27,5 +27,5 @@ public:
     explicit AInput(const std::string &id);
     ~AInput() override = default;
 
-    bool isKeyDown(const decltype(irr::SEvent::SKeyInput::Char) &key);
+    void update(double) final;
 };

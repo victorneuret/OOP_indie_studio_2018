@@ -58,5 +58,4 @@ public:
     decltype(_videoDriver) getVideoDriver() const noexcept;
     decltype(_sceneManager) getSceneManager() const noexcept;
     decltype(_GUIEnvironment) getGUIEnvironment() const noexcept;
-    decltype(_eventHandler) *getEventHandler() noexcept;
 };

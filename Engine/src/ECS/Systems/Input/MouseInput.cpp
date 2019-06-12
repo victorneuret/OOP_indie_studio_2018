@@ -28,6 +28,3 @@ const decltype(Engine::ECS::System::MouseInput::_pos) &Engine::ECS::System::Mous
 {
     return _pos;
 }
-
-void Engine::ECS::System::MouseInput::update(double)
-{}

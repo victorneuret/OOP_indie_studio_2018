@@ -16,7 +16,7 @@ namespace Engine::ECS::System {
     class KeyboardInput;
 }
 
-class Engine::ECS::System::KeyboardInput final : public AInput {
+class Engine::ECS::System::KeyboardInput : public AInput {
 protected:
     std::map<irr::EKEY_CODE, bool> _keys{};
 

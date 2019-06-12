@@ -150,18 +150,6 @@ void Engine::ECS::System::Renderer::drawButton(const std::shared_ptr<Engine::ECS
     guiButton->draw();
 }
 
-void Engine::ECS::System::Renderer::drawImage(const std::shared_ptr<Engine::ECS::IEntity> &entity) const
-{
-    auto renderer = std::dynamic_pointer_cast<Engine::ECS::Component::Renderer>(entity->getComponentByID("Renderer"));
-    auto image = std::dynamic_pointer_cast<Engine::ECS::Component::Image>(entity->getComponentByID("Image"));
-
-    if (renderer->doRender()) {
-        image->getGUIImage()->setMaxSize(irr::core::dimension2du{image->getSize().x, image->getSize().y});
-        image->getGUIImage()->setMinSize(irr::core::dimension2du{image->getSize().x, image->getSize().y});
-
-    }
-}
-
 void Engine::ECS::System::Renderer::refresh() const
 {
     if (!_videoDriver->beginScene(true, true, irr::video::SColor(0, 0, 0, 0)))
@@ -196,14 +184,4 @@ decltype(Engine::ECS::System::Renderer::_eventHandler) *Engine::ECS::System::Ren
 decltype(Engine::ECS::System::Renderer::_GUIEnvironment) Engine::ECS::System::Renderer::getGUIEnvironment() const noexcept
 {
     return _GUIEnvironment;
-}
-
-decltype(Engine::ECS::System::Renderer::_window) Engine::ECS::System::Renderer::getWindow()
-{
-    return _window;
-}
-
-decltype(Engine::ECS::System::Renderer::_eventHandler) *Engine::ECS::System::Renderer::getEventHandler() noexcept
-{
-    return &_eventHandler;
 }
