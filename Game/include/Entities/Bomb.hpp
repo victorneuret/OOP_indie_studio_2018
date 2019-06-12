@@ -14,7 +14,7 @@ namespace Game::Entity {
     class Bomb;
 }
 
-class Game::Entity::Bomb final : public Engine::ECS::AEntity<Bomb> {
+class Game::Entity::Bomb final : public Engine::ECS::AEntity {
 protected:
     Engine::Math::Vec2i _pos{0, 0};
     int _range{1};

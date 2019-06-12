@@ -13,7 +13,7 @@ namespace Engine::ECS::System {
     class Timer;
 }
 
-class Engine::ECS::System::Timer final : public ASystem<System::Timer> {
+class Engine::ECS::System::Timer final : public ASystem {
 private:
 
 public:
