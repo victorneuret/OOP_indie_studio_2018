@@ -81,7 +81,7 @@ void Game::Scene::MainMenu::tick(double dt)
     if (size <= 400)
         size = 800;
     size -= 1 * dt;
-    for (auto image : _entities) {
+    for (auto &image : _entities) {
         if (image->getType() == Engine::ECS::IEntity::Type::MODEL2D) {
             auto imgComponent = std::dynamic_pointer_cast<Engine::ECS::Component::Image>(image->getComponentByID("Image"));
             if (imgComponent == nullptr)
