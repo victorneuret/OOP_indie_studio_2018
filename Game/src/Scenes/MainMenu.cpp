@@ -16,6 +16,7 @@
 #include "ECS/Entities/Image.hpp"
 #include "ECS/Components/Image.hpp"
 #include "ECS/Manager.hpp"
+#include "ECS/Systems/Audio.hpp"
 #include "Math/Vector/Vec2.hpp"
 #include "Math/Rect.hpp"
 #include "Scenes/Game.hpp"
@@ -23,10 +24,18 @@
 #include "Systems/Map.hpp"
 
 Game::Scene::MainMenu::MainMenu()
-    : AScene{"MainMenu", {}, true, true}
+    : AScene{"MainMenu", {}, true, true}, _music{}
 {
-    auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
+    auto &manager = Engine::ECS::Manager::getInstance();
+
+    auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(manager.getSystemByID("Renderer"))->getVideoDriver();
     auto screenSize = driver->getScreenSize();
+
+    auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
+    _music = audio->loadSound("main_music", "assets/musics/ignite.ogg").second;
+
+    _music->setLoop(true);
+    _music->play();
 
     _entities = {
         std::make_shared<Engine::Entity::Image>("assets/img/star.jpg", Engine::Math::Vec2i{0, 0}),
@@ -70,6 +79,14 @@ Game::Scene::MainMenu::MainMenu()
                 imgComponent->setPosition(Engine::Math::Vec2i{0, static_cast<int>(imgComponent->getSize().y - driver->getScreenSize().Height)});
         }
     }
+}
+
+Game::Scene::MainMenu::~MainMenu()
+{
+    auto &manager = Engine::ECS::Manager::getInstance();
+    auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
+
+    audio->unloadSound("main_music");
 }
 
 void Game::Scene::MainMenu::tick(double dt)
