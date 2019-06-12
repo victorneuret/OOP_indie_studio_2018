@@ -17,7 +17,6 @@
 #include "ECS/Systems/Input/MouseInput.hpp"
 #include "Utils/Logger.hpp"
 #include "ECS/Manager.hpp"
-#include "ECS/Manager.hpp"
 #include "Utils/Color.hpp"
 #include "ECS/Entities/Text.hpp"
 #include "ECS/Entities/Button.hpp"
