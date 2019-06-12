@@ -30,9 +30,10 @@ Game::Scene::MainMenu::MainMenu()
         std::make_shared<Engine::Entity::Image>("assets/img/star.jpg", Engine::Math::Vec2i{0, 0}),
         std::make_shared<Engine::Entity::Image>("assets/img/sun.png", Engine::Math::Vec2i{static_cast<int>(screenSize.Width / 2 - (894 / 2)), 0}),
         std::make_shared<Engine::Entity::Image>("assets/img/mountain.png", Engine::Math::Vec2i{0, 0}),
+        std::make_shared<Engine::Entity::Image>("assets/img/cuteBomber.png", Engine::Math::Vec2i{0, 50}),
 
         std::make_shared<Engine::ECS::Entity::Button>(
-            Engine::Math::Rect_i{90, 60, 400, 90},
+            Engine::Math::Rect_i{static_cast<int>(screenSize.Width - 460), 60, 400, 90},
             "assets/img/pink.png",
             []() {
                 std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<Game>();
@@ -40,14 +41,14 @@ Game::Scene::MainMenu::MainMenu()
             }
         ),
         std::make_shared<Engine::ECS::Entity::Button>(
-            Engine::Math::Rect_i{90, 60 * 3, 400, 90},
+            Engine::Math::Rect_i{static_cast<int>(screenSize.Width - 460), 60 * 3, 400, 90},
             "assets/img/pink.png",
             []() {
                 std::cout << "Load Game" << std::endl;
             }
         ),
         std::make_shared<Engine::ECS::Entity::Button>(
-            Engine::Math::Rect_i{90, 60 * 5, 400, 90},
+            Engine::Math::Rect_i{static_cast<int>(screenSize.Width - 460), 60 * 5, 400, 90},
             "assets/img/pink.png",
             []() {
                 auto window = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getWindow();
