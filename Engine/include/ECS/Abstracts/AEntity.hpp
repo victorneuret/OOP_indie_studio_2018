@@ -80,7 +80,7 @@ public:
             return (component->getID() == id);
         });
         if (pos == _components.end())
-            throw ECSException<ECS_Entity>("Component unknown");
+            throw ECSException<ECS_Entity>("Component " + id + " unknown");
         return *pos;
     };
 

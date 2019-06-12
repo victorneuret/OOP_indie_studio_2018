@@ -88,6 +88,10 @@ add_library(
     Engine/src/ECS/Entities/Button.cpp
     Engine/include/ECS/Entities/Slider.hpp
     Engine/src/ECS/Entities/Slider.cpp
+    Engine/include/ECS/Components/Image.hpp
+    Engine/src/ECS/Components/Image.cpp
+    Engine/include/ECS/Entities/Image.hpp
+    Engine/src/ECS/Entities/Image.cpp
 )
 
 add_executable(
