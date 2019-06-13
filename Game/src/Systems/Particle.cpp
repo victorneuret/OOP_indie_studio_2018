@@ -30,8 +30,8 @@ void Game::System::Particle::applyMovement(const std::shared_ptr<Game::Entity::P
 {
     Engine::Math::Vec3<float> dir{
                 (particle->getEndPoint().x - particle->getStartPoint().x),
-				(particle->getEndPoint().y - particle->getStartPoint().y),
-				(particle->getEndPoint().z - particle->getStartPoint().z)};
+                (particle->getEndPoint().y - particle->getStartPoint().y),
+                (particle->getEndPoint().z - particle->getStartPoint().z)};
 
     auto spray = particle->getSpray();
     auto norm = dir.normalize() + spray;
