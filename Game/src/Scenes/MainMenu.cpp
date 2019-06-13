@@ -86,6 +86,7 @@ Game::Scene::MainMenu::~MainMenu()
     auto &manager = Engine::ECS::Manager::getInstance();
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
 
+    _music->stop();
     audio->unloadSound("main_music");
 }
 
