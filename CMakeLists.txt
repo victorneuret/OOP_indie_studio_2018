@@ -125,7 +125,7 @@ add_library(
     Engine/include/ECS/Interfaces/InputType.hpp
     Engine/include/ECS/Entities/Slider.hpp
     Engine/src/ECS/Entities/Slider.cpp
-    Engine/include/Effects/AudioVisualizer.cpp
+    Engine/src/Effects/AudioVisualizer.cpp
     Engine/include/Effects/AudioVisualizer.hpp
 )
 
