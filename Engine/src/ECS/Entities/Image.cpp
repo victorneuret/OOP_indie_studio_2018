@@ -10,7 +10,7 @@
 #include "ECS/Components/Image.hpp"
 #include "Math/Vector/Vec2.hpp"
 
-Engine::Entity::Image::Image(const std::string &texturePath, const Math::Vec2u &position)
+Engine::Entity::Image::Image(const std::string &texturePath, const Math::Vec2i &position)
         : AEntity{AEntity::Type::MODEL2D}
 {
     std::shared_ptr<Engine::ECS::IComponent> image = std::make_shared<Engine::ECS::Component::Image>(texturePath, position);

@@ -23,13 +23,11 @@ Game::Scene::Game::Game()
     auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
 
     _entities = {
+        std::make_shared<Engine::Entity::Image>("assets/img/city.png", Engine::Math::Vec2i{0, 0}),
+        std::make_shared<Engine::Entity::Image>("assets/img/sun.png", Engine::Math::Vec2i{static_cast<int>(driver->getScreenSize().Width / 2 - (894 / 2)), -200}),
         std::make_shared<Entity::Player>(),
-
         std::make_shared<Engine::ECS::Entity::Text>(L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0}),
-        std::make_shared<Engine::ECS::Entity::Button>(Engine::Math::Rect_i{75, 15, 500, 30}, L"Un Button", []() {
-            std::cout << "CONTENT" << std::endl;
-        }),
-        std::make_shared<Engine::Entity::Image>("assets/img/sun.png", Engine::Math::Vec2u{driver->getScreenSize().Width / 2 - (894 / 2), 0})
+        std::make_shared<Entity::Bomb>(Engine::Math::Vec2i{2, MAP_HEIGHT}),
     };
 }
 

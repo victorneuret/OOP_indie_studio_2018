@@ -20,7 +20,7 @@ namespace Engine::Entity {
 
 class Engine::Entity::Image final : public Engine::ECS::AEntity {
 public:
-    explicit Image(const std::string &texturePath, const Math::Vec2u &position);
+    explicit Image(const std::string &texturePath, const Math::Vec2i &position);
     Image(const Image &) = delete;
     Image &operator=(const Image &) = delete;
 
