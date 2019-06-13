@@ -6,13 +6,13 @@
 */
 
 #include "Utils/Random.hpp"
-#include "Entities/Particle.hpp"
+#include "ECS/Entities/Particle.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Components/Renderer.hpp"
 #include "ECS/Components/Timer.hpp"
 
-Game::Entity::Particle::Particle(const Engine::Math::Vec3f &startPoint,
+Engine::Entity::Particle::Particle(const Engine::Math::Vec3f &startPoint,
                                 const Engine::Math::Vec3<float> &endPoint,
                                 const double &momentum, const double &duration,
                                 const std::string &model)
@@ -31,22 +31,22 @@ Game::Entity::Particle::Particle(const Engine::Math::Vec3f &startPoint,
     addComponent(_timer);
 }
 
-Engine::Math::Vec3<float> Game::Entity::Particle::getStartPoint() const
+decltype(Engine::Entity::Particle::_startPoint) Engine::Entity::Particle::getStartPoint() const noexcept
 {
     return _startPoint;
 }
 
-Engine::Math::Vec3<float> Game::Entity::Particle::getEndPoint() const
+decltype(Engine::Entity::Particle::_endPoint) Engine::Entity::Particle::getEndPoint() const noexcept
 {
     return _endPoint;
 }
 
-double Game::Entity::Particle::getMomentum() const
+double Engine::Entity::Particle::getMomentum() const noexcept
 {
     return _momentum;
 }
 
-Engine::Math::Vec3<float> Game::Entity::Particle::getSpray() const
+decltype(Engine::Entity::Particle::_spray) Engine::Entity::Particle::getSpray() const noexcept
 {
     return _spray;
 }

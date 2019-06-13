@@ -10,10 +10,10 @@
 #include "BombermanApplication.hpp"
 #include "ECS/Manager.hpp"
 #include "Systems/Map.hpp"
-#include "Systems/Particle.hpp"
 #include "Scenes/MainMenu.hpp"
 #include "Scenes/Game.hpp"
 #include "Utils/Random.hpp"
+#include "ECS/Systems/Particle.hpp"
 
 BombermanApplication::BombermanApplication()
     : Engine::GameApplication(L"Bomberman", 1920, 1080)
@@ -30,11 +30,10 @@ void BombermanApplication::onAppStartup()
     std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();
     Engine::ECS::Manager::getInstance().addSystem(map);
 
-    std::shared_ptr<Engine::ECS::ISystem> particles = std::make_shared<Game::System::Particle>();
-    Engine::ECS::Manager::getInstance().addSystem(particles);
-
-    std::dynamic_pointer_cast<Game::System::Particle>(particles)->createParticles(200, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{200, 0, 150}, Engine::Math::Vec3<float>{200, 0, 0}, 3.5, "Game");
-    std::dynamic_pointer_cast<Game::System::Particle>(particles)->createParticles(200, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{-90, 0, 150}, Engine::Math::Vec3<float>{0, 0, 0}, 3.5, "Game");
+    std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
+        createParticles(200, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{200, 0, 150}, Engine::Math::Vec3<float>{200, 0, 0}, 3.5, "Game");
+    std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
+        createParticles(200, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{-90, 0, 150}, Engine::Math::Vec3<float>{0, 0, 0}, 3.5, "Game");
 }
 
 void BombermanApplication::tick(double)

@@ -15,11 +15,13 @@
 #include "ECS/Systems/Input/JoystickInput.hpp"
 #include "ECS/Systems/Input/KeyboardInput.hpp"
 #include "ECS/Systems/Input/MouseInput.hpp"
+#include "ECS/Systems/Particle.hpp"
 #include "Utils/Logger.hpp"
 #include "ECS/Manager.hpp"
 #include "Utils/Color.hpp"
 #include "ECS/Entities/Text.hpp"
 #include "ECS/Entities/Button.hpp"
+#include "ECS/Entities/Particle.hpp"
 #include "GameApplication.hpp"
 #include "ECS/Interfaces/ISystem.hpp"
 #include "ECS/Systems/Audio.hpp"
@@ -39,7 +41,6 @@ Engine::GameApplication::GameApplication(const decltype(_title) &title, const de
 void Engine::GameApplication::_startup()
 {
     std::shared_ptr<Engine::ECS::ISystem> renderer = std::make_shared<Engine::ECS::System::Renderer>(_title, _dimensions);
-
     _ecsManager.addSystem(renderer);
 
     std::shared_ptr<Engine::ECS::ISystem> audio = std::make_shared<Engine::ECS::System::Audio>();
@@ -48,6 +49,7 @@ void Engine::GameApplication::_startup()
     std::shared_ptr<Engine::ECS::ISystem> keyboard = std::make_shared<Engine::ECS::System::KeyboardInput>();
     std::shared_ptr<Engine::ECS::ISystem> mouse = std::make_shared<Engine::ECS::System::MouseInput>();
     std::shared_ptr<Engine::ECS::ISystem> joystick = std::make_shared<Engine::ECS::System::JoystickInput>();
+    std::shared_ptr<Engine::ECS::ISystem> particles = std::make_shared<Engine::ECS::System::Particle>();
 
     _ecsManager.addSystem(timer);
     _ecsManager.addSystem(audio);
@@ -55,6 +57,7 @@ void Engine::GameApplication::_startup()
     _ecsManager.addSystem(keyboard);
     _ecsManager.addSystem(mouse);
     _ecsManager.addSystem(joystick);
+    _ecsManager.addSystem(particles);
 }
 
 void Engine::GameApplication::_tick(double dt, std::shared_ptr<Engine::ECS::System::Renderer> &renderer)
