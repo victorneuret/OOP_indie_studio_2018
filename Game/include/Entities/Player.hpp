@@ -25,7 +25,6 @@ protected:
 
 public:
     explicit Player(const Engine::Math::Vec3f &pos = {0, 0, 0}, const std::string &model = std::string("assets/models/tris.md2"));
-
     Player(const Player &) = delete;
     Player &operator=(const Player &) = delete;
 
