@@ -32,10 +32,13 @@ Game::Scene::MainMenu::MainMenu()
     auto screenSize = driver->getScreenSize();
 
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
-    _music = audio->loadSound("main_music", "assets/musics/ignite.ogg").second;
+    auto sound = audio->loadSound("main_music", "assets/musics/ignite.ogg");
 
+    _music = sound.second;
     _music->setLoop(true);
     _music->play();
+
+    _audioVisualizer = std::make_unique<AudioVisualizer>(*sound.second, *sound.first);
 
     _entities = {
         std::make_shared<Engine::Entity::Image>("assets/img/star.jpg", Engine::Math::Vec2i{0, 0}),

@@ -155,7 +155,7 @@ add_executable(
 )
 
 target_include_directories(bomberman PUBLIC Game/include)
-target_link_libraries(bomberman engine Irrlicht sfml-audio)
+target_link_libraries(bomberman engine Irrlicht sfml-audio sfml-system)
 
 add_executable(
     tests_run
@@ -167,7 +167,7 @@ add_executable(
 )
 
 target_include_directories(tests_run PUBLIC Game/include Engine/include criterion)
-target_link_libraries(tests_run sfml-audio Irrlicht criterion)
+target_link_libraries(tests_run sfml-audio sfml-system Irrlicht criterion)
 
 if (UNIX)
     target_compile_options(tests_run PUBLIC --coverage)
