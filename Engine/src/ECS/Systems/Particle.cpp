@@ -79,5 +79,4 @@ void Engine::ECS::System::Particle::createParticles(const double &quantity,
 			(startPoint, directionRange, momentum, Random::getDouble(duration.x, duration.y));
         Engine::ECS::Manager::getInstance().getSceneByID(sceneID)->addEntity(newParticle);
     }
-    std::cout << "Successfully created " + std::to_string(quantity) + " particles" << std::endl;
 }
