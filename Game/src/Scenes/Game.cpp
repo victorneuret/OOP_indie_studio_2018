@@ -14,11 +14,12 @@
 #include "ECS/Entities/Image.hpp"
 #include "Entities/Player.hpp"
 #include "ECS/Manager.hpp"
+#include "ECS/Systems/Particle.hpp"
 #include "Entities/Bomb.hpp"
 #include "Systems/Map.hpp"
 
 Game::Scene::Game::Game()
-        : AScene("Game", {}, true, false)
+        : AScene("Game", {}, true, true)
 {
     auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
 
@@ -32,4 +33,9 @@ Game::Scene::Game::Game()
 }
 
 void Game::Scene::Game::tick(double)
-{}
+{
+    std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
+        createParticles(1, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{200, 0, 150}, Engine::Math::Vec3<float>{200, 0, 0}, 3.5, "Game");
+    std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
+        createParticles(1, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{-90, 0, 150}, Engine::Math::Vec3<float>{0, 0, 0}, 3.5, "Game");
+}

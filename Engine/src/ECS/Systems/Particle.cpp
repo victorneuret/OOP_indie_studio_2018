@@ -51,16 +51,20 @@ void Engine::ECS::System::Particle::checkParticleState(const std::shared_ptr<Eng
 
 void Engine::ECS::System::Particle::update(double)
 {
-    auto tmp = getEntityList();
+    try {
+        Engine::ECS::Manager::getInstance().getSceneByID("Game");
+        auto tmp = getEntityList();
 
-    for (auto &e : tmp) {
-        auto ptr = std::dynamic_pointer_cast<Engine::Entity::Particle>(e);
+        for (auto &e : tmp) {
+            auto ptr = std::dynamic_pointer_cast<Engine::Entity::Particle>(e);
 
-        if (ptr != nullptr) {
-            checkParticleState(ptr);
-            applyMovement(ptr);
+            if (ptr != nullptr) {
+                checkParticleState(ptr);
+                applyMovement(ptr);
+            }
         }
-    }
+    } catch (const ECSException<ECS_Scene> &e) {}
+
 }
 
 void Engine::ECS::System::Particle::createParticles(const double &quantity,
