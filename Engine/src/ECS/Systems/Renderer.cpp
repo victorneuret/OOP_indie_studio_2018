@@ -145,6 +145,8 @@ void Engine::ECS::System::Renderer::drawButton(const std::shared_ptr<Engine::ECS
         nullptr, guiElement->getGuiID(), nullptr, nullptr);
 
     guiButton->setImage(_videoDriver->getTexture(button->getImagePath().c_str()));
+    guiButton->setUseAlphaChannel(true);
+    guiButton->setDrawBorder(false);
     guiButton->setScaleImage(true);
     guiButton->draw();
 }

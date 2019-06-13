@@ -19,9 +19,10 @@
 #include "Math/Vector/Vec2.hpp"
 #include "Math/Rect.hpp"
 #include "Scenes/Game.hpp"
+#include "ECS/Abstracts/AEntity.hpp"
 
 Game::Scene::MainMenu::MainMenu()
-    : AScene{"MainMenu", {}, false, true}
+    : AScene{"MainMenu", {}, true, true}
 {
     auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
     auto screenSize = driver->getScreenSize();
@@ -34,7 +35,7 @@ Game::Scene::MainMenu::MainMenu()
 
         std::make_shared<Engine::ECS::Entity::Button>(
             Engine::Math::Rect_i{static_cast<int>(screenSize.Width - 460), 60, 400, 90},
-            "assets/img/pink.png",
+            "assets/img/newGame.png",
             []() {
                 std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<Game>();
                 Engine::ECS::Manager::getInstance().addScene(game);
