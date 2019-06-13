@@ -12,10 +12,10 @@ Engine::ECS::Components::APowerUp::APowerUp(const std::string &name, const doubl
 {
 }
 
-Engine::Component::Timer Engine::ECS::Components::APowerUp::getCooldown() const
-{
-    return _cooldown;
-}
+//Engine::ECS::Component::Timer Engine::ECS::Components::APowerUp::getCooldown() const
+//{
+//    return _cooldown;
+//}
 
 double Engine::ECS::Components::APowerUp::getDuration() const
 {

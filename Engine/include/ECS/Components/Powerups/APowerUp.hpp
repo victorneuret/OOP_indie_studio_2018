@@ -16,13 +16,13 @@ namespace Engine::ECS::Components {
     class APowerUp;
 }
 
-class Engine::ECS::Components::APowerUp : public Engine::ECS::AComponent<Engine::ECS::Components::APowerUp> {
+class Engine::ECS::Components::APowerUp : public Engine::ECS::AComponent {
 public:
     APowerUp(const std::string &name, const double &duration);
 
-    Engine::Component::Timer getCooldown() const;
+    //Engine::ECS::Component::Timer getCooldown() const;
     double getDuration() const;
 private:
-    Engine::Component::Timer _cooldown{};
+    //Engine::ECS::Component::Timer _cooldown{5};
     double _duration{0};
 };

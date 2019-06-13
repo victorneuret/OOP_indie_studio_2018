@@ -13,7 +13,7 @@ namespace ECS::Systems {
     class ApplyPowerUp;
 }
 
-class ECS::Systems::ApplyPowerUp : public Engine::ECS::ASystem<ECS::Systems::ApplyPowerUp> {
+class ECS::Systems::ApplyPowerUp : public Engine::ECS::ASystem {
 public:
     void applySpdUp() const;
     void applyBombUp() const;
