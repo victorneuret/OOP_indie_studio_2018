@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include <ECS/Systems/Input/KeyboardInput.hpp>
 
 #include "Scenes/Game.hpp"
 #include "ECS/Entities/Text.hpp"
