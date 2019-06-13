@@ -6,8 +6,8 @@ set(CMAKE_VERBOSE_MAKEFILE off) # Turn on to debug cmake
 
 set(CMAKE_MODULE_PATH FindIrrlicht.cmake)
 
-message(${Irrlicht_INCLUDE_DIRS})
-message(${Irrlicht_LIBRARIES})
+message(STATUS ${Irrlicht_INCLUDE_DIRS})
+message(STATUS ${Irrlicht_LIBRARIES})
 
 IF (NOT ${Irrlicht_FOUND})
     message( SEND_ERROR "Can't find Irrlicht" )
