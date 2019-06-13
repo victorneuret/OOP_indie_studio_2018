@@ -18,11 +18,11 @@ namespace Game::System {
 
 class Game::System::Particle : public Engine::ECS::ASystem {
 private:
-
     std::vector<std::shared_ptr<Engine::ECS::IEntity>> getEntityList();
+    
 public:
-
     Particle();
+
     void applyMovement(const std::shared_ptr<Game::Entity::Particle> &particle);
     void createParticles(const double &quantity,
                         const Engine::Math::Vec2<float> &duration,
