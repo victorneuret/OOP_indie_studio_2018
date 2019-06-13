@@ -123,8 +123,6 @@ add_library(
     Engine/src/ECS/Systems/Particle.cpp
     Engine/include/ECS/Systems/InputHandler.hpp
     Engine/include/ECS/Interfaces/InputType.hpp
-    Engine/include/ECS/Entities/Slider.hpp
-    Engine/src/ECS/Entities/Slider.cpp
     Engine/src/Effects/AudioVisualizer.cpp
     Engine/include/Effects/AudioVisualizer.hpp
 )
