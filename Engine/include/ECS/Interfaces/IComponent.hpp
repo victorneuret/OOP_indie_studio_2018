@@ -16,5 +16,5 @@ namespace Engine::ECS {
 class Engine::ECS::IComponent {
 public:
     virtual ~IComponent() = default;
-    virtual std::string getID() const noexcept = 0;
+    virtual const std::string &getID() const noexcept = 0;
 };

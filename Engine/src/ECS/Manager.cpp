@@ -56,6 +56,11 @@ std::shared_ptr<Engine::Abstracts::AScene> &Engine::ECS::Manager::getSceneByID(c
 
 void Engine::ECS::Manager::addScene(std::shared_ptr<Abstracts::AScene> &scene)
 {
+    if (scene->isOpaque()) {
+        auto entities = getUpdatedEntities();
+        for (auto &entity : entities)
+            entity->hide();
+    }
     _scenes.push_back(scene);
 }
 
@@ -69,12 +74,34 @@ void Engine::ECS::Manager::sceneManager(double dt, std::shared_ptr<Engine::ECS::
     for (auto it = _scenes.rbegin(); it != _scenes.rend(); it++) {
         if ((*it)->isUpdateChild())
            (*it)->tick(dt);
-        if  ((*it)->isOpaque())
-            break;
-    }
-    for (auto &scene : _scenes) {
-        for (auto &entity : scene->getEntities()) {
+        for (auto &entity : (*it)->getEntities())
             renderer->draw(entity);
+        if  ((*it)->isOpaque()) {
+            break;
         }
     }
+}
+
+std::vector<std::shared_ptr<Engine::ECS::IEntity>> Engine::ECS::Manager::getUpdatedEntities()
+{
+    std::vector<std::shared_ptr<Engine::ECS::IEntity>> updatedEntities{};
+
+    for (auto it = _scenes.rbegin(); it != _scenes.rend(); it++) {
+        updatedEntities.insert(updatedEntities.end(), (*it)->getEntities().begin(), (*it)->getEntities().end());
+        if (!(*it)->isUpdateChild() || (*it)->isOpaque())
+            break;
+    }
+    return updatedEntities;
+}
+
+std::vector<std::shared_ptr<Engine::Abstracts::AScene>> Engine::ECS::Manager::getUpdatedScenes()
+{
+    std::vector<std::shared_ptr<Engine::Abstracts::AScene>> updatedScenes;
+
+    for (auto it = _scenes.rbegin(); it != _scenes.rend(); it++) {
+        updatedScenes.push_back(*it);
+        if (!(*it)->isUpdateChild() || (*it)->isOpaque())
+            break;
+    }
+    return updatedScenes;
 }

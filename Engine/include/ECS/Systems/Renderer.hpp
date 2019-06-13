@@ -15,27 +15,21 @@
 #include "Utils/Color.hpp"
 #include "Math/Vector/Vec2.hpp"
 #include "ECS/Abstracts/ASystem.hpp"
+#include "ECS/Systems/EventHandler.hpp"
 
 namespace Engine::ECS::System {
     class Renderer;
 }
 
-class Engine::ECS::System::Renderer final : public ASystem<System::Renderer> {
+class Engine::ECS::System::Renderer final : public ASystem {
 private:
-    class EventMiddleware : public irr::IEventReceiver {
-    protected:
-        std::vector<std::shared_ptr<irr::IEventReceiver>> _handlers;
-
-    public:
-        bool OnEvent(const irr::SEvent &event);
-        void addEventHandler(const std::shared_ptr<irr::IEventReceiver> &handler);
-    };
 
     std::wstring _windowName{};
     Math::Vec2u _windowSize{0, 0};
 
+    EventHandler _eventHandler{};
     decltype(irr::createDevice()) _window{nullptr};
-    decltype(_window->getVideoDriver()) _videoDrivers{nullptr};
+    decltype(_window->getVideoDriver()) _videoDriver{nullptr};
     decltype(_window->getSceneManager()) _sceneManager{nullptr};
     decltype(_window->getGUIEnvironment()) _GUIEnvironment{nullptr};
 
@@ -58,7 +52,11 @@ public:
     void drawText(const std::shared_ptr<IEntity> &entity) const;
     void draw3DModel(const std::shared_ptr<IEntity> &entity) const;
     void drawButton(const std::shared_ptr<IEntity> &entity) const;
-    void drawSlider(const std::shared_ptr<IEntity> &entity) const;
+    void drawImage(const std::shared_ptr<IEntity> &entity) const;
 
-    decltype(_window->getVideoDriver()) getVideoDriver() const;
+    decltype(_window) getWindow();
+    decltype(_videoDriver) getVideoDriver() const noexcept;
+    decltype(_sceneManager) getSceneManager() const noexcept;
+    decltype(_GUIEnvironment) getGUIEnvironment() const noexcept;
+    decltype(_eventHandler) *getEventHandler() noexcept;
 };

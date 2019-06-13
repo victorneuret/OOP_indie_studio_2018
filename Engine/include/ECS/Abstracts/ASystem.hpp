@@ -13,27 +13,18 @@
 #include "ECS/Interfaces/ISystem.hpp"
 
 namespace Engine::ECS {
-    template<typename T>
     class ASystem;
 }
 
-template<typename T>
 class Engine::ECS::ASystem : public ISystem {
 private:
-    std::string _id{};
+    const std::string _id;
 
 public:
-    explicit ASystem(const decltype(_id) &id)
-        : _id(std::string{id})
-    {}
+    explicit ASystem(const decltype(_id) &id);
     ~ASystem() override = default;
 
-    const decltype(_id) &getID() const noexcept final
-    {
-        return _id;
-    }
+    const decltype(_id) &getID() const noexcept final;
 
     void update(double dt) override = 0;
-
 };
-

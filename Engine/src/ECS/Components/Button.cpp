@@ -4,14 +4,13 @@
 ** File description:
 ** Button.cpp
 */
-
 #include <iostream>
 
 #include "ECS/Components/Button.hpp"
 #include "ECS/Manager.hpp"
 
-Engine::ECS::Component::Button::Button(const decltype(_bounds) &bounds, const decltype(_color) &color)
-    : AComponent("Button"), _bounds{bounds}, _color{color}
+Engine::ECS::Component::Button::Button(const decltype(_bounds) &bounds, const decltype(_imagePath) &imagePath, const decltype(_func) &func)
+    : AComponent("Button"), _bounds{bounds}, _imagePath{std::string(imagePath)}, _func{func}
 {}
 
 decltype(Engine::ECS::Component::Button::_bounds) &Engine::ECS::Component::Button::getBounds() noexcept
@@ -19,12 +18,13 @@ decltype(Engine::ECS::Component::Button::_bounds) &Engine::ECS::Component::Butto
     return _bounds;
 }
 
-decltype(Engine::ECS::Component::Button::_color) &Engine::ECS::Component::Button::getColor() noexcept
+decltype(Engine::ECS::Component::Button::_imagePath) &Engine::ECS::Component::Button::getImagePath() noexcept
 {
-    return _color;
+    return _imagePath;
 }
 
-void Engine::ECS::Component::Button::onClick()
+void Engine::ECS::Component::Button::onClick() const
 {
-    std::cout << "Button clicked" << std::endl;
+    if (_func != nullptr)
+        _func();
 }

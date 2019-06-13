@@ -20,7 +20,7 @@ namespace Engine::ECS::System {
     class Audio;
 }
 
-class Engine::ECS::System::Audio final : public ASystem<Audio> {
+class Engine::ECS::System::Audio final : public ASystem {
 public:
     using BufferType = sf::SoundBuffer;
     using SoundType = sf::Sound;

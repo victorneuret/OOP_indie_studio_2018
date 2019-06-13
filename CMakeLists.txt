@@ -1,10 +1,11 @@
 cmake_minimum_required(VERSION 3.11)
-project(bomberman)
+project(bomberman CXX)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_VERBOSE_MAKEFILE off) # Turn on to debug cmake
 
 if (UNIX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Weffc++")
+    add_compile_options(-Wall -Wextra -Weffc++)
 
     if (CMAKE_BUILD_TYPE MATCHES Debug)
         add_definitions(-DDEBUG=1)
@@ -45,9 +46,6 @@ add_library(
     Engine/include/ECS/Manager.hpp
     Engine/src/ECS/Manager.cpp
     Engine/include/ECS/Abstracts/Systems/AInput.hpp
-    Engine/src/ECS/Systems/KeyboardInput.cpp
-    Engine/include/ECS/Systems/MouseInput.hpp
-    Engine/src/ECS/Systems/MouseInput.cpp
     Engine/include/ECS/Components/Timer.hpp
     Engine/src/ECS/Components/Timer.cpp
     Engine/include/Utils/TypeDisplayer.hpp
@@ -59,7 +57,6 @@ add_library(
     Engine/src/ECS/Systems/Renderer.cpp
     Engine/include/ECS/Components/Timer.hpp
     Engine/src/ECS/Components/Timer.cpp
-    Engine/include/Utils/Colors.hpp
     Engine/src/Utils/Color.cpp
     Engine/include/ECS/Components/Model3D.hpp
     Engine/src/ECS/Components/Model3D.cpp
@@ -70,18 +67,60 @@ add_library(
     Engine/src/Utils/Random.cpp
     Engine/include/Utils/Random.hpp
     Engine/include/ECS/Components/Player.hpp
-    Engine/include/ECS/Systems/JoystickInput.hpp
-    Engine/src/ECS/Systems/JoystickInput.cpp
     Engine/include/ECS/Systems/EventHandler.hpp
     Engine/src/ECS/Systems/Audio.cpp
     Engine/include/ECS/Systems/Audio.hpp
     Engine/include/Exception/Engine/ECS/Systems/SoundException.hpp
-    Engine/include/ECS/Components/Slider.hpp
-    Engine/src/ECS/Components/Slider.cpp
-    Engine/include/ECS/Interfaces/Entities/IClickable.hpp
-    Engine/include/ECS/Interfaces/Entities/IHoverable.hpp
     Engine/include/Abstracts/AScene.hpp
     Engine/src/Abstracts/AScene.cpp
+    Engine/include/ECS/Entities/Button.hpp
+    Engine/src/ECS/Entities/Button.cpp
+    Engine/src/ECS/Abstract/ASystem.cpp
+    Engine/src/ECS/Abstract/AEntity.cpp
+    Engine/src/ECS/Abstract/AComponent.cpp
+    Engine/include/ECS/Components/Image.hpp
+    Engine/src/ECS/Components/Image.cpp
+    Engine/include/ECS/Entities/Image.hpp
+    Engine/src/ECS/Entities/Image.cpp
+    Engine/include/ECS/Systems/Timer.hpp
+    Engine/src/ECS/Systems/Timer.cpp
+    Engine/src/Abstracts/AEntity.cpp
+    Engine/include/ECS/Interfaces/Entities/IGuiElement.hpp
+    Engine/src/ECS/Entities/IGuiElement.cpp
+    Engine/src/ECS/Systems/AEvent.cpp
+    Engine/src/ECS/Systems/EventHandler.cpp
+    Engine/src/ECS/Systems/Event/ButtonEvent.cpp
+    Engine/src/ECS/Entities/IGuiElement.cpp
+    Engine/src/ECS/Systems/Input/AInput.cpp
+    Engine/src/ECS/Systems/Input/KeyboardInput.cpp
+    Engine/src/ECS/Systems/Input/MouseInput.cpp
+    Engine/include/ECS/Systems/Input/JoystickInput.hpp
+    Engine/src/ECS/Systems/Input/JoystickInput.cpp
+    Engine/include/ECS/Systems/Input/KeyboardInput.hpp
+    Engine/include/ECS/Systems/Input/MouseInput.hpp
+    Engine/include/ECS/Components/Image.hpp
+    Engine/src/ECS/Components/Image.cpp
+    Engine/include/ECS/Entities/Image.hpp
+    Engine/src/ECS/Entities/Image.cpp
+    Engine/include/ECS/Interfaces/Entities/IGuiElement.hpp
+    Engine/src/ECS/Entities/IGuiElement.cpp
+    Engine/src/ECS/Systems/AEvent.cpp
+    Engine/src/ECS/Systems/EventHandler.cpp
+    Engine/src/ECS/Systems/Event/ButtonEvent.cpp
+    Engine/src/ECS/Entities/IGuiElement.cpp
+    Engine/src/ECS/Systems/Input/AInput.cpp
+    Engine/src/ECS/Systems/Input/KeyboardInput.cpp
+    Engine/src/ECS/Systems/Input/MouseInput.cpp
+    Engine/include/ECS/Systems/Input/JoystickInput.hpp
+    Engine/src/ECS/Systems/Input/JoystickInput.cpp
+    Engine/include/ECS/Systems/Input/KeyboardInput.hpp
+    Engine/include/ECS/Systems/Input/MouseInput.hpp
+    Engine/src/ECS/Entities/Text.cpp
+    Engine/include/ECS/Entities/Text.hpp
+    Engine/include/ECS/Entities/Particle.hpp
+    Engine/src/ECS/Entities/Particle.cpp
+    Engine/include/ECS/Systems/Particle.hpp
+    Engine/src/ECS/Systems/Particle.cpp
 )
 
 add_executable(
@@ -93,16 +132,34 @@ add_executable(
     Game/include/Entities/Player.hpp
     Game/include/Systems/Map.hpp
     Game/src/Entities/Player.cpp
+    Game/include/Entities/Button.hpp
+    Game/src/Entities/Button.cpp
     Game/src/Systems/Map.cpp
-    Engine/include/ECS/Entities/Text.hpp
-    Engine/src/ECS/Entities/Text.cpp
-    Engine/include/ECS/Entities/Button.hpp
-    Engine/src/ECS/Entities/Button.cpp
-    Engine/include/ECS/Entities/Slider.hpp
-    Engine/src/ECS/Entities/Slider.cpp
     Game/include/Scenes/MainMenu.hpp
     Game/src/Scenes/MainMenu.cpp
+    Game/include/Scenes/Game.hpp
+    Game/src/Scenes/Game.cpp
+    Game/include/Entities/Bomb.hpp
+    Game/src/Entities/Bomb.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)
 target_link_libraries(bomberman engine Irrlicht sfml-audio)
+
+add_executable(
+    tests_run
+    Engine/include/Math/Vector/Vec2.hpp
+    Engine/include/Math/Vector/Vec3.hpp
+    Tests/TestsVectors.cpp
+    Tests/TestsRect.cpp
+    Tests/Criterion.hpp
+)
+
+target_include_directories(tests_run PUBLIC Game/include Engine/include criterion)
+target_link_libraries(tests_run sfml-audio Irrlicht criterion)
+
+if (UNIX)
+    target_compile_options(tests_run PUBLIC --coverage)
+    target_link_options(tests_run PUBLIC --coverage)
+    target_link_libraries(tests_run gcov)
+endif (UNIX)

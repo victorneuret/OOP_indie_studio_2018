@@ -16,7 +16,7 @@ namespace Engine::ECS::Component {
 
 #include "ECS/Systems/Renderer.hpp"
 
-class Engine::ECS::Component::Renderer : public AComponent<Renderer> {
+class Engine::ECS::Component::Renderer : public AComponent {
 protected:
     bool _doRender{true};
     Math::Vec2i _pos{0, 0};
