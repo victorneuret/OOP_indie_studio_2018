@@ -117,6 +117,10 @@ add_library(
     Engine/include/ECS/Systems/Input/MouseInput.hpp
     Engine/src/ECS/Entities/Text.cpp
     Engine/include/ECS/Entities/Text.hpp
+    Engine/include/ECS/Entities/Particle.hpp
+    Engine/src/ECS/Entities/Particle.cpp
+    Engine/include/ECS/Systems/Particle.hpp
+    Engine/src/ECS/Systems/Particle.cpp
 )
 
 add_executable(
@@ -128,8 +132,6 @@ add_executable(
     Game/include/Entities/Player.hpp
     Game/include/Systems/Map.hpp
     Game/src/Entities/Player.cpp
-        Engine/include/ECS/Entities/Particle.hpp
-        Engine/src/ECS/Entities/Particle.cpp
     Game/include/Entities/Button.hpp
     Game/src/Entities/Button.cpp
     Game/src/Systems/Map.cpp
@@ -139,8 +141,6 @@ add_executable(
     Game/src/Scenes/Game.cpp
     Game/include/Entities/Bomb.hpp
     Game/src/Entities/Bomb.cpp
-        Engine/include/ECS/Systems/Particle.hpp
-        Engine/src/ECS/Systems/Particle.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)
