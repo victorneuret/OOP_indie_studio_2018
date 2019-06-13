@@ -18,8 +18,8 @@ namespace Engine::ECS::System {
 
 class Engine::ECS::System::Particle : public Engine::ECS::ASystem {
 private:
-    std::vector<std::shared_ptr<Engine::ECS::IEntity>> getEntityList();
-    
+    std::vector<std::shared_ptr<Engine::ECS::IEntity>> &getEntityList();
+
 public:
     Particle();
 
