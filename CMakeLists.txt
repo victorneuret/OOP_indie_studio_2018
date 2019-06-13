@@ -4,6 +4,12 @@ project(bomberman CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_VERBOSE_MAKEFILE off) # Turn on to debug cmake
 
+set(CMAKE_MODULE_PATH FindIrrlicht.cmake)
+
+IF (NOT ${Irrlicht_FOUND})
+    message( SEND_ERROR "Can't find Irrlicht" )
+ENDIF (NOT ${Irrlicht_FOUND})
+
 if (UNIX)
     add_compile_options(-Wall -Wextra -Weffc++)
 
@@ -14,9 +20,10 @@ if (UNIX)
     endif ()
 endif (UNIX)
 
+
 include_directories(
     SFML
-    irrlicht
+    ${Irrlicht_INCLUDE_DIRS}
     Engine/include
 )
 
@@ -153,7 +160,7 @@ add_executable(
 )
 
 target_include_directories(bomberman PUBLIC Game/include)
-target_link_libraries(bomberman engine Irrlicht sfml-audio sfml-system)
+target_link_libraries(bomberman engine ${Irrlicht_LIBRARIES} sfml-audio sfml-system)
 
 add_executable(
     tests_run
