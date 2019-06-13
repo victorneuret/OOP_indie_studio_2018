@@ -20,7 +20,7 @@ before_script:
   - unzip SFML-2.5.1.zip
   - mkdir -p SFML
   - mv SFML-2.5.1/bin/*.dll .
-  - mv SFML-2.5.1/lib/sfml-audio.lib .
+  - mv SFML-2.5.1/lib/*.lib .
   - mv SFML-2.5.1/include/SFML SFML
   - tar -xjf criterion.tar.bz2
   - mkdir -p criterion
