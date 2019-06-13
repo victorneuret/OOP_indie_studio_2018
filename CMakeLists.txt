@@ -139,8 +139,6 @@ add_executable(
     Game/src/Scenes/Game.cpp
     Game/include/Entities/Bomb.hpp
     Game/src/Entities/Bomb.cpp
-    Game/include/Systems/Map.hpp
-    Game/src/Entities/Particle.cpp
     Game/include/Systems/Particle.hpp
     Game/src/Systems/Particle.cpp
 )

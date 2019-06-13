@@ -28,7 +28,8 @@ std::vector<std::shared_ptr<Engine::ECS::IEntity>> Game::System::Particle::getEn
 
 void Game::System::Particle::applyMovement(const std::shared_ptr<Game::Entity::Particle> &particle)
 {
-    Engine::Math::Vec3<float> dir{(particle->getEndPoint().x - particle->getStartPoint().x),
+    Engine::Math::Vec3<float> dir{
+                (particle->getEndPoint().x - particle->getStartPoint().x),
 				(particle->getEndPoint().y - particle->getStartPoint().y),
 				(particle->getEndPoint().z - particle->getStartPoint().z)};
 
