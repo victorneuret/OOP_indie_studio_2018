@@ -73,8 +73,6 @@ add_library(
     Engine/include/Exception/Engine/ECS/Systems/SoundException.hpp
     Engine/include/Abstracts/AScene.hpp
     Engine/src/Abstracts/AScene.cpp
-    Engine/include/ECS/Entities/Text.hpp
-    Engine/src/ECS/Entities/Text.cpp
     Engine/include/ECS/Entities/Button.hpp
     Engine/src/ECS/Entities/Button.cpp
     Engine/src/ECS/Abstract/ASystem.cpp
@@ -117,6 +115,12 @@ add_library(
     Engine/src/ECS/Systems/Input/JoystickInput.cpp
     Engine/include/ECS/Systems/Input/KeyboardInput.hpp
     Engine/include/ECS/Systems/Input/MouseInput.hpp
+    Engine/src/ECS/Entities/Text.cpp
+    Engine/include/ECS/Entities/Text.hpp
+    Engine/include/ECS/Entities/Particle.hpp
+    Engine/src/ECS/Entities/Particle.cpp
+    Engine/include/ECS/Systems/Particle.hpp
+    Engine/src/ECS/Systems/Particle.cpp
 )
 
 add_executable(
@@ -128,6 +132,8 @@ add_executable(
     Game/include/Entities/Player.hpp
     Game/include/Systems/Map.hpp
     Game/src/Entities/Player.cpp
+    Game/include/Entities/Button.hpp
+    Game/src/Entities/Button.cpp
     Game/src/Systems/Map.cpp
     Game/include/Scenes/MainMenu.hpp
     Game/src/Scenes/MainMenu.cpp

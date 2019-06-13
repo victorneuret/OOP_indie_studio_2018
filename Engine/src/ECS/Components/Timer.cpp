@@ -8,7 +8,7 @@
 #include "ECS/Components/Timer.hpp"
 #include "ECS/Components/Chrono.hpp"
 
-Engine::ECS::Component::Timer::Timer(const decltype(_duration) &duration, std::function<void()> &func)
+Engine::ECS::Component::Timer::Timer(const decltype(_duration) &duration, std::function<void()> func)
     : AComponent{"Timer"}, _duration{duration}, _func{std::move(func)}
 {
 }

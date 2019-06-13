@@ -24,7 +24,7 @@ private:
     std::function<void()> _func;
 
 public:
-    Timer(const decltype(_duration) &duration, std::function<void()> &func);
+    Timer(const decltype(_duration) &duration, std::function<void()> func);
 
     void startCooldown();
     bool execIfCooldownFinished();
