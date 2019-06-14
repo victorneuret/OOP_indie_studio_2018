@@ -121,6 +121,8 @@ add_library(
     Engine/src/ECS/Entities/Particle.cpp
     Engine/include/ECS/Systems/Particle.hpp
     Engine/src/ECS/Systems/Particle.cpp
+    Engine/include/ECS/Systems/InputHandler.hpp
+    Engine/include/ECS/Interfaces/InputType.hpp
 )
 
 add_executable(
@@ -141,6 +143,11 @@ add_executable(
     Game/src/Entities/Bomb.cpp
     Game/include/Entities/Character.hpp
     Game/src/Entities/Character.cpp
+    Game/src/Systems/InputHandler.cpp
+    Game/include/Systems/JoystickHandler.hpp
+    Game/src/Systems/JoystickHandler.cpp
+    Game/include/Systems/KeyboardHandler.hpp
+    Game/src/Systems/KeyboardHandler.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)

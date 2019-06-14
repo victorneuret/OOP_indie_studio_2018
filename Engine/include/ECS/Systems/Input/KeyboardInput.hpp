@@ -10,6 +10,7 @@
 #include <map>
 #include <irrlicht/irrlicht.h>
 
+#include "ECS/Abstracts/Systems/AInput.hpp"
 #include "ECS/Abstracts/ASystem.hpp"
 #include "ECS/Abstracts/Systems/AInput.hpp"
 
@@ -17,7 +18,7 @@ namespace Engine::ECS::System {
     class KeyboardInput;
 }
 
-class Engine::ECS::System::KeyboardInput : public AInput {
+class Engine::ECS::System::KeyboardInput final : public AInput {
 protected:
     std::map<irr::EKEY_CODE, bool> _keys{};
 
