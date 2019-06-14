@@ -23,7 +23,7 @@ Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::st
     _3DModel->setScale(Engine::Math::Vec3f{12.f, 6.f, 12.f});
     _3DModel->getNode()->setAnimationSpeed(30);
     _3DModel->getNode()->setFrameLoop(27, 76);
-    (_pos.x == INDEX_TO_POS(0)) ? _3DModel->getNode()->setRotation(irr::core::vector3df{0, -90, 0}) : _3DModel->getNode()->setRotation(irr::core::vector3df{0, 90, 0});
+    _3DModel->getNode()->setRotation(irr::core::vector3df{0, ((_pos.x == INDEX_TO_POS(0)) ? static_cast<float>(90) : static_cast<float>(-90)), 0});
     addComponent(_3DModelPtr);
 
     std::shared_ptr<Engine::ECS::IComponent> _renderer = std::make_shared<Engine::ECS::Component::Renderer>();
