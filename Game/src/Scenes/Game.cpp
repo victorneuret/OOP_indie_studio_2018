@@ -49,7 +49,7 @@ Game::Scene::Game::Game()
     _entities.insert(_entities.end(), players.begin(), players.end());
 }
 
-void Game::Scene::Game::tick(double dt)
+void Game::Scene::Game::tick(double)
 {
     auto inputs = std::dynamic_pointer_cast<Engine::ECS::System::KeyboardInput>(Engine::ECS::Manager::getInstance().getSystemByID("KeyboardInput"));
     if (inputs->isKeyDown(irr::EKEY_CODE::KEY_DELETE)) {
@@ -69,7 +69,7 @@ void Game::Scene::Game::tick(double dt)
             Engine::ECS::Manager::getInstance().pushScene(pauseMenu);
         }
     }
-    if (input->isKeyDown(irr::EKEY_CODE::KEY_KEY_M)) { // tmp
+    if (inputs->isKeyDown(irr::EKEY_CODE::KEY_KEY_M)) { // tmp
         Engine::ECS::Manager::getInstance().popScene();
     }
 }
