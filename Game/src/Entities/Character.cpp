@@ -45,8 +45,21 @@ void Game::Entity::Character::placeBomb() noexcept
 void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeMove) noexcept
 {
     auto _3DModel = getComponentByID("Model3D");
-    _pos.x += speed.x * _speed * timeMove;
-    _pos.y += speed.y * _speed * timeMove;
+    auto tmpPos = _pos;
+
+    tmpPos.x += speed.x * _speed * timeMove;
+    tmpPos.y += speed.y * _speed * timeMove;
+
+    if (tmpPos.x < 0)
+        tmpPos.x = 0;
+    else if (tmpPos.x + INDEX_TO_POS(1) > INDEX_TO_POS(MAP_WIDTH))
+        tmpPos.x = INDEX_TO_POS(MAP_WIDTH - 1);
+    if (tmpPos.y < 0)
+        tmpPos.y = 0;
+    else if (tmpPos.y + INDEX_TO_POS(1) > INDEX_TO_POS(MAP_HEIGHT))
+        tmpPos.y = INDEX_TO_POS(MAP_HEIGHT - 1);
+
+    _pos = tmpPos;
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(_3DModel)->setPosition(Engine::Math::Vec3f{_pos.x, 0, _pos.y});
 }
 

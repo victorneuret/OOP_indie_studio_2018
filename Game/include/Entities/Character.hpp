@@ -19,7 +19,7 @@ protected:
     Engine::Math::Vec3f _pos{0, 0, 0};
     size_t _range{1};
     size_t _bombStock{1};
-    float _speed{0.0};
+    float _speed{2.0};
 
 public:
     Character(const Engine::Math::Vec3f &pos, const std::string &texture, const std::string &model);
