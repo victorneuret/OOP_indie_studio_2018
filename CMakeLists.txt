@@ -23,7 +23,7 @@ message(STATUS ${Irrlicht_INCLUDE_DIRS})
 message(STATUS ${Irrlicht_LIBRARIES})
 
 if (NOT ${Irrlicht_FOUND})
-    message( SEND_ERROR "Can't find Irrlicht" )
+    error(SEND_ERROR "Can't find Irrlicht")
 endif (NOT ${Irrlicht_FOUND})
 
 include_directories(
