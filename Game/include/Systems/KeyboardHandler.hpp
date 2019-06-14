@@ -21,8 +21,8 @@ namespace Game::System {
 class Game::System::KeyboardHandler final : public Engine::ECS::InputType {
 protected:
     const std::map<INPUT_KEY, std::function<bool()>> _buttons = {
-        {B_PRIMARY,    [&]() { return isButtonPressed(irr::KEY_SPACE); }},
-        {B_START,  [&]() { return isButtonPressed(irr::KEY_ESCAPE); }}
+        {B_PRIMARY,    [&]() { return isButtonPressed(irr::KEY_KEY_X); }},
+        {B_START,  [&]() { return isButtonPressed(irr::KEY_KEY_X); }}
     };
 
     bool isButtonPressed(irr::EKEY_CODE) const;

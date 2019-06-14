@@ -17,7 +17,8 @@ namespace Game::Entity {
 class Game::Entity::Character : public Engine::ECS::AEntity {
 protected:
     Engine::Math::Vec3f _pos{0, 0, 0};
-    int _range{1};
+    size_t _range{1};
+    size_t _bombStock{1};
     float _speed{0.0};
 
 public:
@@ -27,8 +28,10 @@ public:
 
     ~Character() override = default;
 
-    void placeBomb() const noexcept;
+    void placeBomb() noexcept;
     void move(const Engine::Math::Vec2f &dir, float deltaTime) noexcept;
     const decltype(_speed) &getSpeed() const noexcept;
     void setSpeed(const decltype(_speed) &speed) noexcept;
+    void rangeIncrease() noexcept;
+    void addBomb() noexcept;
 };

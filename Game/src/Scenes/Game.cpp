@@ -37,10 +37,8 @@ Game::Scene::Game::Game()
     };
 
     auto keyboardHandler = std::make_shared<System::KeyboardHandler>();
-    auto joystickHandler = std::make_shared<System::JoystickHandler>(0);
 
     std::dynamic_pointer_cast<Engine::ECS::System::InputHandler>(InputHandler)->bind(players[0]->getID(), keyboardHandler);
-    std::dynamic_pointer_cast<Engine::ECS::System::InputHandler>(InputHandler)->bind(players[1]->getID(), joystickHandler);
 
     _entities = {
         std::make_shared<Engine::Entity::Image>("assets/img/city.png", Engine::Math::Vec2i{0, 0}),
@@ -51,10 +49,10 @@ Game::Scene::Game::Game()
     _entities.insert(_entities.end(), players.begin(), players.end());
 }
 
-void Game::Scene::Game::tick(double)
+void Game::Scene::Game::tick(double dt)
 {
-    auto input = std::dynamic_pointer_cast<Engine::ECS::System::KeyboardInput>(Engine::ECS::Manager::getInstance().getSystemByID("KeyboardInput"));
-    if (input->isKeyDown(irr::EKEY_CODE::KEY_DELETE)) {
+    auto inputs = std::dynamic_pointer_cast<Engine::ECS::System::KeyboardInput>(Engine::ECS::Manager::getInstance().getSystemByID("KeyboardInput"));
+    if (inputs->isKeyDown(irr::EKEY_CODE::KEY_DELETE)) {
         auto window = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getWindow();
         window->closeDevice();
     }
@@ -63,7 +61,7 @@ void Game::Scene::Game::tick(double)
     std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
         createParticles(1, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{-90, 0, 150}, Engine::Math::Vec3<float>{0, 0, 0}, 3.5, "Game");
 
-    if (input->isKeyDown(irr::EKEY_CODE::KEY_ESCAPE)) {
+    if (inputs->isKeyDown(irr::EKEY_CODE::KEY_ESCAPE)) {
         try {
             Engine::ECS::Manager::getInstance().getSceneByID("PauseMenu");
         } catch (const ECSException<ECS_Scene> &) {
