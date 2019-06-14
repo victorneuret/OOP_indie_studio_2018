@@ -6,7 +6,6 @@
 */
 
 #include <utility>
-#include <iostream> // TODO: Remove
 
 #include "Utils/Logger.hpp"
 #include "ECS/Systems/Audio.hpp"

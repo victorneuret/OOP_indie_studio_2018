@@ -15,7 +15,6 @@
 #include "Utils/Logger.hpp"
 #include "Utils/Random.hpp"
 #include "ECS/Components/Model3D.hpp"
-#include "Utils/TypeDisplayer.hpp" // TODO: Remove before PR
 
 Engine::ECS::System::Particle::Particle()
     : ASystem("Particle")
