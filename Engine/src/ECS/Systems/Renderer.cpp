@@ -5,8 +5,13 @@
 ** Renderer.cpp
 */
 
+#if defined _MSC_VER
+    #include <irrlicht.h>
+#elif defined __GNUC__
+    #include <irrlicht/irrlicht.h>
+#endif
+
 #include <memory>
-#include <irrlicht/irrlicht.h>
 
 #include "ECS/Systems/Renderer.hpp"
 #include "ECS/Components/Text.hpp"

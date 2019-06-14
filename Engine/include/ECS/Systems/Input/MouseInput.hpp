@@ -7,7 +7,11 @@
 
 #pragma once
 
-#include <irrlicht/IEventReceiver.h>
+#if defined _MSC_VER
+    #include <IEventReceiver.h>
+#elif defined __GNUC__
+    #include <irrlicht/IEventReceiver.h>
+#endif
 
 #include "ECS/Abstracts/Systems/AInput.hpp"
 #include "Math/Vector/Vec2.hpp"

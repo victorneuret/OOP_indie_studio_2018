@@ -5,7 +5,12 @@
 ** GameApplication.cpp
 */
 
-#include <irrlicht/irrTypes.h>
+#if defined _MSC_VER
+    #include <irrlicht.h>
+#elif defined __GNUC__
+    #include <irrlicht/irrlicht.h>
+#endif
+
 #include <chrono>
 #include <vector>
 
