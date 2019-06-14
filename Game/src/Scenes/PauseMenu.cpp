@@ -33,6 +33,6 @@ void Game::Scene::PauseMenu::tick(double)
             auto toDelete = Engine::ECS::Manager::getInstance().getSceneByID("PauseMenu");
             Engine::ECS::Manager::getInstance().getSceneByID("Game")->updateChild(true);
             Engine::ECS::Manager::getInstance().removeScene(toDelete);
-        } catch (ECSException<ECS_Scene> &) {}
+        } catch (const ECSException<ECS_Scene> &) {}
     }
 }

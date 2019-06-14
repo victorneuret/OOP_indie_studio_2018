@@ -65,8 +65,8 @@ void Game::Scene::Game::tick(double)
 
     if (input->isKeyDown(irr::EKEY_CODE::KEY_ESCAPE)) {
         try {
-            auto toDelete = Engine::ECS::Manager::getInstance().getSceneByID("PauseMenu");
-        } catch (ECSException<ECS_Scene> &) {
+            Engine::ECS::Manager::getInstance().getSceneByID("PauseMenu");
+        } catch (const ECSException<ECS_Scene> &) {
             std::shared_ptr<AScene> pauseMenu = std::make_shared<PauseMenu>();
             pauseMenu->updateChild(true);
             Engine::ECS::Manager::getInstance().getSceneByID("Game")->updateChild(false);
