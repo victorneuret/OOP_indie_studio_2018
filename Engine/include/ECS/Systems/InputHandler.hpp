@@ -26,7 +26,6 @@ public:
     ~InputHandler() override = default;
 
     void bind(size_t id, const std::shared_ptr<InputType> &input);
-    bool isKeyPressed(size_t id, InputType::INPUT_KEY key);
 
     void update(double dt) override;
 };

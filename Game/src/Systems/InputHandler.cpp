@@ -23,16 +23,6 @@ void Engine::ECS::System::InputHandler::bind(size_t id, const std::shared_ptr<In
     _inputs[id] = input;
 }
 
-bool Engine::ECS::System::InputHandler::isKeyPressed(size_t id, Engine::ECS::InputType::INPUT_KEY)
-{
-    const auto input = _inputs.find(id);
-
-    if (input == _inputs.end())
-        return false;
-
-    return false;
-}
-
 void Engine::ECS::System::InputHandler::update(double dt)
 {
     try {
@@ -42,8 +32,10 @@ void Engine::ECS::System::InputHandler::update(double dt)
             auto player = std::dynamic_pointer_cast<Game::Entity::Character>(game->getEntityByID(c.first));
             player->move(c.second->getPosition(), dt);
 
-            if (c.second->isKeyDown(Engine::ECS::InputType::B_PRIMARY))
+            if (c.second->isKeyDown(Engine::ECS::InputType::B_PRIMARY)) {
+                std::cout << "TEST" << std::endl;
                 player->placeBomb();
+            }
         }
     } catch (...) {}
 }
