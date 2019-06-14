@@ -72,3 +72,11 @@ void Game::Scene::Game::tick(double dt)
         }
     }
 }
+
+void Game::Scene::Game::sceneShowing()
+{
+}
+
+void Game::Scene::Game::sceneHiding(const Engine::Abstracts::AScene *)
+{
+}

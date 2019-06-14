@@ -21,4 +21,6 @@ public:
     Game &operator=(const Game &) = delete;
 
     void tick(double deltaTime) override;
+    void sceneShowing() override;
+    void sceneHiding(const AScene *newParent) override;
 };

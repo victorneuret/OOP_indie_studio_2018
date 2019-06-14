@@ -150,3 +150,13 @@ void Game::Scene::MainMenu::tick(double dt)
         }
     }
 }
+
+void Game::Scene::MainMenu::sceneShowing()
+{
+    _music->play();
+}
+
+void Game::Scene::MainMenu::sceneHiding(const Engine::Abstracts::AScene *)
+{
+    _music->stop();
+}

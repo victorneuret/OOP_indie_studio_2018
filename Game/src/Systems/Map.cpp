@@ -39,7 +39,7 @@ void Game::System::Map::_createFirstSquare() noexcept
             switch (randomValue) {
                 case 0: str.append("0"); break;
                 case 1: str.append("#"); break;
-                default: str.append(".");
+                default: str.append("."); break;
             }
         }
 

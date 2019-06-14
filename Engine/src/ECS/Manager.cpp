@@ -16,13 +16,11 @@
 #include "Utils/Logger.hpp"
 
 std::unique_ptr<Engine::ECS::Manager> Engine::ECS::Manager::_instance{nullptr};
-std::vector<std::shared_ptr<Engine::ECS::ISystem>> Engine::ECS::Manager::_systems{};
-std::vector<std::shared_ptr<Engine::Abstracts::AScene>> Engine::ECS::Manager::_scenes{};
 
 Engine::ECS::Manager &Engine::ECS::Manager::getInstance()
 {
     if (_instance == nullptr) {
-        _instance = std::unique_ptr<Manager>(new ECS::Manager());
+        _instance = std::unique_ptr<Manager>(new Manager);
         if (_instance == nullptr)
             throw MemoryException<Memory_Allocation_Failed>("Could not create engine instance.");
     }
@@ -62,6 +60,8 @@ void Engine::ECS::Manager::addScene(std::shared_ptr<Abstracts::AScene> &scene)
         for (auto &entity : entities)
             entity->hide();
     }
+    if (!_scenes.empty())
+        _scenes.back()->sceneHiding(scene.get());
     _scenes.push_back(scene);
 }
 
