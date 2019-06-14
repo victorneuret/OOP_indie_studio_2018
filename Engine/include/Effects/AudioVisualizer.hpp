@@ -17,8 +17,8 @@
 
 class AudioVisualizer final {
 public:
-    static constexpr size_t BUFFER_SIZE = 8196;
-    static constexpr double FREQ_MAX = 50000.0;
+    static constexpr size_t BUFFER_SIZE{8196};
+    static constexpr double FREQ_MAX{62500};
 private:
     using Complex = std::complex<double>;
     using ComplexArray = std::valarray<Complex>;

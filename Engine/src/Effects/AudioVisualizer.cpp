@@ -60,7 +60,6 @@ AudioVisualizer::VisualizationData AudioVisualizer::getVisualizationData()
     _fastFourierTransform(_array);
 
     double sum = 0;
-
     size_t index = 0;
     for (auto &value : _array) {
         const auto abs = std::abs(value) / FREQ_MAX;

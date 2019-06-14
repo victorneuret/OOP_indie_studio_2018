@@ -93,23 +93,20 @@ Game::Scene::MainMenu::~MainMenu()
     audio->unloadSound("main_music");
 }
 
-void Game::Scene::MainMenu::tick(double dt)
+void Game::Scene::MainMenu::tick(double)
 {
-    static unsigned int size = 800;
-
     auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
+    auto size = 250 * _audioVisualizer->getVisualizationData().scaleAverage;
 
-    if (size <= 400)
-        size = 800;
-    size -= 1 * dt;
     for (auto &image : _entities) {
         if (image->getType() == Engine::ECS::IEntity::Type::MODEL2D) {
             auto imgComponent = std::dynamic_pointer_cast<Engine::ECS::Component::Image>(image->getComponentByID("Image"));
             if (imgComponent == nullptr)
                 continue;
             if (imgComponent->getTexturePath() == "assets/img/sun.png") {
-                imgComponent->setSize(Engine::Math::Vec2u{size, size});
-                imgComponent->setPosition(Engine::Math::Vec2i{static_cast<int>(driver->getScreenSize().Width / 2 - (size / 2)), 0});
+                imgComponent->setSize(Engine::Math::Vec2u{static_cast<unsigned int>(size), static_cast<unsigned int>(size)});
+                imgComponent->setPosition(Engine::Math::Vec2i{static_cast<int>(driver->getScreenSize().Width / 2.0 - (size / 2.0)),
+                                                              static_cast<int>(driver->getScreenSize().Height / 2.0 - (size / 2.0))});
             }
         }
     }
