@@ -121,7 +121,6 @@ add_library(
     Engine/src/ECS/Entities/Particle.cpp
     Engine/include/ECS/Systems/Particle.hpp
     Engine/src/ECS/Systems/Particle.cpp
-    Engine/include/ECS/Interfaces/Entities/IMovable.hpp
     Engine/include/ECS/Systems/InputHandler.hpp
     Engine/include/ECS/Interfaces/InputType.hpp
 )
