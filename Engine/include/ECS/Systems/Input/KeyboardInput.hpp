@@ -7,14 +7,9 @@
 
 #pragma once
 
-#if defined _MSC_VER
-    #include <irrlicht.h>
-#elif defined __GNUC__
-    #include <irrlicht/irrlicht.h>
-#endif
-
 #include <map>
 
+#include "irrlicht.hpp"
 #include "ECS/Abstracts/Systems/AInput.hpp"
 #include "ECS/Abstracts/ASystem.hpp"
 #include "ECS/Abstracts/Systems/AInput.hpp"

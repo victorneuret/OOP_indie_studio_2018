@@ -5,14 +5,9 @@
 ** Renderer.cpp
 */
 
-#if defined _MSC_VER
-    #include <irrlicht.h>
-#elif defined __GNUC__
-    #include <irrlicht/irrlicht.h>
-#endif
-
 #include <memory>
 
+#include "irrlicht.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "ECS/Components/Text.hpp"
 #include "ECS/Components/Button.hpp"

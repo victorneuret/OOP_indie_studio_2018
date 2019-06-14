@@ -7,18 +7,13 @@
 
 #pragma once
 
-#if defined _MSC_VER
-    #include <irrlicht.h>
-#elif defined __GNUC__
-    #include <irrlicht/irrlicht.h>
-#endif
-
 #include <type_traits>
 #include <map>
 #include <vector>
 #include <memory>
 #include <type_traits>
 
+#include "irrlicht.hpp"
 #include "ECS/Abstracts/Systems/AInput.hpp"
 
 namespace Engine::ECS::System {

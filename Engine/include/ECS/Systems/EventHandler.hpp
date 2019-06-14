@@ -7,15 +7,10 @@
 
 #pragma once
 
-#if defined _MSC_VER
-    #include <irrlicht.h>
-#elif defined __GNUC__
-    #include <irrlicht/irrlicht.h>
-#endif
-
 #include <vector>
 #include <memory>
 
+#include "irrlicht.hpp"
 #include "ECS/Abstracts/ASystem.hpp"
 
 namespace Engine::ECS::System {

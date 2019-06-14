@@ -135,8 +135,7 @@ add_library(
     Engine/src/ECS/Systems/Particle.cpp
     Engine/include/ECS/Systems/InputHandler.hpp
     Engine/include/ECS/Interfaces/InputType.hpp
-    Engine/src/Effects/AudioVisualizer.cpp
-    Engine/include/Effects/AudioVisualizer.hpp
+    Engine/include/irrlicht.hpp
 )
 
 add_executable(

@@ -7,14 +7,9 @@
 
 #pragma once
 
-#if defined _MSC_VER
-    #include <irrlicht.h>
-#elif defined __GNUC__
-    #include <irrlicht/irrlicht.h>
-#endif
-
 #include <string>
 
+#include "irrlicht.hpp"
 #include "ECS/Abstracts/AComponent.hpp"
 #include "Math/Vector/Vec3.hpp"
 

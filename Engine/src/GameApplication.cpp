@@ -5,15 +5,10 @@
 ** GameApplication.cpp
 */
 
-#if defined _MSC_VER
-    #include <irrlicht.h>
-#elif defined __GNUC__
-    #include <irrlicht/irrlicht.h>
-#endif
-
 #include <chrono>
 #include <vector>
 
+#include "irrlicht.hpp"
 #include "GameApplication.hpp"
 #include "ECS/Interfaces/ISystem.hpp"
 #include "ECS/Systems/Event/ButtonEvent.hpp"
