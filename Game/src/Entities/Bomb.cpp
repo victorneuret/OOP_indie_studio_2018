@@ -35,6 +35,9 @@ void Game::Entity::Bomb::onExplode()
     auto mapSystem = std::dynamic_pointer_cast<Game::System::Map>(Engine::ECS::Manager::getInstance().getSystemByID("Map"));
     auto map = mapSystem->getActualMap();
 
+    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D> (Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(getID())->getComponentByID("Model3D"))->getNode()->remove();
+    Engine::ECS::Manager::getInstance().getSceneByID("Game")->removeEntityByID(getID());
+
     for (int i = 0; i <= _range && _pos.x + i < MAP_WIDTH - 1; i++) {
         if (map[_pos.x + i - 1][_pos.y - 1] != '0') {
             mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x + i, _pos.y});
@@ -62,8 +65,10 @@ void Game::Entity::Bomb::onExplode()
             break;
         }
     }
-
     std::dynamic_pointer_cast<Game::System::Map>(Engine::ECS::Manager::getInstance().getSystemByID("Map"))->setActualMap(map);
-    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D> (Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(getID())->getComponentByID("Model3D"))->getNode()->remove();
-    Engine::ECS::Manager::getInstance().getSceneByID("Game")->removeEntityByID(getID());
+}
+
+const decltype(Game::Entity::Bomb::_pos) &Game::Entity::Bomb::getPos() const noexcept
+{
+    return _pos;
 }

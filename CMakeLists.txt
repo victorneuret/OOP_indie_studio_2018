@@ -132,8 +132,6 @@ add_executable(
     Game/include/Entities/Player.hpp
     Game/include/Systems/Map.hpp
     Game/src/Entities/Player.cpp
-    Game/include/Entities/Button.hpp
-    Game/src/Entities/Button.cpp
     Game/src/Systems/Map.cpp
     Game/include/Scenes/MainMenu.hpp
     Game/src/Scenes/MainMenu.cpp
@@ -141,6 +139,8 @@ add_executable(
     Game/src/Scenes/Game.cpp
     Game/include/Entities/Bomb.hpp
     Game/src/Entities/Bomb.cpp
+    Game/include/Entities/Character.hpp
+    Game/src/Entities/Character.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)

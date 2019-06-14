@@ -5,7 +5,6 @@
 ** GetAllEntities.cpp
 */
 
-#include <iostream>
 #include <memory>
 #include <string>
 

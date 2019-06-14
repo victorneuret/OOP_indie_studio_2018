@@ -11,20 +11,18 @@
 #include <memory>
 #include <vector>
 
-#include "Exception/AException.hpp"
-#include "ECS/Abstracts/AEntity.hpp"
 #include "Math/Vector/Vec3.hpp"
+#include "Entities/Character.hpp"
+#include "ECS/Abstracts/AEntity.hpp"
 
 namespace Game::Entity {
     class Player;
 }
 
-class Game::Entity::Player final : public Engine::ECS::AEntity {
-protected:
-    Engine::Math::Vec3d _pos{0, 0, 0};
-
+class Game::Entity::Player final : public Game::Entity::Character {
 public:
-    explicit Player(const Engine::Math::Vec3f &pos = {0, 0, 0}, const std::string &model = std::string("assets/models/tris.md2"));
+    Player(const Engine::Math::Vec3f &pos, const std::string &texture, const std::string &model = std::string("assets/models/characters/Bomberman.MD3"));
+
     Player(const Player &) = delete;
     Player &operator=(const Player &) = delete;
 

@@ -56,7 +56,7 @@ std::shared_ptr<Engine::Abstracts::AScene> &Engine::ECS::Manager::getSceneByID(c
 
 void Engine::ECS::Manager::addScene(std::shared_ptr<Abstracts::AScene> &scene)
 {
-    if (scene->isOpaque()) {
+    if (scene->isOpaque() && !_scenes.empty()) {
         auto entities = getUpdatedEntities();
         for (auto &entity : entities)
             entity->hide();

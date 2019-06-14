@@ -5,8 +5,6 @@
 ** KeyboardInput
 */
 
-#include <iostream>
-
 #include "ECS/Manager.hpp"
 #include "Utils/Logger.hpp"
 #include "ECS/Systems/Renderer.hpp"

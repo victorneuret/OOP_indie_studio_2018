@@ -23,7 +23,9 @@ public:
     explicit Bomb(const decltype(_pos) &pos);
     Bomb(const Bomb &) = delete;
     Bomb &operator=(const Bomb &) = delete;
-    void onExplode();
 
     ~Bomb() override = default;
+
+    void onExplode();
+    const decltype(_pos) &getPos() const noexcept;
 };

@@ -20,6 +20,7 @@
 #include "Math/Rect.hpp"
 #include "Scenes/Game.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
+#include "Systems/Map.hpp"
 
 Game::Scene::MainMenu::MainMenu()
     : AScene{"MainMenu", {}, true, true}

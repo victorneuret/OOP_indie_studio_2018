@@ -11,6 +11,7 @@
 #include <irrlicht/irrlicht.h>
 
 #include "ECS/Abstracts/ASystem.hpp"
+#include "ECS/Abstracts/Systems/AInput.hpp"
 
 namespace Engine::ECS::System {
     class KeyboardInput;
