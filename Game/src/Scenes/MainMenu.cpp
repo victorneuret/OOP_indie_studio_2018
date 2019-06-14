@@ -93,7 +93,24 @@ Game::Scene::MainMenu::~MainMenu()
     audio->unloadSound("main_music");
 }
 
-void Game::Scene::MainMenu::tick(double)
+static auto getAcceleration()
+{
+    using namespace std::chrono_literals;
+
+    static auto lastTime = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - lastTime;
+
+    if (elapsed > 4s) {
+        lastTime = std::chrono::system_clock::now();
+        elapsed = 0s;
+    }
+
+    auto progress = elapsed.count() - (elapsed > 2s ? 2.0 : 0.0);
+    auto x = progress / 2.0;
+    return (1.5 * (-(x * x) + x)) * (elapsed < 2s ? 1.0 : -1.0);
+}
+
+void Game::Scene::MainMenu::tick(double dt)
 {
     auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
     auto size = 250 * _audioVisualizer->getVisualizationData().scaleAverage;
@@ -107,6 +124,11 @@ void Game::Scene::MainMenu::tick(double)
                 imgComponent->setSize(Engine::Math::Vec2u{static_cast<unsigned int>(size), static_cast<unsigned int>(size)});
                 imgComponent->setPosition(Engine::Math::Vec2i{static_cast<int>(driver->getScreenSize().Width / 2.0 - (size / 2.0)),
                                                               static_cast<int>(driver->getScreenSize().Height / 2.0 - (size / 2.0))});
+            }
+            if (imgComponent->getTexturePath() == "assets/img/cuteBomber.png") {
+                auto pos = imgComponent->getPosition();
+                pos.x += static_cast<decltype(pos.x)>(250.0 * getAcceleration() * dt);
+                imgComponent->setPosition(pos);
             }
         }
     }
