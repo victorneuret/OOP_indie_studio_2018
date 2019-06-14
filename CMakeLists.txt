@@ -6,6 +6,8 @@ set(CMAKE_VERBOSE_MAKEFILE off) # Turn on to debug cmake
 
 set(CMAKE_MODULE_PATH FindIrrlicht.cmake)
 
+include(${CMAKE_MODULE_PATH})
+
 message(STATUS ${Irrlicht_INCLUDE_DIRS})
 message(STATUS ${Irrlicht_LIBRARIES})
 
