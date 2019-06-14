@@ -16,13 +16,11 @@
 #include "Utils/Logger.hpp"
 
 std::unique_ptr<Engine::ECS::Manager> Engine::ECS::Manager::_instance{nullptr};
-std::vector<std::shared_ptr<Engine::ECS::ISystem>> Engine::ECS::Manager::_systems{};
-std::vector<std::shared_ptr<Engine::Abstracts::AScene>> Engine::ECS::Manager::_scenes{};
 
 Engine::ECS::Manager &Engine::ECS::Manager::getInstance()
 {
     if (_instance == nullptr) {
-        _instance = std::unique_ptr<Manager>(new ECS::Manager());
+        _instance = std::unique_ptr<Manager>(new Manager);
         if (_instance == nullptr)
             throw MemoryException<Memory_Allocation_Failed>("Could not create engine instance.");
     }
@@ -55,24 +53,33 @@ std::shared_ptr<Engine::Abstracts::AScene> &Engine::ECS::Manager::getSceneByID(c
     throw ECSException<ECS_Scene>{"Scene " + id + " not found"};
 }
 
-void Engine::ECS::Manager::addScene(std::shared_ptr<Abstracts::AScene> &scene)
+void Engine::ECS::Manager::pushScene(std::shared_ptr<Abstracts::AScene> &scene)
 {
     if (scene->isOpaque() && !_scenes.empty()) {
         auto entities = getUpdatedEntities();
         for (auto &entity : entities)
             entity->hide();
     }
+    if (!_scenes.empty())
+        _scenes.back()->sceneHiding(scene.get());
     _scenes.push_back(scene);
 }
 
-void Engine::ECS::Manager::removeScene(std::shared_ptr<Engine::Abstracts::AScene> &scene)
+void Engine::ECS::Manager::popScene()
 {
-    auto it = std::find(_scenes.begin(), _scenes.end(), scene);
+    if (_scenes.empty()) {
+        Logger::getInstance().warning("No scenes are showing.");
+        return;
+    }
 
-    if (it != _scenes.end())
-        _scenes.erase(it);
-    else
-        Logger::getInstance().warning("Scene " + scene->getID() + " already removed");
+    auto top = _scenes.end() - 1;
+
+    if (_scenes.size() != 1) {
+        auto parent = top - 1;
+        (*parent)->sceneShowing();
+    }
+
+    _scenes.erase(top);
 }
 
 decltype(Engine::ECS::Manager::_scenes) &Engine::ECS::Manager::getScenes() noexcept
@@ -86,10 +93,10 @@ void Engine::ECS::Manager::sceneManager(double dt, std::shared_ptr<Engine::ECS::
 
     for (auto it = actualScenesStack.rbegin(); it != actualScenesStack.rend(); it++) {
         if ((*it)->isUpdateChild())
-           (*it)->tick(dt);
+            (*it)->tick(dt);
         for (auto &entity : (*it)->getEntities())
             renderer->draw(entity);
-        if  ((*it)->isOpaque()) {
+        if ((*it)->isOpaque()) {
             break;
         }
     }

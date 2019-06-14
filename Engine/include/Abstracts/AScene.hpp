@@ -45,4 +45,6 @@ public:
     virtual void updateChild(bool updateChild) noexcept final;
 
     virtual void tick(double deltaTime) = 0;
+    virtual void sceneShowing() = 0;
+    virtual void sceneHiding(const AScene *newParent) = 0;
 };
