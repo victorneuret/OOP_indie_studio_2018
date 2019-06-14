@@ -14,6 +14,10 @@
 #include "ECS/Systems/Event/ButtonEvent.hpp"
 #include "ECS/Systems/Input/JoystickInput.hpp"
 #include "ECS/Systems/Input/KeyboardInput.hpp"
+#include "ECS/Systems/Input/JoystickHandler.hpp"
+#include "ECS/Systems/Input/KeyboardHandler.hpp"
+#include "ECS/Systems/InputHandler.hpp"
+#include "ECS/Interfaces/InputType.hpp"
 #include "ECS/Systems/Input/MouseInput.hpp"
 #include "ECS/Systems/Particle.hpp"
 #include "Utils/Logger.hpp"
@@ -30,8 +34,7 @@
 
 Engine::GameApplication::GameApplication(const decltype(_title) &title, long width, long height)
     : GameApplication(title, Math::Vec2<irr::u32>(width, height))
-{
-}
+{}
 
 Engine::GameApplication::GameApplication(const decltype(_title) &title, const decltype(_dimensions) &dimensions)
     : _title{decltype(_title){title}}, _dimensions{dimensions}
@@ -50,6 +53,7 @@ void Engine::GameApplication::_startup()
     std::shared_ptr<Engine::ECS::ISystem> mouse = std::make_shared<Engine::ECS::System::MouseInput>();
     std::shared_ptr<Engine::ECS::ISystem> joystick = std::make_shared<Engine::ECS::System::JoystickInput>();
     std::shared_ptr<Engine::ECS::ISystem> particles = std::make_shared<Engine::ECS::System::Particle>();
+    std::shared_ptr<Engine::ECS::ISystem> handler = std::make_shared<Engine::ECS::System::InputHandler>();
 
     _ecsManager.addSystem(timer);
     _ecsManager.addSystem(audio);
@@ -58,6 +62,13 @@ void Engine::GameApplication::_startup()
     _ecsManager.addSystem(mouse);
     _ecsManager.addSystem(joystick);
     _ecsManager.addSystem(particles);
+    _ecsManager.addSystem(handler);
+
+    auto joystickHandler = std::make_shared<ECS::System::JoystickHandler>(0);
+    auto keyboardHandler = std::make_shared<ECS::System::KeyboardHandler>();
+
+    std::dynamic_pointer_cast<ECS::System::InputHandler>(handler)->bind(1, joystickHandler);
+    std::dynamic_pointer_cast<ECS::System::InputHandler>(handler)->bind(2, keyboardHandler);
 }
 
 void Engine::GameApplication::_tick(double dt, std::shared_ptr<Engine::ECS::System::Renderer> &renderer)

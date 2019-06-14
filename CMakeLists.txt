@@ -121,6 +121,14 @@ add_library(
     Engine/src/ECS/Entities/Particle.cpp
     Engine/include/ECS/Systems/Particle.hpp
     Engine/src/ECS/Systems/Particle.cpp
+    Engine/include/ECS/Interfaces/Entities/IMovable.hpp
+    Engine/include/ECS/Systems/InputHandler.hpp
+    Engine/src/ECS/Systems/InputHandler.cpp
+    Engine/include/ECS/Interfaces/InputType.hpp
+    Engine/include/ECS/Systems/Input/JoystickHandler.hpp
+    Engine/src/ECS/Systems/Input/JoystickHandler.cpp
+    Engine/include/ECS/Systems/Input/KeyboardHandler.hpp
+    Engine/src/ECS/Systems/Input/KeyboardHandler.cpp
 )
 
 add_executable(

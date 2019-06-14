@@ -16,12 +16,10 @@ Engine::ECS::System::JoystickInput::JoystickInput()
 {
     auto renderer = std::dynamic_pointer_cast<Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"));
 
-    irr::core::array<irr::SJoystickInfo> joystickInfo{};
-
-    if (!renderer->getWindow()->activateJoysticks(joystickInfo))
-        Logger::getInstance().error("Failed to activate joystick");
+    if (renderer->getWindow()->activateJoysticks(_joystickInfos))
+        Logger::getInstance().info(std::to_string(_joystickInfos.size()) + " controllers connected");
     else
-        Logger::getInstance().info(std::to_string(joystickInfo.size()) + " controllers connected");
+        Logger::getInstance().error("Failed to activate joystick");
 }
 
 bool Engine::ECS::System::JoystickInput::OnEvent(const irr::SEvent &event)
@@ -38,11 +36,34 @@ bool Engine::ECS::System::JoystickInput::OnEvent(const irr::SEvent &event)
     return false;
 }
 
-bool Engine::ECS::System::JoystickInput::isKeyDown(irr::u8 axis, irr::u8 key) const
+bool Engine::ECS::System::JoystickInput::isKeyDown(irr::u8 controller, irr::u8 key) const
 {
-    const auto controller = _controllers.find(axis);
+    const auto input = _controllers.find(controller);
 
-    if (controller == _controllers.end())
+    if (input == _controllers.end())
         return false;
-    return ((controller->second.buttonStates & (1u << key)) >> key);
+    return ((input->second.buttonStates & (1u << key)) >> key);
+}
+
+irr::u16 Engine::ECS::System::JoystickInput::getPov(irr::u8 controller) const noexcept
+{
+    const auto input = _controllers.find(controller);
+
+    if (input == _controllers.end())
+        return 0;
+    return input->second.pov;
+}
+
+irr::s16 Engine::ECS::System::JoystickInput::getAxis(irr::u8 controller, irr::u8 axis) const noexcept
+{
+    const auto input = _controllers.find(controller);
+
+    if (input == _controllers.end())
+        return 0;
+    return input->second.axis[axis];
+}
+
+const decltype(Engine::ECS::System::JoystickInput::_joystickInfos) &Engine::ECS::System::JoystickInput::getJoystickInfos() const noexcept
+{
+    return _joystickInfos;
 }
