@@ -32,7 +32,7 @@ public:
     Particle(const Engine::Math::Vec3<float> &startPoint,
                     const Engine::Math::Vec3<float> &endPoint,
                     const double &momentum, const double &duration,
-                    const std::string &model = std::string("assets/models/particles/beach-ball.obj"));
+                    const std::string &model = std::string("assets/models/particles/ball.obj"));
 
     Particle(const Particle &) = delete;
     Particle &operator=(const Particle &) = delete;

@@ -1,6 +1,6 @@
 # Blender v2.74 (sub 0) OBJ File: ''
 # www.blender.org
-mtllib beach-ball.mtl
+#mtllib purple.mtl
 o 13065_vn_obj_1
 v 0.110500 0.993900 0.000000
 v 0.034100 0.993900 -0.105100
