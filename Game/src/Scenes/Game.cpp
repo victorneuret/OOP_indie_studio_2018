@@ -21,6 +21,7 @@
 #include "Entities/Bomb.hpp"
 #include "Systems/Map.hpp"
 #include "ECS/Systems/Input/KeyboardInput.hpp"
+#include "Scenes/PauseMenu.hpp"
 
 Game::Scene::Game::Game()
         : AScene("Game", {}, true, true)
@@ -61,4 +62,15 @@ void Game::Scene::Game::tick(double)
         createParticles(1, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{200, 0, 150}, Engine::Math::Vec3<float>{200, 0, 0}, 3.5, "Game");
     std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
         createParticles(1, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{-90, 0, 150}, Engine::Math::Vec3<float>{0, 0, 0}, 3.5, "Game");
+
+    if (input->isKeyDown(irr::EKEY_CODE::KEY_ESCAPE)) {
+        try {
+            auto toDelete = Engine::ECS::Manager::getInstance().getSceneByID("PauseMenu");
+        } catch (ECSException<ECS_Scene> &) {
+            std::shared_ptr<AScene> pauseMenu = std::make_shared<PauseMenu>();
+            pauseMenu->updateChild(true);
+            Engine::ECS::Manager::getInstance().getSceneByID("Game")->updateChild(false);
+            Engine::ECS::Manager::getInstance().addScene(pauseMenu);
+        }
+    }
 }
