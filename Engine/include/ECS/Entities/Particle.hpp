@@ -23,9 +23,9 @@ class Engine::Entity::Particle : public Engine::ECS::AEntity {
 protected:
     Engine::Math::Vec3f _startPoint{0, 0, 0};
     Engine::Math::Vec3f _endPoint{0, 0, 0};
-    Engine::Math::Vec3f _spray{static_cast<float>(Random::getDouble(-0.5, 0.5)),
-                                     static_cast<float>(Random::getDouble(-0.5, 0.5)),
-                                     static_cast<float>(Random::getDouble(-0.5, 0.5))};
+    Engine::Math::Vec3f _spray{static_cast<float>(Random::getDouble(-0.3, 0.3)),
+                                     static_cast<float>(Random::getDouble(-0.3, 0.3)),
+                                     static_cast<float>(Random::getDouble(-0.3, 0.3))};
     double _momentum{0};
 
 public:
