@@ -28,7 +28,7 @@ public:
     ~Character() override = default;
 
     void placeBomb() const noexcept;
-    void move(const Engine::Math::Vec2f &dir, double deltaTime) noexcept;
+    void move(const Engine::Math::Vec2f &dir, float deltaTime) noexcept;
     const decltype(_speed) &getSpeed() const noexcept;
     void setSpeed(const decltype(_speed) &speed) noexcept;
 };

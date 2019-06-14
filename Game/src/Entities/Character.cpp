@@ -23,10 +23,7 @@ Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::st
     _3DModel->setScale(Engine::Math::Vec3f{12.f, 6.f, 12.f});
     _3DModel->getNode()->setAnimationSpeed(30);
     _3DModel->getNode()->setFrameLoop(27, 76);
-    if (_pos.x == INDEX_TO_POS(0))
-        _3DModel->getNode()->setRotation(irr::core::vector3df{0, -90, 0});
-    else
-        _3DModel->getNode()->setRotation(irr::core::vector3df{0, 90, 0});
+    (_pos.x == INDEX_TO_POS(0)) ? _3DModel->getNode()->setRotation(irr::core::vector3df{0, -90, 0}) : _3DModel->getNode()->setRotation(irr::core::vector3df{0, 90, 0});
     addComponent(_3DModelPtr);
 
     std::shared_ptr<Engine::ECS::IComponent> _renderer = std::make_shared<Engine::ECS::Component::Renderer>();
@@ -41,11 +38,11 @@ void Game::Entity::Character::placeBomb() const noexcept
     Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(bomb);
 }
 
-void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, double time) noexcept
+void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeMove) noexcept
 {
     auto _3DModel = getComponentByID("Model3D");
-    _pos.x += speed.x * _speed * (time);
-    _pos.y += speed.y * _speed * (time);
+    _pos.x += speed.x * _speed * timeMove;
+    _pos.y += speed.y * _speed * timeMove;
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(_3DModel)->setPosition(Engine::Math::Vec3f{_pos.x, 0, _pos.y});
 }
 
