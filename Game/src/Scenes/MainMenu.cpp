@@ -23,6 +23,17 @@
 #include "ECS/Abstracts/AEntity.hpp"
 #include "Systems/Map.hpp"
 
+static constexpr const char *const IMG_STAR = "assets/img/star.jpg";
+static constexpr const char *const IMG_SUN = "assets/img/sun.png";
+static constexpr const char *const IMG_MOUNTAIN = "assets/img/mountain.png";
+static constexpr const char *const IMG_BOMBER = "assets/img/cuteBomber.png";
+
+static constexpr const char *const IMG_NEW_GAME = "assets/img/newGame.png";
+static constexpr const char *const IMG_LOAD_GAME = "assets/img/pink.png";
+static constexpr const char *const IMG_EXIT_GAME = "assets/img/pink.png";
+
+static constexpr const char *const SND_MAIN_MENU = "assets/musics/ignite.ogg";
+
 Game::Scene::MainMenu::MainMenu()
     : AScene{"MainMenu", {}, true, true}, _music{}
 {
@@ -32,7 +43,7 @@ Game::Scene::MainMenu::MainMenu()
     auto screenSize = driver->getScreenSize();
 
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
-    auto sound = audio->loadSound("main_music", "assets/musics/ignite.ogg");
+    auto sound = audio->loadSound("main_music", SND_MAIN_MENU);
 
     _music = sound.second;
     _music->setLoop(true);
@@ -41,14 +52,14 @@ Game::Scene::MainMenu::MainMenu()
     _audioVisualizer = std::make_unique<AudioVisualizer>(*sound.second, *sound.first);
 
     _entities = {
-        std::make_shared<Engine::Entity::Image>("assets/img/star.jpg", Engine::Math::Vec2i{0, 0}),
-        std::make_shared<Engine::Entity::Image>("assets/img/sun.png", Engine::Math::Vec2i{static_cast<int>(screenSize.Width / 2 - (894 / 2)), 0}),
-        std::make_shared<Engine::Entity::Image>("assets/img/mountain.png", Engine::Math::Vec2i{0, 0}),
-        std::make_shared<Engine::Entity::Image>("assets/img/cuteBomber.png", Engine::Math::Vec2i{0, 50}),
+        std::make_shared<Engine::Entity::Image>(IMG_STAR, Engine::Math::Vec2i{0, 0}),
+        std::make_shared<Engine::Entity::Image>(IMG_SUN, Engine::Math::Vec2i{static_cast<int>(screenSize.Width / 2 - (894 / 2)), 0}),
+        std::make_shared<Engine::Entity::Image>(IMG_MOUNTAIN, Engine::Math::Vec2i{0, 0}),
+        std::make_shared<Engine::Entity::Image>(IMG_BOMBER, Engine::Math::Vec2i{0, 50}),
 
         std::make_shared<Engine::ECS::Entity::Button>(
             Engine::Math::Rect_i{static_cast<int>(screenSize.Width - 460), 60, 400, 90},
-            "assets/img/newGame.png",
+            IMG_NEW_GAME,
             []() {
                 std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<Game>();
                 Engine::ECS::Manager::getInstance().addScene(game);
@@ -56,14 +67,14 @@ Game::Scene::MainMenu::MainMenu()
         ),
         std::make_shared<Engine::ECS::Entity::Button>(
             Engine::Math::Rect_i{static_cast<int>(screenSize.Width - 460), 60 * 3, 400, 90},
-            "assets/img/pink.png",
+            IMG_LOAD_GAME,
             []() {
                 std::cout << "Load Game" << std::endl;
             }
         ),
         std::make_shared<Engine::ECS::Entity::Button>(
             Engine::Math::Rect_i{static_cast<int>(screenSize.Width - 460), 60 * 5, 400, 90},
-            "assets/img/pink.png",
+            IMG_EXIT_GAME,
             []() {
                 auto window = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getWindow();
                 window->closeDevice();
@@ -76,9 +87,9 @@ Game::Scene::MainMenu::MainMenu()
             auto imgComponent = std::dynamic_pointer_cast<Engine::ECS::Component::Image>(image->getComponentByID("Image"));
             if (imgComponent == nullptr)
                 continue;
-            if (imgComponent->getTexturePath() == "assets/img/sun.png")
+            if (imgComponent->getTexturePath() == IMG_SUN)
                 imgComponent->getGUIImage()->setScaleImage(true);
-            else if (imgComponent->getTexturePath() == "assets/img/mountain.png")
+            else if (imgComponent->getTexturePath() == IMG_MOUNTAIN)
                 imgComponent->setPosition(Engine::Math::Vec2i{0, static_cast<int>(imgComponent->getSize().y - driver->getScreenSize().Height)});
         }
     }
@@ -105,29 +116,35 @@ static auto getAcceleration()
         elapsed = 0s;
     }
 
-    auto progress = elapsed.count() - (elapsed > 2s ? 2.0 : 0.0);
+    auto progress = (elapsed.count() - (elapsed > 2s ? 2.0 : 0.0)) / 2;
     auto x = progress / 2.0;
     return (1.5 * (-(x * x) + x)) * (elapsed < 2s ? 1.0 : -1.0);
 }
 
 void Game::Scene::MainMenu::tick(double dt)
 {
-    auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
+    constexpr double bomberguySpeed = 250.0;
+
+    auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(
+        Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
     auto size = 250 * _audioVisualizer->getVisualizationData().scaleAverage;
 
     for (auto &image : _entities) {
         if (image->getType() == Engine::ECS::IEntity::Type::MODEL2D) {
-            auto imgComponent = std::dynamic_pointer_cast<Engine::ECS::Component::Image>(image->getComponentByID("Image"));
+            auto imgComponent = std::dynamic_pointer_cast<Engine::ECS::Component::Image>(
+                image->getComponentByID("Image"));
             if (imgComponent == nullptr)
                 continue;
-            if (imgComponent->getTexturePath() == "assets/img/sun.png") {
-                imgComponent->setSize(Engine::Math::Vec2u{static_cast<unsigned int>(size), static_cast<unsigned int>(size)});
-                imgComponent->setPosition(Engine::Math::Vec2i{static_cast<int>(driver->getScreenSize().Width / 2.0 - (size / 2.0)),
-                                                              static_cast<int>(driver->getScreenSize().Height / 2.0 - (size / 2.0))});
+            if (imgComponent->getTexturePath() == IMG_SUN) {
+                imgComponent->setSize(
+                    Engine::Math::Vec2u{static_cast<unsigned int>(size), static_cast<unsigned int>(size)});
+                imgComponent->setPosition(
+                    Engine::Math::Vec2i{static_cast<int>(driver->getScreenSize().Width / 2.0 - (size / 2.0)),
+                                        static_cast<int>(driver->getScreenSize().Height / 2.0 - (size / 2.0))});
             }
-            if (imgComponent->getTexturePath() == "assets/img/cuteBomber.png") {
+            if (imgComponent->getTexturePath() == IMG_BOMBER) {
                 auto pos = imgComponent->getPosition();
-                pos.x += static_cast<decltype(pos.x)>(250.0 * getAcceleration() * dt);
+                pos.x += static_cast<decltype(pos.x)>(bomberguySpeed * getAcceleration() * dt);
                 imgComponent->setPosition(pos);
             }
         }
