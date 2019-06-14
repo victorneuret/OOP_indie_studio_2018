@@ -22,9 +22,9 @@ namespace Engine::ECS::System {
 
 class Engine::ECS::System::Audio final : public ASystem {
 public:
-    using BufferType = sf::SoundBuffer;
-    using SoundType = sf::Sound;
-    using Sound = std::shared_ptr<SoundType>;
+    using BufferObject = sf::SoundBuffer;
+    using SoundObject = sf::Sound;
+    using Sound = std::pair<std::shared_ptr<BufferObject>, std::shared_ptr<SoundObject>>;
 private:
     std::map<std::string, Sound> _sounds{};
 public:
@@ -33,7 +33,7 @@ public:
 
     void update(double dt) override;
 
-    void loadSound(const std::string &key, const std::string &soundPath);
+    Sound loadSound(const std::string &key, const std::string &soundPath);
     void unloadSound(const std::string &key);
     Sound getSound(const std::string &sound) const noexcept;
     bool isLoaded(const std::string &key) const noexcept;

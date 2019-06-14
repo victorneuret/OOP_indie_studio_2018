@@ -20,7 +20,7 @@ Engine::ECS::System::Particle::Particle()
     : ASystem("Particle")
 {}
 
-std::vector<std::shared_ptr<Engine::ECS::IEntity>> Engine::ECS::System::Particle::getEntityList()
+std::vector<std::shared_ptr<Engine::ECS::IEntity>> &Engine::ECS::System::Particle::getEntityList()
 {
     return Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntities();
 }
@@ -52,7 +52,7 @@ void Engine::ECS::System::Particle::update(double)
 {
     try {
         Engine::ECS::Manager::getInstance().getSceneByID("Game");
-        auto tmp = getEntityList();
+        auto &tmp = getEntityList();
 
         for (auto &e : tmp) {
             auto ptr = std::dynamic_pointer_cast<Engine::Entity::Particle>(e);
