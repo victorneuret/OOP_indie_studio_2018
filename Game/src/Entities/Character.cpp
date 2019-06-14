@@ -35,7 +35,6 @@ Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::st
 
 void Game::Entity::Character::placeBomb() const noexcept
 {
-    std::cout << "place bomb" << std::endl;
     auto entities =  Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntities();
 
     std::shared_ptr<Engine::ECS::IEntity> bomb = std::make_shared<Game::Entity::Bomb>(Engine::Math::Vec2i{static_cast<int>(2), static_cast<int>(1)});

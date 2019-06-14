@@ -80,7 +80,7 @@ void Game::Scene::Game::tick(double dt)
             }
         }
 
-    if (inputs->isKeyDown(irr::EKEY_CODE::KEY_SPACE))
+    if (inputs->isKeyDown(irr::EKEY_CODE::KEY_ESCAPE))
         for (auto &entity : _entities) {
             auto entityBackup = std::dynamic_pointer_cast<Entity::Character>(entity);
             if (entityBackup != nullptr) {

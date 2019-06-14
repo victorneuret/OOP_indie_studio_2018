@@ -34,7 +34,6 @@ Game::Entity::Bomb::Bomb(const Engine::Math::Vec2i &pos)
 
 void Game::Entity::Bomb::onExplode()
 {
-    std::cout << "On Explode: " << getID() << std::endl;
     auto mapSystem = std::dynamic_pointer_cast<Game::System::Map>(Engine::ECS::Manager::getInstance().getSystemByID("Map"));
     auto map = mapSystem->getActualMap();
 
@@ -46,7 +45,6 @@ void Game::Entity::Bomb::onExplode()
             mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x + i, _pos.y});
             break;
         }
-        std::cout << "tes1" << std::endl;
     }
 
     for (int i = 0; i <= _range && _pos.x - i > 0; i++) {
@@ -54,7 +52,6 @@ void Game::Entity::Bomb::onExplode()
             mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x - i, _pos.y});
             break;
         }
-        std::cout << "tes2" << std::endl;
     }
 
     for (int i = 0; i <= _range && _pos.y + i < MAP_HEIGHT - 1; i++) {
@@ -62,7 +59,6 @@ void Game::Entity::Bomb::onExplode()
             mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x, _pos.y + i});
             break;
         }
-        std::cout << "tes3" << std::endl;
     }
 
     for (int i = 0; i <= _range && _pos.y - i > 0; i++) {
@@ -70,9 +66,7 @@ void Game::Entity::Bomb::onExplode()
             mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x, _pos.y - i});
             break;
         }
-        std::cout << "tes4" << std::endl;
     }
-    std::cout << "test" << std::endl;
     std::dynamic_pointer_cast<Game::System::Map>(Engine::ECS::Manager::getInstance().getSystemByID("Map"))->setActualMap(map);
 }
 
