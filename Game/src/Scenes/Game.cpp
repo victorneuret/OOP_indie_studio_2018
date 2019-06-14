@@ -20,6 +20,7 @@
 #include "ECS/Systems/Input/KeyboardInput.hpp"
 #include "Entities/Bomb.hpp"
 #include "Systems/Map.hpp"
+#include "ECS/Systems/Input/KeyboardInput.hpp"
 
 Game::Scene::Game::Game()
         : AScene("Game", {}, true, true)
@@ -51,6 +52,11 @@ Game::Scene::Game::Game()
 
 void Game::Scene::Game::tick(double)
 {
+    auto input = std::dynamic_pointer_cast<Engine::ECS::System::KeyboardInput>(Engine::ECS::Manager::getInstance().getSystemByID("KeyboardInput"));
+    if (input->isKeyDown(irr::EKEY_CODE::KEY_DELETE)) {
+        auto window = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getWindow();
+        window->closeDevice();
+    }
     std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
         createParticles(1, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{200, 0, 150}, Engine::Math::Vec3<float>{200, 0, 0}, 3.5, "Game");
     std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->

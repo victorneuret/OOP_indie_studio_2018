@@ -11,8 +11,6 @@
 
 #include "irrlicht.hpp"
 #include "ECS/Abstracts/Systems/AInput.hpp"
-#include "ECS/Abstracts/ASystem.hpp"
-#include "ECS/Abstracts/Systems/AInput.hpp"
 
 namespace Engine::ECS::System {
     class KeyboardInput;
