@@ -13,10 +13,7 @@ before_script:
   - curl http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/SFML-2.5.1.zip -o SFML-2.5.1.zip
   - curl http://ec2-34-244-225-15.eu-west-1.compute.amazonaws.com/criterion-v2.3.2.tar.bz2 -o criterion.tar.bz2
   - unzip irrlicht.zip
-  - mkdir -p irrlicht/irrlicht
-  - mv Irrlicht\ x64\ Visual\ Studio\ 2019\ SDK\ 10.0.17763.0/include/* irrlicht/irrlicht
-  - mv Irrlicht\ x64\ Visual\ Studio\ 2019\ SDK\ 10.0.17763.0/Irrlicht.dll .
-  - mv Irrlicht\ x64\ Visual\ Studio\ 2019\ SDK\ 10.0.17763.0/Irrlicht.lib .
+  - mv Irrlicht\ x64\ Visual\ Studio\ 2019\ SDK\ 10.0.17763.0 irrlicht
   - unzip SFML-2.5.1.zip
   - mkdir -p SFML
   - mv SFML-2.5.1/bin/*.dll .

@@ -4,27 +4,27 @@ project(bomberman CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_VERBOSE_MAKEFILE off) # Turn on to debug cmake
 
-set(CMAKE_MODULE_PATH FindIrrlicht.cmake)
-
-include(${CMAKE_MODULE_PATH})
-
-message(STATUS ${Irrlicht_INCLUDE_DIRS})
-message(STATUS ${Irrlicht_LIBRARIES})
-
-IF (NOT ${Irrlicht_FOUND})
-    message( SEND_ERROR "Can't find Irrlicht" )
-ENDIF (NOT ${Irrlicht_FOUND})
-
 if (UNIX)
     add_compile_options(-Wall -Wextra -Weffc++)
+    set(CMAKE_MODULE_PATH .)
 
     if (CMAKE_BUILD_TYPE MATCHES Debug)
         add_definitions(-DDEBUG=1)
     elseif (CMAKE_BUILD_TYPE MATCHES Release)
         add_definitions(-DRELEASE=1)
     endif ()
+else ()
+    set(CMAKE_MODULE_PATH ./irrlicht)
 endif (UNIX)
 
+include(${CMAKE_MODULE_PATH}/FindIrrlicht.cmake)
+
+message(STATUS ${Irrlicht_INCLUDE_DIRS})
+message(STATUS ${Irrlicht_LIBRARIES})
+
+if (NOT ${Irrlicht_FOUND})
+    message( SEND_ERROR "Can't find Irrlicht" )
+endif (NOT ${Irrlicht_FOUND})
 
 include_directories(
     SFML
@@ -177,7 +177,7 @@ add_executable(
 )
 
 target_include_directories(tests_run PUBLIC Game/include Engine/include criterion)
-target_link_libraries(tests_run sfml-audio sfml-system Irrlicht criterion)
+target_link_libraries(tests_run sfml-audio sfml-system ${Irrlicht_LIBRARIES} criterion)
 
 if (UNIX)
     target_compile_options(tests_run PUBLIC --coverage)
