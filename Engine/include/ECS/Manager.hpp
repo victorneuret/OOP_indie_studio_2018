@@ -41,6 +41,7 @@ public:
     decltype(_scenes) &getScenes() noexcept;
     std::shared_ptr<Abstracts::AScene> &getSceneByID(const std::string &id);
     void addScene(std::shared_ptr<Abstracts::AScene> &scene);
+    void removeScene(std::shared_ptr<Abstracts::AScene> &scene);
     void sceneManager(double dt, std::shared_ptr<System::Renderer> &renderer);
     std::vector<std::shared_ptr<Engine::ECS::IEntity>> getUpdatedEntities();
     std::vector<std::shared_ptr<Engine::Abstracts::AScene>> getUpdatedScenes();

@@ -16,10 +16,12 @@ Engine::ECS::System::ButtonEvent::ButtonEvent()
 
 bool Engine::ECS::System::ButtonEvent::OnEvent(const irr::SEvent &event)
 {
+    auto actualScenesStack = Engine::ECS::Manager::getInstance().getScenes();
+
     if (event.EventType == irr::EET_GUI_EVENT) {
         const auto ID = event.GUIEvent.Caller->getID();
 
-        for (auto &scene : Engine::ECS::Manager::getInstance().getScenes()) {
+        for (auto &scene : actualScenesStack) {
             for (auto &c : scene->getEntities()) {
                 if (c == nullptr || c->getType() != IEntity::Type::BUTTON || event.GUIEvent.EventType != irr::gui::EGUI_EVENT_TYPE::EGET_BUTTON_CLICKED)
                     continue;

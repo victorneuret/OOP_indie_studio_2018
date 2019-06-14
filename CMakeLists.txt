@@ -163,6 +163,8 @@ add_executable(
     Game/src/Systems/JoystickHandler.cpp
     Game/include/Systems/KeyboardHandler.hpp
     Game/src/Systems/KeyboardHandler.cpp
+    Game/include/Scenes/PauseMenu.hpp
+    Game/src/Scenes/PauseMenu.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)

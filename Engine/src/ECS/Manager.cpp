@@ -13,6 +13,7 @@
 #include "Exception/Engine/ECS/ECSException.hpp"
 #include "Exception/Memory/MemoryException.hpp"
 #include "Exception/Engine/EngineException.hpp"
+#include "Utils/Logger.hpp"
 
 std::unique_ptr<Engine::ECS::Manager> Engine::ECS::Manager::_instance{nullptr};
 std::vector<std::shared_ptr<Engine::ECS::ISystem>> Engine::ECS::Manager::_systems{};
@@ -64,6 +65,16 @@ void Engine::ECS::Manager::addScene(std::shared_ptr<Abstracts::AScene> &scene)
     _scenes.push_back(scene);
 }
 
+void Engine::ECS::Manager::removeScene(std::shared_ptr<Engine::Abstracts::AScene> &scene)
+{
+    auto it = std::find(_scenes.begin(), _scenes.end(), scene);
+
+    if (it != _scenes.end())
+        _scenes.erase(it);
+    else
+        Logger::getInstance().warning("Scene " + scene->getID() + " already removed");
+}
+
 decltype(Engine::ECS::Manager::_scenes) &Engine::ECS::Manager::getScenes() noexcept
 {
     return _scenes;
@@ -71,7 +82,9 @@ decltype(Engine::ECS::Manager::_scenes) &Engine::ECS::Manager::getScenes() noexc
 
 void Engine::ECS::Manager::sceneManager(double dt, std::shared_ptr<Engine::ECS::System::Renderer> &renderer)
 {
-    for (auto it = _scenes.rbegin(); it != _scenes.rend(); it++) {
+    auto actualScenesStack = _scenes;
+
+    for (auto it = actualScenesStack.rbegin(); it != actualScenesStack.rend(); it++) {
         if ((*it)->isUpdateChild())
            (*it)->tick(dt);
         for (auto &entity : (*it)->getEntities())
@@ -84,9 +97,10 @@ void Engine::ECS::Manager::sceneManager(double dt, std::shared_ptr<Engine::ECS::
 
 std::vector<std::shared_ptr<Engine::ECS::IEntity>> Engine::ECS::Manager::getUpdatedEntities()
 {
+    auto actualScenesStack = _scenes;
     std::vector<std::shared_ptr<Engine::ECS::IEntity>> updatedEntities{};
 
-    for (auto it = _scenes.rbegin(); it != _scenes.rend(); it++) {
+    for (auto it = actualScenesStack.rbegin(); it != actualScenesStack.rend(); it++) {
         updatedEntities.insert(updatedEntities.end(), (*it)->getEntities().begin(), (*it)->getEntities().end());
         if (!(*it)->isUpdateChild() || (*it)->isOpaque())
             break;
