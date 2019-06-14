@@ -45,7 +45,5 @@ void Engine::ECS::System::InputHandler::update(double dt)
             if (c.second->isKeyDown(Engine::ECS::InputType::B_PRIMARY))
                 player->placeBomb();
         }
-    } catch (const std::exception &err) {
-        std::cout << err.what() << std::endl;
-    }
+    } catch (...) {}
 }

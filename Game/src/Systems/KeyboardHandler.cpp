@@ -30,7 +30,6 @@ Engine::Math::Vec2f Game::System::KeyboardHandler::getPosition() const
     const auto &input = std::dynamic_pointer_cast<Engine::ECS::System::KeyboardInput>(
         Engine::ECS::Manager::getInstance().getSystemByID("KeyboardInput"));
 
-
     auto x = (input->isKeyDown(irr::KEY_LEFT) + input->isKeyDown(irr::KEY_KEY_Q)) -
         (input->isKeyDown(irr::KEY_RIGHT) + input->isKeyDown(irr::KEY_KEY_D));
     auto y = (input->isKeyDown(irr::KEY_DOWN) + input->isKeyDown(irr::KEY_KEY_S)) -
