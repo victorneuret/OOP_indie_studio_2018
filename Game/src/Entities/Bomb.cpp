@@ -65,7 +65,6 @@ void Game::Entity::Bomb::onExplode()
             break;
         }
     }
-    std::dynamic_pointer_cast<Game::System::Map>(Engine::ECS::Manager::getInstance().getSystemByID("Map"))->setActualMap(map);
 }
 
 const decltype(Game::Entity::Bomb::_pos) &Game::Entity::Bomb::getPos() const noexcept
