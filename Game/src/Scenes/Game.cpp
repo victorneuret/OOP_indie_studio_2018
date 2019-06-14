@@ -81,9 +81,7 @@ void Game::Scene::Game::tick(double)
         if (image->getType() == Engine::ECS::IEntity::Type::MODEL2D) {
             auto imgComponent = std::dynamic_pointer_cast<Engine::ECS::Component::Image>(
                 image->getComponentByID("Image"));
-            if (imgComponent == nullptr)
-                continue;
-            if (imgComponent->getTexturePath() == IMG_SUN) {
+            if (imgComponent != nullptr && imgComponent->getTexturePath() == IMG_SUN) {
                 imgComponent->setSize(
                     Engine::Math::Vec2u{static_cast<unsigned int>(size), static_cast<unsigned int>(size)});
                 imgComponent->setPosition(
