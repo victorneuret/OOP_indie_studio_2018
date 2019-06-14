@@ -8,15 +8,16 @@
 #pragma once
 
 #include <functional>
+#include <map>
 #include <irrlicht/irrlicht.h>
 
 #include "ECS/Interfaces/InputType.hpp"
 
-namespace Engine::ECS::System {
+namespace Game::System {
     class JoystickHandler;
 }
 
-class Engine::ECS::System::JoystickHandler final : public InputType {
+class Game::System::JoystickHandler final : public Engine::ECS::InputType {
 public:
     enum CONTROLLER_BUTTONS {
         A,

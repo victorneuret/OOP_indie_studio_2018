@@ -14,11 +14,11 @@
 #include "Math/Vector/Vec2.hpp"
 #include "ECS/Interfaces/InputType.hpp"
 
-namespace Engine::ECS::System {
+namespace Game::System {
     class KeyboardHandler;
 }
 
-class Engine::ECS::System::KeyboardHandler final : public InputType {
+class Game::System::KeyboardHandler final : public Engine::ECS::InputType {
 protected:
     const std::map<INPUT_KEY, std::function<bool()>> _buttons = {
         {B_PRIMARY,    [&]() { return isButtonPressed(irr::KEY_SPACE); }},

@@ -123,12 +123,7 @@ add_library(
     Engine/src/ECS/Systems/Particle.cpp
     Engine/include/ECS/Interfaces/Entities/IMovable.hpp
     Engine/include/ECS/Systems/InputHandler.hpp
-    Engine/src/ECS/Systems/InputHandler.cpp
     Engine/include/ECS/Interfaces/InputType.hpp
-    Engine/include/ECS/Systems/Input/JoystickHandler.hpp
-    Engine/src/ECS/Systems/Input/JoystickHandler.cpp
-    Engine/include/ECS/Systems/Input/KeyboardHandler.hpp
-    Engine/src/ECS/Systems/Input/KeyboardHandler.cpp
 )
 
 add_executable(
@@ -149,6 +144,11 @@ add_executable(
     Game/src/Entities/Bomb.cpp
     Game/include/Entities/Character.hpp
     Game/src/Entities/Character.cpp
+    Game/src/Systems/InputHandler.cpp
+    Game/include/Systems/JoystickHandler.hpp
+    Game/src/Systems/JoystickHandler.cpp
+    Game/include/Systems/KeyboardHandler.hpp
+    Game/src/Systems/KeyboardHandler.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)

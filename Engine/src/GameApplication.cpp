@@ -14,8 +14,8 @@
 #include "ECS/Systems/Event/ButtonEvent.hpp"
 #include "ECS/Systems/Input/JoystickInput.hpp"
 #include "ECS/Systems/Input/KeyboardInput.hpp"
-#include "ECS/Systems/Input/JoystickHandler.hpp"
-#include "ECS/Systems/Input/KeyboardHandler.hpp"
+#include "../../Game/include/Systems/JoystickHandler.hpp"
+#include "../../Game/include/Systems/KeyboardHandler.hpp"
 #include "ECS/Systems/InputHandler.hpp"
 #include "ECS/Interfaces/InputType.hpp"
 #include "ECS/Systems/Input/MouseInput.hpp"
@@ -63,12 +63,6 @@ void Engine::GameApplication::_startup()
     _ecsManager.addSystem(joystick);
     _ecsManager.addSystem(particles);
     _ecsManager.addSystem(handler);
-
-    auto joystickHandler = std::make_shared<ECS::System::JoystickHandler>(0);
-    auto keyboardHandler = std::make_shared<ECS::System::KeyboardHandler>();
-
-    std::dynamic_pointer_cast<ECS::System::InputHandler>(handler)->bind(1, joystickHandler);
-    std::dynamic_pointer_cast<ECS::System::InputHandler>(handler)->bind(2, keyboardHandler);
 }
 
 void Engine::GameApplication::_tick(double dt, std::shared_ptr<Engine::ECS::System::Renderer> &renderer)
