@@ -20,7 +20,7 @@ protected:
     int _range{1};
 
 public:
-    explicit Character(const Engine::Math::Vec3f &pos, const std::string &texture, const std::string &model);
+    Character(const Engine::Math::Vec3f &pos, const std::string &texture, const std::string &model);
     Character(const Character &) = delete;
     Character &operator=(const Character &) = delete;
 
