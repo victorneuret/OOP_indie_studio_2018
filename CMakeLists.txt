@@ -136,6 +136,8 @@ add_library(
     Engine/include/ECS/Systems/InputHandler.hpp
     Engine/include/ECS/Interfaces/InputType.hpp
     Engine/include/irrlicht.hpp
+    Engine/include/Effects/AudioVisualizer.hpp
+    Engine/src/Effects/AudioVisualizer.cpp
 )
 
 add_executable(
