@@ -31,6 +31,10 @@ void Game::System::Map::_createFirstSquare() noexcept
         str.clear();
 
         for (size_t iChar = 0; iChar < (MAP_WIDTH + (MAP_WIDTH % 2)) / 2; iChar++) {
+            if (iChar == 0 || i == 0) {
+                str.append(".");
+                continue;
+            }
             randomValue = Random::getUnsigned(0, 5);
             switch (randomValue) {
                 case 0: str.append("0"); break;
@@ -45,7 +49,6 @@ void Game::System::Map::_createFirstSquare() noexcept
         } else if (_map.size() == 1) {
             str[0] = '0';
         }
-
         _map.push_back(str);
     }
 }
