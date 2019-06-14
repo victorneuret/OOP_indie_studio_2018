@@ -14,8 +14,6 @@
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Components/Renderer.hpp"
 
-#include <iostream>
-
 Game::Entity::Bomb::Bomb(const Engine::Math::Vec2i &pos)
     : AEntity{AEntity::Type::MODEL3D}, _pos{pos}
 {

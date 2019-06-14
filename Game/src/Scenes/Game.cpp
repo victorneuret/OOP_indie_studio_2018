@@ -5,9 +5,6 @@
 ** Game.cpp
 */
 
-#include <iostream>
-#include <ECS/Systems/Input/KeyboardInput.hpp>
-
 #include "Scenes/Game.hpp"
 #include "ECS/Entities/Text.hpp"
 #include "ECS/Entities/Button.hpp"
@@ -17,6 +14,7 @@
 #include "Entities/Player.hpp"
 #include "ECS/Manager.hpp"
 #include "ECS/Systems/Particle.hpp"
+#include "ECS/Systems/Input/KeyboardInput.hpp"
 #include "Entities/Bomb.hpp"
 #include "Systems/Map.hpp"
 
@@ -42,13 +40,13 @@ void Game::Scene::Game::tick(double dt)
         createParticles(1, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{200, 0, 150}, Engine::Math::Vec3<float>{200, 0, 0}, 3.5, "Game");
     std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
         createParticles(1, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{-90, 0, 150}, Engine::Math::Vec3<float>{0, 0, 0}, 3.5, "Game");
-    constexpr float speed = 42.42;
+
     auto inputs = std::dynamic_pointer_cast<Engine::ECS::System::KeyboardInput>(Engine::ECS::Manager::getInstance().getSystemByID("KeyboardInput"));
     if (inputs->isKeyDown(irr::EKEY_CODE::KEY_RIGHT))
         for (auto &entity : _entities) {
             auto entityBackup = std::dynamic_pointer_cast<Entity::Character>(entity);
             if (entityBackup != nullptr) {
-                entityBackup->move({speed * -1, 0 * speed}, dt);
+                entityBackup->move({-1, 0}, dt);
                 break;
             }
         }
@@ -57,7 +55,7 @@ void Game::Scene::Game::tick(double dt)
         for (auto &entity : _entities) {
             auto entityBackup = std::dynamic_pointer_cast<Entity::Character>(entity);
             if (entityBackup != nullptr) {
-                entityBackup->move({1 * speed, 0 * speed}, dt);
+                entityBackup->move({1, 0}, dt);
                 break;
             }
         }
@@ -66,7 +64,7 @@ void Game::Scene::Game::tick(double dt)
         for (auto &entity : _entities) {
             auto entityBackup = std::dynamic_pointer_cast<Entity::Character>(entity);
             if (entityBackup != nullptr) {
-                entityBackup->move({0 * speed, -1 * speed}, dt);
+                entityBackup->move({0, -1}, dt);
                 break;
             }
         }
@@ -75,7 +73,7 @@ void Game::Scene::Game::tick(double dt)
         for (auto &entity : _entities) {
             auto entityBackup = std::dynamic_pointer_cast<Entity::Character>(entity);
             if (entityBackup != nullptr) {
-                entityBackup->move({0 * speed, 1 * speed}, dt);
+                entityBackup->move({0, 1}, dt);
                 break;
             }
         }

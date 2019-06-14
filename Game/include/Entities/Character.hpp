@@ -18,6 +18,7 @@ class Game::Entity::Character : public Engine::ECS::AEntity {
 protected:
     Engine::Math::Vec3f _pos{0, 0, 0};
     int _range{1};
+    float _speed{0.0};
 
 public:
     explicit Character(const Engine::Math::Vec3f &pos, const std::string &texture, const std::string &model);
@@ -28,4 +29,6 @@ public:
 
     void placeBomb() const noexcept;
     void move(const Engine::Math::Vec2f &dir, double deltaTime) noexcept;
+    const decltype(_speed) &getSpeed() const noexcept;
+    void setSpeed(const decltype(_speed) &speed) noexcept;
 };
