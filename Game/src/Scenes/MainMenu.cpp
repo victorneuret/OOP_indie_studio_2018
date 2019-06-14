@@ -62,7 +62,7 @@ Game::Scene::MainMenu::MainMenu()
             IMG_NEW_GAME,
             []() {
                 std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<Game>();
-                Engine::ECS::Manager::getInstance().addScene(game);
+                Engine::ECS::Manager::getInstance().pushScene(game);
             }
         ),
         std::make_shared<Engine::ECS::Entity::Button>(

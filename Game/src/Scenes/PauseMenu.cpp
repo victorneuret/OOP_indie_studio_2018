@@ -28,11 +28,14 @@ void Game::Scene::PauseMenu::tick(double)
 {
     auto input = std::dynamic_pointer_cast<Engine::ECS::System::KeyboardInput>(Engine::ECS::Manager::getInstance().getSystemByID("KeyboardInput"));
 
-    if (input->isKeyDown(irr::EKEY_CODE::KEY_ESCAPE)) {
-        try {
-            auto toDelete = Engine::ECS::Manager::getInstance().getSceneByID("PauseMenu");
-            Engine::ECS::Manager::getInstance().getSceneByID("Game")->updateChild(true);
-            Engine::ECS::Manager::getInstance().removeScene(toDelete);
-        } catch (const ECSException<ECS_Scene> &) {}
-    }
+    if (input->isKeyDown(irr::EKEY_CODE::KEY_ESCAPE))
+        Engine::ECS::Manager::getInstance().popScene();
+}
+
+void Game::Scene::PauseMenu::sceneShowing()
+{
+}
+
+void Game::Scene::PauseMenu::sceneHiding(const Engine::Abstracts::AScene *)
+{
 }

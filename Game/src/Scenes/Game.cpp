@@ -66,10 +66,11 @@ void Game::Scene::Game::tick(double dt)
             Engine::ECS::Manager::getInstance().getSceneByID("PauseMenu");
         } catch (const ECSException<ECS_Scene> &) {
             std::shared_ptr<AScene> pauseMenu = std::make_shared<PauseMenu>();
-            pauseMenu->updateChild(true);
-            Engine::ECS::Manager::getInstance().getSceneByID("Game")->updateChild(false);
-            Engine::ECS::Manager::getInstance().addScene(pauseMenu);
+            Engine::ECS::Manager::getInstance().pushScene(pauseMenu);
         }
+    }
+    if (input->isKeyDown(irr::EKEY_CODE::KEY_KEY_M)) { // tmp
+        Engine::ECS::Manager::getInstance().popScene();
     }
 }
 

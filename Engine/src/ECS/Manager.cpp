@@ -53,7 +53,7 @@ std::shared_ptr<Engine::Abstracts::AScene> &Engine::ECS::Manager::getSceneByID(c
     throw ECSException<ECS_Scene>{"Scene " + id + " not found"};
 }
 
-void Engine::ECS::Manager::addScene(std::shared_ptr<Abstracts::AScene> &scene)
+void Engine::ECS::Manager::pushScene(std::shared_ptr<Abstracts::AScene> &scene)
 {
     if (scene->isOpaque() && !_scenes.empty()) {
         auto entities = getUpdatedEntities();
@@ -65,14 +65,21 @@ void Engine::ECS::Manager::addScene(std::shared_ptr<Abstracts::AScene> &scene)
     _scenes.push_back(scene);
 }
 
-void Engine::ECS::Manager::removeScene(std::shared_ptr<Engine::Abstracts::AScene> &scene)
+void Engine::ECS::Manager::popScene()
 {
-    auto it = std::find(_scenes.begin(), _scenes.end(), scene);
+    if (_scenes.empty()) {
+        Logger::getInstance().warning("No scenes are showing.");
+        return;
+    }
 
-    if (it != _scenes.end())
-        _scenes.erase(it);
-    else
-        Logger::getInstance().warning("Scene " + scene->getID() + " already removed");
+    auto top = _scenes.end() - 1;
+
+    if (_scenes.size() != 1) {
+        auto parent = top - 1;
+        (*parent)->sceneShowing();
+    }
+
+    _scenes.erase(top);
 }
 
 decltype(Engine::ECS::Manager::_scenes) &Engine::ECS::Manager::getScenes() noexcept
@@ -86,10 +93,10 @@ void Engine::ECS::Manager::sceneManager(double dt, std::shared_ptr<Engine::ECS::
 
     for (auto it = actualScenesStack.rbegin(); it != actualScenesStack.rend(); it++) {
         if ((*it)->isUpdateChild())
-           (*it)->tick(dt);
+            (*it)->tick(dt);
         for (auto &entity : (*it)->getEntities())
             renderer->draw(entity);
-        if  ((*it)->isOpaque()) {
+        if ((*it)->isOpaque()) {
             break;
         }
     }

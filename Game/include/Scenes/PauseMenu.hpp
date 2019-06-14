@@ -21,4 +21,6 @@ public:
     PauseMenu &operator=(const PauseMenu &) = delete;
 
     void tick(double deltaTime) override;
+    void sceneShowing() override;
+    void sceneHiding(const AScene *newParent) override;
 };

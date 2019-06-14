@@ -21,7 +21,7 @@ BombermanApplication::BombermanApplication()
 void BombermanApplication::onAppStartup()
 {
     std::shared_ptr<Engine::Abstracts::AScene> mainMenu = std::make_shared<Game::Scene::MainMenu>();
-    Engine::ECS::Manager::getInstance().addScene(mainMenu);
+    Engine::ECS::Manager::getInstance().pushScene(mainMenu);
 
     std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();
     Engine::ECS::Manager::getInstance().addSystem(map);
