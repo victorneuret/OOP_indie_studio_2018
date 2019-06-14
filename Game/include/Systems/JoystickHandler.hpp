@@ -9,8 +9,8 @@
 
 #include <functional>
 #include <map>
-#include <irrlicht/irrlicht.h>
 
+#include "irrlicht.hpp"
 #include "ECS/Interfaces/InputType.hpp"
 
 namespace Game::System {
