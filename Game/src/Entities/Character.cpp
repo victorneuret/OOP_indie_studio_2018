@@ -35,7 +35,7 @@ void Game::Entity::Character::placeBomb() const noexcept
 {
     auto entities = Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntities();
 
-    std::shared_ptr<Engine::ECS::IEntity> bomb = std::make_shared<Game::Entity::Bomb>(Engine::Math::Vec2i{static_cast<int>(round(_pos.x / 10) + 1), static_cast<int>(round(_pos.y / 10) + 1)});
+    std::shared_ptr<Engine::ECS::IEntity> bomb = std::make_shared<Game::Entity::Bomb>(Engine::Math::Vec2i{static_cast<int>(round(_pos.x / 10) + 1), static_cast<int>(round(_pos.y / 10) + 1)}, _range);
     Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(bomb);
 }
 

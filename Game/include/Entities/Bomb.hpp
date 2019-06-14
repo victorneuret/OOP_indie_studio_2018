@@ -20,7 +20,7 @@ protected:
     int _range{1};
 
 public:
-    explicit Bomb(const decltype(_pos) &pos);
+    explicit Bomb(const decltype(_pos) &pos, const decltype(_range) &range);
     Bomb(const Bomb &) = delete;
     Bomb &operator=(const Bomb &) = delete;
 
