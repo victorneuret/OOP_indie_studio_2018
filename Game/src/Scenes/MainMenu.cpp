@@ -22,20 +22,10 @@
 #include "Scenes/Game.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
 #include "Systems/Map.hpp"
-
-static constexpr const char *const IMG_STAR = "assets/img/star.jpg";
-static constexpr const char *const IMG_SUN = "assets/img/sun.png";
-static constexpr const char *const IMG_MOUNTAIN = "assets/img/mountain.png";
-static constexpr const char *const IMG_BOMBER = "assets/img/cuteBomber.png";
-
-static constexpr const char *const IMG_NEW_GAME = "assets/img/newGame.png";
-static constexpr const char *const IMG_LOAD_GAME = "assets/img/pink.png";
-static constexpr const char *const IMG_EXIT_GAME = "assets/img/pink.png";
-
-static constexpr const char *const SND_MAIN_MENU = "assets/musics/ignite.ogg";
+#include "Assets.hpp"
 
 Game::Scene::MainMenu::MainMenu()
-    : AScene{"MainMenu", {}, true, true}, _music{}
+    : AScene{"MainMenu", {}, true, true}
 {
     auto &manager = Engine::ECS::Manager::getInstance();
 

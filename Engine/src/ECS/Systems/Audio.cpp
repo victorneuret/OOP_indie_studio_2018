@@ -23,7 +23,7 @@ Engine::ECS::System::Audio::Sound Engine::ECS::System::Audio::loadSound(const st
 {
     if (isLoaded(key)) {
         Logger::getInstance().warning("Can't load sound \"" + key + "\": sound is already loaded.");
-        return std::make_pair(nullptr, nullptr);
+        return getSound(key);
     }
 
     auto sound = std::make_shared<SoundObject>();

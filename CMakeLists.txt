@@ -165,6 +165,7 @@ add_executable(
     Game/src/Systems/KeyboardHandler.cpp
     Game/include/Scenes/PauseMenu.hpp
     Game/src/Scenes/PauseMenu.cpp
+    Game/include/Assets.hpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)

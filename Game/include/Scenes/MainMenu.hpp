@@ -17,7 +17,7 @@ namespace Game::Scene {
 
 class Game::Scene::MainMenu final : public Engine::Abstracts::AScene {
 private:
-    decltype(std::declval<Engine::ECS::System::Audio>().getSound("").second) _music;
+    decltype(std::declval<Engine::ECS::System::Audio>().getSound("").second) _music{};
     std::unique_ptr<AudioVisualizer> _audioVisualizer{nullptr};
 public:
     MainMenu();
