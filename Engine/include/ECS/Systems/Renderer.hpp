@@ -9,8 +9,8 @@
 
 #include <string>
 #include <memory>
-#include <irrlicht/irrlicht.h>
 
+#include "irrlicht.hpp"
 #include "Math/Rect.hpp"
 #include "Utils/Color.hpp"
 #include "Math/Vector/Vec2.hpp"

@@ -6,17 +6,29 @@ set(CMAKE_VERBOSE_MAKEFILE off) # Turn on to debug cmake
 
 if (UNIX)
     add_compile_options(-Wall -Wextra -Weffc++)
+    set(CMAKE_MODULE_PATH .)
 
     if (CMAKE_BUILD_TYPE MATCHES Debug)
         add_definitions(-DDEBUG=1)
     elseif (CMAKE_BUILD_TYPE MATCHES Release)
         add_definitions(-DRELEASE=1)
     endif ()
+else ()
+    set(CMAKE_MODULE_PATH ./irrlicht)
 endif (UNIX)
+
+include(${CMAKE_MODULE_PATH}/FindIrrlicht.cmake)
+
+message(STATUS ${Irrlicht_INCLUDE_DIRS})
+message(STATUS ${Irrlicht_LIBRARIES})
+
+if (NOT ${Irrlicht_FOUND})
+    error(SEND_ERROR "Can't find Irrlicht")
+endif (NOT ${Irrlicht_FOUND})
 
 include_directories(
     SFML
-    irrlicht
+    ${Irrlicht_INCLUDE_DIRS}
     Engine/include
 )
 
@@ -123,8 +135,9 @@ add_library(
     Engine/src/ECS/Systems/Particle.cpp
     Engine/include/ECS/Systems/InputHandler.hpp
     Engine/include/ECS/Interfaces/InputType.hpp
-    Engine/src/Effects/AudioVisualizer.cpp
+    Engine/include/irrlicht.hpp
     Engine/include/Effects/AudioVisualizer.hpp
+    Engine/src/Effects/AudioVisualizer.cpp
 )
 
 add_executable(
@@ -153,7 +166,7 @@ add_executable(
 )
 
 target_include_directories(bomberman PUBLIC Game/include)
-target_link_libraries(bomberman engine Irrlicht sfml-audio sfml-system)
+target_link_libraries(bomberman engine ${Irrlicht_LIBRARIES} sfml-audio sfml-system)
 
 add_executable(
     tests_run
@@ -165,7 +178,7 @@ add_executable(
 )
 
 target_include_directories(tests_run PUBLIC Game/include Engine/include criterion)
-target_link_libraries(tests_run sfml-audio sfml-system Irrlicht criterion)
+target_link_libraries(tests_run sfml-audio sfml-system ${Irrlicht_LIBRARIES} criterion)
 
 if (UNIX)
     target_compile_options(tests_run PUBLIC --coverage)

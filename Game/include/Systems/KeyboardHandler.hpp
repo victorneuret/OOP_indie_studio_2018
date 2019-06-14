@@ -9,8 +9,8 @@
 
 #include <map>
 #include <functional>
-#include <irrlicht/irrlicht.h>
 
+#include "irrlicht.hpp"
 #include "Math/Vector/Vec2.hpp"
 #include "ECS/Interfaces/InputType.hpp"
 

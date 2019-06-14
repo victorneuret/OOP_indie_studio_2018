@@ -12,8 +12,8 @@
 #include <vector>
 #include <memory>
 #include <type_traits>
-#include <irrlicht/irrlicht.h>
 
+#include "irrlicht.hpp"
 #include "ECS/Abstracts/Systems/AInput.hpp"
 
 namespace Engine::ECS::System {

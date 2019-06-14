@@ -7,8 +7,7 @@
 
 #pragma once
 
-#include <irrlicht/IEventReceiver.h>
-
+#include "irrlicht.hpp"
 #include "ECS/Abstracts/Systems/AInput.hpp"
 #include "Math/Vector/Vec2.hpp"
 

@@ -8,8 +8,8 @@
 #pragma once
 
 #include <map>
-#include <irrlicht/irrlicht.h>
 
+#include "irrlicht.hpp"
 #include "ECS/Abstracts/Systems/AInput.hpp"
 #include "ECS/Abstracts/ASystem.hpp"
 #include "ECS/Abstracts/Systems/AInput.hpp"

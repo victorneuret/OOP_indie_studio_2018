@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <irrlicht/irrlicht.h>
+#include "irrlicht.hpp"
 
 namespace Engine::ECS::Entity {
     class IGuiElement;

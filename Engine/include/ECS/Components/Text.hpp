@@ -7,8 +7,7 @@
 
 #pragma once
 
-#include <irrlicht/irrlicht.h>
-
+#include "irrlicht.hpp"
 #include "Utils/Color.hpp"
 #include "Math/Vector/Vec2.hpp"
 #include "ECS/Systems/Renderer.hpp"

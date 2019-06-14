@@ -5,10 +5,10 @@
 ** GameApplication.cpp
 */
 
-#include <irrlicht/irrTypes.h>
 #include <chrono>
 #include <vector>
 
+#include "irrlicht.hpp"
 #include "GameApplication.hpp"
 #include "ECS/Interfaces/ISystem.hpp"
 #include "ECS/Systems/Event/ButtonEvent.hpp"

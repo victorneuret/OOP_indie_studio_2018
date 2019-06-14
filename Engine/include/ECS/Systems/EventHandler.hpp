@@ -9,8 +9,8 @@
 
 #include <vector>
 #include <memory>
-#include <irrlicht/irrlicht.h>
 
+#include "irrlicht.hpp"
 #include "ECS/Abstracts/ASystem.hpp"
 
 namespace Engine::ECS::System {
