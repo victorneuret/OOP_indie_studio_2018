@@ -52,7 +52,11 @@ void Game::Entity::Bomb::onExplode()
             mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x + static_cast<int>(i), _pos.y});
             break;
         }
-        std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->createParticles(15, Engine::Math::Vec2f{0.5, 1}, Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x + i - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y - 1))}, Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x + i - 1)), 4, static_cast<float>INDEX_TO_POS(_pos.y - 1)}, 0.5, "Game"); //Right
+        std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
+            createParticles(15, Engine::Math::Vec2f{0.5, 1},
+                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x + i - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y - 1))},
+                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x + i - 1)), 4, static_cast<float>INDEX_TO_POS(_pos.y - 1)},
+                0.5, "Game");
     }
 
     for (size_t i = 0; i <= _range && _pos.x - i > 0; i++) {
@@ -60,7 +64,11 @@ void Game::Entity::Bomb::onExplode()
             mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x - static_cast<int>(i), _pos.y});
             break;
         }
-        std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->createParticles(15, Engine::Math::Vec2f{0.5, 1}, Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - i - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y - 1))}, Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - i - 1)), 4, static_cast<float>INDEX_TO_POS(_pos.y - 1)}, 0.5, "Game"); //Left
+        std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
+            createParticles(15, Engine::Math::Vec2f{0.5, 1},
+                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - i - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y - 1))},
+                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - i - 1)), 4, static_cast<float>INDEX_TO_POS(_pos.y - 1)},
+                0.5, "Game");
     }
 
     for (size_t i = 0; i <= _range && _pos.y + i < MAP_HEIGHT + 1; i++) {
@@ -68,7 +76,11 @@ void Game::Entity::Bomb::onExplode()
             mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x, _pos.y + static_cast<int>(i)});
             break;
         }
-        std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->createParticles(15, Engine::Math::Vec2f{0.5, 1}, Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y + i - 1))}, Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 4, static_cast<float>INDEX_TO_POS(_pos.y + i - 1)}, 0.5, "Game"); //Up
+        std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
+            createParticles(15, Engine::Math::Vec2f{0.5, 1},
+                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y + i - 1))},
+                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 4, static_cast<float>INDEX_TO_POS(_pos.y + i - 1)},
+                0.5, "Game");
     }
 
     for (size_t i = 0; i <= _range && _pos.y - i > 0; i++) {
@@ -76,7 +88,11 @@ void Game::Entity::Bomb::onExplode()
             mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x, _pos.y - static_cast<int>(i)});
             break;
         }
-        std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->createParticles(15, Engine::Math::Vec2f{0.5, 1}, Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y - i - 1))}, Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 4, static_cast<float>INDEX_TO_POS(_pos.y - i - 1)}, 0.5, "Game"); //Down
+        std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
+            createParticles(15, Engine::Math::Vec2f{0.5, 1},
+                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y - i - 1))},
+                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 4, static_cast<float>INDEX_TO_POS(_pos.y - i - 1)},
+                0.5, "Game");
     }
     std::dynamic_pointer_cast<Game::Entity::Character>(Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(_playerID))->addBomb();
 }
