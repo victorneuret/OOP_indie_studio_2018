@@ -5,7 +5,7 @@
 ** Bomb.cpp
 */
 
-#include <Entities/Character.hpp>
+#include "Entities/Character.hpp"
 #include "Systems/Map.hpp"
 #include "ECS/Manager.hpp"
 #include "Systems/Map.hpp"
@@ -15,7 +15,7 @@
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Components/Renderer.hpp"
 
-Game::Entity::Bomb::Bomb(const size_t &playerID, const decltype(_pos) &pos, const decltype(_range) &range)
+Game::Entity::Bomb::Bomb(const decltype(_playerID) &playerID, const decltype(_pos) &pos, const decltype(_range) &range)
     : AEntity{AEntity::Type::MODEL3D}, _pos{pos}, _range{range}, _playerID{playerID}
 {
     std::shared_ptr<Engine::ECS::IComponent> _3DModel = std::make_shared<Engine::ECS::Component::Model3D>(Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y - 1) - 1)}, "assets/models/bomb/Bomb.obj");

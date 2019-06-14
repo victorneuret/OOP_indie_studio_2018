@@ -51,10 +51,10 @@ Game::Scene::Game::Game()
     _entities.insert(_entities.end(), players.begin(), players.end());
 }
 
-void Game::Scene::Game::tick(double)
+void Game::Scene::Game::tick(double dt)
 {
-    auto input = std::dynamic_pointer_cast<Engine::ECS::System::KeyboardInput>(Engine::ECS::Manager::getInstance().getSystemByID("KeyboardInput"));
-    if (input->isKeyDown(irr::EKEY_CODE::KEY_DELETE)) {
+    auto inputs = std::dynamic_pointer_cast<Engine::ECS::System::KeyboardInput>(Engine::ECS::Manager::getInstance().getSystemByID("KeyboardInput"));
+    if (inputs->isKeyDown(irr::EKEY_CODE::KEY_DELETE)) {
         auto window = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getWindow();
         window->closeDevice();
     }
@@ -63,14 +63,59 @@ void Game::Scene::Game::tick(double)
     std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
         createParticles(1, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{-90, 0, 150}, Engine::Math::Vec3<float>{0, 0, 0}, 3.5, "Game");
 
-    if (input->isKeyDown(irr::EKEY_CODE::KEY_ESCAPE)) {
+    if (inputs->isKeyDown(irr::EKEY_CODE::KEY_ESCAPE)) {
         try {
             Engine::ECS::Manager::getInstance().getSceneByID("PauseMenu");
         } catch (const ECSException<ECS_Scene> &) {
             std::shared_ptr<AScene> pauseMenu = std::make_shared<PauseMenu>();
             pauseMenu->updateChild(true);
-            Engine::ECS::Manager::getInstance().getSceneByID("Game")->updateChild(false);
+            Engine::ECS::Manager::getInstance().getSceneByID(
+                    "Game")->updateChild(false);
             Engine::ECS::Manager::getInstance().addScene(pauseMenu);
         }
     }
+    if (inputs->isKeyDown(irr::EKEY_CODE::KEY_RIGHT))
+        for (auto &entity : _entities) {
+            auto entityBackup = std::dynamic_pointer_cast<Entity::Character>(entity);
+            if (entityBackup != nullptr) {
+                entityBackup->move({-1, 0}, dt);
+                break;
+            }
+        }
+
+    if (inputs->isKeyDown(irr::EKEY_CODE::KEY_LEFT))
+        for (auto &entity : _entities) {
+            auto entityBackup = std::dynamic_pointer_cast<Entity::Character>(entity);
+            if (entityBackup != nullptr) {
+                entityBackup->move({1, 0}, dt);
+                break;
+            }
+        }
+
+    if (inputs->isKeyDown(irr::EKEY_CODE::KEY_UP))
+        for (auto &entity : _entities) {
+            auto entityBackup = std::dynamic_pointer_cast<Entity::Character>(entity);
+            if (entityBackup != nullptr) {
+                entityBackup->move({0, -1}, dt);
+                break;
+            }
+        }
+
+    if (inputs->isKeyDown(irr::EKEY_CODE::KEY_DOWN))
+        for (auto &entity : _entities) {
+            auto entityBackup = std::dynamic_pointer_cast<Entity::Character>(entity);
+            if (entityBackup != nullptr) {
+                entityBackup->move({0, 1}, dt);
+                break;
+            }
+        }
+
+    if (inputs->isKeyDown(irr::EKEY_CODE::KEY_KEY_X))
+        for (auto &entity : _entities) {
+            auto entityBackup = std::dynamic_pointer_cast<Entity::Character>(entity);
+            if (entityBackup != nullptr) {
+                entityBackup->placeBomb();
+                break;
+            }
+        }
 }

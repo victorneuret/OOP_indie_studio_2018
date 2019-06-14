@@ -21,7 +21,7 @@ protected:
     size_t _playerID{0};
 
 public:
-    explicit Bomb(const size_t &playerID, const decltype(_pos) &pos, const decltype(_range) &range);
+    Bomb(const decltype(_playerID) &playerID, const decltype(_pos) &pos, const decltype(_range) &range);
     Bomb(const Bomb &) = delete;
     Bomb &operator=(const Bomb &) = delete;
 
