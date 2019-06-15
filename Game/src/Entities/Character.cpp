@@ -39,7 +39,7 @@ void Game::Entity::Character::placeBomb() noexcept
         return;
     auto entities = Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntities();
 
-    std::shared_ptr<Engine::ECS::IEntity> bomb = std::make_shared<Game::Entity::Bomb>(getID(), Engine::Math::Vec2i{static_cast<int>(round(_pos.x / 10) + 1), static_cast<int>(round(_pos.y / 10) + 1)}, _range);
+    std::shared_ptr<Engine::ECS::IEntity> bomb = std::make_shared<Game::Entity::Bomb>(getID(), Engine::Math::Vec2i{static_cast<int>(round(_pos.x / 10) + 1), static_cast<int>(round(_pos.z / 10) + 1)}, _range);
     Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(bomb);
     _bombStock--;
 }
@@ -48,25 +48,24 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
 {
     auto model3D = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(getComponentByID("Model3D"));
     decltype(_pos) tmpPos{_pos};
-    decltype(_pos) tmpPos2{_pos};
 
     tmpPos.x += speed.x * _speed * timeMove;
-    tmpPos.y += speed.y * _speed * timeMove;
+    tmpPos.z += speed.y * _speed * timeMove;
 
     if (tmpPos.x < 0)
         tmpPos.x = 0;
     else if (tmpPos.x + INDEX_TO_POS(1) > INDEX_TO_POS(MAP_WIDTH))
         tmpPos.x = INDEX_TO_POS(MAP_WIDTH - 1);
-    if (tmpPos.y < 0)
-        tmpPos.y = 0;
-    else if (tmpPos.y + INDEX_TO_POS(1) > INDEX_TO_POS(MAP_HEIGHT))
-        tmpPos.y = INDEX_TO_POS(MAP_HEIGHT - 1);
+    if (tmpPos.z < 0)
+        tmpPos.z = 0;
+    else if (tmpPos.z + INDEX_TO_POS(1) > INDEX_TO_POS(MAP_HEIGHT))
+        tmpPos.z = INDEX_TO_POS(MAP_HEIGHT - 1);
 
     auto map = std::dynamic_pointer_cast<Game::System::Map>(Engine::ECS::Manager::getInstance().getSystemByID("Map"));
     if (map == nullptr || map->getActualMap().empty())
         return;
-    auto boxX = map->getBlocks()[static_cast<size_t>(round(tmpPos.x / 10))][static_cast<size_t>(round(_pos.y / 10))];
-    auto boxY = map->getBlocks()[static_cast<size_t>(round(_pos.x / 10))][static_cast<size_t>(round(tmpPos.y / 10))];
+    auto boxX = map->getBlocks()[static_cast<size_t>(round(tmpPos.x / 10))][static_cast<size_t>(round(_pos.z / 10))];
+    auto boxY = map->getBlocks()[static_cast<size_t>(round(_pos.x / 10))][static_cast<size_t>(round(tmpPos.z / 10))];
 
     if (speed.x > 0 && speed.x > speed.y && speed.x > speed.y * -1) {
         model3D->getNode()->setRotation(irr::core::vector3df(0, 270, 0));
@@ -86,11 +85,22 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
         _moving = false;
     }
 
+    for (auto &entity : Engine::ECS::Manager::getInstance().getUpdatedEntities()) {
+        auto bomb = std::dynamic_pointer_cast<Game::Entity::Bomb>(entity);
+        if (bomb == nullptr)
+            continue;
+        auto bombPos = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(bomb->getComponentByID("Model3D"))->getNode()->getPosition();
+        if (static_cast<size_t>(round(bombPos.X / 10)) == static_cast<size_t>(round(_pos.x / 10)) && static_cast<size_t>(round(bombPos.Z / 10)) == static_cast<size_t>(round(_pos.z / 10)))
+            continue;
+        if (static_cast<size_t>(round(bombPos.X / 10)) == static_cast<size_t>(round(tmpPos.x / 10)) && static_cast<size_t>(round(bombPos.Z / 10)) == static_cast<size_t>(round(tmpPos.z / 10)))
+            return;
+    }
+
     if (boxX == nullptr)
         _pos.x = tmpPos.x;
     if (boxY == nullptr)
-        _pos.y = tmpPos.y;
-    model3D->setPosition(Engine::Math::Vec3f{_pos.x, 0, _pos.y});
+        _pos.z = tmpPos.z;
+    model3D->setPosition(Engine::Math::Vec3f{_pos.x, 0, _pos.z});
 }
 
 const decltype(Game::Entity::Character::_speed) &Game::Entity::Character::getSpeed() const noexcept
