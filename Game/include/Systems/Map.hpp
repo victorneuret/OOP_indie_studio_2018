@@ -16,9 +16,9 @@
 #include "ECS/Systems/Renderer.hpp"
 #include "Math/Vector/Vec3.hpp"
 
-#define INDEX_TO_POS(index) ((index) * 10)
-#define POS_TO_INDEX(pos) ((pos) / 10)
-#define POS_TO_INT_INDEX(pos) (static_cast<int>((pos) / 10))
+static constexpr int BLOCK_SIZE = 10;
+
+#define INDEX_TO_POS(index) ((index) * BLOCK_SIZE)
 
 constexpr uint8_t MAP_WIDTH = 15;
 constexpr uint8_t MAP_HEIGHT = 15;
