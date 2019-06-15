@@ -61,6 +61,9 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
     decltype(_pos) tmpPos{_pos};
     _time += timeMove;
 
+    if (model3D == nullptr)
+        return;
+
     tmpPos.x += speed.x * _speed * timeMove;
     tmpPos.z += speed.y * _speed * timeMove;
 
@@ -74,8 +77,10 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
         tmpPos.z = INDEX_TO_POS(MAP_HEIGHT - 1);
 
     auto map = std::dynamic_pointer_cast<Game::System::Map>(Engine::ECS::Manager::getInstance().getSystemByID("Map"));
+
     if (map == nullptr || map->getActualMap().empty())
         return;
+
     auto boxX = map->getBlocks()[static_cast<size_t>(std::round(tmpPos.x / BLOCK_SIZE))][static_cast<size_t>(std::round(_pos.z / BLOCK_SIZE))];
     auto boxY = map->getBlocks()[static_cast<size_t>(std::round(_pos.x / BLOCK_SIZE))][static_cast<size_t>(std::round(tmpPos.z / BLOCK_SIZE))];
 

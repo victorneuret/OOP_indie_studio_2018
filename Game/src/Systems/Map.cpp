@@ -91,13 +91,8 @@ std::shared_ptr<Engine::ECS::IEntity> Game::System::Map::_createBlock(Engine::Ma
     return block;
 }
 
-void Game::System::Map::_createMap() noexcept
+void Game::System::Map::_generateBlocks() noexcept
 {
-    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"));
-    _createFirstSquare();
-    _duplicateWidth();
-    _duplicateHeight();
-
     for (size_t i = 0; i < _map.size(); i++) {
         std::vector<std::shared_ptr<Engine::ECS::IEntity>> blocks{};
         for (size_t j = 0; j <= MAP_WIDTH; j++) {
@@ -110,6 +105,15 @@ void Game::System::Map::_createMap() noexcept
         }
         _blocks.push_back(blocks);
     }
+}
+
+void Game::System::Map::_createMap() noexcept
+{
+    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"));
+    _createFirstSquare();
+    _duplicateWidth();
+    _duplicateHeight();
+
     std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(true, Engine::Math::Vec3f{INDEX_TO_POS(MAP_WIDTH - 1) / 2.f, -3, INDEX_TO_POS(MAP_HEIGHT - 1) / 2.f}, "assets/models/block/cube.obj");
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->setScale(Engine::Math::Vec3{150.f, 6.f, 150.f});
     Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(block);
@@ -133,11 +137,13 @@ void  Game::System::Map::loadMap()
 {
     const auto file = getFileHandler(SAVE_FILE);
 
-    if (file != nullptr && file->is_open() && file->peek() != std::ifstream::traits_type::eof()) {
-        file->seekp(0);
-        unpack(*file);
-    } else
-        Engine::Logger::getInstance().error("Failed to load map from previous save");
+    if (file == nullptr || !file->is_open() || file->peek() == std::ifstream::traits_type::eof()) {
+        Engine::Logger::getInstance().error("Failed to load map from save");
+        return;
+    }
+
+    file->seekp(0);
+    unpack(*file);
 }
 
 void Game::System::Map::saveMap() const
@@ -211,15 +217,16 @@ void Game::System::Map::unpack(std::istream &inStream)
     const auto height = readAny<uint8_t>(inStream);
     const auto width = readAny<uint8_t>(inStream);
 
-    _actualMap.clear();
+    _map.clear();
 
     for (uint8_t i = 0; i < height; i++) {
         const auto line = readString(inStream);
 
         if (line.size() != width)
             throw SerializationException("Save is invalid");
-
-        _actualMap.push_back(line);
+        _map.push_back(line);
     }
-    _map = _actualMap;
+
+    _actualMap = _map;
+    _generateBlocks();
 }

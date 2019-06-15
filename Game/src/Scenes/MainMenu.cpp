@@ -62,11 +62,13 @@ Game::Scene::MainMenu::MainMenu()
             [&manager]() {
                 auto map = std::dynamic_pointer_cast<System::Map>(manager.getSystemByID("Map"));
 
-                if (map != nullptr)
-                    map->loadMap();
-
                 std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<Game>();
-                Engine::ECS::Manager::getInstance().pushScene(game);
+                manager.pushScene(game);
+
+                if (map != nullptr) {
+                    map->update(0);
+                    map->loadMap();
+                }
             }
         ),
         std::make_shared<Engine::ECS::Entity::Button>(

@@ -41,6 +41,7 @@ private:
     void _duplicateWidth() noexcept;
     void _duplicateHeight() noexcept;
     void _createMap() noexcept;
+    void _generateBlocks() noexcept;
     std::shared_ptr<Engine::ECS::IEntity> _createBlock(Engine::Math::Vec3f vec, const std::string &texture, bool breakable) noexcept;
     void _placeCameraAndLight() noexcept;
 

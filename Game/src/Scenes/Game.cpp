@@ -26,7 +26,7 @@
 #include "Assets.hpp"
 
 Game::Scene::Game::Game()
-        : AScene("Game", {}, true, false)
+        : AScene("Game", {}, true, true)
 {
     auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
     auto InputHandler = std::dynamic_pointer_cast<Engine::ECS::System::InputHandler>(Engine::ECS::Manager::getInstance().getSystemByID("InputHandler"));
