@@ -17,6 +17,7 @@
 #include "Utils/Random.hpp"
 #include "Entities/Block.hpp"
 #include "Entities/FireUp.hpp"
+#include "Entities/GhostUp.hpp"
 #include "ECS/Manager.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "Scenes/Selection.hpp"
@@ -236,20 +237,26 @@ void Game::System::Map::unpack(std::istream &inStream)
 
 void Game::System::Map::_randomPowerup(const Engine::Math::Vec2i &pos) noexcept
 {
-    auto result = Random::getSigned(0, 100);
+    //auto result = Random::getSigned(0, 100);
+    auto result = Random::getSigned(0, 20);
 
     if (result <= 20) {
-        if (result <= 5) {
-            std::shared_ptr<Engine::ECS::IEntity> newFireUp = std::make_shared<Game::Entity::FireUp>(Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(pos.x - 1)), 5, static_cast<float>(INDEX_TO_POS(pos.y - 1))});
-            Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(newFireUp);
+        std::shared_ptr<Engine::ECS::IEntity> newPowerUp = nullptr;
+        //switch (Random::getSigned(0, 3)) {
+        switch (3) {
+            case 0:
+                newPowerUp = std::make_shared<Game::Entity::FireUp>(Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(pos.x - 1)), 5, static_cast<float>(INDEX_TO_POS(pos.y - 1))});
+                break;
+            case 1:
+                newPowerUp = std::make_shared<Game::Entity::SpeedUp>(Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(pos.x - 1)), 5, static_cast<float>(INDEX_TO_POS(pos.y - 1))});
+                break;
+            case 2:
+                newPowerUp = std::make_shared<Game::Entity::BombUp>(Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(pos.x - 1)), 5, static_cast<float>(INDEX_TO_POS(pos.y - 1))});
+                break;
+            case 3:
+                newPowerUp = std::make_shared<Game::Entity::GhostUp>(Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(pos.x - 1)), 5, static_cast<float>(INDEX_TO_POS(pos.y - 1))});
+                break;
         }
-        else if (result > 5 && result <= 10) {
-            std::shared_ptr<Engine::ECS::IEntity> newSpeedUp = std::make_shared<Game::Entity::SpeedUp>(Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(pos.x - 1)), 5, static_cast<float>(INDEX_TO_POS(pos.y - 1))});
-            Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(newSpeedUp);
-        }
-        else if (result > 10 && result <= 15) {
-            std::shared_ptr<Engine::ECS::IEntity> newBombUp = std::make_shared<Game::Entity::BombUp>(Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(pos.x - 1)), 5, static_cast<float>(INDEX_TO_POS(pos.y - 1))});
-            Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(newBombUp);
-        }
+        Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(newPowerUp);
     }
 }

@@ -44,7 +44,7 @@ Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::st
 
 void Game::Entity::Character::placeBomb() noexcept
 {
-    if (!_alive || _bombStock == 0)
+    if (!_alive || _bombStock == 0 || _ghost)
         return;
     auto entities = Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntities();
 
@@ -52,6 +52,8 @@ void Game::Entity::Character::placeBomb() noexcept
     Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(bomb);
     _bombStock--;
 }
+
+#include <iostream>
 
 void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeMove) noexcept
 {
@@ -82,8 +84,8 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
     if (map == nullptr || map->getActualMap().empty())
         return;
 
-    auto boxX = map->getBlocks()[static_cast<size_t>(std::round(tmpPos.x / BLOCK_SIZE))][static_cast<size_t>(std::round(_pos.z / BLOCK_SIZE))];
-    auto boxY = map->getBlocks()[static_cast<size_t>(std::round(_pos.x / BLOCK_SIZE))][static_cast<size_t>(std::round(tmpPos.z / BLOCK_SIZE))];
+    auto boxX = std::dynamic_pointer_cast<Game::Entity::Block>(map->getBlocks()[static_cast<size_t>(std::round(tmpPos.x / BLOCK_SIZE))][static_cast<size_t>(std::round(_pos.z / BLOCK_SIZE))]);
+    auto boxY = std::dynamic_pointer_cast<Game::Entity::Block>(map->getBlocks()[static_cast<size_t>(std::round(_pos.x / BLOCK_SIZE))][static_cast<size_t>(std::round(tmpPos.z / BLOCK_SIZE))]);
 
     if (speed.x > 0 && speed.x > speed.y && speed.x > speed.y * -1) {
         model3D->getNode()->setRotation(irr::core::vector3df(0, 270, 0));
@@ -115,9 +117,8 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
         auto powerUp = std::dynamic_pointer_cast<Game::Entity::APowerUp>(entity);
         if (bomb != nullptr) {
             auto bombPos = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(bomb->getComponentByID("Model3D"))->getNode()->getPosition();
-            if (static_cast<size_t>(round(bombPos.X / BLOCK_SIZE)) != static_cast<size_t>(round(_pos.x / BLOCK_SIZE)) || static_cast<size_t>(round(bombPos.Z / BLOCK_SIZE)) != static_cast<size_t>(round(_pos.z / BLOCK_SIZE)))
-                if (static_cast<size_t>(round(bombPos.X / BLOCK_SIZE)) == static_cast<size_t>(round(tmpPos.x / BLOCK_SIZE)) && static_cast<size_t>(round(bombPos.Z / BLOCK_SIZE)) == static_cast<size_t>(round(tmpPos.z / BLOCK_SIZE)))
-                    return;
+            if ((static_cast<size_t>(round(bombPos.X / BLOCK_SIZE)) != static_cast<size_t>(round(_pos.x / BLOCK_SIZE)) || static_cast<size_t>(round(bombPos.Z / BLOCK_SIZE)) != static_cast<size_t>(round(_pos.z / BLOCK_SIZE))) && (static_cast<size_t>(round(bombPos.X / BLOCK_SIZE)) == static_cast<size_t>(round(tmpPos.x / BLOCK_SIZE)) && static_cast<size_t>(round(bombPos.Z / BLOCK_SIZE)) == static_cast<size_t>(round(tmpPos.z / BLOCK_SIZE))))
+                return;
         }
         if (powerUp == nullptr)
             continue;
@@ -130,10 +131,27 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
         }
     }
 
-    if (boxX == nullptr)
+    bool tmpInBlock = false;
+
+    if (boxX == nullptr || (_ghost && boxX->isBreakable())) {
+        if (boxX != nullptr && !_inBlock)
+            tmpInBlock = true;
+        else if (boxX == nullptr && _inBlock) {
+            tmpInBlock = false;
+            _ghost = false;
+        }
         _pos.x = tmpPos.x;
-    if (boxY == nullptr)
+    }
+    if (boxY == nullptr || (_ghost && boxY->isBreakable())) {
+        if (boxY != nullptr && !_inBlock)
+            tmpInBlock = true;
+        else if (boxY == nullptr && _inBlock) {
+            tmpInBlock = false;
+            _ghost = false;
+        }
         _pos.z = tmpPos.z;
+    }
+    _inBlock = tmpInBlock;
     model3D->setPosition(Engine::Math::Vec3f{_pos.x, 0, _pos.z});
 }
 
@@ -173,4 +191,12 @@ bool Game::Entity::Character::isAlive() const noexcept
 const decltype(Game::Entity::Character::_pos) &Game::Entity::Character::getPosition() const
 {
     return _pos;
+}
+
+#include <iostream>
+
+void Game::Entity::Character::setGhost(bool isGhost) noexcept
+{
+    _ghost = isGhost;
+    std::cout << "Ghost" << std::endl;
 }

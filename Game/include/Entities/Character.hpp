@@ -24,6 +24,8 @@ protected:
     bool _moving{false};
     bool _alive{true};
     float _time{0};
+    bool _ghost{false};
+    bool _inBlock{false};
 
     Engine::ECS::System::Audio::Sound _stepSound{};
     Engine::ECS::System::Audio::Sound _deathSound{};
@@ -40,6 +42,7 @@ public:
     void setSpeed(const decltype(_speed) &speed) noexcept;
     void rangeIncrease() noexcept;
     void addBomb() noexcept;
+    void setGhost(bool isGhost) noexcept;
 
     void kill() noexcept;
     bool isAlive() const noexcept;
