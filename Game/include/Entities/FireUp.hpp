@@ -8,6 +8,7 @@
 #pragma once
 
 #include "ECS/Abstracts/AEntity.hpp"
+#include "Entities/Character.hpp"
 
 namespace Game::Entity {
     class FireUp;
