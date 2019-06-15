@@ -9,7 +9,6 @@
 #include "Entities/SpeedUp.hpp"
 
 Game::Entity::SpeedUp::SpeedUp(const Engine::Math::Vec3f &pos, const std::string &model)
-    : AEntity(AEntity::Type::MODEL3D)
 {
     std::shared_ptr<Engine::ECS::IComponent> _3DModel = std::make_shared<Engine::ECS::Component::Model3D>(pos, model);
     addComponent(_3DModel);
@@ -21,7 +20,7 @@ Game::Entity::SpeedUp::SpeedUp(const Engine::Math::Vec3f &pos, const std::string
     addComponent(_Renderer);
 }
 
-void Game::Entity::SpeedUp::applyEffect(Game::Entity::Character player)
+void Game::Entity::SpeedUp::applyEffect(std::shared_ptr<Game::Entity::Character> &player)
 {
-    player.setSpeed(player.getSpeed() * 1.5);
+    player->setSpeed(player->getSpeed() * 1.12);
 }

@@ -7,14 +7,13 @@
 
 #pragma once
 
-#include "ECS/Abstracts/AEntity.hpp"
-#include "Entities/Character.hpp"
+#include "Entities/APowerUp.hpp"
 
 namespace Game::Entity {
     class FireUp;
 }
 
-class Game::Entity::FireUp : public Engine::ECS::AEntity {
+class Game::Entity::FireUp final : public Game::Entity::APowerUp {
 public:
     FireUp(const Engine::Math::Vec3f &pos, const std::string &model = std::string("assets/models/block/powerup.obj"));
 
@@ -23,5 +22,5 @@ public:
 
     ~FireUp() override = default;
 
-    void applyEffect(Game::Entity::Character player);
+    void applyEffect(std::shared_ptr<Game::Entity::Character> &player) override;
 };
