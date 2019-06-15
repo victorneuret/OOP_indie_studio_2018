@@ -44,8 +44,7 @@ void Game::Entity::Bomb::onExplode()
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
 
     auto sound = audio->getSound("bomb_explode");
-    auto tmp = sound.second;
-    tmp->play();
+    sound.second->play();
 
     for (size_t i = 0; i <= _range && _pos.x + i < MAP_WIDTH + 1; i++) {
         if (map[_pos.x + i - 1][_pos.y - 1] != '0') {
