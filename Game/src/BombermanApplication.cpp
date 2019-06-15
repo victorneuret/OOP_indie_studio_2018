@@ -12,6 +12,7 @@
 #include "Systems/Map.hpp"
 #include "Scenes/MainMenu.hpp"
 #include "Scenes/Game.hpp"
+#include "Assets.hpp"
 
 BombermanApplication::BombermanApplication()
     : Engine::GameApplication(L"Bomberman", 1920, 1080)
@@ -25,6 +26,9 @@ void BombermanApplication::onAppStartup()
 
     std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();
     Engine::ECS::Manager::getInstance().addSystem(map);
+
+    auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(Engine::ECS::Manager::getInstance().getSystemByID("Audio"));
+    audio->loadSound("footstep", SND_FOOTSTEP);
 }
 
 void BombermanApplication::tick(double)

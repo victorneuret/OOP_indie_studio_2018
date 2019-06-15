@@ -23,6 +23,8 @@ protected:
     float _speed{0.0};
     bool _moving{false};
     bool _alive{true};
+    Engine::ECS::System::Audio::Sound _stepSound{};
+    float _time{0};
 
     Engine::ECS::System::Audio::Sound _deathSound{};
 public:
