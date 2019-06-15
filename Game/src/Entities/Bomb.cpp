@@ -91,7 +91,7 @@ void Game::Entity::Bomb::onExplode()
                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 4, static_cast<float>(INDEX_TO_POS(_pos.y - i - 1))},
                0.5, "Game");
     }
-    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D> (Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(getID())->getComponentByID("Model3D"))->getNode()->remove();
+    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(getID())->getComponentByID("Model3D"))->getNode()->remove();
     Engine::ECS::Manager::getInstance().getSceneByID("Game")->removeEntityByID(getID());
     std::dynamic_pointer_cast<Game::Entity::Character>(Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(_playerID))->addBomb();
 }

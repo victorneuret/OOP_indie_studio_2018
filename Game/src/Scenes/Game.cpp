@@ -98,10 +98,6 @@ void Game::Scene::Game::tick(double)
         auto window = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getWindow();
         window->closeDevice();
     }
-    std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
-        createParticles(1, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{220, 0, 150}, Engine::Math::Vec3<float>{220, 0, 0}, 3.5, "Game");
-    std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
-        createParticles(1, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{-90, 0, 150}, Engine::Math::Vec3<float>{-90, 0, 0}, 3.5, "Game");
 
     if (inputs->isKeyDown(irr::EKEY_CODE::KEY_ESCAPE)) {
         try {
