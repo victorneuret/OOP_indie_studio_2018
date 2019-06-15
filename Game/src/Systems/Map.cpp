@@ -236,8 +236,7 @@ void Game::System::Map::unpack(std::istream &inStream)
 
 void Game::System::Map::_randomPowerup(const Engine::Math::Vec2i &pos) noexcept
 {
-//    auto result = Random::getSigned(0, 100);
-    auto result = Random::getSigned(0, 20);
+    auto result = Random::getSigned(0, 100);
 
     if (result <= 20) {
         if (result <= 5) {
