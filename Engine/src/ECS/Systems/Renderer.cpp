@@ -148,6 +148,7 @@ void Engine::ECS::System::Renderer::drawButton(const std::shared_ptr<Engine::ECS
     guiButton->setUseAlphaChannel(true);
     guiButton->setDrawBorder(false);
     guiButton->setScaleImage(true);
+    guiButton->setPressedImage(_videoDriver->getTexture("assets/img/pink.png"));
     guiButton->draw();
 }
 

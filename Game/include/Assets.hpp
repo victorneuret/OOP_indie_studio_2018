@@ -14,9 +14,9 @@ static constexpr const char *const IMG_CITY = "assets/img/city.png";
 static constexpr const char *const IMG_MOUNTAIN = "assets/img/mountain.png";
 static constexpr const char *const IMG_BOMBER = "assets/img/cuteBomber.png";
 
-static constexpr const char *const IMG_NEW_GAME = "assets/img/newGame.png";
-static constexpr const char *const IMG_LOAD_GAME = "assets/img/pink.png";
-static constexpr const char *const IMG_EXIT_GAME = "assets/img/pink.png";
+static constexpr const char *const IMG_NEW_GAME = "assets/img/start.png";
+static constexpr const char *const IMG_LOAD_GAME = "assets/img/load.png";
+static constexpr const char *const IMG_EXIT_GAME = "assets/img/exit.png";
 
 static constexpr const char *const SND_MAIN_MENU = "assets/musics/ignite.ogg";
 static constexpr const char *const SND_MAIN_GAME = "assets/musics/high_octane.ogg";
