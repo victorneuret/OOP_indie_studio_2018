@@ -174,7 +174,7 @@ add_executable(
     Game/src/Scenes/Selection.cpp
     Game/include/Systems/PowerUp.hpp
     Game/src/Systems/PowerUp.cpp
-)
+        Game/include/Entities/PowerUp.hpp Game/src/Entities/PowerUp.cpp)
 
 target_include_directories(bomberman PUBLIC Game/include)
 target_link_libraries(bomberman engine ${Irrlicht_LIBRARIES} sfml-audio sfml-system)
