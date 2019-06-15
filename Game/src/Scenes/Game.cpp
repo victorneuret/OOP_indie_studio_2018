@@ -64,9 +64,9 @@ Game::Scene::Game::Game()
 
     auto &manager = Engine::ECS::Manager::getInstance();
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
-    auto sound = audio->loadSound("game_music", "assets/musics/high_octane.ogg");
+    auto sound = audio->loadSound("game_music", SND_MAIN_GAME);
 
-    audio->loadSound("bomb_explode", "assets/musics/bomb_explode.wav");
+    audio->loadSound("bomb_explode", "assets/sounds/bomb_explode.wav");
 
     _music = sound.second;
     _music->setLoop(true);
