@@ -170,7 +170,11 @@ add_executable(
 )
 
 target_include_directories(bomberman PUBLIC Game/include)
-target_link_libraries(bomberman engine ${Irrlicht_LIBRARIES} sfml-audio sfml-system stdc++fs)
+target_link_libraries(bomberman engine ${Irrlicht_LIBRARIES} sfml-audio sfml-system)
+
+if (UNIX)
+    target_link_libraries(bomberman stdc++fs)
+endif (UNIX)
 
 add_executable(
     tests_run
