@@ -161,7 +161,7 @@ void Game::System::Map::removeBlock(const Engine::Math::Vec2i &pos)
     }
 }
 
-decltype(Game::System::Map::_blocks) Game::System::Map::getBlocks() const noexcept
+decltype(Game::System::Map::_blocks) &Game::System::Map::getBlocks() noexcept
 {
     return _blocks;
 }

@@ -16,7 +16,7 @@
 #include "ECS/Systems/Renderer.hpp"
 #include "Math/Vector/Vec3.hpp"
 
-static constexpr int BLOCK_SIZE = 10;
+constexpr int BLOCK_SIZE = 10;
 
 #define INDEX_TO_POS(index) ((index) * BLOCK_SIZE)
 
@@ -48,7 +48,7 @@ public:
     decltype(_actualMap) getActualMap() const noexcept;
     void setActualMap(decltype(_actualMap) &map) noexcept;
     void removeBlock(const Engine::Math::Vec2i &pos);
-    decltype(_blocks) getBlocks() const noexcept;
+    decltype(_blocks) &getBlocks() noexcept;
 
 };
 
