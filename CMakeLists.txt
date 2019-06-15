@@ -78,7 +78,6 @@ add_library(
     Engine/src/ECS/Components/Button.cpp
     Engine/src/Utils/Random.cpp
     Engine/include/Utils/Random.hpp
-    Engine/include/ECS/Components/Player.hpp
     Engine/include/ECS/Systems/EventHandler.hpp
     Engine/src/ECS/Systems/Audio.cpp
     Engine/include/ECS/Systems/Audio.hpp
