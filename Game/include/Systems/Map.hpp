@@ -17,6 +17,8 @@
 #include "Math/Vector/Vec3.hpp"
 
 #define INDEX_TO_POS(index) ((index) * 10)
+#define POS_TO_INDEX(pos) ((pos) / 10)
+#define POS_TO_INT_INDEX(pos) (static_cast<int>((pos) / 10))
 
 constexpr uint8_t MAP_WIDTH = 15;
 constexpr uint8_t MAP_HEIGHT = 15;
@@ -46,6 +48,7 @@ public:
     decltype(_actualMap) getActualMap() const noexcept;
     void setActualMap(decltype(_actualMap) &map) noexcept;
     void removeBlock(const Engine::Math::Vec2i &pos);
+    decltype(_blocks) getBlocks() const noexcept;
 
 };
 

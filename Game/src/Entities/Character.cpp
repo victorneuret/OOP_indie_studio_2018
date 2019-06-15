@@ -6,6 +6,7 @@
 */
 
 #include <cmath>
+#include <iostream>
 
 #include "Entities/Character.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
@@ -13,6 +14,7 @@
 #include "Systems/Map.hpp"
 #include "ECS/Manager.hpp"
 #include "Entities/Bomb.hpp"
+#include "Entities/Block.hpp"
 
 Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::string &texture, const std::string &model)
     : AEntity(AEntity::Type::MODEL3D), _pos{pos}, _speed{30}
@@ -44,9 +46,8 @@ void Game::Entity::Character::placeBomb() noexcept
 
 void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeMove) noexcept
 {
-    auto _3DModel = getComponentByID("Model3D");
-    auto tmpPos = _pos;
-
+    auto model3D = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(getComponentByID("Model3D"));
+    decltype(_pos) tmpPos{_pos};
     tmpPos.x += speed.x * _speed * timeMove;
     tmpPos.y += speed.y * _speed * timeMove;
 
@@ -59,8 +60,28 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
     else if (tmpPos.y + INDEX_TO_POS(1) > INDEX_TO_POS(MAP_HEIGHT))
         tmpPos.y = INDEX_TO_POS(MAP_HEIGHT - 1);
 
-    _pos = tmpPos;
-    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(_3DModel)->setPosition(Engine::Math::Vec3f{_pos.x, 0, _pos.y});
+    auto map = std::dynamic_pointer_cast<Game::System::Map>(Engine::ECS::Manager::getInstance().getSystemByID("Map"));
+    if (map == nullptr || map->getActualMap().empty())
+        return;
+    auto boxX = map->getBlocks()[static_cast<size_t>(round(tmpPos.x / 10))][static_cast<size_t>(round(_pos.y / 10))];
+    auto boxY = map->getBlocks()[static_cast<size_t>(round(_pos.x / 10))][static_cast<size_t>(round(tmpPos.y / 10))];
+
+    if (boxX == nullptr)
+        _pos.x = tmpPos.x;
+    if (boxY == nullptr)
+        _pos.y = tmpPos.y;
+    model3D->setPosition(Engine::Math::Vec3f{_pos.x, 0, _pos.y});
+
+    if (speed.x > 0 && speed.x > speed.y && speed.x > speed.y * -1) {
+        model3D->getNode()->setRotation(irr::core::vector3df(0, 270, 0));
+    } else if (speed.x < 0 && speed.x < speed.y && speed.x < speed.y * -1) {
+        model3D->getNode()->setRotation(irr::core::vector3df(0, 90, 0));
+    } else if (speed.y > 0 && speed.y > speed.x && speed.y > speed.x * -1) {
+        model3D->getNode()->setRotation(irr::core::vector3df(0, 180, 0));
+    } else if (speed.y < 0 && speed.y < speed.x && speed.y < speed.x * -1) {
+        model3D->getNode()->setRotation(irr::core::vector3df(0, 0, 0));
+    }
+
 }
 
 const decltype(Game::Entity::Character::_speed) &Game::Entity::Character::getSpeed() const noexcept

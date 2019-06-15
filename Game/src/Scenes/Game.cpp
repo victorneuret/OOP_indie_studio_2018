@@ -38,9 +38,11 @@ Game::Scene::Game::Game()
         std::make_shared<Entity::Player>(Engine::Math::Vec3f{INDEX_TO_POS(MAP_HEIGHT - 1), 0, INDEX_TO_POS(MAP_WIDTH - 1)}, "assets/models/characters/WhiteBombermanTextures.png"),
     };
 
-    auto keyboardHandler = std::make_shared<System::JoystickHandler>(0);
+    auto keyboardHandler = std::make_shared<System::KeyboardHandler>();
+    auto joystickHandler = std::make_shared<System::JoystickHandler>(0);
 
     std::dynamic_pointer_cast<Engine::ECS::System::InputHandler>(InputHandler)->bind(players[0]->getID(), keyboardHandler);
+    std::dynamic_pointer_cast<Engine::ECS::System::InputHandler>(InputHandler)->bind(players[1]->getID(), joystickHandler);
 
     _entities = {
         std::make_shared<Engine::Entity::Image>(IMG_CITY, Engine::Math::Vec2i{0, 0}),
