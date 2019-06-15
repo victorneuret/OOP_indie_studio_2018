@@ -18,6 +18,7 @@
 
 constexpr int BLOCK_SIZE = 10;
 
+#define POS_TO_INDEX(pos) ((pos) / BLOCK_SIZE)
 #define INDEX_TO_POS(index) ((index) * BLOCK_SIZE)
 
 constexpr uint8_t MAP_WIDTH = 15;

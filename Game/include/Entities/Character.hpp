@@ -41,4 +41,5 @@ public:
 
     void kill() noexcept;
     bool isAlive() const noexcept;
+    const decltype(_pos) &getPosition() const;
 };

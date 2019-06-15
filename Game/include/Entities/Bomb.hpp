@@ -27,6 +27,7 @@ public:
 
     ~Bomb() override = default;
 
+    static void _exploding(const Engine::Math::Vec3f &pos);
     void onExplode();
     const decltype(_pos) &getPos() const noexcept;
 };

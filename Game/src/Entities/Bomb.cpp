@@ -33,6 +33,23 @@ Game::Entity::Bomb::Bomb(const decltype(_playerID) &playerID, const decltype(_po
     addComponent(timer);
 }
 
+void Game::Entity::Bomb::_exploding(const Engine::Math::Vec3f &pos)
+{
+    for (auto &entity : Engine::ECS::Manager::getInstance().getUpdatedEntities()) {
+        auto character = std::dynamic_pointer_cast<Game::Entity::Character>(entity);
+        if (character == nullptr)
+            continue;
+        auto charPos = character->getPosition();
+        charPos.x = std::round(POS_TO_INDEX(charPos.x));
+        charPos.y = pos.y;
+        charPos.z = std::round(POS_TO_INDEX(charPos.z));
+
+        if (pos == charPos) {
+            character->kill();
+        }
+    }
+}
+
 void Game::Entity::Bomb::onExplode()
 {
     auto &manager = Engine::ECS::Manager::getInstance();
@@ -54,6 +71,7 @@ void Game::Entity::Bomb::onExplode()
                 Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x + i - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y - 1))},
                 Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x + i - 1)), 4, static_cast<float>(INDEX_TO_POS(_pos.y - 1))},
                 0.5, "Game");
+        _exploding(Engine::Math::Vec3f{static_cast<float>(_pos.x + i - 1), 0, static_cast<float>(_pos.y - 1)});
     }
 
     for (size_t i = 0; i <= _range && _pos.x - i > 0; i++) {
@@ -66,6 +84,7 @@ void Game::Entity::Bomb::onExplode()
                 Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - i - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y - 1))},
                 Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - i - 1)), 4, static_cast<float>(INDEX_TO_POS(_pos.y - 1))},
                 0.5, "Game");
+        _exploding(Engine::Math::Vec3f{static_cast<float>(_pos.x - i - 1), 0, static_cast<float>(_pos.y - 1)});
     }
 
     for (size_t i = 0; i <= _range && _pos.y + i < MAP_HEIGHT + 1; i++) {
@@ -78,6 +97,7 @@ void Game::Entity::Bomb::onExplode()
                 Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y + i - 1))},
                 Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 4, static_cast<float>(INDEX_TO_POS(_pos.y + i - 1))},
                 0.5, "Game");
+        _exploding(Engine::Math::Vec3f{static_cast<float>(_pos.x - 1), 0, static_cast<float>(_pos.y + i - 1)});
     }
 
     for (size_t i = 0; i <= _range && _pos.y - i > 0; i++) {
@@ -90,6 +110,7 @@ void Game::Entity::Bomb::onExplode()
                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y - i - 1))},
                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 4, static_cast<float>(INDEX_TO_POS(_pos.y - i - 1))},
                0.5, "Game");
+        _exploding(Engine::Math::Vec3f{static_cast<float>(_pos.x - 1), 0, static_cast<float>(_pos.y - i - 1)});
     }
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(getID())->getComponentByID("Model3D"))->getNode()->remove();
     Engine::ECS::Manager::getInstance().getSceneByID("Game")->removeEntityByID(getID());
