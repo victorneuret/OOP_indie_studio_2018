@@ -39,9 +39,6 @@ void Game::Entity::Bomb::onExplode()
     auto mapSystem = std::dynamic_pointer_cast<Game::System::Map>(manager.getSystemByID("Map"));
     auto map = mapSystem->getActualMap();
 
-    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D> (Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(getID())->getComponentByID("Model3D"))->getNode()->remove();
-    Engine::ECS::Manager::getInstance().getSceneByID("Game")->removeEntityByID(getID());
-
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
 
     auto sound = audio->getSound("bomb_explode");
@@ -55,7 +52,7 @@ void Game::Entity::Bomb::onExplode()
         std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
             createParticles(15, Engine::Math::Vec2f{0.5, 1},
                 Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x + i - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y - 1))},
-                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x + i - 1)), 4, static_cast<float>INDEX_TO_POS(_pos.y - 1)},
+                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x + i - 1)), 4, static_cast<float>(INDEX_TO_POS(_pos.y - 1))},
                 0.5, "Game");
     }
 
@@ -67,7 +64,7 @@ void Game::Entity::Bomb::onExplode()
         std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
             createParticles(15, Engine::Math::Vec2f{0.5, 1},
                 Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - i - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y - 1))},
-                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - i - 1)), 4, static_cast<float>INDEX_TO_POS(_pos.y - 1)},
+                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - i - 1)), 4, static_cast<float>(INDEX_TO_POS(_pos.y - 1))},
                 0.5, "Game");
     }
 
@@ -79,7 +76,7 @@ void Game::Entity::Bomb::onExplode()
         std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
             createParticles(15, Engine::Math::Vec2f{0.5, 1},
                 Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y + i - 1))},
-                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 4, static_cast<float>INDEX_TO_POS(_pos.y + i - 1)},
+                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 4, static_cast<float>(INDEX_TO_POS(_pos.y + i - 1))},
                 0.5, "Game");
     }
 
@@ -90,10 +87,12 @@ void Game::Entity::Bomb::onExplode()
         }
         std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
             createParticles(15, Engine::Math::Vec2f{0.5, 1},
-                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y - i - 1))},
-                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 4, static_cast<float>INDEX_TO_POS(_pos.y - i - 1)},
-                0.5, "Game");
+               Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 0, static_cast<float>(INDEX_TO_POS(_pos.y - i - 1))},
+               Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(_pos.x - 1)), 4, static_cast<float>(INDEX_TO_POS(_pos.y - i - 1))},
+               0.5, "Game");
     }
+    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D> (Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(getID())->getComponentByID("Model3D"))->getNode()->remove();
+    Engine::ECS::Manager::getInstance().getSceneByID("Game")->removeEntityByID(getID());
     std::dynamic_pointer_cast<Game::Entity::Character>(Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(_playerID))->addBomb();
 }
 
