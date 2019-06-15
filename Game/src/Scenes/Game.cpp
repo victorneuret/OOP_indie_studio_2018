@@ -38,7 +38,7 @@ Game::Scene::Game::Game()
         std::make_shared<Entity::Player>(Engine::Math::Vec3f{INDEX_TO_POS(MAP_HEIGHT - 1), 0, INDEX_TO_POS(MAP_WIDTH - 1)}, "assets/models/characters/WhiteBombermanTextures.png"),
     };
 
-    auto keyboardHandler = std::make_shared<System::KeyboardHandler>();
+    auto keyboardHandler = std::make_shared<System::JoystickHandler>(0);
 
     std::dynamic_pointer_cast<Engine::ECS::System::InputHandler>(InputHandler)->bind(players[0]->getID(), keyboardHandler);
 
@@ -63,6 +63,8 @@ Game::Scene::Game::Game()
     auto &manager = Engine::ECS::Manager::getInstance();
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
     auto sound = audio->loadSound("game_music", "assets/musics/high_octane.ogg");
+
+    audio->loadSound("bomb_explode", "assets/musics/bomb_explode.wav");
 
     _music = sound.second;
     _music->setLoop(true);

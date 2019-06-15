@@ -74,7 +74,7 @@ decltype(Engine::Abstracts::AScene::_updateChild) Engine::Abstracts::AScene::isU
     return _updateChild;
 }
 
-void Engine::Abstracts::AScene::updateChild(const bool updateChild) noexcept
+void Engine::Abstracts::AScene::setUpdateChild(const bool updateChild) noexcept
 {
     _updateChild = updateChild;
 }

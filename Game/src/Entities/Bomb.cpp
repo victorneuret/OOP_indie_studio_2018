@@ -14,6 +14,7 @@
 #include "ECS/Components/Timer.hpp"
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Components/Renderer.hpp"
+#include "ECS/Systems/Audio.hpp"
 
 Game::Entity::Bomb::Bomb(const decltype(_playerID) &playerID, const decltype(_pos) &pos, const decltype(_range) &range)
     : AEntity{AEntity::Type::MODEL3D}, _pos{pos}, _range{range}, _playerID{playerID}
@@ -33,11 +34,17 @@ Game::Entity::Bomb::Bomb(const decltype(_playerID) &playerID, const decltype(_po
 
 void Game::Entity::Bomb::onExplode()
 {
-    auto mapSystem = std::dynamic_pointer_cast<Game::System::Map>(Engine::ECS::Manager::getInstance().getSystemByID("Map"));
+    auto &manager = Engine::ECS::Manager::getInstance();
+    auto mapSystem = std::dynamic_pointer_cast<Game::System::Map>(manager.getSystemByID("Map"));
     auto map = mapSystem->getActualMap();
 
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D> (Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(getID())->getComponentByID("Model3D"))->getNode()->remove();
     Engine::ECS::Manager::getInstance().getSceneByID("Game")->removeEntityByID(getID());
+
+    auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
+
+    auto sound = audio->getSound("bomb_explode");
+    sound.second->play();
 
     for (size_t i = 0; i <= _range && _pos.x + i < MAP_WIDTH + 1; i++) {
         if (map[_pos.x + i - 1][_pos.y - 1] != '0') {
