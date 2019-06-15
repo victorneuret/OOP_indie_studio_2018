@@ -9,6 +9,7 @@
 
 #include "Math/Vector/Vec3.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
+#include "ECS/Systems/Audio.hpp"
 
 namespace Game::Entity {
     class Character;
@@ -21,7 +22,9 @@ protected:
     size_t _bombStock{1};
     float _speed{0.0};
     bool _moving{false};
+    bool _alive{true};
 
+    Engine::ECS::System::Audio::Sound _deathSound{};
 public:
     Character(const Engine::Math::Vec3f &pos, const std::string &texture, const std::string &model);
     Character(const Character &) = delete;
@@ -35,4 +38,7 @@ public:
     void setSpeed(const decltype(_speed) &speed) noexcept;
     void rangeIncrease() noexcept;
     void addBomb() noexcept;
+
+    void kill() noexcept;
+    bool isAlive() const noexcept;
 };

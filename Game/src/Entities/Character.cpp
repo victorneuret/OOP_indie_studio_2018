@@ -7,9 +7,11 @@
 
 #include <cmath>
 
+#include "Assets.hpp"
 #include "Entities/Character.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
 #include "ECS/Components/Model3D.hpp"
+#include "ECS/Systems/Particle.hpp"
 #include "Systems/Map.hpp"
 #include "ECS/Manager.hpp"
 #include "Entities/Bomb.hpp"
@@ -30,6 +32,11 @@ Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::st
 
     std::shared_ptr<Engine::ECS::IComponent> _renderer = std::make_shared<Engine::ECS::Component::Renderer>();
     addComponent(_renderer);
+
+    auto &manager = Engine::ECS::Manager::getInstance();
+    auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
+
+    _deathSound = audio->isLoaded("death_sound") ? audio->getSound("death_sound") : audio->loadSound("death_sound", SND_DEATH);
 }
 
 void Game::Entity::Character::placeBomb() noexcept
@@ -107,7 +114,6 @@ const decltype(Game::Entity::Character::_speed) &Game::Entity::Character::getSpe
     return _speed;
 }
 
-
 void Game::Entity::Character::setSpeed(const decltype(_speed) &speed) noexcept
 {
     _speed = speed;
@@ -121,4 +127,18 @@ void Game::Entity::Character::rangeIncrease() noexcept
 void Game::Entity::Character::addBomb() noexcept
 {
     _bombStock++;
+}
+
+void Game::Entity::Character::kill() noexcept
+{
+    _alive = false;
+    _deathSound.second->play();
+
+    std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
+        createParticles(15, Engine::Math::Vec2<float>{1, 3}, _pos, Engine::Math::Vec3<float>{0, 1, 0}, 5, "Game");
+}
+
+bool Game::Entity::Character::isAlive() const noexcept
+{
+    return _alive;
 }
