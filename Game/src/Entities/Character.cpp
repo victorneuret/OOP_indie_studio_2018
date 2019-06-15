@@ -135,7 +135,7 @@ void Game::Entity::Character::addBomb() noexcept
 void Game::Entity::Character::kill() noexcept
 {
     _alive = false;
-    _deathSound.second->play();
+    _deathSound.second->play(); // TODO: Adjust volume after merge
 
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(getComponentByID("Model3D"))->getNode()->remove();
 }

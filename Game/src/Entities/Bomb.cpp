@@ -39,14 +39,14 @@ void Game::Entity::Bomb::_exploding(const Engine::Math::Vec3f &pos)
         auto character = std::dynamic_pointer_cast<Game::Entity::Character>(entity);
         if (character == nullptr)
             continue;
+
         auto charPos = character->getPosition();
         charPos.x = std::round(POS_TO_INDEX(charPos.x));
         charPos.y = pos.y;
         charPos.z = std::round(POS_TO_INDEX(charPos.z));
 
-        if (pos == charPos) {
+        if (pos == charPos)
             character->kill();
-        }
     }
 }
 
