@@ -140,6 +140,8 @@ add_library(
     Engine/include/Abstracts/ASerializable.hpp
     Engine/src/Abstracts/ASerializable.cpp
     Engine/include/Exception/SerializationException.hpp
+    Engine/include/ECS/Systems/ApplyPowerUp.hpp
+    Engine/src/ECS/Systems/ApplyPowerUp.cpp
 )
 
 add_executable(
@@ -170,6 +172,8 @@ add_executable(
     Game/include/Assets.hpp
     Game/include/Scenes/Selection.hpp
     Game/src/Scenes/Selection.cpp
+    Game/include/Systems/PowerUp.hpp
+    Game/src/Systems/PowerUp.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)
