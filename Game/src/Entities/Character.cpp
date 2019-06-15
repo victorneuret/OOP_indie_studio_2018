@@ -6,7 +6,6 @@
 */
 
 #include <cmath>
-#include <iostream>
 
 #include "Entities/Character.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
