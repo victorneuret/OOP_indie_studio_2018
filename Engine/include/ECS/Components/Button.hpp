@@ -8,8 +8,8 @@
 #pragma once
 
 #include <functional>
-#include <irrlicht/irrlicht.h>
 
+#include "irrlicht.hpp"
 #include "Math/Rect.hpp"
 #include "Utils/Color.hpp"
 #include "ECS/Systems/Renderer.hpp"

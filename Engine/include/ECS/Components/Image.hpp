@@ -7,8 +7,7 @@
 
 #pragma once
 
-#include <irrlicht/irrlicht.h>
-
+#include "irrlicht.hpp"
 #include "Math/Rect.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "ECS/Abstracts/AComponent.hpp"

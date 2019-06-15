@@ -17,13 +17,16 @@ namespace Game::Entity {
 class Game::Entity::Bomb final : public Engine::ECS::AEntity {
 protected:
     Engine::Math::Vec2i _pos{0, 0};
-    int _range{1};
+    size_t _range{1};
+    size_t _playerID{0};
 
 public:
-    explicit Bomb(const decltype(_pos) &pos);
+    Bomb(const decltype(_playerID) &playerID, const decltype(_pos) &pos, const decltype(_range) &range);
     Bomb(const Bomb &) = delete;
     Bomb &operator=(const Bomb &) = delete;
-    void onExplode();
 
     ~Bomb() override = default;
+
+    void onExplode();
+    const decltype(_pos) &getPos() const noexcept;
 };

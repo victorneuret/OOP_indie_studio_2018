@@ -19,3 +19,5 @@ libengine.a
 tests_run
 
 !Tools/Makefile
+
+vgcore*

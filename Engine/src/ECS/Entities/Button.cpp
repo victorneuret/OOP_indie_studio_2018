@@ -5,8 +5,6 @@
 ** Button.cpp
 */
 
-#include <iostream>
-
 #include "ECS/Entities/Button.hpp"
 #include "ECS/Components/Text.hpp"
 #include "ECS/Components/Button.hpp"

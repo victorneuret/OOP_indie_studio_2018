@@ -23,10 +23,10 @@ class Engine::ECS::Manager {
 private:
     Manager() = default;
 
-    static std::vector<std::shared_ptr<ISystem>> _systems;
-    static std::vector<std::shared_ptr<Abstracts::AScene>> _scenes;
-
     static std::unique_ptr<Manager> _instance;
+
+    std::vector<std::shared_ptr<ISystem>> _systems{};
+    std::vector<std::shared_ptr<Abstracts::AScene>> _scenes{};
 
 public:
     static Manager &getInstance();
@@ -40,7 +40,8 @@ public:
 
     decltype(_scenes) &getScenes() noexcept;
     std::shared_ptr<Abstracts::AScene> &getSceneByID(const std::string &id);
-    void addScene(std::shared_ptr<Abstracts::AScene> &scene);
+    void pushScene(std::shared_ptr<Abstracts::AScene> &scene);
+    void popScene();
     void sceneManager(double dt, std::shared_ptr<System::Renderer> &renderer);
     std::vector<std::shared_ptr<Engine::ECS::IEntity>> getUpdatedEntities();
     std::vector<std::shared_ptr<Engine::Abstracts::AScene>> getUpdatedScenes();

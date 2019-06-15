@@ -17,6 +17,7 @@
 #include "Abstracts/AScene.hpp"
 #include "Exception/AException.hpp"
 #include "ECS/Manager.hpp"
+#include "ECS/Systems/Particle.hpp"
 
 Game::System::Map::Map()
     : ASystem("Map")
@@ -31,11 +32,15 @@ void Game::System::Map::_createFirstSquare() noexcept
         str.clear();
 
         for (size_t iChar = 0; iChar < (MAP_WIDTH + (MAP_WIDTH % 2)) / 2; iChar++) {
-            randomValue = Random::getUnsigned(0, 5);
+            if (iChar == 0 || i == 0) {
+                str.append(".");
+                continue;
+            }
+            randomValue = Random::getUnsigned(0, 3);
             switch (randomValue) {
                 case 0: str.append("0"); break;
                 case 1: str.append("#"); break;
-                default: str.append(".");
+                default: str.append("."); break;
             }
         }
 
@@ -45,7 +50,6 @@ void Game::System::Map::_createFirstSquare() noexcept
         } else if (_map.size() == 1) {
             str[0] = '0';
         }
-
         _map.push_back(str);
     }
 }
@@ -143,12 +147,21 @@ void Game::System::Map::removeBlock(const Engine::Math::Vec2i &pos)
 {
     auto backupPos = pos - 1;
     if (_blocks[backupPos.x][backupPos.y] != nullptr) {
-        if (!(std::dynamic_pointer_cast<Game::Entity::Block>(
-                Engine::ECS::Manager::getInstance().getSceneByID(
-                        "Game")->getEntityByID(
-                        _blocks[backupPos.x][backupPos.y]->getID()))->isBreakable()))
+        if (!(std::dynamic_pointer_cast<Game::Entity::Block>(Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(_blocks[backupPos.x][backupPos.y]->getID()))->isBreakable()))
             return;
+        std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
+            createParticles(15, Engine::Math::Vec2f{0.5, 1},
+                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(backupPos.x)), 0, static_cast<float>(INDEX_TO_POS(backupPos.y))},
+                Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(backupPos.x)), 4, static_cast<float>(INDEX_TO_POS(backupPos.y))},
+                0.5, "Game");
         std::dynamic_pointer_cast<Engine::ECS::Component::Model3D> (Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(_blocks[backupPos.x][backupPos.y]->getID())->getComponentByID("Model3D"))->getNode()->remove();
         Engine::ECS::Manager::getInstance().getSceneByID("Game")->removeEntityByID(_blocks[backupPos.x][backupPos.y]->getID());
+        _blocks[backupPos.x][backupPos.y] = nullptr;
+        _actualMap[backupPos.x][backupPos.y] = '0';
     }
+}
+
+decltype(Game::System::Map::_blocks) &Game::System::Map::getBlocks() noexcept
+{
+    return _blocks;
 }

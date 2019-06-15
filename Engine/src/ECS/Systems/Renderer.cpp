@@ -6,8 +6,8 @@
 */
 
 #include <memory>
-#include <irrlicht/irrlicht.h>
 
+#include "irrlicht.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "ECS/Components/Text.hpp"
 #include "ECS/Components/Button.hpp"

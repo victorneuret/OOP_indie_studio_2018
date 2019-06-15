@@ -4,7 +4,6 @@
 ** File description:
 ** Button.cpp
 */
-#include <iostream>
 
 #include "ECS/Components/Button.hpp"
 #include "ECS/Manager.hpp"

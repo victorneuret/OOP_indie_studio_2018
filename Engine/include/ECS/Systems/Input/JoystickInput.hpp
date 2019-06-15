@@ -12,8 +12,8 @@
 #include <vector>
 #include <memory>
 #include <type_traits>
-#include <irrlicht/irrlicht.h>
 
+#include "irrlicht.hpp"
 #include "ECS/Abstracts/Systems/AInput.hpp"
 
 namespace Engine::ECS::System {
@@ -29,11 +29,17 @@ struct Controller {
 class Engine::ECS::System::JoystickInput final : public AInput {
 protected:
     std::map<irr::u8, Controller> _controllers{};
+    irr::core::array<irr::SJoystickInfo> _joystickInfos{};
 
 public:
     JoystickInput();
     ~JoystickInput() override = default;
 
     bool OnEvent(const irr::SEvent &event) override;
-    bool isKeyDown(irr::u8 axis, irr::u8 key) const;
+    bool isKeyDown(irr::u8 controller, irr::u8 key) const;
+
+    const decltype(_joystickInfos) &getJoystickInfos() const noexcept;
+    irr::u16 getPov(irr::u8 controller) const noexcept ;
+    irr::s16 getAxis(irr::u8 controller, irr::u8 axis) const noexcept;
+
 };
