@@ -176,6 +176,10 @@ add_executable(
     Game/src/Systems/PowerUp.cpp
     Game/include/Entities/BombUp.hpp
     Game/src/Entities/BombUp.cpp
+    Game/include/Entities/FireUp.hpp
+    Game/src/Entities/FireUp.cpp
+    Game/include/Entities/SpeedUp.hpp
+    Game/src/Entities/SpeedUp.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)

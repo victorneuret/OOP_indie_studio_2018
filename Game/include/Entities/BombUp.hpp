@@ -21,4 +21,6 @@ public:
     BombUp &operator=(const BombUp &) = delete;
 
     ~BombUp() override = default;
+
+    void applyEffect(Game::Entity::Character player);
 };
