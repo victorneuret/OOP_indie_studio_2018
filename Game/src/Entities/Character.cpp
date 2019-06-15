@@ -24,7 +24,7 @@ Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::st
 
     _3DModel->addTexture(texture);
     _3DModel->setScale(Engine::Math::Vec3f{12.f, 6.f, 12.f});
-    _3DModel->getNode()->setAnimationSpeed(30);
+    _3DModel->getNode()->setAnimationSpeed(40);
     _3DModel->getNode()->setFrameLoop(27, 76);
     _3DModel->getNode()->setRotation(irr::core::vector3df{0, ((_pos.x == INDEX_TO_POS(0)) ? static_cast<float>(-90) : static_cast<float>(90)), 0});
     addComponent(_3DModelPtr);
@@ -48,6 +48,8 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
 {
     auto model3D = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(getComponentByID("Model3D"));
     decltype(_pos) tmpPos{_pos};
+    decltype(_pos) tmpPos2{_pos};
+
     tmpPos.x += speed.x * _speed * timeMove;
     tmpPos.y += speed.y * _speed * timeMove;
 
@@ -66,12 +68,6 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
     auto boxX = map->getBlocks()[static_cast<size_t>(round(tmpPos.x / 10))][static_cast<size_t>(round(_pos.y / 10))];
     auto boxY = map->getBlocks()[static_cast<size_t>(round(_pos.x / 10))][static_cast<size_t>(round(tmpPos.y / 10))];
 
-    if (boxX == nullptr)
-        _pos.x = tmpPos.x;
-    if (boxY == nullptr)
-        _pos.y = tmpPos.y;
-    model3D->setPosition(Engine::Math::Vec3f{_pos.x, 0, _pos.y});
-
     if (speed.x > 0 && speed.x > speed.y && speed.x > speed.y * -1) {
         model3D->getNode()->setRotation(irr::core::vector3df(0, 270, 0));
     } else if (speed.x < 0 && speed.x < speed.y && speed.x < speed.y * -1) {
@@ -82,6 +78,19 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
         model3D->getNode()->setRotation(irr::core::vector3df(0, 0, 0));
     }
 
+    if (tmpPos != _pos && !_moving) {
+        model3D->getNode()->setFrameLoop(0, 27);
+        _moving = true;
+    } else if (tmpPos == _pos && _moving) {
+        model3D->getNode()->setFrameLoop(27, 76);
+        _moving = false;
+    }
+
+    if (boxX == nullptr)
+        _pos.x = tmpPos.x;
+    if (boxY == nullptr)
+        _pos.y = tmpPos.y;
+    model3D->setPosition(Engine::Math::Vec3f{_pos.x, 0, _pos.y});
 }
 
 const decltype(Game::Entity::Character::_speed) &Game::Entity::Character::getSpeed() const noexcept
