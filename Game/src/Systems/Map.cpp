@@ -237,13 +237,11 @@ void Game::System::Map::unpack(std::istream &inStream)
 
 void Game::System::Map::_randomPowerup(const Engine::Math::Vec2i &pos) noexcept
 {
-    //auto result = Random::getSigned(0, 100);
-    auto result = Random::getSigned(0, 20);
+    auto result = Random::getSigned(0, 100);
 
     if (result <= 20) {
         std::shared_ptr<Engine::ECS::IEntity> newPowerUp = nullptr;
-        //switch (Random::getSigned(0, 3)) {
-        switch (3) {
+        switch (Random::getSigned(0, 3)) {
             case 0:
                 newPowerUp = std::make_shared<Game::Entity::FireUp>(Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(pos.x - 1)), 5, static_cast<float>(INDEX_TO_POS(pos.y - 1))});
                 break;
