@@ -55,9 +55,9 @@ void Engine::GameApplication::_startup()
 
     _ecsManager.addSystem(timer);
     _ecsManager.addSystem(audio);
-    _ecsManager.addSystem(button);
     _ecsManager.addSystem(keyboard);
     _ecsManager.addSystem(mouse);
+    _ecsManager.addSystem(button);
     _ecsManager.addSystem(joystick);
     _ecsManager.addSystem(particles);
     _ecsManager.addSystem(handler);

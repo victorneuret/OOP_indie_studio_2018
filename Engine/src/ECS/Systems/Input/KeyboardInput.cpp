@@ -17,8 +17,10 @@ Engine::ECS::System::KeyboardInput::KeyboardInput()
 
 bool Engine::ECS::System::KeyboardInput::OnEvent(const irr::SEvent &event)
 {
-    if (event.EventType == irr::EET_KEY_INPUT_EVENT)
+    if (event.EventType == irr::EET_KEY_INPUT_EVENT) {
         _keys[event.KeyInput.Key] = event.KeyInput.PressedDown;
+        return true;
+    }
     return false;
 }
 

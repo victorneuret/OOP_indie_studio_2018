@@ -17,7 +17,7 @@ Engine::ECS::System::JoystickInput::JoystickInput()
     auto renderer = std::dynamic_pointer_cast<Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"));
 
     if (renderer->getWindow()->activateJoysticks(_joystickInfos))
-        Logger::getInstance().info(std::to_string(_joystickInfos.size()) + " controllers connected");
+        Logger::getInstance().info(std::to_string(_joystickInfos.size()) + " controller(s) connected");
     else
         Logger::getInstance().error("Failed to activate joystick");
 }
@@ -32,6 +32,7 @@ bool Engine::ECS::System::JoystickInput::OnEvent(const irr::SEvent &event)
             _controllers[event.JoystickEvent.Joystick].axis[i] = event.JoystickEvent.Axis[i];
 
         _controllers[event.JoystickEvent.Joystick].buttonStates = event.JoystickEvent.ButtonStates;
+        return true;
     }
     return false;
 }

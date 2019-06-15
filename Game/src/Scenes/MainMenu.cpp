@@ -20,6 +20,7 @@
 #include "Math/Vector/Vec2.hpp"
 #include "Math/Rect.hpp"
 #include "Scenes/Game.hpp"
+#include "Scenes/Selection.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
 #include "Systems/Map.hpp"
 #include "Assets.hpp"
@@ -50,16 +51,22 @@ Game::Scene::MainMenu::MainMenu()
         std::make_shared<Engine::ECS::Entity::Button>(
             Engine::Math::Rect_i{static_cast<int>(screenSize.Width - 460), 60, 400, 90},
             IMG_NEW_GAME,
-            []() {
+            [&manager]() {
                 std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<Game>();
-                Engine::ECS::Manager::getInstance().pushScene(game);
+                manager.pushScene(game);
             }
         ),
         std::make_shared<Engine::ECS::Entity::Button>(
             Engine::Math::Rect_i{static_cast<int>(screenSize.Width - 460), 60 * 3, 400, 90},
             IMG_LOAD_GAME,
-            []() {
-                std::cout << "Load Game" << std::endl;
+            [&manager]() {
+                auto map = std::dynamic_pointer_cast<System::Map>(manager.getSystemByID("Map"));
+
+                if (map != nullptr)
+                    map->loadMap();
+
+                std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<Game>();
+                Engine::ECS::Manager::getInstance().pushScene(game);
             }
         ),
         std::make_shared<Engine::ECS::Entity::Button>(

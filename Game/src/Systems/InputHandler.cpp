@@ -30,6 +30,10 @@ void Engine::ECS::System::InputHandler::update(double dt)
 
         for (const auto &c : _inputs) {
             auto player = std::dynamic_pointer_cast<Game::Entity::Character>(game->getEntityByID(c.first));
+
+            if (player == nullptr)
+                continue;
+
             player->move(c.second->getPosition(), dt);
 
             if (c.second->isKeyDown(Engine::ECS::InputType::B_PRIMARY))

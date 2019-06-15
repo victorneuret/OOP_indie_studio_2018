@@ -23,7 +23,9 @@ Engine::ECS::Entity::Button::Button(const Engine::Math::Rect_i &bounds, const st
 
 bool Engine::ECS::Entity::Button::onEvent(irr::gui::EGUI_EVENT_TYPE eventType)
 {
-    if (eventType == irr::gui::EGET_BUTTON_CLICKED)
+    if (eventType == irr::gui::EGET_BUTTON_CLICKED) {
         std::dynamic_pointer_cast<Engine::ECS::Component::Button>(getComponentByID("Button"))->onClick();
+        return true;
+    }
     return false;
 }

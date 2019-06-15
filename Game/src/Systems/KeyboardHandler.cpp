@@ -44,7 +44,7 @@ Engine::Math::Vec2f Game::System::KeyboardHandler::getPosition() const
 bool Game::System::KeyboardHandler::isKeyDown(irr::u8 key) const
 {
     const auto &input = std::dynamic_pointer_cast<Engine::ECS::System::KeyboardInput>(
-        Engine::ECS::Manager::getInstance().getSystemByID("JoystickInput"));
+        Engine::ECS::Manager::getInstance().getSystemByID("KeyboardInput"));
 
     if (input == nullptr)
         return false;

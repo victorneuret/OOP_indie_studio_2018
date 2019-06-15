@@ -18,7 +18,8 @@ enum ExceptionType {
     General_Memory,
     General_Permission,
     General_Math,
-    General_Not_Implemented
+    General_Not_Implemented,
+    General_Serialization
 };
 
 template<ExceptionType Type>
