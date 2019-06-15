@@ -16,6 +16,7 @@
 #include "ECS/Manager.hpp"
 #include "Entities/Bomb.hpp"
 #include "Entities/Block.hpp"
+#include "ECS/Systems/Audio.hpp"
 
 Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::string &texture, const std::string &model)
     : AEntity(AEntity::Type::MODEL3D), _pos{pos}, _speed{30}
@@ -29,6 +30,10 @@ Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::st
     _3DModel->getNode()->setFrameLoop(27, 76);
     _3DModel->getNode()->setRotation(irr::core::vector3df{0, ((_pos.x == INDEX_TO_POS(0)) ? static_cast<float>(-90) : static_cast<float>(90)), 0});
     addComponent(_3DModelPtr);
+
+    auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(Engine::ECS::Manager::getInstance().getSystemByID("Audio"));
+    _stepSound = audio->getSound("step");
+    _stepSound.second->setVolume(70);
 
     std::shared_ptr<Engine::ECS::IComponent> _renderer = std::make_shared<Engine::ECS::Component::Renderer>();
     addComponent(_renderer);
@@ -57,6 +62,7 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
 
     auto model3D = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(getComponentByID("Model3D"));
     decltype(_pos) tmpPos{_pos};
+    _time += timeMove;
 
     tmpPos.x += speed.x * _speed * timeMove;
     tmpPos.z += speed.y * _speed * timeMove;
@@ -92,6 +98,13 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
     } else if (tmpPos == _pos && _moving) {
         model3D->getNode()->setFrameLoop(27, 76);
         _moving = false;
+    }
+
+    if (_moving && _time >= 0.35) {
+        _stepSound.second->play();
+        _time -= 0.35;
+    } else if (!_moving && _time >= 0.35 * 2){
+        _time = -0.35;
     }
 
     for (auto &entity : Engine::ECS::Manager::getInstance().getUpdatedEntities()) {

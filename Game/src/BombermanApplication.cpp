@@ -25,6 +25,9 @@ void BombermanApplication::onAppStartup()
 
     std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();
     Engine::ECS::Manager::getInstance().addSystem(map);
+
+    auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(Engine::ECS::Manager::getInstance().getSystemByID("Audio"));
+    audio->loadSound("step", "assets/musics/step.wav");
 }
 
 void BombermanApplication::tick(double)

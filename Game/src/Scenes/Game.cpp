@@ -71,6 +71,7 @@ Game::Scene::Game::Game()
     _music = sound.second;
     _music->setLoop(true);
     _music->play();
+    _music->setVolume(30);
 
     _audioVisualizer = std::make_unique<AudioVisualizer>(*sound.second, *sound.first);
 }
