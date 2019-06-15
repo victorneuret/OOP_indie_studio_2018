@@ -91,7 +91,7 @@ std::shared_ptr<Engine::ECS::IEntity> Game::System::Map::_createBlock(Engine::Ma
     return block;
 }
 
-void Game::System::Map::_generateBlocks() noexcept
+void Game::System::Map::_initMap() noexcept
 {
     for (size_t i = 0; i < _map.size(); i++) {
         std::vector<std::shared_ptr<Engine::ECS::IEntity>> blocks{};
@@ -105,20 +105,23 @@ void Game::System::Map::_generateBlocks() noexcept
         }
         _blocks.push_back(blocks);
     }
-}
-
-void Game::System::Map::_createMap() noexcept
-{
-    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"));
-    _createFirstSquare();
-    _duplicateWidth();
-    _duplicateHeight();
 
     std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(true, Engine::Math::Vec3f{INDEX_TO_POS(MAP_WIDTH - 1) / 2.f, -3, INDEX_TO_POS(MAP_HEIGHT - 1) / 2.f}, "assets/models/block/cube.obj");
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->setScale(Engine::Math::Vec3{150.f, 6.f, 150.f});
     Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(block);
 
     _actualMap = _map;
+
+    _placeCameraAndLight();
+}
+
+void Game::System::Map::_createMap() noexcept
+{
+    _createFirstSquare();
+    _duplicateWidth();
+    _duplicateHeight();
+
+    _initMap();
 }
 
 void Game::System::Map::_placeCameraAndLight() noexcept
@@ -162,10 +165,8 @@ void Game::System::Map::update(double)
 {
     try {
         Engine::ECS::Manager::getInstance().getSceneByID("Game");
-        if (_map.empty()) {
+        if (_map.empty())
             _createMap();
-            _placeCameraAndLight();
-        }
     } catch (const ECSException<ECS_Scene> &e) {}
 }
 
@@ -227,6 +228,5 @@ void Game::System::Map::unpack(std::istream &inStream)
         _map.push_back(line);
     }
 
-    _actualMap = _map;
-    _generateBlocks();
+    _initMap();
 }

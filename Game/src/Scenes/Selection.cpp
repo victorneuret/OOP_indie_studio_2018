@@ -26,16 +26,16 @@ Game::Scene::Selection::Selection()
     pos.Y += 20;
 
     _entities = {
-//        std::make_shared<Entity::Player>(Engine::Math::Vec3f{pos.X, pos.Y, pos.Z}, "assets/models/characters/BlackBombermanTextures.png"),
-//        std::make_shared<Entity::Player>(Engine::Math::Vec3f{pos.X, pos.Y, pos.Z}, "assets/models/characters/PinkBombermanTextures.png"),
-//        std::make_shared<Entity::Player>(Engine::Math::Vec3f{pos.X, pos.Y, pos.Z}, "assets/models/characters/RedBombermanTextures.png"),
-//        std::make_shared<Entity::Player>(Engine::Math::Vec3f{pos.X, pos.Y, pos.Z}, "assets/models/characters/WhiteBombermanTextures.png"),
-//        std::make_shared<Engine::ECS::Entity::Button>(
-//            Engine::Math::Rect_i{static_cast<int>(pos.X) + screenSize.Width / 8,
-//                                 static_cast<int>(pos.Y) + screenSize.Height / 4 * 3, 400, 90},
-//            "assets/img/newGame.png",
-//            []() {}
-//        ),
+        std::make_shared<Entity::Player>(Engine::Math::Vec3f{pos.X, pos.Y, pos.Z}, "assets/models/characters/BlackBombermanTextures.png"),
+        std::make_shared<Entity::Player>(Engine::Math::Vec3f{pos.X, pos.Y, pos.Z}, "assets/models/characters/PinkBombermanTextures.png"),
+        std::make_shared<Entity::Player>(Engine::Math::Vec3f{pos.X, pos.Y, pos.Z}, "assets/models/characters/RedBombermanTextures.png"),
+        std::make_shared<Entity::Player>(Engine::Math::Vec3f{pos.X, pos.Y, pos.Z}, "assets/models/characters/WhiteBombermanTextures.png"),
+        std::make_shared<Engine::ECS::Entity::Button>(
+            Engine::Math::Rect_i{static_cast<int>(pos.X) + screenSize.Width / 8,
+                                 static_cast<int>(pos.Y) + screenSize.Height / 4 * 3, 400, 90},
+            "assets/img/newGame.png",
+            []() {}
+        ),
     };
 
     for (uint8_t i = 0; i < _entities.size(); i++) {
@@ -54,8 +54,19 @@ Game::Scene::Selection::Selection()
     }
 }
 
-void Game::Scene::Selection::tick(double)
-{}
+void Game::Scene::Selection::tick(double dt)
+{
+    for (auto &entity : _entities) {
+        if (entity->getType() == Engine::ECS::IEntity::Type::MODEL3D) {
+            auto model3D = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(entity->getComponentByID("Model3D"));
+            auto rotation = model3D->getNode()->getRotation();
+
+            rotation.Y += 20.f * dt;
+
+            model3D->setRotation({rotation.X, rotation.Y, rotation.Z});
+        }
+    }
+}
 
 void Game::Scene::Selection::sceneShowing()
 {}

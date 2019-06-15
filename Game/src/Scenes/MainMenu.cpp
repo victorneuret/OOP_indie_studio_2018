@@ -65,10 +65,8 @@ Game::Scene::MainMenu::MainMenu()
                 std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<Game>();
                 manager.pushScene(game);
 
-                if (map != nullptr) {
-                    map->update(0);
+                if (map != nullptr)
                     map->loadMap();
-                }
             }
         ),
         std::make_shared<Engine::ECS::Entity::Button>(
