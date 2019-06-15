@@ -53,8 +53,6 @@ void Game::Entity::Character::placeBomb() noexcept
     _bombStock--;
 }
 
-#include <iostream>
-
 void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeMove) noexcept
 {
     if (!_alive)
