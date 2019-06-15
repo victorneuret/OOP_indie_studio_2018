@@ -20,6 +20,7 @@ protected:
     size_t _range{1};
     size_t _bombStock{1};
     float _speed{0.0};
+    bool _moving{false};
 
 public:
     Character(const Engine::Math::Vec3f &pos, const std::string &texture, const std::string &model);

@@ -36,7 +36,7 @@ void Game::System::Map::_createFirstSquare() noexcept
                 str.append(".");
                 continue;
             }
-            randomValue = Random::getUnsigned(0, 5);
+            randomValue = Random::getUnsigned(0, 3);
             switch (randomValue) {
                 case 0: str.append("0"); break;
                 case 1: str.append("#"); break;
@@ -159,4 +159,9 @@ void Game::System::Map::removeBlock(const Engine::Math::Vec2i &pos)
         _blocks[backupPos.x][backupPos.y] = nullptr;
         _actualMap[backupPos.x][backupPos.y] = '0';
     }
+}
+
+decltype(Game::System::Map::_blocks) &Game::System::Map::getBlocks() noexcept
+{
+    return _blocks;
 }
