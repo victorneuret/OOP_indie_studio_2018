@@ -54,7 +54,7 @@ Game::Scene::Selection::Selection()
 //    }
 }
 
-void Game::Scene::Selection::tick(double dt)
+void Game::Scene::Selection::tick(double)
 {
 //    for (auto &entity : _entities) {
 //        if (entity->getType() == Engine::ECS::IEntity::Type::MODEL3D) {
