@@ -23,16 +23,16 @@ class Engine::Entity::Particle : public Engine::ECS::AEntity {
 protected:
     Engine::Math::Vec3f _startPoint{0, 0, 0};
     Engine::Math::Vec3f _endPoint{0, 0, 0};
-    Engine::Math::Vec3f _spray{static_cast<float>(Random::getDouble(-0.5, 0.5)),
-                                     static_cast<float>(Random::getDouble(-0.5, 0.5)),
-                                     static_cast<float>(Random::getDouble(-0.5, 0.5))};
+    Engine::Math::Vec3f _spray{static_cast<float>(Random::getDouble(-0.3, 0.3)),
+                                     static_cast<float>(Random::getDouble(-0.3, 0.3)),
+                                     static_cast<float>(Random::getDouble(-0.3, 0.3))};
     double _momentum{0};
 
 public:
     Particle(const Engine::Math::Vec3<float> &startPoint,
                     const Engine::Math::Vec3<float> &endPoint,
                     const double &momentum, const double &duration,
-                    const std::string &model = std::string("assets/models/particles/beach-ball.obj"));
+                    const std::string &model = std::string("assets/models/particles/ball.obj"));
 
     Particle(const Particle &) = delete;
     Particle &operator=(const Particle &) = delete;
