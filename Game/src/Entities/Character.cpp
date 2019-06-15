@@ -32,7 +32,7 @@ Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::st
     addComponent(_3DModelPtr);
 
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(Engine::ECS::Manager::getInstance().getSystemByID("Audio"));
-    _stepSound = audio->getSound("step");
+    _stepSound = audio->getSound("footstep");
     _stepSound.second->setVolume(70);
 
     std::shared_ptr<Engine::ECS::IComponent> _renderer = std::make_shared<Engine::ECS::Component::Renderer>();
