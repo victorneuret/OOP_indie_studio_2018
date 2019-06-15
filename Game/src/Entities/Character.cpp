@@ -38,15 +38,12 @@ Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::st
     std::shared_ptr<Engine::ECS::IComponent> _renderer = std::make_shared<Engine::ECS::Component::Renderer>();
     addComponent(_renderer);
 
-    auto &manager = Engine::ECS::Manager::getInstance();
-    auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
-
     _deathSound = audio->isLoaded("death_sound") ? audio->getSound("death_sound") : audio->loadSound("death_sound", SND_DEATH);
 }
 
 void Game::Entity::Character::placeBomb() noexcept
 {
-    if (_bombStock == 0)
+    if (!_alive || _bombStock == 0)
         return;
     auto entities = Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntities();
 
@@ -150,7 +147,7 @@ void Game::Entity::Character::kill() noexcept
     _alive = false;
     _deathSound.second->play(); // TODO: Adjust volume after merge
 
-    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(getComponentByID("Model3D"))->getNode()->remove();
+    hide();
 }
 
 bool Game::Entity::Character::isAlive() const noexcept

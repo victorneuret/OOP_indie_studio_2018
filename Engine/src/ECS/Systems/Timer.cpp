@@ -16,16 +16,13 @@ Engine::ECS::System::Timer::Timer()
 
 void Engine::ECS::System::Timer::update(double)
 {
-    auto actualScenesStack = Manager::getInstance().getUpdatedScenes();
-
-    for (const auto &scene : actualScenesStack)
-        for (auto &entity : scene->getEntities()) {
-            if (entity == nullptr)
-                continue;
-            try {
-                auto timer = std::dynamic_pointer_cast<Engine::ECS::Component::Timer>(entity->getComponentByID("Timer"));
-                if (timer != nullptr)
-                    timer->execIfCooldownFinished();
-            } catch (...) {}
-        }
+    for (auto &entity :  Manager::getInstance().getUpdatedEntities()) {
+        if (entity == nullptr)
+            continue;
+        try {
+            auto timer = std::dynamic_pointer_cast<Engine::ECS::Component::Timer>(entity->getComponentByID("Timer"));
+            if (timer != nullptr)
+                timer->execIfCooldownFinished();
+        } catch (...) {}
+    }
 }
