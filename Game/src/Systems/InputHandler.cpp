@@ -32,10 +32,8 @@ void Engine::ECS::System::InputHandler::update(double dt)
             auto player = std::dynamic_pointer_cast<Game::Entity::Character>(game->getEntityByID(c.first));
             player->move(c.second->getPosition(), dt);
 
-            if (c.second->isKeyDown(Engine::ECS::InputType::B_PRIMARY)) {
-                std::cout << "TEST" << std::endl;
+            if (c.second->isKeyDown(Engine::ECS::InputType::B_PRIMARY))
                 player->placeBomb();
-            }
         }
     } catch (...) {}
 }
