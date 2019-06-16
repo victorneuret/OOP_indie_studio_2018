@@ -218,3 +218,13 @@ bool Game::Entity::Character::_isBombThere(const Engine::Math::Vec2i &pos)
     }
     return false;
 }
+
+void Game::Entity::Character::setSuperBomb(bool value) noexcept
+{
+    _superBomb = value;
+}
+
+bool Game::Entity::Character::getSuperBomb() noexcept
+{
+    return _superBomb;
+}

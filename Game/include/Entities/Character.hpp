@@ -26,6 +26,7 @@ protected:
     float _time{0};
     bool _ghost{false};
     bool _inBlock{false};
+    bool _superBomb{false};
 
     Engine::ECS::System::Audio::Sound _stepSound{};
     Engine::ECS::System::Audio::Sound _deathSound{};
@@ -44,6 +45,8 @@ public:
     void rangeIncrease() noexcept;
     void addBomb() noexcept;
     void setGhost(bool isGhost) noexcept;
+    void setSuperBomb(bool value) noexcept;
+    bool getSuperBomb() noexcept;
 
     void kill() noexcept;
     bool isAlive() const noexcept;

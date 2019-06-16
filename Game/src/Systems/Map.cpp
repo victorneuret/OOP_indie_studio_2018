@@ -18,6 +18,7 @@
 #include "Entities/Block.hpp"
 #include "Entities/FireUp.hpp"
 #include "Entities/GhostUp.hpp"
+#include "Entities/SuperBomb.hpp"
 #include "ECS/Manager.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "Scenes/Selection.hpp"
@@ -184,12 +185,12 @@ void Game::System::Map::setActualMap(decltype(Game::System::Map::_actualMap) &ma
     _actualMap = map;
 }
 
-void Game::System::Map::removeBlock(const Engine::Math::Vec2i &pos)
+bool Game::System::Map::removeBlock(const Engine::Math::Vec2i &pos)
 {
     auto backupPos = pos - 1;
     if (_blocks[backupPos.x][backupPos.y] != nullptr) {
         if (!(std::dynamic_pointer_cast<Game::Entity::Block>(Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(_blocks[backupPos.x][backupPos.y]->getID()))->isBreakable()))
-            return;
+            return false;
         std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
             createParticles(15, Engine::Math::Vec2f{0.5, 1},
                 Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(backupPos.x)), 0, static_cast<float>(INDEX_TO_POS(backupPos.y))},
@@ -202,6 +203,7 @@ void Game::System::Map::removeBlock(const Engine::Math::Vec2i &pos)
         _actualMap[backupPos.x][backupPos.y] = '0';
         saveMap();
     }
+    return true;
 }
 
 decltype(Game::System::Map::_blocks) &Game::System::Map::getBlocks() noexcept
@@ -242,7 +244,7 @@ void Game::System::Map::_randomPowerup(const Engine::Math::Vec2i &pos) noexcept
 
     if (result <= 20) {
         std::shared_ptr<Engine::ECS::IEntity> newPowerUp = nullptr;
-        switch (Random::getSigned(0, 3)) {
+        switch (Random::getSigned(0, 4)) {
             case 0:
                 newPowerUp = std::make_shared<Game::Entity::FireUp>(Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(pos.x - 1)), 5, static_cast<float>(INDEX_TO_POS(pos.y - 1))});
                 break;
@@ -254,6 +256,9 @@ void Game::System::Map::_randomPowerup(const Engine::Math::Vec2i &pos) noexcept
                 break;
             case 3:
                 newPowerUp = std::make_shared<Game::Entity::GhostUp>(Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(pos.x - 1)), 5, static_cast<float>(INDEX_TO_POS(pos.y - 1))});
+                break;
+            case 4:
+                newPowerUp = std::make_shared<Game::Entity::SuperBomb>(Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(pos.x - 1)), 5, static_cast<float>(INDEX_TO_POS(pos.y - 1))});
                 break;
         }
         Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(newPowerUp);
