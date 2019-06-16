@@ -56,7 +56,9 @@ void Engine::GameApplication::_startup()
     std::shared_ptr<Engine::ECS::ISystem> handler = std::make_shared<Engine::ECS::System::InputHandler>();
 
     _ecsManager.addSystem(timer);
+#if defined __GNUC__
     _ecsManager.addSystem(audio);
+#endif
     _ecsManager.addSystem(keyboard);
     _ecsManager.addSystem(mouse);
     _ecsManager.addSystem(button);
