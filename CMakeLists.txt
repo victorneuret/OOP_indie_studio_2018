@@ -172,18 +172,18 @@ add_executable(
     Game/include/Assets.hpp
     Game/include/Scenes/Selection.hpp
     Game/src/Scenes/Selection.cpp
-        Game/include/Entities/Powerups/BombUp.hpp
-        Game/src/Entities/Powerups/BombUp.cpp
-        Game/include/Entities/Powerups/FireUp.hpp
-        Game/src/Entities/Powerups/FireUp.cpp
-        Game/include/Entities/Powerups/SpeedUp.hpp
-        Game/src/Entities/Powerups/SpeedUp.cpp
-        Game/include/Entities/Powerups/APowerUp.hpp
-        Game/src/Entities/Powerups/APowerUp.cpp
-        Game/include/Entities/Powerups/GhostUp.hpp
-        Game/src/Entities/Powerups/GhostUp.cpp
-        Game/include/Entities/Powerups/SuperBomb.hpp
-        Game/src/Entities/Powerups/SuperBomb.cpp
+    Game/include/Entities/Powerups/BombUp.hpp
+    Game/src/Entities/Powerups/BombUp.cpp
+    Game/include/Entities/Powerups/FireUp.hpp
+    Game/src/Entities/Powerups/FireUp.cpp
+    Game/include/Entities/Powerups/SpeedUp.hpp
+    Game/src/Entities/Powerups/SpeedUp.cpp
+    Game/include/Entities/Powerups/APowerUp.hpp
+    Game/src/Entities/Powerups/APowerUp.cpp
+    Game/include/Entities/Powerups/GhostUp.hpp
+    Game/src/Entities/Powerups/GhostUp.cpp
+    Game/include/Entities/Powerups/SuperBomb.hpp
+    Game/src/Entities/Powerups/SuperBomb.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)
