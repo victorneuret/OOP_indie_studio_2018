@@ -5,7 +5,6 @@
 ** PauseMenu.cpp
 */
 
-#include "Scenes/OptionsMenu.hpp"
 #include "Scenes/PauseMenu.hpp"
 #include "ECS/Entities/Image.hpp"
 #include "Math/Vector/Vec2.hpp"

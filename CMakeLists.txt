@@ -182,8 +182,6 @@ add_executable(
     Game/src/Entities/Powerups/SuperBomb.cpp
     Game/include/Components/BombTicker.hpp
     Game/src/Components/BombTicker.cpp
-    Game/include/Scenes/OptionsMenu.hpp
-    Game/src/Scenes/OptionsMenu.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)
