@@ -18,7 +18,7 @@ std::fstream *Engine::Abstracts::ASerializable::getFileHandler(const std::string
     auto file = _files.find(path);
 
     if (file == _files.end()) {
-        _files[path] = std::fstream{path, std::ios::in | std::ios::out | std::ios::binary};
+        _files[path] = std::fstream{path, std::ios::in | std::ios::out | std::ios::app | std::ios::binary};
         return &_files[path];
     }
 
