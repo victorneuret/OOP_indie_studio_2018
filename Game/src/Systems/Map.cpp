@@ -91,7 +91,7 @@ std::shared_ptr<Engine::ECS::IEntity> Game::System::Map::_createBlock(Engine::Ma
     std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(breakable, vec);
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->addTexture(texture);
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->setScale(Engine::Math::Vec3{5.f, 2.f, 5.f});
-    Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(block);
+    Engine::ECS::Manager::getInstance().getSceneByID("GameScene")->addEntity(block);
     return block;
 }
 
@@ -112,7 +112,7 @@ void Game::System::Map::_initMap() noexcept
 
     std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(true, Engine::Math::Vec3f{INDEX_TO_POS(MAP_WIDTH - 1) / 2.f, -3, INDEX_TO_POS(MAP_HEIGHT - 1) / 2.f}, "assets/models/block/cube.obj");
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->setScale(Engine::Math::Vec3{150.f, 6.f, 150.f});
-    Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(block);
+    Engine::ECS::Manager::getInstance().getSceneByID("GameScene")->addEntity(block);
 
     _actualMap = _map;
 
@@ -165,7 +165,7 @@ void Game::System::Map::saveMap() const
 void Game::System::Map::update(double)
 {
     try {
-        Engine::ECS::Manager::getInstance().getSceneByID("Game");
+        Engine::ECS::Manager::getInstance().getSceneByID("GameScene");
         if (_map.empty())
             _createMap();
     } catch (const ECSException<ECS_Scene> &e) {}
@@ -185,21 +185,21 @@ bool Game::System::Map::removeBlock(const Engine::Math::Vec2i &pos)
 {
     auto backupPos = pos - 1;
     if (_blocks[backupPos.x][backupPos.y] != nullptr) {
-        if (!(std::dynamic_pointer_cast<Game::Entity::Block>(Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(_blocks[backupPos.x][backupPos.y]->getID()))->isBreakable()))
+        if (!(std::dynamic_pointer_cast<Game::Entity::Block>(Engine::ECS::Manager::getInstance().getSceneByID("GameScene")->getEntityByID(_blocks[backupPos.x][backupPos.y]->getID()))->isBreakable()))
             return false;
         std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
             createParticles(15, Engine::Math::Vec2f{0.5, 1},
                 Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(backupPos.x)), 0, static_cast<float>(INDEX_TO_POS(backupPos.y))},
                 Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(backupPos.x)), 4, static_cast<float>(INDEX_TO_POS(backupPos.y))},
-                0.5, "Game", Engine::Math::Vec2i{1, 5});
+                0.5, "GameScene", Engine::Math::Vec2i{1, 5});
         _randomPowerUp(pos);
-        std::dynamic_pointer_cast<Engine::ECS::Component::Model3D> (Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(_blocks[backupPos.x][backupPos.y]->getID())->getComponentByID("Model3D"))->getNode()->remove();
-        Engine::ECS::Manager::getInstance().getSceneByID("Game")->removeEntityByID(_blocks[backupPos.x][backupPos.y]->getID());
+        std::dynamic_pointer_cast<Engine::ECS::Component::Model3D> (Engine::ECS::Manager::getInstance().getSceneByID("GameScene")->getEntityByID(_blocks[backupPos.x][backupPos.y]->getID())->getComponentByID("Model3D"))->getNode()->remove();
+        Engine::ECS::Manager::getInstance().getSceneByID("GameScene")->removeEntityByID(_blocks[backupPos.x][backupPos.y]->getID());
         _blocks[backupPos.x][backupPos.y] = nullptr;
         _actualMap[backupPos.x][backupPos.y] = '0';
         saveMap();
 
-        for (const auto &e : Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntities()) {
+        for (const auto &e : Engine::ECS::Manager::getInstance().getSceneByID("GameScene")->getEntities()) {
             const auto player = std::dynamic_pointer_cast<Entity::Character>(e);
 
             if (player != nullptr)
@@ -264,6 +264,6 @@ void Game::System::Map::_randomPowerUp(const Engine::Math::Vec2i &pos) noexcept
             case 3: newPowerUp = std::make_shared<Game::Entity::GhostUp>(Engine::Math::Vec3f{x, 5, z}); break;
             case 4: newPowerUp = std::make_shared<Game::Entity::SuperBomb>(Engine::Math::Vec3f{x, 5, z}); break;
         }
-        Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(newPowerUp);
+        Engine::ECS::Manager::getInstance().getSceneByID("GameScene")->addEntity(newPowerUp);
     }
 }

@@ -20,6 +20,7 @@ private:
     decltype(std::declval<Engine::ECS::System::Audio>().getSound("").second) _music{};
     std::unique_ptr<AudioVisualizer> _audioVisualizer{nullptr};
     bool _complete{false};
+    bool _pauseLock{false};
 
     void _checkInputs();
 

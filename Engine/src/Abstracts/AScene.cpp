@@ -13,8 +13,8 @@
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Components/Image.hpp"
 
-Engine::Abstracts::AScene::AScene(decltype(_id) id, decltype(_entities) entities, const bool opaque, const bool updateChild)
-    : _id{std::move(id)}, _entities{std::move(entities)}, _opaque{opaque}, _updateChild{updateChild}
+Engine::Abstracts::AScene::AScene(decltype(_id) id, decltype(_entities) entities, const bool opaque, const bool)
+    : _id{std::move(id)}, _entities{std::move(entities)}, _opaque{opaque}
 {}
 
 Engine::Abstracts::AScene::~AScene()
@@ -87,14 +87,4 @@ const decltype(Engine::Abstracts::AScene::_id) &Engine::Abstracts::AScene::getID
 decltype(Engine::Abstracts::AScene::_opaque) Engine::Abstracts::AScene::isOpaque() const noexcept
 {
     return _opaque;
-}
-
-decltype(Engine::Abstracts::AScene::_updateChild) Engine::Abstracts::AScene::isUpdateChild() const noexcept
-{
-    return _updateChild;
-}
-
-void Engine::Abstracts::AScene::setUpdateChild(const bool updateChild) noexcept
-{
-    _updateChild = updateChild;
 }

@@ -80,7 +80,6 @@ void Engine::ECS::Manager::popScene()
     if (_scenes.size() != 1) {
         auto parent = top - 1;
         (*parent)->sceneShowing();
-        (*parent)->setUpdateChild(true);
         for (auto &entity : (*parent)->getEntities()) {
             entity->show();
         }
@@ -102,9 +101,7 @@ void Engine::ECS::Manager::sceneManager(double dt, std::shared_ptr<Engine::ECS::
     });
 
     for (auto it = std::find(actualScenesStack.begin(), actualScenesStack.end(), *search); it != actualScenesStack.end(); it++) {
-        if ((*it)->isUpdateChild()) {
-            (*it)->tick(dt);
-        }
+        (*it)->tick(dt);
         for (auto &entity : (*it)->getEntities())
             renderer->draw(entity);
     }
@@ -117,7 +114,7 @@ std::vector<std::shared_ptr<Engine::ECS::IEntity>> Engine::ECS::Manager::getUpda
 
     for (auto it = actualScenesStack.rbegin(); it != actualScenesStack.rend(); it++) {
         updatedEntities.insert(updatedEntities.end(), (*it)->getEntities().begin(), (*it)->getEntities().end());
-        if (!(*it)->isUpdateChild() || (*it)->isOpaque())
+        if ((*it)->isOpaque())
             break;
     }
     return updatedEntities;
@@ -130,7 +127,7 @@ std::vector<std::shared_ptr<Engine::Abstracts::AScene>> Engine::ECS::Manager::ge
 
     for (auto it = actualScenesStack.rbegin(); it != actualScenesStack.rend(); it++) {
         updatedScenes.push_back(*it);
-        if (!(*it)->isUpdateChild() || (*it)->isOpaque()) {
+        if ((*it)->isOpaque()) {
             break;
         }
     }

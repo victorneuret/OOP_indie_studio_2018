@@ -26,33 +26,30 @@ Game::Scene::PauseMenu::PauseMenu()
     auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(manager.getSystemByID("Renderer"))->getVideoDriver();
     auto screenSize = driver->getScreenSize();
 
-    renderer->getSceneManager()->addCameraSceneNode(nullptr, irr::core::vector3df(0, 0, 0), irr::core::vector3df(0, 0 ,0));
+    renderer->getSceneManager()->setActiveCamera(renderer->getSceneManager()->addCameraSceneNode(nullptr, irr::core::vector3df(0, 0, 0), irr::core::vector3df(0, 0 ,0)));
+
     _entities = {
         std::make_shared<Engine::Entity::Image>("assets/img/black-low-opacity.png", Engine::Math::Vec2i{0, 0}),
 
         std::make_shared<Engine::ECS::Entity::Button>(
             Engine::Math::Rect_i{static_cast<int>(screenSize.Width / 2 - 200), static_cast<int>(screenSize.Height / 2), 400, 90},
             "assets/img/play.png",
-            []() {
+            [renderer]() {
+                renderer->getSceneManager()->setActiveCamera(renderer->getSceneManager()->addCameraSceneNode(
+                    nullptr,
+                    irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 125,
+                                         INDEX_TO_POS(static_cast<float>(MAP_HEIGHT - 1))),
+                    irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 0,
+                                         INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)))));
                 Engine::ECS::Manager::getInstance().popScene();
-                Engine::ECS::Manager::getInstance().getSceneByID("Game")->setUpdateChild(true);
             }
         ),
         std::make_shared<Engine::ECS::Entity::Button>(
             Engine::Math::Rect_i{static_cast<int>(screenSize.Width / 2 - 200), static_cast<int>(screenSize.Height / 2 + 120), 400, 90},
-            "assets/img/options.png",
-            []() {
-                Engine::ECS::Manager::getInstance().popScene();
-                std::shared_ptr<Engine::Abstracts::AScene> optionsMenu = std::make_shared<Scene::OptionsMenu>();
-                Engine::ECS::Manager::getInstance().pushScene(optionsMenu);
-            }
-        ),
-        std::make_shared<Engine::ECS::Entity::Button>(
-            Engine::Math::Rect_i{static_cast<int>(screenSize.Width / 2 - 200), static_cast<int>(screenSize.Height / 2 + 240), 400, 90},
             "assets/img/quit.png",
             []() {
-                Engine::ECS::Manager::getInstance().popScene();
-                Engine::ECS::Manager::getInstance().popScene();
+                auto window = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getWindow();
+                window->closeDevice();
             }
         ),
     };
@@ -62,8 +59,21 @@ void Game::Scene::PauseMenu::tick(double)
 {
     auto input = std::dynamic_pointer_cast<Engine::ECS::System::KeyboardInput>(Engine::ECS::Manager::getInstance().getSystemByID("KeyboardInput"));
 
-    if (input->isKeyDown(irr::EKEY_CODE::KEY_ESCAPE))
-        Engine::ECS::Manager::getInstance().popScene();
+    if (input->isKeyDown(irr::EKEY_CODE::KEY_ESCAPE)) {
+        if (!_pauseLock) {
+            _pauseLock = true;
+            auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"));
+            renderer->getSceneManager()->setActiveCamera(renderer->getSceneManager()->addCameraSceneNode(
+                nullptr,
+                irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 125,
+                                     INDEX_TO_POS(static_cast<float>(MAP_HEIGHT - 1))),
+                irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 0,
+                                     INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)))));
+            Engine::ECS::Manager::getInstance().popScene();
+        }
+    } else {
+        _pauseLock = false;
+    }
 }
 
 void Game::Scene::PauseMenu::sceneShowing()

@@ -33,7 +33,7 @@
 #include "Scenes/PauseMenu.hpp"
 
 Game::Scene::GameScene::GameScene()
-        : AScene("Game", {}, true, true)
+        : AScene("GameScene", {}, true, true)
 {
     auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
     auto inputHandler = std::dynamic_pointer_cast<Engine::ECS::System::InputHandler>(Engine::ECS::Manager::getInstance().getSystemByID("InputHandler"));
@@ -144,14 +144,18 @@ void Game::Scene::GameScene::_checkInputs()
     }
 
     if (inputs->isKeyDown(irr::EKEY_CODE::KEY_ESCAPE)) {
-        try {
-            Engine::ECS::Manager::getInstance().getSceneByID("PauseMenu");
-        } catch (const ECSException<ECS_Scene> &) {
-            std::shared_ptr<AScene> pauseMenu = std::make_shared<PauseMenu>();
-            _updateChild = false;
-            Engine::ECS::Manager::getInstance().pushScene(pauseMenu);
+        if (!_pauseLock) {
+            _pauseLock = true;
+            try {
+                Engine::ECS::Manager::getInstance().getSceneByID("PauseMenu");
+            } catch (const ECSException<ECS_Scene> &) {
+                _save();
+                std::shared_ptr<AScene> pauseMenu = std::make_shared<PauseMenu>();
+                Engine::ECS::Manager::getInstance().pushScene(pauseMenu);
+            }
         }
-        _save();
+    } else {
+        _pauseLock = false;
     }
 }
 
@@ -188,10 +192,11 @@ void Game::Scene::GameScene::tick(double)
     _backgroundAnimations();
     _checkInputs();
     _checkEndGame();
+
     std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
-            createParticles(1, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{220, 0, 150}, Engine::Math::Vec3<float>{220, 0, 0}, 3.5, "Game", Engine::Math::Vec2i{6, 11});
+            createParticles(1, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{220, 0, 150}, Engine::Math::Vec3<float>{220, 0, 0}, 3.5, "GameScene", Engine::Math::Vec2i{6, 11});
     std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
-            createParticles(1, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{-90, 0, 150}, Engine::Math::Vec3<float>{-90, 0, 0}, 3.5, "Game", Engine::Math::Vec2i{6, 11});
+            createParticles(1, Engine::Math::Vec2<float>{4, 6}, Engine::Math::Vec3<float>{-90, 0, 150}, Engine::Math::Vec3<float>{-90, 0, 0}, 3.5, "GameScene", Engine::Math::Vec2i{6, 11});
 }
 
 void Game::Scene::GameScene::sceneShowing()
