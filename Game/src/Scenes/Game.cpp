@@ -5,26 +5,27 @@
 ** Game.cpp
 */
 
-#include "Scenes/Game.hpp"
+#include "Assets.hpp"
 #include "ECS/Entities/Text.hpp"
 #include "ECS/Entities/Button.hpp"
-#include "Entities/Block.hpp"
-#include "Entities/Player.hpp"
 #include "ECS/Entities/Image.hpp"
 #include "ECS/Components/Image.hpp"
-#include "Entities/Player.hpp"
 #include "ECS/Manager.hpp"
 #include "ECS/Systems/Particle.hpp"
-#include "Systems/JoystickHandler.hpp"
 #include "ECS/Systems/Input/JoystickInput.hpp"
-#include "Systems/KeyboardHandler.hpp"
 #include "ECS/Systems/InputHandler.hpp"
 #include "ECS/Systems/Input/KeyboardInput.hpp"
-#include "Entities/Bomb.hpp"
-#include "Systems/Map.hpp"
 #include "ECS/Systems/Input/KeyboardInput.hpp"
+#include "Utils/Logger.hpp"
+#include "Entities/Bomb.hpp"
+#include "Entities/Block.hpp"
+#include "Entities/Player.hpp"
+#include "Entities/Character.hpp"
+#include "Systems/Map.hpp"
+#include "Systems/JoystickHandler.hpp"
+#include "Systems/KeyboardHandler.hpp"
+#include "Scenes/Game.hpp"
 #include "Scenes/PauseMenu.hpp"
-#include "Assets.hpp"
 
 Game::Scene::Game::Game()
         : AScene("Game", {}, true, true)
@@ -85,7 +86,7 @@ Game::Scene::Game::Game()
     _audioVisualizer = std::make_unique<AudioVisualizer>(*sound.second, *sound.first);
 }
 
-void Game::Scene::Game::tick(double)
+void Game::Scene::Game::_backgroundAnimations()
 {
     auto size = 150 * _audioVisualizer->getVisualizationData().scaleAverage;
 
@@ -104,7 +105,10 @@ void Game::Scene::Game::tick(double)
             }
         }
     }
+}
 
+void Game::Scene::Game::_checkInputs()
+{
     auto inputs = std::dynamic_pointer_cast<Engine::ECS::System::KeyboardInput>(Engine::ECS::Manager::getInstance().getSystemByID("KeyboardInput"));
     if (inputs->isKeyDown(irr::EKEY_CODE::KEY_DELETE)) {
         auto window = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getWindow();
@@ -119,9 +123,41 @@ void Game::Scene::Game::tick(double)
             Engine::ECS::Manager::getInstance().pushScene(pauseMenu);
         }
     }
-    if (inputs->isKeyDown(irr::EKEY_CODE::KEY_KEY_M)) { // tmp
-        Engine::ECS::Manager::getInstance().popScene();
+}
+
+void Game::Scene::Game::_checkEndGame()
+{
+    if (_complete)
+        return;
+
+    auto alive = 4;
+    std::shared_ptr<Entity::Character> lastAlive{nullptr};
+
+    for (auto &entity : Engine::ECS::Manager::getInstance().getUpdatedEntities()) {
+        auto character = std::dynamic_pointer_cast<Entity::Character>(entity);
+        if (character == nullptr)
+            continue;
+
+        if (!character->isAlive())
+            alive -= 1;
+        else
+            lastAlive = character;
     }
+
+    if (alive == 1) {
+        _complete = true;
+        Engine::Logger::getInstance().info("Player " + std::to_string(lastAlive->getID()) + " wins!");
+    } else if (alive == 0) {
+        _complete = true;
+        Engine::Logger::getInstance().info("Draw");
+    }
+}
+
+void Game::Scene::Game::tick(double)
+{
+    _backgroundAnimations();
+    _checkInputs();
+    _checkEndGame();
 }
 
 void Game::Scene::Game::sceneShowing()

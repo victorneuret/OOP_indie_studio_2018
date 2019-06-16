@@ -23,9 +23,9 @@ protected:
     float _speed{0.0};
     bool _moving{false};
     bool _alive{true};
-    Engine::ECS::System::Audio::Sound _stepSound{};
     float _time{0};
 
+    Engine::ECS::System::Audio::Sound _stepSound{};
     Engine::ECS::System::Audio::Sound _deathSound{};
 public:
     Character(const Engine::Math::Vec3f &pos, const std::string &texture, const std::string &model);
