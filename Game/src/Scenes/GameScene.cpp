@@ -101,7 +101,11 @@ Game::Scene::GameScene::GameScene()
 
 void Game::Scene::GameScene::_backgroundAnimations()
 {
+#if defined __GNUC__
     auto size = 150 * _audioVisualizer->getVisualizationData().scaleAverage;
+#elif defined _MSC_VER
+    auto size = 250;
+#endif
 
     auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(
         Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
