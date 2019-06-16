@@ -16,7 +16,6 @@
 #include "ECS/Components/Image.hpp"
 #include "Systems/Map.hpp"
 #include "Assets.hpp"
-#include "Scenes/Game.hpp"
 #include "Utils/Color.hpp"
 
 Game::Scene::PauseMenu::PauseMenu()
