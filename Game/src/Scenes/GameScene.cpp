@@ -152,7 +152,6 @@ void Game::Scene::GameScene::_checkInputs()
         }
         _save();
     }
-
 }
 
 void Game::Scene::GameScene::_checkEndGame()
