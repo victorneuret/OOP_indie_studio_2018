@@ -19,7 +19,7 @@
 #include "Utils/Color.hpp"
 
 Game::Scene::PauseMenu::PauseMenu()
-    : AScene("PauseMenu", {}, false, true)
+    : AScene("PauseMenu", {}, true, true)
 {
     auto &manager = Engine::ECS::Manager::getInstance();
     auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"));

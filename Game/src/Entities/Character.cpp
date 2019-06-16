@@ -49,6 +49,12 @@ void Game::Entity::Character::placeBomb() noexcept
 {
     if (!_alive || _bombStock == 0 || _inBlock)
         return;
+
+    try {
+        Engine::ECS::Manager::getInstance().getSceneByID("PauseMenu");
+        return;
+    } catch (...) {}
+
     if (_isBombThere(Engine::Math::Vec2i{static_cast<int>(std::round(_pos.x / BLOCK_SIZE) + 1), static_cast<int>(std::round(_pos.z / BLOCK_SIZE) + 1)}))
         return;
     auto entities = Engine::ECS::Manager::getInstance().getSceneByID("GameScene")->getEntities();
@@ -62,6 +68,11 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
 {
     if (!_alive)
         return;
+
+    try {
+        Engine::ECS::Manager::getInstance().getSceneByID("PauseMenu");
+        return;
+    } catch (...) {}
 
     auto model3D = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(getComponentByID("Model3D"));
     decltype(_pos) tmpPos{_pos};
