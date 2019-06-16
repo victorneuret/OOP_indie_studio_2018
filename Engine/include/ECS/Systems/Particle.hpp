@@ -29,7 +29,8 @@ public:
                         const Engine::Math::Vec3f &startPoint,
                         const Engine::Math::Vec3f &directionRange,
                         const double &momentum,
-                        const std::string &sceneID);
+                        const std::string &sceneID,
+                        const Engine::Math::Vec2i &colors);
     bool checkParticleState(const std::shared_ptr<Engine::Entity::Particle> &particle);
     void update(double) final;
 };

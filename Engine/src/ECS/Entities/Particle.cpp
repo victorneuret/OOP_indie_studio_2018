@@ -16,11 +16,12 @@
 Engine::Entity::Particle::Particle(const Engine::Math::Vec3f &startPoint,
                                 const Engine::Math::Vec3<float> &endPoint,
                                 const double &momentum, const double &duration,
+                                const Engine::Math::Vec2i &colors,
                                 const std::string &model)
     : AEntity{AEntity::Type::MODEL3D}, _startPoint{startPoint}, _endPoint{endPoint}, _momentum{momentum}
 {
     std::shared_ptr<Engine::ECS::IComponent> _3DModel = std::make_shared<Engine::ECS::Component::Model3D>(startPoint, model);
-    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(_3DModel)->addTexture("assets/models/particles/" + std::to_string(Random::getSigned(1, 5)) + ".png");
+    std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(_3DModel)->addTexture("assets/models/particles/" + std::to_string(Random::getSigned(colors.x, colors.y)) + ".png");
     addComponent(_3DModel);
 
     std::shared_ptr<Engine::ECS::IComponent> _renderer = std::make_shared<Engine::ECS::Component::Renderer>();

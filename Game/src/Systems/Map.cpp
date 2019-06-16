@@ -191,7 +191,7 @@ bool Game::System::Map::removeBlock(const Engine::Math::Vec2i &pos)
             createParticles(15, Engine::Math::Vec2f{0.5, 1},
                 Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(backupPos.x)), 0, static_cast<float>(INDEX_TO_POS(backupPos.y))},
                 Engine::Math::Vec3f{static_cast<float>(INDEX_TO_POS(backupPos.x)), 4, static_cast<float>(INDEX_TO_POS(backupPos.y))},
-                0.5, "Game");
+                0.5, "Game", Engine::Math::Vec2i{1, 5});
         _randomPowerup(pos);
         std::dynamic_pointer_cast<Engine::ECS::Component::Model3D> (Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(_blocks[backupPos.x][backupPos.y]->getID())->getComponentByID("Model3D"))->getNode()->remove();
         Engine::ECS::Manager::getInstance().getSceneByID("Game")->removeEntityByID(_blocks[backupPos.x][backupPos.y]->getID());
