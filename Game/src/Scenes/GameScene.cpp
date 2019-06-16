@@ -148,6 +148,7 @@ void Game::Scene::GameScene::_checkInputs()
             Engine::ECS::Manager::getInstance().getSceneByID("PauseMenu");
         } catch (const ECSException<ECS_Scene> &) {
             std::shared_ptr<AScene> pauseMenu = std::make_shared<PauseMenu>();
+            _updateChild = false;
             Engine::ECS::Manager::getInstance().pushScene(pauseMenu);
         }
         _save();

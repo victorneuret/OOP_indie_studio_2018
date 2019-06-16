@@ -97,15 +97,16 @@ decltype(Engine::ECS::Manager::_scenes) &Engine::ECS::Manager::getScenes() noexc
 void Engine::ECS::Manager::sceneManager(double dt, std::shared_ptr<Engine::ECS::System::Renderer> &renderer)
 {
     auto actualScenesStack = _scenes;
+    auto search = std::find_if(actualScenesStack.rbegin(), actualScenesStack.rend(), [](const std::shared_ptr<Engine::Abstracts::AScene> &scene) {
+        return scene->isOpaque();
+    });
 
-    for (auto it = actualScenesStack.rbegin(); it != actualScenesStack.rend(); it++) {
-        if ((*it)->isUpdateChild())
+    for (auto it = std::find(actualScenesStack.begin(), actualScenesStack.end(), *search); it != actualScenesStack.end(); it++) {
+        if ((*it)->isUpdateChild()) {
             (*it)->tick(dt);
+        }
         for (auto &entity : (*it)->getEntities())
             renderer->draw(entity);
-        if ((*it)->isOpaque()) {
-            break;
-        }
     }
 }
 
@@ -124,12 +125,14 @@ std::vector<std::shared_ptr<Engine::ECS::IEntity>> Engine::ECS::Manager::getUpda
 
 std::vector<std::shared_ptr<Engine::Abstracts::AScene>> Engine::ECS::Manager::getUpdatedScenes()
 {
-    std::vector<std::shared_ptr<Engine::Abstracts::AScene>> updatedScenes;
+    auto actualScenesStack = _scenes;
+    std::vector<std::shared_ptr<Engine::Abstracts::AScene>> updatedScenes{};
 
-    for (auto it = _scenes.rbegin(); it != _scenes.rend(); it++) {
+    for (auto it = actualScenesStack.rbegin(); it != actualScenesStack.rend(); it++) {
         updatedScenes.push_back(*it);
-        if (!(*it)->isUpdateChild() || (*it)->isOpaque())
+        if (!(*it)->isUpdateChild() || (*it)->isOpaque()) {
             break;
+        }
     }
     return updatedScenes;
 }
