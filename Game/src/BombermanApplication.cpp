@@ -13,6 +13,7 @@
 #include "Scenes/MainMenu.hpp"
 #include "Scenes/GameScene.hpp"
 #include "Assets.hpp"
+#include "Components/BombTicker.hpp"
 
 BombermanApplication::BombermanApplication()
     : Engine::GameApplication(L"Bomberman", 1920, 1080)
@@ -25,6 +26,9 @@ void BombermanApplication::onAppStartup()
 
     std::shared_ptr<Engine::ECS::ISystem> map = std::make_shared<Game::System::Map>();
     Engine::ECS::Manager::getInstance().addSystem(map);
+
+    std::shared_ptr<Engine::ECS::ISystem> bombs = std::make_shared<Game::System::BombTicker>();
+    Engine::ECS::Manager::getInstance().addSystem(bombs);
 
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(Engine::ECS::Manager::getInstance().getSystemByID("Audio"));
     audio->loadSound("footstep", SND_FOOTSTEP);

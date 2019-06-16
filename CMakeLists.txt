@@ -180,6 +180,8 @@ add_executable(
     Game/src/Entities/Powerups/GhostUp.cpp
     Game/include/Entities/Powerups/SuperBomb.hpp
     Game/src/Entities/Powerups/SuperBomb.cpp
+    Game/include/Components/BombTicker.hpp
+    Game/src/Components/BombTicker.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)
