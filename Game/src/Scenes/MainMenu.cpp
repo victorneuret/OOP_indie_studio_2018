@@ -31,6 +31,7 @@ Game::Scene::MainMenu::MainMenu()
     auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(manager.getSystemByID("Renderer"))->getVideoDriver();
     auto screenSize = driver->getScreenSize();
 
+#if defined __GNUC__
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
     auto sound = audio->loadSound("main_music", SND_MAIN_MENU);
 
@@ -39,6 +40,7 @@ Game::Scene::MainMenu::MainMenu()
     _music->play();
 
     _audioVisualizer = std::make_unique<AudioVisualizer>(*sound.second, *sound.first);
+#endif
 
     _entities = {
         std::make_shared<Engine::Entity::Image>(IMG_STAR, Engine::Math::Vec2i{0, 0}),
@@ -99,11 +101,13 @@ Game::Scene::MainMenu::MainMenu()
 
 Game::Scene::MainMenu::~MainMenu()
 {
+#if defined __GNUC__
     auto &manager = Engine::ECS::Manager::getInstance();
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
 
     _music->stop();
     audio->unloadSound("main_music");
+#endif
 }
 
 static auto getAcceleration()
@@ -129,7 +133,11 @@ void Game::Scene::MainMenu::tick(double dt)
 
     auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(
         Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
+#if defined __GNUC__
     auto size = 250 * _audioVisualizer->getVisualizationData().scaleAverage;
+#elif defined _MSC_VER
+    auto size = 250;
+#endif
 
     for (auto &image : _entities) {
         if (image->getType() == Engine::ECS::IEntity::Type::MODEL2D) {
@@ -155,10 +163,14 @@ void Game::Scene::MainMenu::tick(double dt)
 
 void Game::Scene::MainMenu::sceneShowing()
 {
+#if defined __GNUC__
     _music->play();
+#endif
 }
 
 void Game::Scene::MainMenu::sceneHiding(const Engine::Abstracts::AScene *)
 {
+#if defined __GNUC__
     _music->stop();
+#endif
 }

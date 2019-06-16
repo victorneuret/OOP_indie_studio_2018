@@ -42,7 +42,7 @@ private:
     };
 
     struct VisualizationData {
-        const double scaleAverage;
+        const double scaleAverage{0};
         const decltype(_scaleList) *scaleList;
     };
 

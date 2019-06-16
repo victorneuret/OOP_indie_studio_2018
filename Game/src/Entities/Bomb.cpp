@@ -57,11 +57,13 @@ void Game::Entity::Bomb::onExplode()
     auto map = mapSystem->getActualMap();
     auto isBreakable{false};
 
+#if defined __GNUC__
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
 
     auto sound = audio->getSound("bomb_explode");
     sound.second->setVolume(20);
     sound.second->play();
+#endif
 
     for (size_t i = 0; i <= _range && _pos.x + i < MAP_WIDTH + 1; i++) {
         if (map[_pos.x + i - 1][_pos.y - 1] != '0') {

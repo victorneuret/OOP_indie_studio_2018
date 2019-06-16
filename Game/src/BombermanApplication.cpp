@@ -30,8 +30,10 @@ void BombermanApplication::onAppStartup()
     std::shared_ptr<Engine::ECS::ISystem> bombs = std::make_shared<Game::System::BombTicker>();
     Engine::ECS::Manager::getInstance().addSystem(bombs);
 
+#if defined __GNUC__
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(Engine::ECS::Manager::getInstance().getSystemByID("Audio"));
     audio->loadSound("footstep", SND_FOOTSTEP);
+#endif
 }
 
 void BombermanApplication::tick(double)

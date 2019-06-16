@@ -36,14 +36,15 @@ Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::st
     _3DModel->getNode()->setRotation(irr::core::vector3df{0, ((_pos.x == INDEX_TO_POS(0)) ? static_cast<float>(-90) : static_cast<float>(90)), 0});
     addComponent(_3DModelPtr);
 
+#if defined __GNUC__
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(Engine::ECS::Manager::getInstance().getSystemByID("Audio"));
     _stepSound = audio->getSound("footstep");
     _stepSound.second->setVolume(70);
+    _deathSound = audio->isLoaded("death_sound") ? audio->getSound("death_sound") : audio->loadSound("death_sound", SND_DEATH);
+#endif
 
     std::shared_ptr<Engine::ECS::IComponent> _renderer = std::make_shared<Engine::ECS::Component::Renderer>();
     addComponent(_renderer);
-
-    _deathSound = audio->isLoaded("death_sound") ? audio->getSound("death_sound") : audio->loadSound("death_sound", SND_DEATH);
 }
 
 void Game::Entity::Character::placeBomb() noexcept
@@ -121,7 +122,9 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
     }
 
     if (_moving && _time >= 0.35) {
+#if defined __GNUC__
         _stepSound.second->play();
+#endif
         _time -= 0.35;
     } else if (!_moving && _time >= 0.35 * 2){
         _time = -0.35;
@@ -203,7 +206,9 @@ void Game::Entity::Character::kill() noexcept
         return;
 
     _alive = false;
-    _deathSound.second->play(); // TODO: Adjust volume after merge
+#if defined __GNUC__
+    _deathSound.second->play();
+#endif
 
     hide();
     save();

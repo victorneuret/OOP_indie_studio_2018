@@ -44,7 +44,9 @@ void Engine::GameApplication::_startup()
     std::shared_ptr<Engine::ECS::ISystem> renderer = std::make_shared<Engine::ECS::System::Renderer>(_title, _dimensions);
     _ecsManager.addSystem(renderer);
 
+#if defined __GNUC__
     std::shared_ptr<Engine::ECS::ISystem> audio = std::make_shared<Engine::ECS::System::Audio>();
+#endif
     std::shared_ptr<Engine::ECS::ISystem> timer = std::make_shared<Engine::ECS::System::Timer>();
     std::shared_ptr<Engine::ECS::ISystem> button = std::make_shared<Engine::ECS::System::ButtonEvent>();
     std::shared_ptr<Engine::ECS::ISystem> keyboard = std::make_shared<Engine::ECS::System::KeyboardInput>();
@@ -54,7 +56,9 @@ void Engine::GameApplication::_startup()
     std::shared_ptr<Engine::ECS::ISystem> handler = std::make_shared<Engine::ECS::System::InputHandler>();
 
     _ecsManager.addSystem(timer);
+#if defined __GNUC__
     _ecsManager.addSystem(audio);
+#endif
     _ecsManager.addSystem(keyboard);
     _ecsManager.addSystem(mouse);
     _ecsManager.addSystem(button);
