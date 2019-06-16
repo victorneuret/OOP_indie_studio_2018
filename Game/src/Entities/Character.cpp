@@ -174,6 +174,12 @@ void Game::Entity::Character::rangeIncrease() noexcept
     _range++;
 }
 
+void Game::Entity::Character::powerUpAddBomb() noexcept
+{
+    _maxBombStock++;
+    _bombStock++;
+}
+
 void Game::Entity::Character::addBomb() noexcept
 {
     _bombStock++;
@@ -235,12 +241,13 @@ void Game::Entity::Character::load()
 {
     const auto file = getFileHandler(".player_" + _playerID + ".save");
 
+    if (file != nullptr)
+        file->seekp(0);
+
     if (file == nullptr || !file->is_open() || file->peek() == std::ifstream::traits_type::eof()) {
-        Engine::Logger::getInstance().error("Failed to load player");
+        Engine::Logger::getInstance().error("Failed to open player save file");
         return;
     }
-
-    file->seekp(0);
 
     try {
         unpack(*file);
@@ -261,7 +268,7 @@ void Game::Entity::Character::save() const
         try {
             pack(*file);
         } catch (const SerializationException &) {
-            Engine::Logger::getInstance().error("Failed to save player");
+            Engine::Logger::getInstance().error("Failed to open player save file");
         }
     } else
         Engine::Logger::getInstance().error("Failed to save player");
@@ -273,10 +280,11 @@ void Game::Entity::Character::pack(std::ostream &outStream) const
     writeAny(outStream, _pos.y);
     writeAny(outStream, _pos.z);
     writeAny(outStream, _range);
-    writeAny(outStream, _bombStock);
+    writeAny(outStream, _maxBombStock);
     writeAny(outStream, _speed);
     writeAny(outStream, _inBlock);
     writeAny(outStream, _ghost);
+    writeAny(outStream, _superBomb);
     writeAny(outStream, _alive);
 }
 
@@ -286,12 +294,15 @@ void Game::Entity::Character::unpack(std::istream &inStream)
     _pos.y = readAny<decltype(_pos.y)>(inStream);
     _pos.z = readAny<decltype(_pos.z)>(inStream);
     _range = readAny<decltype(_range)>(inStream);
-    _bombStock = readAny<decltype(_bombStock)>(inStream);
+    _maxBombStock = readAny<decltype(_bombStock)>(inStream);
     _speed = readAny<decltype(_speed)>(inStream);
     _inBlock = readAny<decltype(_inBlock)>(inStream);
     _ghost = readAny<decltype(_ghost)>(inStream);
+    _superBomb = readAny<decltype(_superBomb)>(inStream);
 
     bool alive = readAny<decltype(_alive)>(inStream);
+
+    _bombStock = _maxBombStock;
 
     if (!alive)
         kill();

@@ -24,6 +24,7 @@ protected:
     Engine::Math::Vec3f _pos{0, 0, 0};
     size_t _range{1};
     size_t _bombStock{1};
+    size_t _maxBombStock{1};
     float _speed{0.0};
     bool _moving{false};
     bool _alive{true};
@@ -49,6 +50,7 @@ public:
     void setSpeed(const decltype(_speed) &speed) noexcept;
     void rangeIncrease() noexcept;
     void addBomb() noexcept;
+    void powerUpAddBomb() noexcept;
     void setGhost(bool isGhost) noexcept;
     void setSuperBomb(bool value) noexcept;
     bool getSuperBomb() noexcept;

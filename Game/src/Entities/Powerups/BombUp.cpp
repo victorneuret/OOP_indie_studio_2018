@@ -22,5 +22,5 @@ Game::Entity::BombUp::BombUp(const Engine::Math::Vec3f &pos, const std::string &
 
 void Game::Entity::BombUp::applyEffect(std::shared_ptr<Game::Entity::Character> &player)
 {
-    player->addBomb();
+    player->powerUpAddBomb();
 }
