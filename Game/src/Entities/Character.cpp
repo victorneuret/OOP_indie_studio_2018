@@ -46,6 +46,8 @@ void Game::Entity::Character::placeBomb() noexcept
 {
     if (!_alive || _bombStock == 0 || _ghost)
         return;
+    if (_isBombThere(Engine::Math::Vec2i{static_cast<int>(std::round(_pos.x / BLOCK_SIZE) + 1), static_cast<int>(std::round(_pos.z / BLOCK_SIZE) + 1)}))
+        return;
     auto entities = Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntities();
 
     std::shared_ptr<Engine::ECS::IEntity> bomb = std::make_shared<Game::Entity::Bomb>(getID(), Engine::Math::Vec2i{static_cast<int>(std::round(_pos.x / BLOCK_SIZE) + 1), static_cast<int>(std::round(_pos.z / BLOCK_SIZE) + 1)}, _range);
@@ -197,4 +199,19 @@ void Game::Entity::Character::setGhost(bool isGhost) noexcept
 {
     _ghost = isGhost;
     std::cout << "Ghost" << std::endl;
+}
+
+bool Game::Entity::Character::_isBombThere(const Engine::Math::Vec2i &pos)
+{
+    for (auto &entity : Engine::ECS::Manager::getInstance().getUpdatedEntities()) {
+        auto bomb = std::dynamic_pointer_cast<Game::Entity::Bomb>(entity);
+
+        if (bomb != nullptr) {
+            auto bombPos = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(bomb->getComponentByID("Model3D"))->getNode()->getPosition();
+
+            if ((static_cast<size_t>(round(bombPos.X / BLOCK_SIZE)) == static_cast<size_t>(round(pos.x - 1)) && static_cast<size_t>(round(bombPos.Z / BLOCK_SIZE)) == static_cast<size_t>(round(pos.y - 1))))
+                return true;
+        }
+    }
+    return false;
 }
