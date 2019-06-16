@@ -5,7 +5,6 @@
 ** InputHandler.hpp.cpp
 */
 
-#include <iostream>
 #include <exception>
 
 #include "ECS/Manager.hpp"

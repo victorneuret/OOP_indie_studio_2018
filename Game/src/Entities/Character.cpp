@@ -196,12 +196,9 @@ const decltype(Game::Entity::Character::_pos) &Game::Entity::Character::getPosit
     return _pos;
 }
 
-#include <iostream>
-
 void Game::Entity::Character::setGhost(bool isGhost) noexcept
 {
     _ghost = isGhost;
-    std::cout << "Ghost" << std::endl;
 }
 
 bool Game::Entity::Character::_isBombThere(const Engine::Math::Vec2i &pos)

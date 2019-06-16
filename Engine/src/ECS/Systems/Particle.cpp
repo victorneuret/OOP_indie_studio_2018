@@ -41,11 +41,11 @@ void Engine::ECS::System::Particle::applyMovement(const std::shared_ptr<Engine::
 		(particle->getComponentByID("Model3D"))->setPosition(actualPos + (norm * particle->getMomentum()));
 }
 
-void Engine::ECS::System::Particle::checkParticleState(const std::shared_ptr<Engine::Entity::Particle> &particle)
+bool Engine::ECS::System::Particle::checkParticleState(const std::shared_ptr<Engine::Entity::Particle> &particle)
 {
     auto timer = std::dynamic_pointer_cast<Engine::ECS::Component::Timer>(particle->getComponentByID("Timer"));
 
-    timer->execIfCooldownFinished();
+    return !timer->execIfCooldownFinished();
 }
 
 void Engine::ECS::System::Particle::update(double)
@@ -57,8 +57,7 @@ void Engine::ECS::System::Particle::update(double)
         for (auto &e : tmp) {
             auto ptr = std::dynamic_pointer_cast<Engine::Entity::Particle>(e);
 
-            if (ptr != nullptr) {
-                checkParticleState(ptr);
+            if (ptr != nullptr && checkParticleState(ptr)) {
                 applyMovement(ptr);
             }
         }

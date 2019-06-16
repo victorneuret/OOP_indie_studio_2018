@@ -6,7 +6,6 @@
 */
 
 #include <memory>
-#include <iostream>
 #include <functional>
 
 #include "ECS/Manager.hpp"
