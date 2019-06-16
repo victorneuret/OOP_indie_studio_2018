@@ -107,7 +107,7 @@ void Game::Entity::Bomb::onExplode()
 
     for (size_t i = 0; i <= _range && _pos.y - i > 0; i++) {
         if (map[_pos.x - 1][_pos.y - i - 1] != '0') {
-            isBreakable =mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x, _pos.y - static_cast<int>(i)});
+            isBreakable = mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x, _pos.y - static_cast<int>(i)});
             if (!std::dynamic_pointer_cast<Game::Entity::Character>(Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(_playerID))->getSuperBomb() || !isBreakable)
                 break;
         }
