@@ -32,6 +32,7 @@ public:
     Particle(const Engine::Math::Vec3<float> &startPoint,
                     const Engine::Math::Vec3<float> &endPoint,
                     const double &momentum, const double &duration,
+                    const Engine::Math::Vec2i &colors,
                     const std::string &model = std::string("assets/models/particles/ball.obj"));
 
     Particle(const Particle &) = delete;

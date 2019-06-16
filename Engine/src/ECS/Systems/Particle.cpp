@@ -70,11 +70,12 @@ void Engine::ECS::System::Particle::createParticles(const double &quantity,
                                             const Engine::Math::Vec3<float> &startPoint,
                                             const Engine::Math::Vec3<float> &directionRange,
                                             const double &momentum,
-                                            const std::string &sceneID)
+                                            const std::string &sceneID,
+                                            const Engine::Math::Vec2i &colors)
 {
     for (float i = 0; i < quantity; ++i) {
         std::shared_ptr<Engine::ECS::IEntity> newParticle = std::make_shared<Engine::Entity::Particle>
-			(startPoint, directionRange, momentum, Random::getDouble(duration.x, duration.y));
+			(startPoint, directionRange, momentum, Random::getDouble(duration.x, duration.y), colors);
         Engine::ECS::Manager::getInstance().getSceneByID(sceneID)->addEntity(newParticle);
     }
 }
