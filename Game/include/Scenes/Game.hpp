@@ -19,6 +19,7 @@ class Game::Scene::Game final : public Engine::Abstracts::AScene {
 private:
     decltype(std::declval<Engine::ECS::System::Audio>().getSound("").second) _music{};
     std::unique_ptr<AudioVisualizer> _audioVisualizer{nullptr};
+    bool _complete{false};
 
     static void _checkInputs();
 
