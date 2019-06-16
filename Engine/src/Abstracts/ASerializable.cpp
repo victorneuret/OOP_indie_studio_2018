@@ -31,7 +31,7 @@ void Engine::Abstracts::ASerializable::writeString(std::ostream &outStream, cons
 
     if (!outStream.good())
         throw SerializationException("Failed to write string.");
-    outStream.write(reinterpret_cast<const char *>(&size), sizeof(size_t));
+    outStream.write(reinterpret_cast<const char *>(&size), sizeof(decltype(size)));
     outStream << str;
 }
 

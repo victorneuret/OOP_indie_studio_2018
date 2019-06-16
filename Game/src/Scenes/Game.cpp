@@ -42,7 +42,7 @@ Game::Scene::Game::Game()
     const auto joystick = std::dynamic_pointer_cast<Engine::ECS::System::JoystickInput>(
         Engine::ECS::Manager::getInstance().getSystemByID("JoystickInput"));
 
-    inputHandler->bind(players[0]->getID(), std::make_shared<System::KeyboardHandler>());;
+    inputHandler->bind(players[0]->getID(), std::make_shared<System::KeyboardHandler>());
 
     if (joystick != nullptr) {
         for (size_t i = 1; i < players.size(); i++) {
