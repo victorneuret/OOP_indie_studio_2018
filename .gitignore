@@ -22,3 +22,4 @@ tests_run
 
 vgcore*
 .map.save
+.player_*.save

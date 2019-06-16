@@ -21,10 +21,11 @@ private:
     std::unique_ptr<AudioVisualizer> _audioVisualizer{nullptr};
     bool _complete{false};
 
-    static void _checkInputs();
+    void _checkInputs();
 
     void _backgroundAnimations();
     void _checkEndGame();
+    void _save() const;
 public:
     GameScene();
 

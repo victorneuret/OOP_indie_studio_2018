@@ -7,7 +7,6 @@
 
 #include <vector>
 
-
 #include "Exception/SerializationException.hpp"
 #include "Abstracts/ASerializable.hpp"
 
@@ -29,19 +28,23 @@ void Engine::Abstracts::ASerializable::writeString(std::ostream &outStream, cons
 {
     size_t size = str.size();
 
-    if (!outStream.good())
+    try {
+        outStream.write(reinterpret_cast<const char *>(&size), sizeof(decltype(size)));
+        outStream << str;
+    } catch (const std::istream::failure &) {
         throw SerializationException("Failed to write string.");
-    outStream.write(reinterpret_cast<const char *>(&size), sizeof(decltype(size)));
-    outStream << str;
+    }
 }
 
 const std::string Engine::Abstracts::ASerializable::readString(std::istream &inStream)
 {
     size_t size{0};
 
-    if (!inStream.good())
+    try {
+        inStream.read(reinterpret_cast<char *>(&size), sizeof(size_t));
+    } catch (const std::istream::failure &) {
         throw SerializationException("Failed to read string.");
-    inStream.read(reinterpret_cast<char *>(&size), sizeof(size_t));
+    }
 
     if (size == 0)
         return {};

@@ -19,7 +19,6 @@
 #include "Math/Vector/Vec2.hpp"
 #include "Math/Rect.hpp"
 #include "Scenes/GameScene.hpp"
-#include "Scenes/Selection.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
 #include "Systems/Map.hpp"
 #include "Assets.hpp"
@@ -66,6 +65,13 @@ Game::Scene::MainMenu::MainMenu()
 
                 if (map != nullptr)
                     map->loadMap();
+
+                for (auto &e : manager.getSceneByID("Game")->getEntities()) {
+                    const auto player = std::dynamic_pointer_cast<Entity::Character>(e);
+
+                    if (player != nullptr)
+                        player->load();
+                }
             }
         ),
         std::make_shared<Engine::ECS::Entity::Button>(

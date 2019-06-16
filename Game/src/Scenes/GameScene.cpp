@@ -111,12 +111,30 @@ void Game::Scene::GameScene::_backgroundAnimations()
     }
 }
 
+
+void Game::Scene::GameScene::_save() const
+{
+    const auto map = std::dynamic_pointer_cast<System::Map>(Engine::ECS::Manager::getInstance().getSystemByID("Map"));
+
+    if (map != nullptr)
+        map->saveMap();
+
+    for (const auto &e : _entities) {
+        const auto player = std::dynamic_pointer_cast<Entity::Character>(e);
+
+        if (player != nullptr)
+            player->save();
+    }
+}
+
 void Game::Scene::GameScene::_checkInputs()
 {
     auto inputs = std::dynamic_pointer_cast<Engine::ECS::System::KeyboardInput>(Engine::ECS::Manager::getInstance().getSystemByID("KeyboardInput"));
     if (inputs->isKeyDown(irr::EKEY_CODE::KEY_DELETE)) {
         auto window = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getWindow();
         window->closeDevice();
+
+        _save();
     }
 
     if (inputs->isKeyDown(irr::EKEY_CODE::KEY_ESCAPE)) {
@@ -126,6 +144,7 @@ void Game::Scene::GameScene::_checkInputs()
             std::shared_ptr<AScene> pauseMenu = std::make_shared<PauseMenu>();
             Engine::ECS::Manager::getInstance().pushScene(pauseMenu);
         }
+        _save();
     }
 }
 

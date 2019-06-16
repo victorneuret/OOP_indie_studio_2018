@@ -21,7 +21,6 @@
 #include "Entities/Powerups/SuperBomb.hpp"
 #include "ECS/Manager.hpp"
 #include "ECS/Systems/Renderer.hpp"
-#include "Scenes/Selection.hpp"
 #include "Math/Vector/Vec3.hpp"
 #include "Abstracts/AScene.hpp"
 #include "Exception/AException.hpp"
@@ -136,9 +135,6 @@ void Game::System::Map::_placeCameraAndLight() noexcept
         irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 125, INDEX_TO_POS(static_cast<float>(MAP_HEIGHT - 1))),
         irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 0,INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)))));
     renderer->getSceneManager()->addLightSceneNode(nullptr, irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 20, 0), irr::video::SColorf(254.0f, 201.0f, 32.0f));
-
-    std::shared_ptr<Engine::Abstracts::AScene> selection = std::make_shared<Scene::Selection>();
-    Engine::ECS::Manager::getInstance().pushScene(selection);
 }
 
 void  Game::System::Map::loadMap()
@@ -163,7 +159,7 @@ void Game::System::Map::saveMap() const
         file->seekp(0);
         pack(*file);
     } else
-        Engine::Logger::getInstance().error("Failed to write save map");
+        Engine::Logger::getInstance().error("Failed to save map");
 }
 
 void Game::System::Map::update(double)
@@ -202,6 +198,13 @@ bool Game::System::Map::removeBlock(const Engine::Math::Vec2i &pos)
         _blocks[backupPos.x][backupPos.y] = nullptr;
         _actualMap[backupPos.x][backupPos.y] = '0';
         saveMap();
+
+        for (const auto &e : Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntities()) {
+            const auto player = std::dynamic_pointer_cast<Entity::Character>(e);
+
+            if (player != nullptr)
+                player->save();
+        }
     }
     return true;
 }
