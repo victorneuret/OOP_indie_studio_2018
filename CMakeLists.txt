@@ -182,7 +182,9 @@ add_executable(
     Game/src/Entities/APowerUp.cpp
     Game/include/Entities/GhostUp.hpp
     Game/src/Entities/GhostUp.cpp
-        Game/include/Entities/SuperBomb.hpp Game/src/Entities/SuperBomb.cpp)
+    Game/include/Entities/SuperBomb.hpp
+    Game/src/Entities/SuperBomb.cpp
+)
 
 target_include_directories(bomberman PUBLIC Game/include)
 target_link_libraries(bomberman engine ${Irrlicht_LIBRARIES} sfml-audio sfml-system)
