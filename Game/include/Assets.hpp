@@ -17,6 +17,7 @@ static constexpr const char *const IMG_BOMBER = "assets/img/cuteBomber.png";
 
 static constexpr const char *const IMG_NEW_GAME = "assets/img/start.png";
 static constexpr const char *const IMG_LOAD_GAME = "assets/img/load.png";
+static constexpr const char *const IMG_RESTART_GAME = "assets/img/restart.png";
 static constexpr const char *const IMG_EXIT_GAME = "assets/img/exit.png";
 
 static constexpr const char *const SND_MAIN_MENU = "assets/musics/ignite.ogg";

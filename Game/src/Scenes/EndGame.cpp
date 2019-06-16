@@ -39,7 +39,7 @@ Game::Scene::EndGame::EndGame(bool)
                     }),
             std::make_shared<Engine::ECS::Entity::Button>(
                     Engine::Math::Rect_i{static_cast<int>(screenSize.Width - 460), 60 * 3, 400, 90},
-                    IMG_LOAD_GAME, // TODO: Change image
+                    IMG_RESTART_GAME,
                     [&manager]() {
                         while (manager.getScenes().size() != 1)
                             manager.popScene();
