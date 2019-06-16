@@ -153,8 +153,6 @@ void Game::Scene::GameScene::_checkInputs()
         _save();
     }
 
-    if (inputs->isKeyDown(irr::EKEY_CODE::KEY_KEY_M))
-        Engine::ECS::Manager::getInstance().popScene();
 }
 
 void Game::Scene::GameScene::_checkEndGame()
