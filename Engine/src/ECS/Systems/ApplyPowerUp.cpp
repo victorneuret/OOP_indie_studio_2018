@@ -9,7 +9,7 @@
 
 #include "ECS/Systems/ApplyPowerUp.hpp"
 
-void ECS::Systems::ApplyPowerUp::applySpdUp() const
+void ECS::Systems::ApplyPowerUp::applySpeedUp() const
 {
     std::cout << "Increase the speed of a player" << std::endl;
 }

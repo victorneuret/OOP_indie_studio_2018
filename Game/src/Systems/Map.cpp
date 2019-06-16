@@ -9,9 +9,9 @@
 #include <algorithm>
 #include <filesystem>
 
-#include <Entities/FireUp.hpp>
-#include <Entities/SpeedUp.hpp>
-#include <Entities/BombUp.hpp>
+#include "Entities/FireUp.hpp"
+#include "Entities/SpeedUp.hpp"
+#include "Entities/BombUp.hpp"
 #include "ECS/Components/Model3D.hpp"
 #include "Systems/Map.hpp"
 #include "Utils/Random.hpp"
