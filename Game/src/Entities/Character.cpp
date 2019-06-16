@@ -6,6 +6,7 @@
 */
 
 #include <cmath>
+#include <filesystem>
 
 #include "Assets.hpp"
 #include "Entities/Character.hpp"
@@ -18,6 +19,8 @@
 #include "Entities/Block.hpp"
 #include "ECS/Systems/Audio.hpp"
 #include "Entities/Powerups/APowerUp.hpp"
+
+decltype(Game::Entity::Character::PLAYER_NB) Game::Entity::Character::PLAYER_NB{0};
 
 Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::string &texture, const std::string &model)
     : AEntity(AEntity::Type::MODEL3D), _pos{pos}, _speed{30}
@@ -128,6 +131,7 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
             powerUp->applyEffect(character);
             std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(powerUp->getComponentByID("Model3D"))->getNode()->remove();
             Engine::ECS::Manager::getInstance().getSceneByID("Game")->removeEntityByID(powerUp->getID());
+            save();
         }
     }
 
@@ -184,6 +188,7 @@ void Game::Entity::Character::kill() noexcept
     _deathSound.second->play(); // TODO: Adjust volume after merge
 
     hide();
+    save();
 }
 
 bool Game::Entity::Character::isAlive() const noexcept
@@ -224,4 +229,65 @@ void Game::Entity::Character::setSuperBomb(bool value) noexcept
 bool Game::Entity::Character::getSuperBomb() noexcept
 {
     return _superBomb;
+}
+
+void Game::Entity::Character::load()
+{
+    const auto file = getFileHandler(".player_" + _playerID + ".save");
+
+    if (file == nullptr || !file->is_open() || file->peek() == std::ifstream::traits_type::eof())
+        return;
+
+    file->seekp(0);
+    try {
+        unpack(*file);
+    } catch (const SerializationException &) {
+        Engine::Logger::getInstance().error("Failed to save player");
+    }
+}
+
+void Game::Entity::Character::save() const
+{
+    const auto file = getFileHandler(".player_" + _playerID + ".save");
+
+    if (file != nullptr && file->is_open()) {
+        std::filesystem::resize_file(".player_" + _playerID + ".save", 0);
+        file->seekp(0);
+        try {
+            pack(*file);
+        } catch (const SerializationException &) {
+            Engine::Logger::getInstance().error("Failed to save player");
+        }
+    } else
+        Engine::Logger::getInstance().error("Failed to save player");
+}
+
+void Game::Entity::Character::pack(std::ostream &outStream) const
+{
+    writeAny(outStream, _pos.x);
+    writeAny(outStream, _pos.y);
+    writeAny(outStream, _pos.z);
+    writeAny(outStream, _range);
+    writeAny(outStream, _bombStock);
+    writeAny(outStream, _speed);
+    writeAny(outStream, _inBlock);
+    writeAny(outStream, _ghost);
+    writeAny(outStream, _alive);
+}
+
+void Game::Entity::Character::unpack(std::istream &inStream)
+{
+    _pos.x = readAny<decltype(_pos.x)>(inStream);
+    _pos.y = readAny<decltype(_pos.y)>(inStream);
+    _pos.z = readAny<decltype(_pos.z)>(inStream);
+    _range = readAny<decltype(_range)>(inStream);
+    _bombStock = readAny<decltype(_bombStock)>(inStream);
+    _speed = readAny<decltype(_speed)>(inStream);
+    _inBlock = readAny<decltype(_inBlock)>(inStream);
+    _ghost = readAny<decltype(_ghost)>(inStream);
+
+    bool alive = readAny<decltype(_alive)>(inStream);
+
+    if (!alive)
+        kill();
 }

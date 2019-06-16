@@ -10,13 +10,17 @@
 #include "Math/Vector/Vec3.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
 #include "ECS/Systems/Audio.hpp"
+#include "Abstracts/ASerializable.hpp"
 
 namespace Game::Entity {
     class Character;
 }
 
-class Game::Entity::Character : public Engine::ECS::AEntity {
+class Game::Entity::Character : public Engine::ECS::AEntity, public Engine::Abstracts::ASerializable {
 protected:
+    static uint8_t PLAYER_NB;
+    std::string _playerID{std::to_string(++PLAYER_NB)};
+
     Engine::Math::Vec3f _pos{0, 0, 0};
     size_t _range{1};
     size_t _bombStock{1};
@@ -52,4 +56,10 @@ public:
     void kill() noexcept;
     bool isAlive() const noexcept;
     const decltype(_pos) &getPosition() const;
+
+    void pack(std::ostream &outStream) const override;
+    void unpack(std::istream &inStream) override;
+
+    void save() const;
+    void load();
 };

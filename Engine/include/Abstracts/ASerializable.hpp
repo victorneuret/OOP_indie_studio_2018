@@ -33,9 +33,11 @@ public:
     template <typename T>
     static void writeAny(std::ostream &outStream, const T &val)
     {
-        if (!outStream.good())
+        try {
+            outStream.write(reinterpret_cast<const char *>(&val), sizeof(T));
+        } catch (const std::istream::failure &) {
             throw SerializationException("Failed to write value.");
-        outStream.write(reinterpret_cast<const char *>(&val), sizeof(T));
+        }
     }
 
     static const std::string readString(std::istream &inStream);
@@ -45,9 +47,12 @@ public:
     {
         T val{};
 
-        if (!inStream.good())
+        try {
+            inStream.read(reinterpret_cast<char *>(&val), sizeof(T));
+        } catch (const std::istream::failure &) {
             throw SerializationException("Failed to read value.");
-        inStream.read(reinterpret_cast<char *>(&val), sizeof(T));
+        }
+
         return val;
     }
 
