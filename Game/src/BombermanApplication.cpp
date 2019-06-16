@@ -16,8 +16,7 @@
 
 BombermanApplication::BombermanApplication()
     : Engine::GameApplication(L"Bomberman", 1920, 1080)
-{
-}
+{}
 
 void BombermanApplication::onAppStartup()
 {

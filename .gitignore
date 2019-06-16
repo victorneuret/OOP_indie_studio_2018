@@ -21,3 +21,4 @@ tests_run
 !Tools/Makefile
 
 vgcore*
+.map.save

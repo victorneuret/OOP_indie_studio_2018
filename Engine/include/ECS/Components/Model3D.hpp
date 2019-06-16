@@ -37,5 +37,6 @@ public:
 
     void setPosition(const Math::Vec3f &pos);
     void setScale(const Math::Vec3f &scale);
+    void setRotation(const Math::Vec3f &rotation);
     void addTexture(const decltype(_texture) &texture);
 };

@@ -46,6 +46,11 @@ void Engine::ECS::Component::Model3D::setScale(const Math::Vec3f &scale)
     _node->setScale(irr::core::vector3df{scale.x, scale.y, scale.z});
 }
 
+void Engine::ECS::Component::Model3D::setRotation(const Math::Vec3f &rotation)
+{
+    _node->setRotation(irr::core::vector3df{rotation.x, rotation.y, rotation.z});
+}
+
 void Engine::ECS::Component::Model3D::addTexture(const decltype(_texture) &texture)
 {
     auto renderer = std::dynamic_pointer_cast<System::Renderer>(Manager::getInstance().getSystemByID("Renderer"));

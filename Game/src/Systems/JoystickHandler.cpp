@@ -38,8 +38,8 @@ Engine::Math::Vec2f Game::System::JoystickHandler::getPosition() const
     auto axisY = -input->getAxis(_controller, irr::SEvent::SJoystickEvent::AXIS_Y) / -32767.f;
 
     return {
-        axisX > - 0.25f && axisX < 0.25f ? 0 : axisX,
-        axisY > - 0.25f && axisY < 0.25f ? 0 : axisY
+        axisX > -MIN_AXIS && axisX < MIN_AXIS ? 0 : axisX,
+        axisY > -MIN_AXIS && axisY < MIN_AXIS ? 0 : axisY
     };
 }
 

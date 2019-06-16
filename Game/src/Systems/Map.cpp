@@ -5,7 +5,9 @@
 ** MapSystem.cpp
 */
 
+#include <ios>
 #include <algorithm>
+#include <filesystem>
 
 #include "ECS/Components/Model3D.hpp"
 #include "Systems/Map.hpp"
@@ -13,6 +15,7 @@
 #include "Entities/Block.hpp"
 #include "ECS/Manager.hpp"
 #include "ECS/Systems/Renderer.hpp"
+#include "Scenes/Selection.hpp"
 #include "Math/Vector/Vec3.hpp"
 #include "Abstracts/AScene.hpp"
 #include "Exception/AException.hpp"
@@ -20,7 +23,7 @@
 #include "ECS/Systems/Particle.hpp"
 
 Game::System::Map::Map()
-    : ASystem("Map")
+    : ASystem{"Map"}
 {}
 
 void Game::System::Map::_createFirstSquare() noexcept
@@ -87,13 +90,8 @@ std::shared_ptr<Engine::ECS::IEntity> Game::System::Map::_createBlock(Engine::Ma
     return block;
 }
 
-void Game::System::Map::_createMap() noexcept
+void Game::System::Map::_initMap() noexcept
 {
-    auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"));
-    _createFirstSquare();
-    _duplicateWidth();
-    _duplicateHeight();
-
     for (size_t i = 0; i < _map.size(); i++) {
         std::vector<std::shared_ptr<Engine::ECS::IEntity>> blocks{};
         for (size_t j = 0; j <= MAP_WIDTH; j++) {
@@ -106,31 +104,69 @@ void Game::System::Map::_createMap() noexcept
         }
         _blocks.push_back(blocks);
     }
+
     std::shared_ptr<Engine::ECS::IEntity> block = std::make_shared<Game::Entity::Block>(true, Engine::Math::Vec3f{INDEX_TO_POS(MAP_WIDTH - 1) / 2.f, -3, INDEX_TO_POS(MAP_HEIGHT - 1) / 2.f}, "assets/models/block/cube.obj");
     std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(block->getComponentByID("Model3D"))->setScale(Engine::Math::Vec3{150.f, 6.f, 150.f});
     Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(block);
 
     _actualMap = _map;
+
+    _placeCameraAndLight();
+}
+
+void Game::System::Map::_createMap() noexcept
+{
+    _createFirstSquare();
+    _duplicateWidth();
+    _duplicateHeight();
+
+    _initMap();
 }
 
 void Game::System::Map::_placeCameraAndLight() noexcept
 {
     auto renderer = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"));
-
-    renderer->getSceneManager()->addCameraSceneNode(nullptr, irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 125, INDEX_TO_POS(static_cast<float>(MAP_HEIGHT - 1))), irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 0, INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f))));
+    renderer->getSceneManager()->setActiveCamera(renderer->getSceneManager()->addCameraSceneNode(nullptr,
+        irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 125, INDEX_TO_POS(static_cast<float>(MAP_HEIGHT - 1))),
+        irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 0,INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)))));
     renderer->getSceneManager()->addLightSceneNode(nullptr, irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 20, 0), irr::video::SColorf(254.0f, 201.0f, 32.0f));
+
+    std::shared_ptr<Engine::Abstracts::AScene> selection = std::make_shared<Scene::Selection>();
+    Engine::ECS::Manager::getInstance().pushScene(selection);
+}
+
+void  Game::System::Map::loadMap()
+{
+    const auto file = getFileHandler(SAVE_FILE);
+
+    if (file == nullptr || !file->is_open() || file->peek() == std::ifstream::traits_type::eof()) {
+        Engine::Logger::getInstance().error("Failed to load map from save");
+        return;
+    }
+
+    file->seekp(0);
+    unpack(*file);
+}
+
+void Game::System::Map::saveMap() const
+{
+    const auto file = getFileHandler(SAVE_FILE);
+
+    if (file != nullptr && file->is_open()) {
+        std::filesystem::resize_file(SAVE_FILE, 0);
+        file->seekp(0);
+        pack(*file);
+    } else
+        Engine::Logger::getInstance().error("Failed to write save map");
 }
 
 void Game::System::Map::update(double)
 {
     try {
         Engine::ECS::Manager::getInstance().getSceneByID("Game");
-        if (_map.empty()) {
+        if (_map.empty())
             _createMap();
-            _placeCameraAndLight();
-        }
     } catch (const ECSException<ECS_Scene> &e) {}
-
 }
 
 decltype(Game::System::Map::_actualMap) Game::System::Map::getActualMap() const noexcept
@@ -158,10 +194,38 @@ void Game::System::Map::removeBlock(const Engine::Math::Vec2i &pos)
         Engine::ECS::Manager::getInstance().getSceneByID("Game")->removeEntityByID(_blocks[backupPos.x][backupPos.y]->getID());
         _blocks[backupPos.x][backupPos.y] = nullptr;
         _actualMap[backupPos.x][backupPos.y] = '0';
+        saveMap();
     }
 }
 
 decltype(Game::System::Map::_blocks) &Game::System::Map::getBlocks() noexcept
 {
     return _blocks;
+}
+
+void Game::System::Map::pack(std::ostream &outStream) const
+{
+    writeAny(outStream, MAP_HEIGHT);
+    writeAny(outStream, MAP_WIDTH);
+
+    for (const auto &line : _actualMap)
+        writeString(outStream, line);
+}
+
+void Game::System::Map::unpack(std::istream &inStream)
+{
+    const auto height = readAny<uint8_t>(inStream);
+    const auto width = readAny<uint8_t>(inStream);
+
+    _map.clear();
+
+    for (uint8_t i = 0; i < height; i++) {
+        const auto line = readString(inStream);
+
+        if (line.size() != width)
+            throw SerializationException("Save is invalid");
+        _map.push_back(line);
+    }
+
+    _initMap();
 }

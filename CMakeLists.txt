@@ -137,6 +137,9 @@ add_library(
     Engine/include/irrlicht.hpp
     Engine/include/Effects/AudioVisualizer.hpp
     Engine/src/Effects/AudioVisualizer.cpp
+    Engine/include/Abstracts/ASerializable.hpp
+    Engine/src/Abstracts/ASerializable.cpp
+    Engine/include/Exception/SerializationException.hpp
 )
 
 add_executable(
@@ -165,10 +168,16 @@ add_executable(
     Game/include/Scenes/PauseMenu.hpp
     Game/src/Scenes/PauseMenu.cpp
     Game/include/Assets.hpp
+    Game/include/Scenes/Selection.hpp
+    Game/src/Scenes/Selection.cpp
 )
 
 target_include_directories(bomberman PUBLIC Game/include)
 target_link_libraries(bomberman engine ${Irrlicht_LIBRARIES} sfml-audio sfml-system)
+
+if (UNIX)
+    target_link_libraries(bomberman stdc++fs)
+endif (UNIX)
 
 add_executable(
     tests_run
