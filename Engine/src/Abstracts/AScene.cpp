@@ -10,9 +10,29 @@
 #include "Abstracts/AScene.hpp"
 #include "Exception/Engine/ECS/ECSException.hpp"
 
+#include "ECS/Components/Model3D.hpp"
+#include "ECS/Components/Image.hpp"
+
 Engine::Abstracts::AScene::AScene(decltype(_id) id, decltype(_entities) entities, const bool opaque, const bool updateChild)
     : _id{std::move(id)}, _entities{std::move(entities)}, _opaque{opaque}, _updateChild{updateChild}
 {}
+
+Engine::Abstracts::AScene::~AScene()
+{
+    for (auto &entity : getEntities()) {
+        entity->hide();
+        switch (entity->getType()) {
+            case Engine::ECS::IEntity::Type::MODEL3D:
+                std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(entity->getComponentByID("Model3D"))->getNode()->remove();
+                break;
+            case Engine::ECS::IEntity::Type::MODEL2D:
+                std::dynamic_pointer_cast<Engine::ECS::Component::Image>(entity->getComponentByID("Image"))->getGUIImage()->remove();
+                break;
+            default:
+                break;
+        }
+    }
+}
 
 void Engine::Abstracts::AScene::addEntity(std::shared_ptr<ECS::IEntity> &entity)
 {

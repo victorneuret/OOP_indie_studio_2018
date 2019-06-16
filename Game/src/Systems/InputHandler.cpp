@@ -26,6 +26,11 @@ void Engine::ECS::System::InputHandler::bind(size_t id, const std::shared_ptr<In
     _inputs[id] = input;
 }
 
+void Engine::ECS::System::InputHandler::unbind()
+{
+    _inputs = {};
+}
+
 void Engine::ECS::System::InputHandler::update(double dt)
 {
     try {

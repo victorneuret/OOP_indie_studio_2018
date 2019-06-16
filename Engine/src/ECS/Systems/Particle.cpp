@@ -76,6 +76,8 @@ void Engine::ECS::System::Particle::createParticles(const double &quantity,
     for (float i = 0; i < quantity; ++i) {
         std::shared_ptr<Engine::ECS::IEntity> newParticle = std::make_shared<Engine::Entity::Particle>
 			(startPoint, directionRange, momentum, Random::getDouble(duration.x, duration.y), colors);
-        Engine::ECS::Manager::getInstance().getSceneByID(sceneID)->addEntity(newParticle);
+        try {
+            Engine::ECS::Manager::getInstance().getSceneByID(sceneID)->addEntity(newParticle);
+        } catch (const ECSException<ECS_Scene> &) {}
     }
 }

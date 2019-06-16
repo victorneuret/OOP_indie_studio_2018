@@ -26,7 +26,7 @@ protected:
 
 public:
     AScene(decltype(_id) id, decltype(_entities) entities, bool opaque, bool updateChild);
-    virtual ~AScene() = default;
+    virtual ~AScene();
 
     AScene(const AScene &) = delete;
     AScene &operator=(const AScene &) = delete;

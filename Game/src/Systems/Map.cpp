@@ -214,6 +214,13 @@ decltype(Game::System::Map::_blocks) &Game::System::Map::getBlocks() noexcept
     return _blocks;
 }
 
+void Game::System::Map::resetMap() noexcept
+{
+    _map.clear();
+    _actualMap.clear();
+    _blocks.clear();
+}
+
 void Game::System::Map::pack(std::ostream &outStream) const
 {
     writeAny(outStream, MAP_HEIGHT);
