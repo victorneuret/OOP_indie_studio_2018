@@ -29,10 +29,10 @@
 #include "Systems/Map.hpp"
 #include "Systems/JoystickHandler.hpp"
 #include "Systems/KeyboardHandler.hpp"
-#include "Scenes/Game.hpp"
+#include "Scenes/GameScene.hpp"
 #include "Scenes/PauseMenu.hpp"
 
-Game::Scene::Game::Game()
+Game::Scene::GameScene::GameScene()
         : AScene("Game", {}, true, true)
 {
     auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
@@ -90,7 +90,7 @@ Game::Scene::Game::Game()
     _audioVisualizer = std::make_unique<AudioVisualizer>(*sound.second, *sound.first);
 }
 
-void Game::Scene::Game::_backgroundAnimations()
+void Game::Scene::GameScene::_backgroundAnimations()
 {
     auto size = 150 * _audioVisualizer->getVisualizationData().scaleAverage;
 
@@ -111,7 +111,7 @@ void Game::Scene::Game::_backgroundAnimations()
     }
 }
 
-void Game::Scene::Game::_checkInputs()
+void Game::Scene::GameScene::_checkInputs()
 {
     auto inputs = std::dynamic_pointer_cast<Engine::ECS::System::KeyboardInput>(Engine::ECS::Manager::getInstance().getSystemByID("KeyboardInput"));
     if (inputs->isKeyDown(irr::EKEY_CODE::KEY_DELETE)) {
@@ -129,7 +129,7 @@ void Game::Scene::Game::_checkInputs()
     }
 }
 
-void Game::Scene::Game::_checkEndGame()
+void Game::Scene::GameScene::_checkEndGame()
 {
     if (_complete)
         return;
@@ -157,17 +157,17 @@ void Game::Scene::Game::_checkEndGame()
     }
 }
 
-void Game::Scene::Game::tick(double)
+void Game::Scene::GameScene::tick(double)
 {
     _backgroundAnimations();
     _checkInputs();
     _checkEndGame();
 }
 
-void Game::Scene::Game::sceneShowing()
+void Game::Scene::GameScene::sceneShowing()
 {
 }
 
-void Game::Scene::Game::sceneHiding(const Engine::Abstracts::AScene *)
+void Game::Scene::GameScene::sceneHiding(const Engine::Abstracts::AScene *)
 {
 }

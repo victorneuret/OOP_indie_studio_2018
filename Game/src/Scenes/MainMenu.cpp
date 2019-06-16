@@ -19,7 +19,7 @@
 #include "ECS/Systems/Audio.hpp"
 #include "Math/Vector/Vec2.hpp"
 #include "Math/Rect.hpp"
-#include "Scenes/Game.hpp"
+#include "Scenes/GameScene.hpp"
 #include "Scenes/Selection.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
 #include "Systems/Map.hpp"
@@ -52,7 +52,7 @@ Game::Scene::MainMenu::MainMenu()
             Engine::Math::Rect_i{static_cast<int>(screenSize.Width - 460), 60, 400, 90},
             IMG_NEW_GAME,
             [&manager]() {
-                std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<Game>();
+                std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<GameScene>();
                 manager.pushScene(game);
             }
         ),
@@ -62,7 +62,7 @@ Game::Scene::MainMenu::MainMenu()
             [&manager]() {
                 auto map = std::dynamic_pointer_cast<System::Map>(manager.getSystemByID("Map"));
 
-                std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<Game>();
+                std::shared_ptr<Engine::Abstracts::AScene> game = std::make_shared<GameScene>();
                 manager.pushScene(game);
 
                 if (map != nullptr)

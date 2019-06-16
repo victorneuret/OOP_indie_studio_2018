@@ -11,7 +11,7 @@
 #include "ECS/Manager.hpp"
 #include "Systems/Map.hpp"
 #include "Scenes/MainMenu.hpp"
-#include "Scenes/Game.hpp"
+#include "Scenes/GameScene.hpp"
 #include "Assets.hpp"
 
 BombermanApplication::BombermanApplication()

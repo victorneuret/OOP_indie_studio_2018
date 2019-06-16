@@ -156,8 +156,8 @@ add_executable(
     Game/src/Systems/Map.cpp
     Game/include/Scenes/MainMenu.hpp
     Game/src/Scenes/MainMenu.cpp
-    Game/include/Scenes/Game.hpp
-    Game/src/Scenes/Game.cpp
+    Game/include/Scenes/GameScene.hpp
+    Game/src/Scenes/GameScene.cpp
     Game/include/Entities/Bomb.hpp
     Game/src/Entities/Bomb.cpp
     Game/include/Entities/Character.hpp

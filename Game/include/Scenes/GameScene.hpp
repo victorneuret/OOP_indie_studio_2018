@@ -12,10 +12,10 @@
 #include "Effects/AudioVisualizer.hpp"
 
 namespace Game::Scene {
-    class Game;
+    class GameScene;
 }
 
-class Game::Scene::Game final : public Engine::Abstracts::AScene {
+class Game::Scene::GameScene final : public Engine::Abstracts::AScene {
 private:
     decltype(std::declval<Engine::ECS::System::Audio>().getSound("").second) _music{};
     std::unique_ptr<AudioVisualizer> _audioVisualizer{nullptr};
@@ -26,10 +26,10 @@ private:
     void _backgroundAnimations();
     void _checkEndGame();
 public:
-    Game();
+    GameScene();
 
-    Game(const Game &) = delete;
-    Game &operator=(const Game &) = delete;
+    GameScene(const GameScene &) = delete;
+    GameScene &operator=(const GameScene &) = delete;
 
     void tick(double deltaTime) override;
     void sceneShowing() override;
