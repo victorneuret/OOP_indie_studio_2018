@@ -34,7 +34,7 @@ void Engine::ECS::System::InputHandler::unbind()
 void Engine::ECS::System::InputHandler::update(double dt)
 {
     try {
-        auto game = Engine::ECS::Manager::getInstance().getSceneByID("Game");
+        auto game = Engine::ECS::Manager::getInstance().getSceneByID("GameScene");
 
         for (const auto &c : _inputs) {
             auto player = std::dynamic_pointer_cast<Game::Entity::Character>(game->getEntityByID(c.first));

@@ -14,6 +14,8 @@ namespace Game::Scene {
 }
 
 class Game::Scene::PauseMenu final : public Engine::Abstracts::AScene {
+private:
+    bool _pauseLock{true};
 public:
     PauseMenu();
 

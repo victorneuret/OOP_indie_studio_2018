@@ -66,7 +66,7 @@ Game::Scene::MainMenu::MainMenu()
                 if (map != nullptr)
                     map->loadMap();
 
-                for (auto &e : manager.getSceneByID("Game")->getEntities()) {
+                for (auto &e : manager.getSceneByID("GameScene")->getEntities()) {
                     const auto player = std::dynamic_pointer_cast<Entity::Character>(e);
 
                     if (player != nullptr)

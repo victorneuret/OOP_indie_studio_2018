@@ -22,7 +22,6 @@ protected:
     std::string _id{};
     std::vector<std::shared_ptr<Engine::ECS::IEntity>> _entities{};
     bool _opaque{true};
-    bool _updateChild{false};
 
 public:
     AScene(decltype(_id) id, decltype(_entities) entities, bool opaque, bool updateChild);
@@ -40,9 +39,6 @@ public:
     virtual const decltype(_id) &getID() const noexcept final;
 
     virtual decltype(_opaque) isOpaque() const noexcept final;
-    virtual decltype(_updateChild) isUpdateChild() const noexcept final;
-
-    virtual void setUpdateChild(bool updateChild) noexcept final;
 
     virtual void tick(double deltaTime) = 0;
     virtual void sceneShowing() = 0;

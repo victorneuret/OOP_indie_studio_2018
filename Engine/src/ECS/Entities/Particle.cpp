@@ -30,7 +30,7 @@ Engine::Entity::Particle::Particle(const Engine::Math::Vec3f &startPoint,
     std::shared_ptr<Engine::ECS::IComponent> _timer = std::make_shared<Engine::ECS::Component::Timer>(duration,
         [&](){
             std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(getComponentByID("Model3D"))->getNode()->remove();
-            Engine::ECS::Manager::getInstance().getSceneByID("Game")->removeEntityByID(getID());
+            Engine::ECS::Manager::getInstance().getSceneByID("GameScene")->removeEntityByID(getID());
             hide();
         });
     addComponent(_timer);

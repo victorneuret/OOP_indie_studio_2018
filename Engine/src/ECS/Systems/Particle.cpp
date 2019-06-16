@@ -22,7 +22,7 @@ Engine::ECS::System::Particle::Particle()
 
 std::vector<std::shared_ptr<Engine::ECS::IEntity>> &Engine::ECS::System::Particle::getEntityList()
 {
-    return Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntities();
+    return Engine::ECS::Manager::getInstance().getSceneByID("GameScene")->getEntities();
 }
 
 void Engine::ECS::System::Particle::applyMovement(const std::shared_ptr<Engine::Entity::Particle> &particle)
@@ -51,7 +51,7 @@ bool Engine::ECS::System::Particle::checkParticleState(const std::shared_ptr<Eng
 void Engine::ECS::System::Particle::update(double)
 {
     try {
-        Engine::ECS::Manager::getInstance().getSceneByID("Game");
+        Engine::ECS::Manager::getInstance().getSceneByID("GameScene");
         auto &tmp = getEntityList();
 
         for (auto &e : tmp) {

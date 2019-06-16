@@ -50,12 +50,18 @@ void Game::Entity::Character::placeBomb() noexcept
 {
     if (!_alive || _bombStock == 0 || _inBlock)
         return;
+
+    try {
+        Engine::ECS::Manager::getInstance().getSceneByID("PauseMenu");
+        return;
+    } catch (...) {}
+
     if (_isBombThere(Engine::Math::Vec2i{static_cast<int>(std::round(_pos.x / BLOCK_SIZE) + 1), static_cast<int>(std::round(_pos.z / BLOCK_SIZE) + 1)}))
         return;
-    auto entities = Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntities();
+    auto entities = Engine::ECS::Manager::getInstance().getSceneByID("GameScene")->getEntities();
 
     std::shared_ptr<Engine::ECS::IEntity> bomb = std::make_shared<Game::Entity::Bomb>(getID(), Engine::Math::Vec2i{static_cast<int>(std::round(_pos.x / BLOCK_SIZE) + 1), static_cast<int>(std::round(_pos.z / BLOCK_SIZE) + 1)}, _range);
-    Engine::ECS::Manager::getInstance().getSceneByID("Game")->addEntity(bomb);
+    Engine::ECS::Manager::getInstance().getSceneByID("GameScene")->addEntity(bomb);
     _bombStock--;
 }
 
@@ -63,6 +69,11 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
 {
     if (!_alive)
         return;
+
+    try {
+        Engine::ECS::Manager::getInstance().getSceneByID("PauseMenu");
+        return;
+    } catch (...) {}
 
     auto model3D = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(getComponentByID("Model3D"));
     decltype(_pos) tmpPos{_pos};
@@ -128,10 +139,10 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
             continue;
         auto powerUpPos = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(powerUp->getComponentByID("Model3D"))->getNode()->getPosition();
         if (static_cast<size_t>(round(powerUpPos.X / BLOCK_SIZE)) == static_cast<size_t>(round(tmpPos.x / BLOCK_SIZE)) && static_cast<size_t>(round(powerUpPos.Z / BLOCK_SIZE)) == static_cast<size_t>(round(tmpPos.z / BLOCK_SIZE))) {
-            auto character = std::dynamic_pointer_cast<Game::Entity::Character>(Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(getID()));
+            auto character = std::dynamic_pointer_cast<Game::Entity::Character>(Engine::ECS::Manager::getInstance().getSceneByID("GameScene")->getEntityByID(getID()));
             powerUp->applyEffect(character);
             std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(powerUp->getComponentByID("Model3D"))->getNode()->remove();
-            Engine::ECS::Manager::getInstance().getSceneByID("Game")->removeEntityByID(powerUp->getID());
+            Engine::ECS::Manager::getInstance().getSceneByID("GameScene")->removeEntityByID(powerUp->getID());
             save();
         }
     }
