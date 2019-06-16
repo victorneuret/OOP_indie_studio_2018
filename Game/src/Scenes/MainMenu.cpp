@@ -19,7 +19,6 @@
 #include "Math/Vector/Vec2.hpp"
 #include "Math/Rect.hpp"
 #include "Scenes/GameScene.hpp"
-#include "Scenes/Selection.hpp"
 #include "ECS/Abstracts/AEntity.hpp"
 #include "Systems/Map.hpp"
 #include "Assets.hpp"

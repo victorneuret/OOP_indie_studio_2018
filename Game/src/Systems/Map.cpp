@@ -21,7 +21,6 @@
 #include "Entities/Powerups/SuperBomb.hpp"
 #include "ECS/Manager.hpp"
 #include "ECS/Systems/Renderer.hpp"
-#include "Scenes/Selection.hpp"
 #include "Math/Vector/Vec3.hpp"
 #include "Abstracts/AScene.hpp"
 #include "Exception/AException.hpp"
@@ -136,9 +135,6 @@ void Game::System::Map::_placeCameraAndLight() noexcept
         irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 125, INDEX_TO_POS(static_cast<float>(MAP_HEIGHT - 1))),
         irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 0,INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)))));
     renderer->getSceneManager()->addLightSceneNode(nullptr, irr::core::vector3df(INDEX_TO_POS(static_cast<float>((MAP_WIDTH - 1) / 2.f)), 20, 0), irr::video::SColorf(254.0f, 201.0f, 32.0f));
-
-    std::shared_ptr<Engine::Abstracts::AScene> selection = std::make_shared<Scene::Selection>();
-    Engine::ECS::Manager::getInstance().pushScene(selection);
 }
 
 void  Game::System::Map::loadMap()

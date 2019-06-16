@@ -168,8 +168,6 @@ add_executable(
     Game/include/Scenes/PauseMenu.hpp
     Game/src/Scenes/PauseMenu.cpp
     Game/include/Assets.hpp
-    Game/include/Scenes/Selection.hpp
-    Game/src/Scenes/Selection.cpp
     Game/include/Entities/Powerups/BombUp.hpp
     Game/src/Entities/Powerups/BombUp.cpp
     Game/include/Entities/Powerups/FireUp.hpp

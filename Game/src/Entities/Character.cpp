@@ -235,14 +235,17 @@ void Game::Entity::Character::load()
 {
     const auto file = getFileHandler(".player_" + _playerID + ".save");
 
-    if (file == nullptr || !file->is_open() || file->peek() == std::ifstream::traits_type::eof())
+    if (file == nullptr || !file->is_open() || file->peek() == std::ifstream::traits_type::eof()) {
+        Engine::Logger::getInstance().error("Failed to load player");
         return;
+    }
 
     file->seekp(0);
+
     try {
         unpack(*file);
     } catch (const SerializationException &) {
-        Engine::Logger::getInstance().error("Failed to save player");
+        Engine::Logger::getInstance().error("Failed to load player");
     }
 }
 
@@ -252,7 +255,9 @@ void Game::Entity::Character::save() const
 
     if (file != nullptr && file->is_open()) {
         std::filesystem::resize_file(".player_" + _playerID + ".save", 0);
+
         file->seekp(0);
+
         try {
             pack(*file);
         } catch (const SerializationException &) {
