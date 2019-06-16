@@ -16,6 +16,7 @@
 #include "ECS/Manager.hpp"
 #include "ECS/Systems/Particle.hpp"
 #include "Systems/JoystickHandler.hpp"
+#include "ECS/Systems/Input/JoystickInput.hpp"
 #include "Systems/KeyboardHandler.hpp"
 #include "ECS/Systems/InputHandler.hpp"
 #include "ECS/Systems/Input/KeyboardInput.hpp"
@@ -29,7 +30,7 @@ Game::Scene::Game::Game()
         : AScene("Game", {}, true, true)
 {
     auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
-    auto InputHandler = std::dynamic_pointer_cast<Engine::ECS::System::InputHandler>(Engine::ECS::Manager::getInstance().getSystemByID("InputHandler"));
+    auto inputHandler = std::dynamic_pointer_cast<Engine::ECS::System::InputHandler>(Engine::ECS::Manager::getInstance().getSystemByID("InputHandler"));
 
     auto players = std::vector{
         std::make_shared<Entity::Player>(Engine::Math::Vec3f{INDEX_TO_POS(0), 0, INDEX_TO_POS(0)}, "assets/models/characters/BlackBombermanTextures.png"),
@@ -38,11 +39,19 @@ Game::Scene::Game::Game()
         std::make_shared<Entity::Player>(Engine::Math::Vec3f{INDEX_TO_POS(MAP_HEIGHT - 1), 0, INDEX_TO_POS(MAP_WIDTH - 1)}, "assets/models/characters/WhiteBombermanTextures.png"),
     };
 
-    auto keyboardHandler = std::make_shared<System::KeyboardHandler>();
-    auto joystickHandler = std::make_shared<System::JoystickHandler>(0);
+    const auto joystick = std::dynamic_pointer_cast<Engine::ECS::System::JoystickInput>(
+        Engine::ECS::Manager::getInstance().getSystemByID("JoystickInput"));
 
-    std::dynamic_pointer_cast<Engine::ECS::System::InputHandler>(InputHandler)->bind(players[0]->getID(), keyboardHandler);
-    std::dynamic_pointer_cast<Engine::ECS::System::InputHandler>(InputHandler)->bind(players[1]->getID(), joystickHandler);
+    inputHandler->bind(players[0]->getID(), std::make_shared<System::KeyboardHandler>());;
+
+    if (joystick != nullptr) {
+        for (size_t i = 1; i < players.size(); i++) {
+            if (i - 1 < joystick->getJoystickInfos().size())
+                inputHandler->bind(players[i]->getID(), std::make_shared<System::JoystickHandler>(joystick->getJoystickInfos()[i - 1].Joystick));
+            else
+                break;
+        }
+    }
 
     _entities = {
         std::make_shared<Engine::Entity::Image>(IMG_CITY, Engine::Math::Vec2i{0, 0}),
