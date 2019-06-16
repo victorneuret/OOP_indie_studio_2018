@@ -38,12 +38,18 @@ Game::Scene::GameScene::GameScene()
     auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
     auto inputHandler = std::dynamic_pointer_cast<Engine::ECS::System::InputHandler>(Engine::ECS::Manager::getInstance().getSystemByID("InputHandler"));
 
+    auto map = std::dynamic_pointer_cast<Game::System::Map>(Engine::ECS::Manager::getInstance().getSystemByID("Map"));
+
+    map->resetMap();
+
     auto players = std::vector{
         std::make_shared<Entity::Player>(Engine::Math::Vec3f{INDEX_TO_POS(0), 0, INDEX_TO_POS(0)}, "assets/models/characters/BlackBombermanTextures.png"),
         std::make_shared<Entity::Player>(Engine::Math::Vec3f{INDEX_TO_POS(0), 0, INDEX_TO_POS(MAP_WIDTH - 1)}, "assets/models/characters/PinkBombermanTextures.png"),
         std::make_shared<Entity::Player>(Engine::Math::Vec3f{INDEX_TO_POS(MAP_HEIGHT - 1), 0, INDEX_TO_POS(0)}, "assets/models/characters/RedBombermanTextures.png"),
         std::make_shared<Entity::Player>(Engine::Math::Vec3f{INDEX_TO_POS(MAP_HEIGHT - 1), 0, INDEX_TO_POS(MAP_WIDTH - 1)}, "assets/models/characters/WhiteBombermanTextures.png"),
     };
+
+    inputHandler->unbind();
 
     const auto joystick = std::dynamic_pointer_cast<Engine::ECS::System::JoystickInput>(
         Engine::ECS::Manager::getInstance().getSystemByID("JoystickInput"));
@@ -146,6 +152,9 @@ void Game::Scene::GameScene::_checkInputs()
         }
         _save();
     }
+
+    if (inputs->isKeyDown(irr::EKEY_CODE::KEY_KEY_M))
+        Engine::ECS::Manager::getInstance().popScene();
 }
 
 void Game::Scene::GameScene::_checkEndGame()

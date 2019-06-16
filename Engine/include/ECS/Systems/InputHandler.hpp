@@ -26,5 +26,6 @@ public:
     ~InputHandler() override = default;
 
     void bind(size_t id, const std::shared_ptr<InputType> &input);
+    void unbind();
     void update(double dt) override;
 };
