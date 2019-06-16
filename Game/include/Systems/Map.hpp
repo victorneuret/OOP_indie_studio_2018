@@ -44,7 +44,8 @@ private:
     void _initMap() noexcept;
     std::shared_ptr<Engine::ECS::IEntity> _createBlock(Engine::Math::Vec3f vec, const std::string &texture, bool breakable) noexcept;
     void _placeCameraAndLight() noexcept;
-    void _randomPowerup(const Engine::Math::Vec2i &pos) noexcept;
+
+    static void _randomPowerUp(const Engine::Math::Vec2i &pos) noexcept;
 
 public:
     Map();
