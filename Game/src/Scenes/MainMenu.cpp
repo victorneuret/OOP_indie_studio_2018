@@ -133,7 +133,11 @@ void Game::Scene::MainMenu::tick(double dt)
 
     auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(
         Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getVideoDriver();
+#if defined __GNUC__
     auto size = 250 * _audioVisualizer->getVisualizationData().scaleAverage;
+#elif defined _MSC_VER
+    auto size = 250;
+#endif
 
     for (auto &image : _entities) {
         if (image->getType() == Engine::ECS::IEntity::Type::MODEL2D) {
@@ -166,5 +170,7 @@ void Game::Scene::MainMenu::sceneShowing()
 
 void Game::Scene::MainMenu::sceneHiding(const Engine::Abstracts::AScene *)
 {
+#if defined __GNUC__
     _music->stop();
+#endif
 }
