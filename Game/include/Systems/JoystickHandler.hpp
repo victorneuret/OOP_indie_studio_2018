@@ -17,6 +17,8 @@ namespace Game::System {
     class JoystickHandler;
 }
 
+static constexpr float MIN_AXIS = 0.25f;
+
 class Game::System::JoystickHandler final : public Engine::ECS::InputType {
 public:
     enum CONTROLLER_BUTTONS {

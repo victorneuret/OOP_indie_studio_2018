@@ -31,8 +31,6 @@ bool Game::System::JoystickHandler::isButtonPressed(irr::u8 key) const
 
 Engine::Math::Vec2f Game::System::JoystickHandler::getPosition() const
 {
-    static float min = 0.25f;
-
     const auto &input = std::dynamic_pointer_cast<Engine::ECS::System::JoystickInput>(
         Engine::ECS::Manager::getInstance().getSystemByID("JoystickInput"));
 
@@ -40,8 +38,8 @@ Engine::Math::Vec2f Game::System::JoystickHandler::getPosition() const
     auto axisY = -input->getAxis(_controller, irr::SEvent::SJoystickEvent::AXIS_Y) / -32767.f;
 
     return {
-        axisX > -min && axisX < min ? 0 : axisX,
-        axisY > -min && axisY < min ? 0 : axisY
+        axisX > -MIN_AXIS && axisX < MIN_AXIS ? 0 : axisX,
+        axisY > -MIN_AXIS && axisY < MIN_AXIS ? 0 : axisY
     };
 }
 

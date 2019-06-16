@@ -137,7 +137,10 @@ add_library(
     Engine/include/irrlicht.hpp
     Engine/include/Effects/AudioVisualizer.hpp
     Engine/src/Effects/AudioVisualizer.cpp
-    Engine/include/Abstracts/ASerializable.hpp Engine/src/Abstracts/ASerializable.cpp Engine/include/Exception/SerializationException.hpp)
+    Engine/include/Abstracts/ASerializable.hpp
+    Engine/src/Abstracts/ASerializable.cpp
+    Engine/include/Exception/SerializationException.hpp
+)
 
 add_executable(
     bomberman

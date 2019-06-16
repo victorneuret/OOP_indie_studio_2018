@@ -7,7 +7,6 @@
 
 #include <ios>
 #include <algorithm>
-#include <iostream>
 #include <filesystem>
 
 #include "ECS/Components/Model3D.hpp"
