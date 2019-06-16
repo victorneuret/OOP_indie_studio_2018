@@ -83,6 +83,7 @@ Game::Scene::GameScene::GameScene()
         }
     }
 
+#if defined __GNUC__
     auto &manager = Engine::ECS::Manager::getInstance();
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
     auto sound = audio->loadSound("game_music", SND_MAIN_GAME);
@@ -95,6 +96,7 @@ Game::Scene::GameScene::GameScene()
     _music->setVolume(30);
 
     _audioVisualizer = std::make_unique<AudioVisualizer>(*sound.second, *sound.first);
+#endif
 }
 
 void Game::Scene::GameScene::_backgroundAnimations()

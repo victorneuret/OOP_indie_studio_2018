@@ -157,7 +157,9 @@ void Game::Scene::MainMenu::tick(double dt)
 
 void Game::Scene::MainMenu::sceneShowing()
 {
+#if defined __GNUC__
     _music->play();
+#endif
 }
 
 void Game::Scene::MainMenu::sceneHiding(const Engine::Abstracts::AScene *)
