@@ -31,6 +31,7 @@ Game::Scene::MainMenu::MainMenu()
     auto driver = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(manager.getSystemByID("Renderer"))->getVideoDriver();
     auto screenSize = driver->getScreenSize();
 
+#if defined __GNUC__
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
     auto sound = audio->loadSound("main_music", SND_MAIN_MENU);
 
@@ -39,6 +40,7 @@ Game::Scene::MainMenu::MainMenu()
     _music->play();
 
     _audioVisualizer = std::make_unique<AudioVisualizer>(*sound.second, *sound.first);
+#endif
 
     _entities = {
         std::make_shared<Engine::Entity::Image>(IMG_STAR, Engine::Math::Vec2i{0, 0}),
