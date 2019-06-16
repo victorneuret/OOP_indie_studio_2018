@@ -85,7 +85,7 @@ Game::Scene::Game::Game()
     _audioVisualizer = std::make_unique<AudioVisualizer>(*sound.second, *sound.first);
 }
 
-void Game::Scene::Game::tick(double)
+void Game::Scene::Game::_backgroundAnimations()
 {
     auto size = 150 * _audioVisualizer->getVisualizationData().scaleAverage;
 
@@ -104,7 +104,10 @@ void Game::Scene::Game::tick(double)
             }
         }
     }
+}
 
+void Game::Scene::Game::_checkInputs()
+{
     auto inputs = std::dynamic_pointer_cast<Engine::ECS::System::KeyboardInput>(Engine::ECS::Manager::getInstance().getSystemByID("KeyboardInput"));
     if (inputs->isKeyDown(irr::EKEY_CODE::KEY_DELETE)) {
         auto window = std::dynamic_pointer_cast<Engine::ECS::System::Renderer>(Engine::ECS::Manager::getInstance().getSystemByID("Renderer"))->getWindow();
@@ -119,9 +122,17 @@ void Game::Scene::Game::tick(double)
             Engine::ECS::Manager::getInstance().pushScene(pauseMenu);
         }
     }
-    if (inputs->isKeyDown(irr::EKEY_CODE::KEY_KEY_M)) { // tmp
-        Engine::ECS::Manager::getInstance().popScene();
-    }
+}
+
+void Game::Scene::Game::_checkEndGame()
+{
+}
+
+void Game::Scene::Game::tick(double)
+{
+    _backgroundAnimations();
+    _checkInputs();
+    _checkEndGame();
 }
 
 void Game::Scene::Game::sceneShowing()
