@@ -101,11 +101,13 @@ Game::Scene::MainMenu::MainMenu()
 
 Game::Scene::MainMenu::~MainMenu()
 {
+#if defined __GNUC__
     auto &manager = Engine::ECS::Manager::getInstance();
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
 
     _music->stop();
     audio->unloadSound("main_music");
+#endif
 }
 
 static auto getAcceleration()
