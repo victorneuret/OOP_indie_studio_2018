@@ -28,6 +28,8 @@ protected:
 public:
     virtual ~ASerializable() = default;
 
+    static void removeAll();
+
     static void writeString(std::ostream &outStream, const std::string &str);
 
     template <typename T>

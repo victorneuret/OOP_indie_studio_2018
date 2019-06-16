@@ -10,6 +10,7 @@
 static constexpr const char *const IMG_STAR = "assets/img/star.jpg";
 static constexpr const char *const IMG_SUN = "assets/img/sun.png";
 static constexpr const char *const IMG_CITY = "assets/img/city.png";
+static constexpr const char *const IMG_BLACK = "assets/img/black_end.png";
 
 static constexpr const char *const IMG_MOUNTAIN = "assets/img/mountain.png";
 static constexpr const char *const IMG_BOMBER = "assets/img/cuteBomber.png";

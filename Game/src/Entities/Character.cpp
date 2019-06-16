@@ -25,6 +25,7 @@ decltype(Game::Entity::Character::PLAYER_NB) Game::Entity::Character::PLAYER_NB{
 Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::string &texture, const std::string &model)
     : AEntity(AEntity::Type::MODEL3D), _pos{pos}, _speed{30}
 {
+    PLAYER_NB++;
     auto _3DModel = std::make_shared<Engine::ECS::Component::Model3D>(_pos, model);
     auto _3DModelPtr = std::dynamic_pointer_cast<Engine::ECS::IComponent>(_3DModel);
 
@@ -306,4 +307,9 @@ void Game::Entity::Character::unpack(std::istream &inStream)
 
     if (!alive)
         kill();
+}
+
+const decltype(Game::Entity::Character::_playerID) &Game::Entity::Character::getPlayerId() const noexcept
+{
+    return _playerID;
 }
