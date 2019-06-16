@@ -127,9 +127,6 @@ void Game::Scene::GameScene::_checkInputs()
             Engine::ECS::Manager::getInstance().pushScene(pauseMenu);
         }
     }
-
-    if (inputs->isKeyDown(irr::EKEY_CODE::KEY_KEY_M))
-        Engine::ECS::Manager::getInstance().popScene();
 }
 
 void Game::Scene::GameScene::_checkEndGame()
