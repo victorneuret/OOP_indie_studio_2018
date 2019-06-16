@@ -11,6 +11,7 @@
 #include "ECS/Components/Model3D.hpp"
 #include "ECS/Components/Renderer.hpp"
 #include "ECS/Components/Timer.hpp"
+#include "ECS/Manager.hpp"
 
 Engine::Entity::Particle::Particle(const Engine::Math::Vec3f &startPoint,
                                 const Engine::Math::Vec3<float> &endPoint,
@@ -27,7 +28,9 @@ Engine::Entity::Particle::Particle(const Engine::Math::Vec3f &startPoint,
 
     std::shared_ptr<Engine::ECS::IComponent> _timer = std::make_shared<Engine::ECS::Component::Timer>(duration,
         [&](){
-            Engine::ECS::AEntity::hide();
+            std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(getComponentByID("Model3D"))->getNode()->remove();
+            Engine::ECS::Manager::getInstance().getSceneByID("Game")->removeEntityByID(getID());
+            hide();
         });
     addComponent(_timer);
 }

@@ -14,6 +14,9 @@
 #include "Exception/Memory/MemoryException.hpp"
 #include "Exception/Engine/EngineException.hpp"
 #include "Utils/Logger.hpp"
+#include "ECS/Interfaces/IEntity.hpp"
+#include "ECS/Components/Model3D.hpp"
+#include "ECS/Components/Image.hpp"
 
 std::unique_ptr<Engine::ECS::Manager> Engine::ECS::Manager::_instance{nullptr};
 
@@ -77,6 +80,21 @@ void Engine::ECS::Manager::popScene()
     if (_scenes.size() != 1) {
         auto parent = top - 1;
         (*parent)->sceneShowing();
+    }
+
+    for (auto &entity : (*top)->getEntities()) {
+        if (entity == nullptr)
+            continue;
+        switch (entity->getType()) {
+            case Engine::ECS::IEntity::Type::MODEL3D:
+                std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(entity->getComponentByID("Model3D"))->getNode()->remove();
+                break;
+            case Engine::ECS::IEntity::Type::MODEL2D:
+                std::dynamic_pointer_cast<Engine::ECS::Component::Image>(entity->getComponentByID("Image"))->getGUIImage()->remove();
+            default:
+                break;
+        }
+        (*top)->removeEntity(entity);
     }
 
     _scenes.erase(top);
