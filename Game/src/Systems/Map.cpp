@@ -9,16 +9,16 @@
 #include <algorithm>
 #include <filesystem>
 
-#include "Entities/FireUp.hpp"
-#include "Entities/SpeedUp.hpp"
-#include "Entities/BombUp.hpp"
+#include "Entities/Powerups/FireUp.hpp"
+#include "Entities/Powerups/SpeedUp.hpp"
+#include "Entities/Powerups/BombUp.hpp"
 #include "ECS/Components/Model3D.hpp"
 #include "Systems/Map.hpp"
 #include "Utils/Random.hpp"
 #include "Entities/Block.hpp"
-#include "Entities/FireUp.hpp"
-#include "Entities/GhostUp.hpp"
-#include "Entities/SuperBomb.hpp"
+#include "Entities/Powerups/FireUp.hpp"
+#include "Entities/Powerups/GhostUp.hpp"
+#include "Entities/Powerups/SuperBomb.hpp"
 #include "ECS/Manager.hpp"
 #include "ECS/Systems/Renderer.hpp"
 #include "Scenes/Selection.hpp"

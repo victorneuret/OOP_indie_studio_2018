@@ -17,7 +17,7 @@
 #include "Entities/Bomb.hpp"
 #include "Entities/Block.hpp"
 #include "ECS/Systems/Audio.hpp"
-#include "Entities/APowerUp.hpp"
+#include "Entities/Powerups/APowerUp.hpp"
 
 Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::string &texture, const std::string &model)
     : AEntity(AEntity::Type::MODEL3D), _pos{pos}, _speed{30}
