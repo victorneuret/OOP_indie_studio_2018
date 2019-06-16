@@ -31,6 +31,7 @@
 #include "Systems/KeyboardHandler.hpp"
 #include "Scenes/GameScene.hpp"
 #include "Scenes/PauseMenu.hpp"
+#include "Scenes/EndGame.hpp"
 
 Game::Scene::GameScene::GameScene()
         : AScene("Game", {}, true, true)
@@ -175,10 +176,14 @@ void Game::Scene::GameScene::_checkEndGame()
 
     if (alive == 1) {
         _complete = true;
-        Engine::Logger::getInstance().info("Player " + std::to_string(lastAlive->getID()) + " wins!");
+        _updateChild = false;
+        std::shared_ptr<Engine::Abstracts::AScene> endGame = std::make_shared<EndGame>(false);
+        Engine::ECS::Manager::getInstance().pushScene(endGame);
     } else if (alive == 0) {
         _complete = true;
-        Engine::Logger::getInstance().info("Draw");
+        _updateChild = false;
+        std::shared_ptr<Engine::Abstracts::AScene> endGame = std::make_shared<EndGame>(true);
+        Engine::ECS::Manager::getInstance().pushScene(endGame);
     }
 }
 

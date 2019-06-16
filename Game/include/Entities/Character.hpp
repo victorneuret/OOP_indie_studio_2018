@@ -19,7 +19,7 @@ namespace Game::Entity {
 class Game::Entity::Character : public Engine::ECS::AEntity, public Engine::Abstracts::ASerializable {
 protected:
     static uint8_t PLAYER_NB;
-    std::string _playerID{std::to_string(++PLAYER_NB)};
+    std::string _playerID{std::to_string(PLAYER_NB % 4 + 1)};
 
     Engine::Math::Vec3f _pos{0, 0, 0};
     size_t _range{1};
@@ -54,6 +54,7 @@ public:
     void setGhost(bool isGhost) noexcept;
     void setSuperBomb(bool value) noexcept;
     bool getSuperBomb() noexcept;
+    const decltype(_playerID) &getPlayerId() const noexcept;
 
     void kill() noexcept;
     bool isAlive() const noexcept;

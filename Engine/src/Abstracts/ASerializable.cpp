@@ -6,6 +6,7 @@
 */
 
 #include <vector>
+#include <filesystem>
 
 #include "Exception/SerializationException.hpp"
 #include "Abstracts/ASerializable.hpp"
@@ -17,11 +18,23 @@ std::fstream *Engine::Abstracts::ASerializable::getFileHandler(const std::string
     auto file = _files.find(path);
 
     if (file == _files.end()) {
-        _files[path] = std::fstream{path, std::ios::in | std::ios::out | std::ios::app | std::ios::binary};
+        _files[path] = std::fstream{path, std::ios::in | std::ios::out | std::ios::binary};
         return &_files[path];
     }
 
     return &file->second;
+}
+
+void Engine::Abstracts::ASerializable::removeAll()
+{
+    for (auto &file : _files) {
+        try {
+            std::filesystem::remove(file.first);
+            file.second.close();
+        } catch (...) {}
+    }
+
+    _files.clear();
 }
 
 void Engine::Abstracts::ASerializable::writeString(std::ostream &outStream, const std::string &str)

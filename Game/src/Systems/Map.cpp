@@ -141,6 +141,10 @@ void  Game::System::Map::loadMap()
 {
     const auto file = getFileHandler(SAVE_FILE);
 
+    if (file != nullptr)
+        file->seekp(0);
+
+
     if (file == nullptr || !file->is_open() || file->peek() == std::ifstream::traits_type::eof()) {
         Engine::Logger::getInstance().error("Failed to load map from save");
         return;
