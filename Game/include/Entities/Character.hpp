@@ -24,9 +24,12 @@ protected:
     bool _moving{false};
     bool _alive{true};
     float _time{0};
+    bool _ghost{false};
+    bool _inBlock{false};
 
     Engine::ECS::System::Audio::Sound _stepSound{};
     Engine::ECS::System::Audio::Sound _deathSound{};
+    bool _isBombThere(const Engine::Math::Vec2i &pos);
 public:
     Character(const Engine::Math::Vec3f &pos, const std::string &texture, const std::string &model);
     Character(const Character &) = delete;
@@ -40,6 +43,7 @@ public:
     void setSpeed(const decltype(_speed) &speed) noexcept;
     void rangeIncrease() noexcept;
     void addBomb() noexcept;
+    void setGhost(bool isGhost) noexcept;
 
     void kill() noexcept;
     bool isAlive() const noexcept;

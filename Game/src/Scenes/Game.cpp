@@ -8,6 +8,11 @@
 #include "Assets.hpp"
 #include "ECS/Entities/Text.hpp"
 #include "ECS/Entities/Button.hpp"
+#include "Entities/Block.hpp"
+#include "Entities/Player.hpp"
+#include "Entities/BombUp.hpp"
+#include "Entities/FireUp.hpp"
+#include "Entities/SpeedUp.hpp"
 #include "ECS/Entities/Image.hpp"
 #include "ECS/Components/Image.hpp"
 #include "ECS/Manager.hpp"
@@ -57,7 +62,6 @@ Game::Scene::Game::Game()
     _entities = {
         std::make_shared<Engine::Entity::Image>(IMG_CITY, Engine::Math::Vec2i{0, 0}),
         std::make_shared<Engine::Entity::Image>(IMG_SUN, Engine::Math::Vec2i{static_cast<int>(driver->getScreenSize().Width / 2 - (894 / 2)), 0}),
-        std::make_shared<Engine::ECS::Entity::Text>(L"Un test", Engine::Math::Vec2i{50, 50}, Engine::Utils::Color{0, 255, 0}),
     };
 
     _entities.insert(_entities.end(), players.begin(), players.end());

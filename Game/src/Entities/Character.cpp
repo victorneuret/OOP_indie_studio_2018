@@ -17,6 +17,7 @@
 #include "Entities/Bomb.hpp"
 #include "Entities/Block.hpp"
 #include "ECS/Systems/Audio.hpp"
+#include "Entities/APowerUp.hpp"
 
 Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::string &texture, const std::string &model)
     : AEntity(AEntity::Type::MODEL3D), _pos{pos}, _speed{30}
@@ -43,7 +44,9 @@ Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::st
 
 void Game::Entity::Character::placeBomb() noexcept
 {
-    if (!_alive || _bombStock == 0)
+    if (!_alive || _bombStock == 0 || _ghost)
+        return;
+    if (_isBombThere(Engine::Math::Vec2i{static_cast<int>(std::round(_pos.x / BLOCK_SIZE) + 1), static_cast<int>(std::round(_pos.z / BLOCK_SIZE) + 1)}))
         return;
     auto entities = Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntities();
 
@@ -81,8 +84,8 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
     if (map == nullptr || map->getActualMap().empty())
         return;
 
-    auto boxX = map->getBlocks()[static_cast<size_t>(std::round(tmpPos.x / BLOCK_SIZE))][static_cast<size_t>(std::round(_pos.z / BLOCK_SIZE))];
-    auto boxY = map->getBlocks()[static_cast<size_t>(std::round(_pos.x / BLOCK_SIZE))][static_cast<size_t>(std::round(tmpPos.z / BLOCK_SIZE))];
+    auto boxX = std::dynamic_pointer_cast<Game::Entity::Block>(map->getBlocks()[static_cast<size_t>(std::round(tmpPos.x / BLOCK_SIZE))][static_cast<size_t>(std::round(_pos.z / BLOCK_SIZE))]);
+    auto boxY = std::dynamic_pointer_cast<Game::Entity::Block>(map->getBlocks()[static_cast<size_t>(std::round(_pos.x / BLOCK_SIZE))][static_cast<size_t>(std::round(tmpPos.z / BLOCK_SIZE))]);
 
     if (speed.x > 0 && speed.x > speed.y && speed.x > speed.y * -1) {
         model3D->getNode()->setRotation(irr::core::vector3df(0, 270, 0));
@@ -111,19 +114,44 @@ void Game::Entity::Character::move(const Engine::Math::Vec2f &speed, float timeM
 
     for (auto &entity : Engine::ECS::Manager::getInstance().getUpdatedEntities()) {
         auto bomb = std::dynamic_pointer_cast<Game::Entity::Bomb>(entity);
-        if (bomb == nullptr)
+        auto powerUp = std::dynamic_pointer_cast<Game::Entity::APowerUp>(entity);
+        if (bomb != nullptr) {
+            auto bombPos = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(bomb->getComponentByID("Model3D"))->getNode()->getPosition();
+            if ((static_cast<size_t>(round(bombPos.X / BLOCK_SIZE)) != static_cast<size_t>(round(_pos.x / BLOCK_SIZE)) || static_cast<size_t>(round(bombPos.Z / BLOCK_SIZE)) != static_cast<size_t>(round(_pos.z / BLOCK_SIZE))) && (static_cast<size_t>(round(bombPos.X / BLOCK_SIZE)) == static_cast<size_t>(round(tmpPos.x / BLOCK_SIZE)) && static_cast<size_t>(round(bombPos.Z / BLOCK_SIZE)) == static_cast<size_t>(round(tmpPos.z / BLOCK_SIZE))))
+                return;
+        }
+        if (powerUp == nullptr)
             continue;
-        auto bombPos = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(bomb->getComponentByID("Model3D"))->getNode()->getPosition();
-        if (static_cast<size_t>(std::round(bombPos.X / BLOCK_SIZE)) == static_cast<size_t>(std::round(_pos.x / BLOCK_SIZE)) && static_cast<size_t>(std::round(bombPos.Z / BLOCK_SIZE)) == static_cast<size_t>(std::round(_pos.z / BLOCK_SIZE)))
-            continue;
-        if (static_cast<size_t>(std::round(bombPos.X / BLOCK_SIZE)) == static_cast<size_t>(std::round(tmpPos.x / BLOCK_SIZE)) && static_cast<size_t>(std::round(bombPos.Z / BLOCK_SIZE)) == static_cast<size_t>(std::round(tmpPos.z / BLOCK_SIZE)))
-            return;
+        auto powerUpPos = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(powerUp->getComponentByID("Model3D"))->getNode()->getPosition();
+        if (static_cast<size_t>(round(powerUpPos.X / BLOCK_SIZE)) == static_cast<size_t>(round(tmpPos.x / BLOCK_SIZE)) && static_cast<size_t>(round(powerUpPos.Z / BLOCK_SIZE)) == static_cast<size_t>(round(tmpPos.z / BLOCK_SIZE))) {
+            auto character = std::dynamic_pointer_cast<Game::Entity::Character>(Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(getID()));
+            powerUp->applyEffect(character);
+            std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(powerUp->getComponentByID("Model3D"))->getNode()->remove();
+            Engine::ECS::Manager::getInstance().getSceneByID("Game")->removeEntityByID(powerUp->getID());
+        }
     }
 
-    if (boxX == nullptr)
+    bool tmpInBlock = false;
+
+    if (boxX == nullptr || (_ghost && boxX->isBreakable())) {
+        if (boxX != nullptr && !_inBlock)
+            tmpInBlock = true;
+        else if (boxX == nullptr && _inBlock) {
+            tmpInBlock = false;
+            _ghost = false;
+        }
         _pos.x = tmpPos.x;
-    if (boxY == nullptr)
+    }
+    if (boxY == nullptr || (_ghost && boxY->isBreakable())) {
+        if (boxY != nullptr && !_inBlock)
+            tmpInBlock = true;
+        else if (boxY == nullptr && _inBlock) {
+            tmpInBlock = false;
+            _ghost = false;
+        }
         _pos.z = tmpPos.z;
+    }
+    _inBlock = tmpInBlock;
     model3D->setPosition(Engine::Math::Vec3f{_pos.x, 0, _pos.z});
 }
 
@@ -149,6 +177,9 @@ void Game::Entity::Character::addBomb() noexcept
 
 void Game::Entity::Character::kill() noexcept
 {
+    if (!_alive)
+        return;
+
     _alive = false;
     _deathSound.second->play(); // TODO: Adjust volume after merge
 
@@ -163,4 +194,27 @@ bool Game::Entity::Character::isAlive() const noexcept
 const decltype(Game::Entity::Character::_pos) &Game::Entity::Character::getPosition() const
 {
     return _pos;
+}
+
+#include <iostream>
+
+void Game::Entity::Character::setGhost(bool isGhost) noexcept
+{
+    _ghost = isGhost;
+    std::cout << "Ghost" << std::endl;
+}
+
+bool Game::Entity::Character::_isBombThere(const Engine::Math::Vec2i &pos)
+{
+    for (auto &entity : Engine::ECS::Manager::getInstance().getUpdatedEntities()) {
+        auto bomb = std::dynamic_pointer_cast<Game::Entity::Bomb>(entity);
+
+        if (bomb != nullptr) {
+            auto bombPos = std::dynamic_pointer_cast<Engine::ECS::Component::Model3D>(bomb->getComponentByID("Model3D"))->getNode()->getPosition();
+
+            if ((static_cast<size_t>(round(bombPos.X / BLOCK_SIZE)) == static_cast<size_t>(round(pos.x - 1)) && static_cast<size_t>(round(bombPos.Z / BLOCK_SIZE)) == static_cast<size_t>(round(pos.y - 1))))
+                return true;
+        }
+    }
+    return false;
 }
