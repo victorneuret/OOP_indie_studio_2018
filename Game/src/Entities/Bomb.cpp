@@ -55,6 +55,7 @@ void Game::Entity::Bomb::onExplode()
     auto &manager = Engine::ECS::Manager::getInstance();
     auto mapSystem = std::dynamic_pointer_cast<Game::System::Map>(manager.getSystemByID("Map"));
     auto map = mapSystem->getActualMap();
+    auto isBreakable{false};
 
     auto audio = std::dynamic_pointer_cast<Engine::ECS::System::Audio>(manager.getSystemByID("Audio"));
 
@@ -64,8 +65,9 @@ void Game::Entity::Bomb::onExplode()
 
     for (size_t i = 0; i <= _range && _pos.x + i < MAP_WIDTH + 1; i++) {
         if (map[_pos.x + i - 1][_pos.y - 1] != '0') {
-            mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x + static_cast<int>(i), _pos.y});
-            break;
+            isBreakable = mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x + static_cast<int>(i), _pos.y});
+            if (!std::dynamic_pointer_cast<Game::Entity::Character>(Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(_playerID))->getSuperBomb() || !isBreakable)
+                break;
         }
         std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
             createParticles(15, Engine::Math::Vec2f{0.5, 1},
@@ -77,8 +79,9 @@ void Game::Entity::Bomb::onExplode()
 
     for (size_t i = 0; i <= _range && _pos.x - i > 0; i++) {
         if (map[_pos.x - i - 1][_pos.y - 1] != '0') {
-            mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x - static_cast<int>(i), _pos.y});
-            break;
+            isBreakable = mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x - static_cast<int>(i), _pos.y});
+            if (!std::dynamic_pointer_cast<Game::Entity::Character>(Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(_playerID))->getSuperBomb() || !isBreakable)
+                break;
         }
         std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
             createParticles(15, Engine::Math::Vec2f{0.5, 1},
@@ -90,8 +93,9 @@ void Game::Entity::Bomb::onExplode()
 
     for (size_t i = 0; i <= _range && _pos.y + i < MAP_HEIGHT + 1; i++) {
         if (map[_pos.x - 1][_pos.y + i - 1] != '0') {
-            mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x, _pos.y + static_cast<int>(i)});
-            break;
+            isBreakable = mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x, _pos.y + static_cast<int>(i)});
+            if (!std::dynamic_pointer_cast<Game::Entity::Character>(Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(_playerID))->getSuperBomb() || !isBreakable)
+                break;
         }
         std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
             createParticles(15, Engine::Math::Vec2f{0.5, 1},
@@ -103,8 +107,9 @@ void Game::Entity::Bomb::onExplode()
 
     for (size_t i = 0; i <= _range && _pos.y - i > 0; i++) {
         if (map[_pos.x - 1][_pos.y - i - 1] != '0') {
-            mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x, _pos.y - static_cast<int>(i)});
-            break;
+            isBreakable = mapSystem->removeBlock(Engine::Math::Vec2i{_pos.x, _pos.y - static_cast<int>(i)});
+            if (!std::dynamic_pointer_cast<Game::Entity::Character>(Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntityByID(_playerID))->getSuperBomb() || !isBreakable)
+                break;
         }
         std::dynamic_pointer_cast<Engine::ECS::System::Particle>(Engine::ECS::Manager::getInstance().getSystemByID("Particle"))->
             createParticles(15, Engine::Math::Vec2f{0.5, 1},

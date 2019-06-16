@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "Entities/APowerUp.hpp"
+#include "Entities/Powerups/APowerUp.hpp"
 
 namespace Game::Entity {
     class BombUp;

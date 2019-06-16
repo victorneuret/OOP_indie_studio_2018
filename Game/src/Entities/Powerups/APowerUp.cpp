@@ -5,7 +5,7 @@
 ** APowerUp.cpp
 */
 
-#include "Entities/APowerUp.hpp"
+#include "Entities/Powerups/APowerUp.hpp"
 
 Game::Entity::APowerUp::APowerUp()
     : AEntity(AEntity::Type::MODEL3D)

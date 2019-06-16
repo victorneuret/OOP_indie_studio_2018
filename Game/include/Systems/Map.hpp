@@ -54,7 +54,7 @@ public:
 
     decltype(_actualMap) getActualMap() const noexcept;
     void setActualMap(decltype(_actualMap) &map) noexcept;
-    void removeBlock(const Engine::Math::Vec2i &pos);
+    bool removeBlock(const Engine::Math::Vec2i &pos);
     decltype(_blocks) &getBlocks() noexcept;
 
     void pack(std::ostream &outStream) const override;

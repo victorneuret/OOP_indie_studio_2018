@@ -9,5 +9,5 @@ newmtl powerup
   Kd 0.5880 0.5880 0.5880
   Ks 0.0000 0.0000 0.0000
   Ke 0.0000 0.0000 0.0000
-  map_Ka ../../Bombupsprite.png
-  map_Kd ../../Bombupsprite.png
+  map_Ka ../../bombup.png
+  map_Kd ../../bombup.png

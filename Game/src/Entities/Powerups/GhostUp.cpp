@@ -5,7 +5,7 @@
 ** GhostUp.cpp
 */
 
-#include "Entities/GhostUp.hpp"
+#include "Entities/Powerups/GhostUp.hpp"
 
 Game::Entity::GhostUp::GhostUp(const Engine::Math::Vec3f &pos, const std::string &model)
 {
