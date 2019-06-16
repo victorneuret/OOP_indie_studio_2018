@@ -172,8 +172,6 @@ add_executable(
     Game/include/Assets.hpp
     Game/include/Scenes/Selection.hpp
     Game/src/Scenes/Selection.cpp
-    Game/include/Systems/PowerUp.hpp
-    Game/src/Systems/PowerUp.cpp
     Game/include/Entities/BombUp.hpp
     Game/src/Entities/BombUp.cpp
     Game/include/Entities/FireUp.hpp

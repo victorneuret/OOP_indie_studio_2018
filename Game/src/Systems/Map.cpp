@@ -234,6 +234,7 @@ void Game::System::Map::unpack(std::istream &inStream)
     }
 
     _initMap();
+}
 
 void Game::System::Map::_randomPowerup(const Engine::Math::Vec2i &pos) noexcept
 {
