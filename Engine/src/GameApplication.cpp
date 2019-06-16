@@ -97,14 +97,13 @@ bool Engine::GameApplication::run()
     _startup();
     onAppStartup();
 
-    _loop();
-    /* try {
+    try {
         _loop();
     } catch (const AException &e) {
         Engine::Logger::getInstance().error("GameApplication: uncaught exception -> " + e.what_stdstr());
         onAppCrash();
         return false;
-    } */
+    }
 
     onAppShutdown();
     return true;
