@@ -163,7 +163,7 @@ void Game::System::Map::saveMap() const
         file->seekp(0);
         pack(*file);
     } else
-        Engine::Logger::getInstance().error("Failed to write save map");
+        Engine::Logger::getInstance().error("Failed to save map");
 }
 
 void Game::System::Map::update(double)
@@ -202,6 +202,13 @@ bool Game::System::Map::removeBlock(const Engine::Math::Vec2i &pos)
         _blocks[backupPos.x][backupPos.y] = nullptr;
         _actualMap[backupPos.x][backupPos.y] = '0';
         saveMap();
+
+        for (const auto &e : Engine::ECS::Manager::getInstance().getSceneByID("Game")->getEntities()) {
+            const auto player = std::dynamic_pointer_cast<Entity::Character>(e);
+
+            if (player != nullptr)
+                player->save();
+        }
     }
     return true;
 }

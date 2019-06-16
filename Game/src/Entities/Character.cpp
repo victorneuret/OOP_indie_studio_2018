@@ -44,7 +44,7 @@ Game::Entity::Character::Character(const Engine::Math::Vec3f &pos, const std::st
 
 void Game::Entity::Character::placeBomb() noexcept
 {
-    if (!_alive || _bombStock == 0 || _ghost)
+    if (!_alive || _bombStock == 0 || _inBlock)
         return;
     if (_isBombThere(Engine::Math::Vec2i{static_cast<int>(std::round(_pos.x / BLOCK_SIZE) + 1), static_cast<int>(std::round(_pos.z / BLOCK_SIZE) + 1)}))
         return;

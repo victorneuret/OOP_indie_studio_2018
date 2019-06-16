@@ -66,6 +66,13 @@ Game::Scene::MainMenu::MainMenu()
 
                 if (map != nullptr)
                     map->loadMap();
+
+                for (auto &e : manager.getSceneByID("Game")->getEntities()) {
+                    const auto player = std::dynamic_pointer_cast<Entity::Player>(e);
+
+                    if (player != nullptr)
+                        player->load();
+                }
             }
         ),
         std::make_shared<Engine::ECS::Entity::Button>(

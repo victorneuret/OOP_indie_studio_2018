@@ -13,6 +13,10 @@
 #include "ECS/Systems/Input/JoystickInput.hpp"
 #include "ECS/Systems/InputHandler.hpp"
 
+#include "Exception/Engine/ECS/ECSException.hpp"
+#include "Exception/Memory/MemoryException.hpp"
+#include "Exception/Engine/EngineException.hpp"
+
 Engine::ECS::System::InputHandler::InputHandler()
     : ASystem{"InputHandler"}
 {}
@@ -38,5 +42,5 @@ void Engine::ECS::System::InputHandler::update(double dt)
             if (c.second->isKeyDown(Engine::ECS::InputType::B_PRIMARY))
                 player->placeBomb();
         }
-    } catch (...) {}
+    } catch (const ECSException<ECS_Scene> &e) {}
 }

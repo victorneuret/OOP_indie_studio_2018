@@ -31,6 +31,7 @@ protected:
     Engine::ECS::System::Audio::Sound _stepSound{};
     Engine::ECS::System::Audio::Sound _deathSound{};
     bool _isBombThere(const Engine::Math::Vec2i &pos);
+
 public:
     Character(const Engine::Math::Vec3f &pos, const std::string &texture, const std::string &model);
     Character(const Character &) = delete;
